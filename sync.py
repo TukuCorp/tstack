@@ -64,6 +64,12 @@ SOURCES = [
 ]
 TOOL_DIRS = ["claude", "codex", "opencode", "hermes", "omp", "shared"]
 
+# Hermes reads skills from %LOCALAPPDATA%/hermes/skills. Only these workflow categories are
+# published; personal ones (baby, personal, climate-finance, ...) stay private.
+HERMES_SKILLS = "AppData/Local/hermes/skills"
+HERMES_CATEGORIES = ["software-development", "opencode", "research", "engineering", "gloop", "unslop"]
+HERMES_THIRD_PARTY = {"blogwatcher", "polymarket", "research-paper-writing", "rss-feeds"}
+
 # claude.ai-synced skills live under skills/synced/<org>/; only my own are mirrored.
 SYNCED_DIR = ".claude/skills/synced"
 SYNCED_EXTRA_MINE = {"plan"}  # manifest leaves creatorType null, but I wrote it
@@ -89,7 +95,7 @@ SECRET_PATTERNS = [
 ]
 SECRET_RE = re.compile("|".join(f"(?:{p})" for p in SECRET_PATTERNS))
 EMAIL_RE = re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}")
-EMAIL_KEEP = re.compile(r"(?i)(noreply@anthropic\.com|@example\.(com|org)|@users\.noreply\.github\.com)$")
+EMAIL_KEEP = re.compile(r"(?i)(noreply@anthropic\.com|@example\.(com|org)|@users\.noreply\.github\.com|^git@github\.com)$")
 
 
 def is_excluded(relpath):
@@ -219,6 +225,15 @@ def _copy_tree(src, dest, mapping):
             _copy_file(f, dest / rel, mapping)
 
 
+def _copy_hermes_skills(src, dest, mapping, categories, exclude=frozenset()):
+    manifest = src / ".bundled_manifest"
+    bundled = {line.split(":")[0] for line in manifest.read_text(encoding="utf-8").splitlines()}         if manifest.exists() else set()
+    for cat in categories:
+        for skill in sorted((src / cat).rglob("SKILL.md")):
+            if skill.parent.name not in bundled | set(exclude):
+                _copy_tree(skill.parent, dest / skill.parent.relative_to(src), mapping)
+
+
 def _synced_skills():
     base = HOME / SYNCED_DIR
     for org in base.glob("*"):
@@ -255,6 +270,11 @@ def build(mapping):
         elif kind == "mcp":
             servers = json.loads(src.read_text(encoding="utf-8")).get("mcpServers", {})
             _write(dest, json.dumps({"mcpServers": sanitize_json(servers)}, indent=2) + "\n", mapping)
+    if (HOME / HERMES_SKILLS).exists():
+        _copy_hermes_skills(HOME / HERMES_SKILLS, ROOT / "hermes" / "skills", mapping, HERMES_CATEGORIES,
+                            HERMES_THIRD_PARTY)
+    else:
+        missing.append(HERMES_SKILLS)
     for skill in _synced_skills():
         _copy_tree(skill, ROOT / "claude" / "skills-synced" / skill.name, mapping)
     return missing

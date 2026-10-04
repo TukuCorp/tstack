@@ -19,3 +19,5 @@ Tung maintains the same authoring skill set (brainstorm, plan, report, research,
 
 
 `explain` (added 2026-09-27, adapted from an external show-me skill): `~/.claude/commands/explain.md`, `~/.codex/skills/explain/SKILL.md`, `~/.config/opencode/skills/explain/SKILL.md`, `%LOCALAPPDATA%/hermes/skills/opencode/explain/SKILL.md`. Body is byte-identical across all four; only frontmatter differs.
+
+`reflect` (added 2026-10-04, adapted from pstack @ 12d587d, MIT): `~/.claude/skills/reflect/`, `~/.codex/skills/reflect/`, `~/.config/opencode/skills/reflect/`, `%LOCALAPPDATA%/hermes/skills/software-development/reflect/`. `references/*.md` (4 reviewer/synthesizer templates) are byte-identical across all four; SKILL.md differs per tool (transcript digest source, subagent mechanism, frontmatter). Backlog goes to the project's `lessons.md`.

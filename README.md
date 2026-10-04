@@ -8,7 +8,7 @@ for the coding agents I run on Windows:
 | `claude/` | Claude Code | `~/.claude` (`skills-synced/` = my skills synced from claude.ai) |
 | `codex/` | OpenAI Codex | `~/.codex` |
 | `opencode/` | Opencode | `~/.config/opencode` |
-| `hermes/` | Hermes | `~/.hermes` |
+| `hermes/` | Hermes | `~/.hermes` + workflow skills from `%LOCALAPPDATA%/hermes/skills` (software-development, opencode, research, engineering, gloop, unslop) |
 | `omp/` | omp | `~/.omp/agent` |
 | `shared/` | cross-tool | `~/.agents/skills`, `~/AGENTS.md` |
 

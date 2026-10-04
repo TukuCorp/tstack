@@ -40,6 +40,26 @@ class CopyTreeTests(unittest.TestCase):
             self.assertFalse((dest / "vendored").exists())
 
 
+class HermesSkillsTests(unittest.TestCase):
+    def test_copies_own_skills_in_allowed_categories_only(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            src, dest = Path(tmp, "skills"), Path(tmp, "dest")
+            for rel in ["software-development/plan", "software-development/systematic-debugging",
+                        "baby/feeding-log", ".archive/software-development/old"]:
+                (src / rel).mkdir(parents=True)
+                (src / rel / "SKILL.md").write_text(rel, encoding="utf-8")
+            (src / ".bundled_manifest").write_text("systematic-debugging:abc123\n", encoding="utf-8")
+            (src / "software-development" / "vendored-thing").mkdir(parents=True)
+            (src / "software-development" / "vendored-thing" / "SKILL.md").write_text("x", encoding="utf-8")
+            sync._copy_hermes_skills(src, dest, {}, ["software-development"], exclude={"vendored-thing"})
+            self.assertFalse((dest / "software-development" / "vendored-thing").exists())
+            self.assertTrue((dest / "software-development" / "plan" / "SKILL.md").exists())
+            self.assertFalse((dest / "software-development" / "systematic-debugging").exists())
+            self.assertFalse((dest / "baby").exists())
+            self.assertFalse((dest / ".archive").exists())
+
+
 class SanitizeJsonTests(unittest.TestCase):
     def test_redacts_sensitive_keys_and_whole_env_headers_blocks(self):
         src = {
@@ -104,7 +124,7 @@ class RedactTests(unittest.TestCase):
         self.assertEqual(sync.redact(r"'\x271-AbC9_x\x27'", {"1-AbC9_x": "<ID>"}), r"'\x27<ID>\x27'")
 
     def test_keeps_noreply_and_example_emails(self):
-        s = "noreply@anthropic.com you@example.com"
+        s = "noreply@anthropic.com you@example.com ssh -T git@github.com"
         self.assertEqual(sync.redact(s, {}), s)
 
 
