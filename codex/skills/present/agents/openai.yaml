@@ -1,0 +1,4 @@
+interface:
+  display_name: "Presentation Builder"
+  short_description: "Turn content into HTML or PPTX decks"
+  default_prompt: "Use $present to turn this content into a polished presentation."

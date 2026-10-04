@@ -1,0 +1,28 @@
+_config_version: 33
+mcp_servers:
+  browser-control:
+    command: browser-control-mcp
+platform_toolsets:
+  cli:
+    - clarify
+    - code_execution
+    - computer_use
+    - cronjob
+    - delegation
+    - file
+    - image_gen
+    - kanban
+    - memory
+    - session_search
+    - skills
+    - terminal
+    - todo
+    - tts
+    - vision
+    - web
+known_plugin_toolsets:
+  cli:
+    - spotify
+skills:
+  preload:
+    - browser-control

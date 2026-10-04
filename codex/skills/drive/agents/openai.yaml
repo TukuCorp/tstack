@@ -1,0 +1,4 @@
+interface:
+  display_name: "Google Workspace"
+  short_description: "Operate Drive, Gmail, Sheets, and NotebookLM"
+  default_prompt: "Use $drive to complete this Google Workspace or NotebookLM task with the correct account."

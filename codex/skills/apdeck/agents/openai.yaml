@@ -1,0 +1,4 @@
+interface:
+  display_name: "AP Deck"
+  short_description: "Build Allotrope-template PowerPoint decks"
+  default_prompt: "Use $apdeck to turn this source material into an Allotrope-style PowerPoint deck."

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoupdate": true,
+  "plugin": [
+    "@different-ai/opencode-browser"
+  ],
+  "skills": {
+    "paths": [
+      "C:\\Users\\tukum\\.config\\opencode\\skills"
+    ]
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    },
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@playwright/mcp",
+        "--extension",
+        "--browser",
+        "chrome-beta"
+      ],
+      "environment": {
+        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "<REDACTED>"
+      },
+      "enabled": false
+    },
+    "figma": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "tsx",
+        "C:/Users/tukum/figma-mcp-server/index.ts"
+      ],
+      "environment": {
+        "FIGMA_API_KEY": "<REDACTED>"
+      },
+      "enabled": false
+    },
+    "stitch": {
+      "type": "remote",
+      "url": "https://stitch.googleapis.com/mcp",
+      "headers": {
+        "X-Goog-Api-Key": "<REDACTED>"
+      },
+      "enabled": false
+    },
+    "ppt": {
+      "type": "local",
+      "command": [
+        "mcp-ppt"
+      ],
+      "enabled": false
+    },
+    "notebooklm": {
+      "type": "local",
+      "command": [
+        "notebooklm-mcp"
+      ],
+      "enabled": true,
+      "timeout": 300000
+    },
+    "officecli": {
+      "type": "local",
+      "command": [
+        "officecli",
+        "mcp"
+      ],
+      "enabled": true
+    },
+    "firecrawl": {
+      "type": "local",
+      "command": [
+        "firecrawl-mcp"
+      ],
+      "environment": {
+        "FIRECRAWL_API_KEY": "<REDACTED>"
+      },
+      "enabled": true
+    },
+    "browser-control": {
+      "type": "local",
+      "command": [
+        "browser-control-mcp"
+      ],
+      "enabled": true
+    }
+  },
+  "experimental": {
+    "mcp_timeout": 300000
+  }
+}

@@ -1,0 +1,300 @@
+model = "opencode-go/muse-spark-1.3-contributor"
+model_reasoning_effort = "high"
+approval_policy = "never"
+approvals_reviewer = "user"
+sandbox_mode = "danger-full-access"
+notify = [
+    'C:\Users\tukum\AppData\Local\OpenAI\Codex\runtimes\cua_node\b63ee7ee40c23b77\bin\node_modules\@oai\sky\bin\windows\codex-computer-use.exe',
+    "turn-ended",
+]
+model_catalog_json = "C:\\Users\\tukum\\.codex\\opencodex-catalog.json"
+# Auto-injected by opencodex (undo: ocx restore)
+openai_base_url = "http://127.0.0.1:10100/v1"
+# Auto-injected by opencodex (undo: ocx restore)
+experimental_realtime_ws_base_url = "http://127.0.0.1:10100/v1"
+
+[model_providers.opencode-go]
+name = "OpenCode Go"
+base_url = "http://127.0.0.1:10100/v1"
+env_key = "<REDACTED>"
+wire_api = "responses"
+# Disabled 2026-09-28: points to a cua_node runtime (fb8898c05a62885e) that no longer exists
+# notify = [
+#     'C:\Users\tukum\AppData\Local\OpenAI\Codex\runtimes\cua_node\fb8898c05a62885e\bin\node_modules\@oai\sky\bin\windows\codex-computer-use.exe',
+#     "turn-ended",
+# ]
+
+[marketplaces.openai-bundled]
+source_type = "local"
+source = '\\?\C:\Users\tukum\.codex\.tmp\bundled-marketplaces\openai-bundled'
+
+[marketplaces.openai-primary-runtime]
+source_type = "local"
+source = '\\?\C:\Users\tukum\.cache\codex-runtimes\codex-primary-runtime\plugins\openai-primary-runtime'
+
+[marketplaces.typesafe-ai]
+source_type = "git"
+source = "https://github.com/typesafe-ai/skills.git"
+
+[windows]
+sandbox = "unelevated"
+
+[projects.'c:\users\tukum\downloads\remote']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\reopt-pysam']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\.config\opencode\skills']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\baby-context']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\documents\codex\2026-05-16\https-docs-google-com-spreadsheets-d']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\remote\gtb']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\dppa-case']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\remote\gtb2']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\documents\codex\2026-06-17\review-files-and-summarize-for-me']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\remote\cpi']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\appdata\local\temp\tmp.zxqktzv9se']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\documents\codex\2026-06-30\lis']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\appdata\local\temp\tmp.qjfnyykl6a']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\appdata\local\temp\tmp.mtp9sghylt']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\appdata\local\temp\tmp.u19gqp8wq5']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\appdata\local\temp\tmp.su2chtxs1p']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\appdata\local\temp\tmp.hasrf4yppn']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\pdd-auto']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\documents\codex\2026-07-04\chec']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\dss-grid']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\freecad-blender']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\remote\nlmppt']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\tmp']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\documents\codex\2026-09-16\go']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\documents\codex\2026-09-16\hel']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\city-ghg']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\documents\codex\2026-09-16\mon']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\documents\codex\2026-09-17\check-the-price-on-official-website']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\appdata\local\temp\ocx-smoke']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\ee-heat']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\rom-hack']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\pacta-trisk']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\csim-copy']
+trust_level = "trusted"
+
+[projects.'C:\Users\tukum\AppData\Local\Temp\claude\C--Users-tukum-Downloads-workflow-bench\6c6bc708-784a-4317-b128-b637343f35d1\scratchpad']
+trust_level = "trusted"
+
+[projects.'c:\users\tukum\downloads\workflow-bench']
+trust_level = "trusted"
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+
+[plugins."unified-computer-use@openai-bundled"]
+enabled = true
+
+[plugins."typesafe@typesafe-ai"]
+enabled = true
+
+[features]
+hooks = true
+memories = true
+js_repl = false
+
+[memories]
+# Memory jobs default to an OpenAI model (drained ChatGPT quota via opencodex passthrough); pin them to opencode-go
+generate_memories = true
+extract_model = "opencode-go/muse-spark-1.3-contributor"
+consolidation_model = "opencode-go/muse-spark-1.3-contributor"
+use_memories = true
+disable_on_external_context = false
+
+[desktop]
+conversationDetailMode = "STEPS_COMMANDS"
+keepRemoteControlAwakeWhilePluggedIn = true
+followUpQueueMode = "queue"
+external-agent-import-sync-enabled = true
+external-agent-import-sync-item-types = "all"
+appearanceTheme = "dark"
+appearanceDarkCodeThemeId = "night-owl"
+
+[desktop.open-in-target-preferences]
+global = "systemDefault"
+
+[desktop.appearanceDarkChromeTheme]
+accent = "#44596b"
+accentSource = "custom"
+contrast = 60
+ink = "#d6deeb"
+opaqueWindows = true
+surface = "#011627"
+
+[desktop.appearanceDarkChromeTheme.fonts]
+content = "Arial, sans-serif"
+ui = "Arial, sans-serif"
+
+[desktop.appearanceDarkChromeTheme.semanticColors]
+diffAdded = "#c5e478"
+diffRemoved = "#ef5350"
+skill = "#c792ea"
+
+[mcp_servers.node_repl]
+args = []
+command = 'C:\Users\tukum\AppData\Local\OpenAI\Codex\runtimes\cua_node\b63ee7ee40c23b77\bin\node_repl.exe'
+env_vars = ["CODEX_WINDOWS_REGISTERED_CORE"]
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "<REDACTED>"
+NODE_REPL_NODE_MODULE_DIRS = "<REDACTED>"
+NODE_REPL_NODE_PATH = "<REDACTED>"
+NODE_REPL_TRUSTED_CODE_PATHS = "<REDACTED>"
+CODEX_HOME = "<REDACTED>"
+BROWSER_USE_AVAILABLE_BACKENDS = "<REDACTED>"
+BROWSER_USE_TINYSKY_ENABLED = "<REDACTED>"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "<REDACTED>"
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "<REDACTED>"
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "<REDACTED>"
+BROWSER_USE_CODEX_APP_VERSION = "<REDACTED>"
+NODE_REPL_TRUSTED_SERVICES = "<REDACTED>"
+SKY_CUA_NATIVE_PIPE = "<REDACTED>"
+SKY_CUA_NATIVE_PIPE_DIRECTORY = "<REDACTED>"
+CODEX_CLI_PATH = "<REDACTED>"
+NODE_REPL_UNTRUSTED_ENV_ALLOWLIST = "<REDACTED>"
+
+[mcp_servers.firecrawl]
+# node directly instead of "cmd /c" so no console window flashes on start
+command = "node"
+args = ['C:\Users\tukum\AppData\Roaming\npm\node_modules\firecrawl-mcp\dist\index.js']
+
+[mcp_servers.firecrawl.env]
+FIRECRAWL_API_KEY = "<REDACTED>"
+
+# Disabled 2026-09-28: notebooklm-mcp leaks temp dirs and is unused; re-add only with NOTEBOOKLM_HEADLESS=true
+#[mcp_servers.notebooklm-mcp]
+# command = "notebooklm-mcp"
+
+#[mcp_servers.notebooklm-mcp.env]
+# PYTHONPATH = ""
+
+[mcp_servers.officecli]
+command = 'C:\Users\tukum\AppData\Roaming\npm\node_modules\@officecli\officecli\vendor\officecli.exe'
+args = ["mcp"]
+
+[tui]
+screen_reader_detection_done = true
+theme = "coldark-dark"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 1
+
+[shell_environment_policy.set]
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "<REDACTED>"
+
+[hooks.state.'C:\Users\tukum\.codex\hooks.json:session_start:0:0']
+trusted_hash = "sha256:3bb1d74f2a7f3e60cb6d457e700ebd7bf5932650037e1017d80a11b0468c09ae"
+
+[hooks.state.'C:\Users\tukum\.codex\hooks.json:subagent_start:0:0']
+trusted_hash = "sha256:69b7575ddb3a5eb98372c5b1f60942323bfaa3e034c65235cd7b2e2160efdc4a"
+
+[hooks.state.'C:\Users\tukum\.codex\hooks.json:session_start:1:0']
+trusted_hash = "sha256:42ad5843ba79bdd68be42269ac7b513889a767e052dda6c6c28079a53af982ee"
+
+[hooks.state.'C:\Users\tukum\.codex\hooks.json:session_start:2:0']
+trusted_hash = "sha256:93fbfa14717a31d18c62d1ba6141b6d7dd89551c24972ca793fadfd6f74baa7f"
+
+[hooks.state.'C:\Users\tukum\.codex\hooks.json:session_start:3:0']
+trusted_hash = "sha256:2035963d8116b7f9c8418a165ee1d22cc62fa076e6536be410a8534452869541"
+
+[notice]
+hide_rate_limit_model_nudge = true

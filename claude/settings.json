@@ -1,0 +1,137 @@
+{
+  "permissions": {
+    "allow": [],
+    "deny": [],
+    "defaultMode": "auto"
+  },
+  "model": "opus",
+  "skillOverrides": {
+    "tldraw-offline": "off"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "gh-axi",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "lavish-axi",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "chrome-devtools-axi",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "^(startup|resume|clear|compact|fork)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\tukum\\.claude\\hooks\\herdr-agent-state.ps1\" session",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "discord@claude-plugins-official": false,
+    "typesafe@typesafe-ai": true,
+    "apollo@synced": false,
+    "pdf-viewer@synced": false,
+    "design@synced": false,
+    "operations@synced": false,
+    "engineering@synced": false,
+    "human-resources@synced": false,
+    "productivity@synced": false,
+    "product-management@synced": false,
+    "marketing@synced": false,
+    "legal@synced": false,
+    "sales@synced": false,
+    "finance@synced": false,
+    "bio-research@synced": false,
+    "data@synced": false,
+    "cowork-plugin-management@synced": false,
+    "enterprise-search@synced": false
+  },
+  "extraKnownMarketplaces": {
+    "typesafe-ai": {
+      "source": {
+        "source": "github",
+        "repo": "typesafe-ai/skills"
+      }
+    }
+  },
+  "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "high"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "low"
+    }
+  },
+  "autoUpdatesChannel": "latest",
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "autoContinueAtUsageLimit": true,
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true,
+  "autoMode": {
+    "allow": [
+      "$defaults",
+      "Bash(uv run:*) in C:\\Users\\tukum\\Downloads\\baby-context",
+      "Bash(uv:*) in C:\\Users\\tukum\\Downloads\\baby-context \u2014 declared-dependency toolchain use"
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Facebook write actions (Send, Message, Friend Request, Comment, Like) via mcp__claude-in-chrome__* tools \u2014 repo skill declares read-only Facebook use",
+      "Writes to baby/care/nanny_leads.csv outside the documented merge CLI append-only flow"
+    ],
+    "environment": [
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>",
+      "<REDACTED>"
+    ]
+  }
+}

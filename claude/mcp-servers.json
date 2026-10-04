@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "firecrawl": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "firecrawl-mcp"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "<REDACTED>"
+      }
+    },
+    "officecli": {
+      "type": "stdio",
+      "command": "C:\\Users\\tukum\\AppData\\Roaming\\npm\\node_modules\\@officecli\\officecli\\vendor\\officecli.exe",
+      "args": [
+        "mcp"
+      ],
+      "env": {}
+    },
+    "notebooklm-mcp": {
+      "type": "stdio",
+      "command": "notebooklm-mcp",
+      "args": [],
+      "env": {
+        "PYTHONPATH": "<REDACTED>"
+      }
+    }
+  }
+}

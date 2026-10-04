@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brainstorm"
+  short_description: "Resolve ideas through guided design interviews"
+  default_prompt: "Use $brainstorm to interrogate this idea one decision at a time before planning."

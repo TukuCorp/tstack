@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "command": "sh 'C:\\Users\\tukum\\skills\\tldraw-offline\\inject-server-context.sh' SubagentStart",
+            "type": "command"
+          }
+        ],
+        "matcher": "tldraw-offline"
+      }
+    ]
+  }
+}
