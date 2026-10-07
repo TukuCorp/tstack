@@ -129,6 +129,7 @@ herdr agent start reviewer --kind codex --pane <returned-pane-id> -- --remote un
 
 This connects the Codex TUI to the local app-server daemon, so the user can open and continue the same thread from the Codex phone app while the pane stays open. Without it, the open TUI holds the thread and the phone shows "Another Codex session is using this task" until the TUI quits (verified 2026-10-04).
 
+- Also pass `-C <project dir>` (absolute path). Under `--remote` the session otherwise takes the daemon's cwd (`~\.codex\app-server-daemon`), and the phone app files the thread under an `app-server-daemon` project instead of the real one (verified 2026-10-04): `-- --remote unix:// -C 'C:\path\to\project' <other-codex-args...>`.
 - A new working directory may show a "Trust this folder?" prompt, which leaves `agent start` reporting `agent_not_ready` (blocked). Read the pane, confirm the folder is the intended one, then `herdr agent send-keys <name> enter`.
 - `/daemon` cannot update the daemon from a `--remote` session. Update it from a shell with `codex app-server daemon update --from-cli --yes`, which pins the daemon to the CLI build.
 - When typing slash commands into a pane from Git Bash, prefix `MSYS_NO_PATHCONV=1`, or `/daemon` arrives as `C:/Program Files/Git/daemon`.
