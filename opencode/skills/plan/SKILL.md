@@ -2,7 +2,6 @@
 name: plan
 description: This skill should be used when the user explicitly invokes `/plan` to turn a feature, refactor, bug fix, migration, or project idea into a detailed multi-phase markdown plan saved under `plans/` — self-contained and executable by any coding agent or engineer with zero shared context, using relevant repo context and `research/` briefs when available.
 argument-hint: "[feature, refactor, bug, or project goal]"
-disable-model-invocation: true
 allowed-tools:
   - Bash
   - Read

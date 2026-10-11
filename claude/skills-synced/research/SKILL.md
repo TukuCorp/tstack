@@ -2,7 +2,6 @@
 name: research
 description: Produce a cited pre-planning research brief for a topic, repository, or upcoming project phase and save it to `research/YYYY-MM-DD_slug.md`. Use when the user explicitly invokes `/research`, asks to understand the landscape before planning, wants prior art before building, or needs context on tools, codebases, algorithms, and literature before starting a new phase.
 argument-hint: "[topic or phase] [--mode domain|codebase|math|literature|all] [--depth standard|deep] [--then ...]"
-disable-model-invocation: true
 allowed-tools:
   - Bash
   - Read

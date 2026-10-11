@@ -22,11 +22,10 @@
 - Review `lessons.md` at session start for project-relevant rules.
 
 ## Implementation Standards
-- **Test-first:** Write the failing test or reproduction script before the fix/feature.
-- **Red/Green TDD for new features:** When implementing new features, follow red/green TDD strictly:
-  1. Write failing tests first.
-  2. Run the tests and confirm they fail before writing implementation.
-  3. Implement only until the tests pass.
+- **Testing:**
+  - Test at the highest feasible level: **E2E** (nothing mocked; test accounts only) → **integration** (real DB/API/schema boundaries) → **golden** (real inputs, checked-in outputs; each edge-case bug adds a case) → **unit** (only for pure logic or math).
+  - Red/green: write the failing test first, at that level, and confirm it fails before implementing.
+  - No coverage-padding or mock-assertion tests. Project rules override these.
 - **When uncertain:** Use the most conventional approach, follow existing patterns, leave a single inline comment documenting the assumption.
 - **Simplicity First:** Make every change as simple as possible. Impact minimal code.
 - **No Laziness:** Find root causes. No temporary fixes. Senior developer standards.

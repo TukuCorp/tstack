@@ -1,151 +1,127 @@
 ---
 name: explain
-description: This skill should be used when the user explicitly invokes `/explain`. Explain the current topic, or a given one, visually with concise pseudocode, call trees, component and file trees, Mermaid diagrams, diffs, or one focused HTML visual.
-argument-hint: "[topic, or blank for the current conversation topic]"
-disable-model-invocation: true
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Glob
-  - Grep
+description: Explain a topic visually — either quick inline visuals (pseudocode, call/file trees, Mermaid, diffs) for the user, or a polished, grounded HTML explainer page for a named audience that knows little about the subject (clients, executives, partner teams, regulators, new joiners). Use when the user invokes `/explain`, or asks to "explain X to <team/person>", "make an explainer/one-pager/walkthrough page", "help <audience> understand how this works", or wants a process, method, system, model or analysis turned into something a non-technical reader can follow. Works for any domain — code, data pipelines, finance, science, policy, operations.
 ---
 
 # Explain
 
-Help the user understand a topic visually. If a topic is given after `/explain`,
-explain that; otherwise explain the current topic of conversation. Skip the preamble
-and keep prose brief. Pick the smallest view that makes the key point clear.
+Turn a topic into understanding. If a topic follows `/explain`, explain that;
+otherwise explain the current topic of conversation.
 
-- Show logic or an algorithm as pseudocode:
+## Step 0 — pick the mode
 
-```text
-on(save)
-  if content is unchanged
-    return cached result
-  write new content
-  return fresh result
-```
+| Signal | Mode |
+|---|---|
+| The reader is the user, mid-task; "how does this work", "show me" | **Quick** — inline visuals in the reply |
+| A named audience other than the user ("for the BIDV team", "for my CFO", "for new hires"), or "page", "html", "artifact", "one-pager", "share", "walkthrough" | **Explainer page** |
+| Unclear | Quick, then offer the page in one line |
 
-- Show runtime control flow as a call tree:
+**Quick mode:** read `references/quick-views.md` and pick the smallest view that
+makes the point. Skip the preamble. Stop there.
 
-```text
-submitForm
-  createSession
-    persistPrompt
-    launchAgent
-  navigateToSession
-```
+**Explainer page:** follow the workflow below. It exists because a page for an
+outside audience fails in predictable ways: stale numbers, jargon, diagrams that
+show the whole system instead of the reader's slice, and no clear ask. Each step
+prevents one of those.
 
-- Show UI structure as a component tree, including state and module boundaries that matter:
+## Explainer-page workflow
 
-```tsx
-<SessionPage> (apps/example/src/routes/session.tsx)
-  useSessionEvents()
-  <SessionToolbar>
-    <RunCommandButton> (packages/ui)
-```
+### 1. Ground it in the current state, not in memory
 
-- Show file responsibility or a broad refactor as a shallow file tree:
+"Given current progress" means the newest truth on disk, not the first plan.
 
-```text
-src/
-├── commands/       # parses user actions
-├── sessions/       # owns session state
-└── transport/      # sends API requests
-```
+- Find the most recent artifacts: outputs, review files, status notes, changelogs,
+  dated reports. Sort by modified time; the newest file usually wins over an older
+  summary page.
+- Pull every number you will show from a primary file (spreadsheet, JSON, CSV, DB)
+  with a short script, and keep a note of which file each number came from. Prior
+  summary pages are a map to the facts, not the facts.
+- Collect 4–6 concrete cases that span easy → hard, including at least one where
+  the obvious answer was wrong. Real cases teach more than any rule statement.
+- Note open items, pending decisions and dates — the reader usually needs to act.
+- Anything you add from general knowledge rather than a file goes on a
+  "please verify" list for the hand-off.
 
-- Show component interaction, control flow, or data flow with Mermaid:
+### 2. Profile the reader
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant UI
-    participant Server
-    User->>UI: choose command
-    UI->>Server: send request
-    Server-->>UI: stream result
-```
+Answer in one line each before writing: What do they already know? What decision
+or action follows from reading? What must stay confidential or out of scope? What
+language do they read in? (For non-English readers, add short native-language
+subtitles to section headings — only where you are confident of the wording.)
 
-- Use `diff` when the point is what changes and the surrounding shape already exists.
-  Match the diff shape to the topic.
+### 3. Build the arc
 
-For a component change:
+Use this order; drop sections that do not earn their place. Detailed patterns for
+each are in `references/page-sections.md`.
 
-```diff
- <SessionPage>
-   useSessionEvents()
-   <SessionToolbar>
-+    <RunCommandButton />
-   <SessionTimeline>
-+    <CommandResultCard />
-```
+1. **Answer first** — title as a plain question/claim, one-sentence answer, status
+   pills with a date, 3–4 key numbers.
+2. **The problem, by analogy** — one everyday analogy (two dictionaries, two
+   examiners, a recipe) plus a side-by-side of the real thing.
+3. **Roles and boundaries** — who does what; what data stays where.
+4. **The method** — one flow diagram plus numbered step cards in plain words.
+5. **Worked examples** — interactive picker over the real cases, easy → hard,
+   including the case that shows why the method exists.
+6. **How to read the quality signals** — confidence levels, scores, flags: what
+   each means and what the reader should *do* about it.
+7. **Results** — simple bars, one stacked split; explain any statistic in a
+   sentence ("agreement after removing luck").
+8. **What we need from you** — decisions table, a decision-rule diagram, a
+   tick-list of open questions, a timeline with "now" marked.
+9. **Limits** — what it cannot do, in plain cards.
+10. **Glossary** — collapsible, every term that survived into the page.
+11. **Footer** — scope statement, sources, working files.
 
-For a file-layout change:
+### 4. Write in near-controlled English
 
-```diff
- src/
- ├── commands/
-+│   └── explain.ts       # expands the command
- ├── sessions/
--└── transport.ts
-+└── transport/
-+    ├── client.ts
-+    └── stream.ts
-```
+Aim about 80% of the way to ASD-STE100 (Simplified Technical English). Full rules
+and before/after examples: `references/plain-english.md`. The core:
+one idea per sentence, ≤20 words, active voice, present tense, common words,
+define each term once at first use and then never vary it, numbers as digits,
+instructions as imperatives.
 
-For a call-tree or call-stack change:
+### 5. Draw the diagrams
 
-```diff
- submitForm
-   createSession
-     persistPrompt
-+    expandCommand
-     launchAgent
--  navigateToSession
-+  navigateToSession
-+    subscribeToEvents
-```
+- Use Mermaid in `<pre class="mermaid">` for flows, processes, decision rules and
+  chains. Lavish (if installed) turns each one into an editable Excalidraw
+  whiteboard; elsewhere it renders as a normal diagram.
+- Keep each diagram to ≤8 nodes with ≤5-word labels. Long chains go top-to-bottom
+  (`flowchart TB`); left-to-right chains of 6+ nodes shrink to unreadable.
+- Avoid subgraphs for small diagrams — they cramp the layout. Show the boundary
+  in the caption instead, and colour *your* piece with a `classDef`.
+- Use HTML/CSS (cards, bars, side-by-side) for comparisons and numbers, not Mermaid.
+- Each diagram gets a one-line caption saying what to notice.
 
-For a state or control-flow change:
+### 6. Style it
 
-```diff
- on(save)
--  write content
-+  if content is unchanged
-+    return cached result
-+  write new content
-+  invalidate cache
-```
+- Match the subject project's existing look first (look for sibling HTML pages,
+  CSS variables, brand colours, fonts). Otherwise start from
+  `assets/explainer-template.html`, which already has tokens, dark mode, mobile
+  layout, the example picker, the checklist and Mermaid wiring.
+- Give each actor/coder/option one stable colour and reuse it everywhere.
+- One self-contained HTML file; CDN scripts only from jsdelivr/cdnjs/unpkg; fonts
+  from Google Fonts. Browser storage only for per-viewer conveniences, wrapped in
+  try/catch.
 
-- Show the whole block when most of it is new, when omitted context would hide
-  ownership or order, or when the user needs a copyable target shape:
+### 7. Verify like a reviewer
 
-```ts
-function expandCommand(command: string): string {
-  const name = command.slice(1)
-  return `run the ${name} command`
-}
-```
+Open the page in a real browser (headless Chrome, Playwright, chrome-devtools,
+whatever exists) and:
 
-- For a visual UI, layout, state comparison, or concept too dense for Mermaid, write
-  one focused HTML file — a diagram, an infographic, or a short slide deck, whichever
-  fits the point. Match the product's colors, type, spacing, and components; use real
-  labels and data; support desktop and mobile. Save it in the current workspace as
-  `explain/explain-<description>.html` (create `explain/` if needed), tell the user the
-  path, and open it with the platform's default opener:
+- confirm every `.mermaid` block produced an `<svg>` and there is no horizontal
+  overflow;
+- screenshot full-page in the theme the user uses and *look* at it — cramped or
+  tiny diagrams are the usual defect; fix and re-check;
+- click the interactive bits once;
+- re-check every number against the source note from step 1.
 
-```bash
-start "" explain/explain-<description>.html   # Windows (cmd or Git Bash)
-open explain/explain-<description>.html       # macOS
-xdg-open explain/explain-<description>.html   # Linux
-```
+### 8. Deliver
 
-## Guidance
-
-Place each visual next to the short text it supports. Keep only the calls, files,
-props, states, and boundaries needed to answer the user's current question, or the
-options needed to resolve the current discussion point.
-
-You may use one of these views or several; you will rarely need all of them. Use
-judgement and don't overwhelm the user.
+- Save the file in the project, next to the material it explains (or an
+  `explain/` folder at the project root) — never only in a temp directory.
+- Publish if the harness can: Claude Code `Artifact` tool (private by default —
+  tell the user the audience cannot open it until they share it); `lavish-axi
+  <file>` for annotation and Excalidraw editing; otherwise open it with the
+  platform opener (`start ""`, `open`, `xdg-open`).
+- Hand-off message: link + project path, the arc in one line per section, which
+  design source you used, and the "please verify" list from step 1.

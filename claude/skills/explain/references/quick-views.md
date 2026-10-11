@@ -1,20 +1,8 @@
----
-name: explain
-description: Explain the current topic, or a given one, visually with concise pseudocode, call trees, component and file trees, Mermaid diagrams, diffs, or one focused HTML visual.
-argument-hint: "[topic, or blank for the current conversation topic]"
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Glob
-  - Grep
----
+# Quick views (inline, for the user)
 
-# Explain
+Use when the reader is the user mid-task. Pick the smallest view that makes the
+key point clear; skip the preamble; keep prose brief.
 
-Help the user understand a topic visually. If a topic is given after `/explain`,
-explain that; otherwise explain the current topic of conversation. Skip the preamble
-and keep prose brief. Pick the smallest view that makes the key point clear.
 
 - Show logic or an algorithm as pseudocode:
 
@@ -148,3 +136,6 @@ options needed to resolve the current discussion point.
 
 You may use one of these views or several; you will rarely need all of them. Use
 judgement and don't overwhelm the user.
+
+If the visual grows past one focused point, or someone other than the user will
+read it, switch to the explainer-page workflow in `SKILL.md`.

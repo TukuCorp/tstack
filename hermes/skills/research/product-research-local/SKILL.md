@@ -187,6 +187,16 @@ not the devices. All four chains are server-rendered: fetch with plain urllib/cu
   `<div class="item-product">` with `<a class="title">NAME</a>` + `<span class="price">X ₫</span>`,
   URLs `/dong-ho-<slug>.html`. Dealers often carry models the big chains have dropped (e.g. Garmin
   Venu Sq 2 was only at An Tiên after TGDĐ/CPS dropped it).
+- **Large-appliance chains: DienMayChoLon (dienmaycholon.com) / DienMayXanh (dienmayxanh.com)**
+  (verified Oct 2026, aircon 1HP check): both are JS-rendered — curl/web_extract return page
+  chrome with NO price. Read prices only via browser-control DOM (`document.body.innerText`
+  regex `\d{2}\.\d{3}\.\d{3}` or `.box-price/.price` selectors; DMX needs ~7s settle).
+  **EOL marker is `Ngừng kinh doanh` / `Sản Phẩm Ngừng Kinh Doanh`** near the title — EOL pages
+  carry no active price, so never report a price from them; check the marker BEFORE quoting.
+  FPT Shop product pages can hydration-fail (React errors, only `Liên hệ tư vấn` / call-to-order
+  shown) — treat as no listed price, not as a price of zero. For EOL models, get street-price
+  floors from the websosanh.vn aggregator (server-rendered, parses via web_extract:
+  `Giá từ: X đ` + per-seller rows) instead of the chains.
 
 **Import-only verification recipe** (prove "no official VN warranty"): Tiki API `q=<brand>` → 0 real
 items + `site:lazada.vn <brand>` → junk + brand absent from all four chains + the brand's own

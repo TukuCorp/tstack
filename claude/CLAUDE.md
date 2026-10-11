@@ -9,10 +9,10 @@
 - For large codebases, identify only the files relevant to the current task — do not load the entire project.
 
 ## Implementation Standards
-- **Red/Green TDD (new features):**
-  1. Write the failing test(s) first.
-  2. Run them and confirm they fail (red) before writing any implementation.
-  3. Implement only enough code to make them pass (green).
+- **Testing:**
+  - Test at the highest feasible level: **E2E** (nothing mocked; test accounts only) → **integration** (real DB/API/schema boundaries) → **golden** (real inputs, checked-in outputs; each edge-case bug adds a case) → **unit** (only for pure logic or math).
+  - Red/green: write the failing test first, at that level, and confirm it fails before implementing.
+  - No coverage-padding or mock-assertion tests. Project rules override these.
 - **When uncertain:** Use the most conventional approach, follow existing patterns, leave a single inline comment documenting the assumption.
 
 ## Debugging Rules

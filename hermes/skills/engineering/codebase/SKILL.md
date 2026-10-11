@@ -1,7 +1,6 @@
 ---
 name: codebase
 description: "Scan for deepening opportunities and grill the one you pick."
-disable-model-invocation: true
 ---
 
 # Improve Codebase Architecture

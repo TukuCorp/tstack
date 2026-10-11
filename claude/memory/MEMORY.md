@@ -6,3 +6,5 @@
 - [skills.sh serves stale pages](skills-sh-serves-stale-pages.md) — registry pages render for skills deleted upstream; verify against the source repo's main branch before importing
 - [NotebookLM: CLI only](notebooklm-cli-preference.md) — use `nlm` CLI directly, not the mcp__notebooklm__* tools, per explicit user instruction
 - [gws scope replacement breaks VN Weekly](gws-scope-replacement-vn-weekly.md) — `gws auth login` wipes unnamed scopes; job needs spreadsheets + gmail.modify
+- [Concise, deliverable first](concise-deliverable-first.md) — lead with the tight deliverable; minimal commentary after
+- [Global agent rules locations](global-agent-rules-locations.md) — CLAUDE.md/AGENTS.md paths for Claude Code, Opencode, Codex, omp, Hermes; mirror shared rules to all

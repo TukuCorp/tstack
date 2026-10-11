@@ -2,7 +2,6 @@
 name: reflect
 description: This skill should be used when the user explicitly invokes `/reflect` or says "reflect". Reviews the current session with three parallel reviewer subagents, surfaces durable learnings, and routes each to a concrete edit on an existing skill (or a backlog entry in lessons.md).
 argument-hint: "[optional focus, e.g. 'the deploy mistakes']"
-disable-model-invocation: true
 ---
 
 # Reflect

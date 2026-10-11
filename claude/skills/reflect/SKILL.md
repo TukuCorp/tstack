@@ -2,7 +2,6 @@
 name: reflect
 description: Review the current session with three parallel reviewer subagents, surface durable learnings, and route each to a concrete edit on an existing skill (or a backlog entry in lessons.md). Use when the user says "reflect" or "/reflect", typically at the end of a session that involved corrections or friction.
 argument-hint: "[optional focus, e.g. 'the deploy mistakes']"
-disable-model-invocation: true
 ---
 
 # Reflect

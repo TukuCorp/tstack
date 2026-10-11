@@ -2,7 +2,6 @@
 name: report
 description: Generate a self-contained HTML report in one of two explicit modes: end-of-phase reporting from the active session, or final reporting from a multi-phase markdown plan. This skill should be used only when the user explicitly invokes `/report`, such as `/report phase-name` for the legacy phase artifact or `/report final path/to/plan.md optional-report-name` for a client-shareable final report.
 argument-hint: "[phase-name] | final [plan-file] [report-name]"
-disable-model-invocation: true
 ---
 
 # Report
