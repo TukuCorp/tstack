@@ -1,13 +1,13 @@
 ---
 name: teach
-description: Teach a new skill or concept over multiple sessions using the current directory as a stateful teaching workspace, grounded in MISSION.md and curated sources, with self-contained HTML lessons and learning records. Use only when the user explicitly invokes `/teach` or `$teach`.
+description: Teach a new skill or concept over multiple sessions in a stateful teaching workspace, producing short self-contained HTML lessons, printable reference sheets, and the MISSION.md, RESOURCES.md, GLOSSARY.md, and learning-record files that carry progress between sessions. Use only when the user explicitly invokes `/teach` or `$teach`.
 ---
 
 The user has asked you to teach them something. This is a stateful request — they intend to learn the topic over multiple sessions.
 
 ## Teaching Workspace
 
-Treat the current directory as a teaching workspace. The state of their learning is captured in this directory in several files:
+The teaching workspace is the current directory if it already holds a `MISSION.md`. Otherwise use `learn-<topic>/` (dash-case topic) inside the current directory, creating it if it does not exist, and tell the user its path so later sessions start there. The state of their learning is captured in the workspace in several files:
 
 - `MISSION.md`: A document capturing the _reason_ the user is interested in the topic. This should be used to ground all teaching. See [references/MISSION-FORMAT.md](./references/MISSION-FORMAT.md).
 - `./reference/*.html`: A directory of reference materials. These are the compressed learnings from the lessons — cheat sheets, reference algorithms, syntax, yoga poses, glossaries. They are the raw units of learning. They should be beautiful documents which print out well, and are designed for quick reference.
@@ -16,7 +16,7 @@ Treat the current directory as a teaching workspace. The state of their learning
 - `./lessons/*.html`: A directory of lessons. A **lesson** is a single, self-contained HTML output that teaches one tightly-scoped thing tied to the mission. This is the primary unit of teaching in this workspace.
 - `./assets/*`: Reusable **components** shared across lessons. See [Assets](#assets).
 - `NOTES.md`: A scratchpad for you to jot down user preferences, or working notes.
-- `GLOSSARY.md` (optional): The canonical language of the workspace. See [references/GLOSSARY-FORMAT.md](./references/GLOSSARY-FORMAT.md).
+- `GLOSSARY.md`: The canonical language of the workspace; every lesson and learning record uses its terms. The glossary page in `./reference/` is rendered from it, so update `GLOSSARY.md` first and then regenerate that HTML. See [references/GLOSSARY-FORMAT.md](./references/GLOSSARY-FORMAT.md).
 
 ## Philosophy
 
@@ -51,7 +51,7 @@ A lesson should be **beautiful** — clean, readable typography and layout — s
 
 The lesson should be short, and completable very quickly. Learners' working memory is very small, and we need to stay within it. But each lesson should give the user a single tangible win that they can build on. It should be directly tied to the mission, and should be in the user's zone of proximal development.
 
-If possible, open the lesson file for the user by running a CLI command.
+If possible, open the lesson file for the user by running a CLI command (`start "" <file>` on Windows, `open` on macOS, `xdg-open` on Linux). If that fails or no command is available, print the lesson's path instead.
 
 Each lesson should link via HTML anchors to other lessons and reference documents.
 

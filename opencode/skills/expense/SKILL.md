@@ -34,7 +34,8 @@ at this company is issued to the same buyer, "CÔNG TY TNHH ALLOTROPE VIETNAM", 
 invoice content alone never proves whose expense it is). Only a direct, date-scoped
 Gmail search under Tung's own label proves ownership. This rule is not optional.
 
-**Never call a Gmail "send" operation.** This skill only ever creates a Gmail
+**Never call a Gmail "send" operation.** Gmail send, reply and forward tools and `gws` send commands are
+permission-gated to always ask; never attempt them. This skill only ever creates a Gmail
 **draft** (`gws gmail users drafts create`) and stops there. Tung reviews and sends
 it himself, every time, in every harness — including any scheduled/unattended
 invocation.
@@ -53,9 +54,10 @@ invocation.
 - Account: `<EMAIL>` (Tung's own, `work` gws profile — see above).
 
 ### Recipients for the submission draft
-- To: `<EMAIL>` (supervisor), `<EMAIL>` (<FINANCE_CONTACT>),
-  `<EMAIL>` (Lauren)
-- Cc: `<EMAIL>` (<CONTROLLER>, Controller)
+- To (all four, in this order): `<EMAIL>` (<SUPERVISOR>, supervisor),
+  `<EMAIL>` (<FINANCE_CONTACT>), `<EMAIL>` (Lauren),
+  `<EMAIL>` (<CONTROLLER>, Controller)
+- Cc: none. The precedent thread `19f7e17d2609aac6` went to all four in To: with no Cc.
 
 ### Drive root folder
 - Parent folder ID for all period subfolders:
@@ -106,7 +108,9 @@ non-compliant invoice, always keep it in the worksheet with the flag.
 ### Vendor → category lookup
 Lowercase and diacritic-strip the seller name + line-item description, concatenate,
 then match keywords below as substrings (longest match wins if several hit; default
-to `"Uncategorized - review"` if none match):
+to `"Uncategorized - review"` if none match). Exception: `quan` matches only as a
+standalone word in the seller name, so it never hits inside `quang` (e.g. `quang cao`,
+advertising) and never as part of the phrase `quan ly` (management):
 
 | Keyword (diacritic-insensitive) | Category |
 |---|---|
@@ -124,7 +128,7 @@ to `"Uncategorized - review"` if none match):
 | ca phe | Meals |
 | coffee | Meals |
 | trung nguyen | Meals |
-| quan | Meals |
+| quan (whole word in seller name, not `quan ly`) | Meals |
 | nha hang | Meals |
 | sasco | Meals |
 | ngoc bao linh | Meals |
@@ -144,6 +148,17 @@ GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-work gws drive about get --params 
 Confirm the response's `user.emailAddress` is `<EMAIL>`. If this fails or
 returns the wrong account, STOP and tell the user to fix the `work` gws profile — do
 not proceed into a half-broken run, and do not fall back to the `personal` profile.
+
+Then probe the two other scopes this run needs, because `gws auth login` can silently
+drop scopes it wasn't asked for and a Drive-only check would still pass:
+```bash
+GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-work gws gmail users drafts list --params '{"userId":"me","maxResults":1}'
+GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-work gws drive files list --params '{"q":"name contains \x27_Expenses\x27 and mimeType=\x27application/vnd.google-apps.spreadsheet\x27 and trashed=false","pageSize":1,"fields":"files(id,name)"}'
+GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-work gws sheets spreadsheets get --params '{"spreadsheetId":"<id from the previous call>","fields":"spreadsheetId"}'
+```
+If the Gmail drafts call or the Sheets call fails with an auth or insufficient-scope
+error, STOP and tell the user to log in again with the `spreadsheets` and
+`gmail.modify` scopes included. Do not start filing until all three probes pass.
 
 ### 2. Determine the period
 If invoked with no argument, find the **most recently closed** period as of today —
@@ -262,6 +277,14 @@ GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-work gws sheets spreadsheets value
 Skip any invoice from step 4 whose "VAT Sales Order No" (invoice number) already
 appears in column C of the existing rows — it's already been filed by a previous run.
 
+If the read shows a TOTAL row (column D = `"TOTAL"`) from an earlier run, clear it now,
+before appending anything, so new rows land directly under the last data row instead
+of below the old total:
+```bash
+GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-work gws sheets spreadsheets values clear --params '{"spreadsheetId":"<id>","range":"Worksheet!A<totalRow>:H<totalRow>"}' --json '{}'
+```
+Data rows are every row after the header except the TOTAL row.
+
 ### 9. File each new invoice's PDF
 ```bash
 GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-work gws drive files create --json '{"name":"<YYYYMMDD>_<serial>_<invoiceNumber>.pdf","parents":["<periodFolderId>"]}' --upload "<Windows-style local path to the scratch PDF>" --params '{"fields":"id,name,webViewLink"}'
@@ -279,18 +302,21 @@ behavior strips leading zeros from strings that look numeric — an invoice numb
 text.
 
 `itemNumber` is the row's position in the worksheet (count of existing data rows + 1,
-from step 8's read). `category` comes from the vendor lookup table above. `notes` is
+from step 8's read, not counting the header or a TOTAL row). `category` comes from the vendor lookup table above. `notes` is
 free text (line-item description, or a judgment-call flag — see step 12). Leave
 `complianceNotesOrEmpty` empty for compliant invoices; for non-compliant ones, put the
 joined failure reason codes there.
 
-**After filing all new invoices for the run, write/refresh a TOTAL row** (matches
-every prior month's worksheet, e.g. July 2026): one row with columns A-C empty,
-`"TOTAL"` in column D (Company Name), and the sum of column E (Total VAT Amount)
-across all data rows in column E — including pending/placeholder amounts once
-resolved. If a TOTAL row already exists from an earlier run in this period,
-overwrite it in place (`values update` on its exact row) rather than appending a
-second one.
+**After filing all new invoices for the run, append a fresh TOTAL row** (matches
+every prior month's worksheet, e.g. July 2026) directly under the last data row: one
+row with columns A-C empty, `"TOTAL"` in column D (Company Name), and the period
+total in column E. Step 8 already cleared any old TOTAL row, so there is only ever
+one.
+
+**Period total rule (used by both the sheet and the draft email):** the sum of
+column E over every data row in the worksheet, compliant and non-compliant alike.
+A placeholder row (`AMOUNT_PENDING`) counts as its current amount, which is `0` until
+someone fills it in. Never compute the email's total separately; use this same sum.
 
 ### 11. Compute the due date and check if a draft already exists
 Apply the due date rule above to the period's end date. Then check for an existing
@@ -298,13 +324,15 @@ draft with the same subject to avoid creating a duplicate:
 ```bash
 GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-work gws gmail users drafts list --params '{"userId":"me"}'
 ```
-(Inspect each draft's subject; if `"<PeriodLabel> Expense Reimbursement - Tung Ho"`
-already exists, delete it first with `gws gmail users drafts delete --params
-'{"userId":"me","id":"<draftId>"}'` (same env prefix) before creating the replacement
-in step 12 — this keeps re-runs from leaving stale duplicate drafts around.)
+(Inspect each draft's subject. **Never delete an existing draft automatically.** If
+`"<PeriodLabel> Expense Reimbursement - Tung Ho"` already exists, show the user its
+subject, date and first lines, and ask whether they want to delete it themselves or
+keep it. If nobody is there to answer (an unattended run), create the new draft
+alongside the old one and say in the run summary that two drafts now exist.)
 
 ### 12. Draft the submission email (never send)
-Sum the compliant + pending amounts for the period's total, and flag anything
+Use the period total from step 10's total rule (the same number as the sheet's TOTAL
+row), and flag anything
 unusual — a non-compliant invoice, a pending/placeholder amount, an unusually large
 line item, a judgment call needing someone's approval (e.g. "this dinner needs <SUPERVISOR>'s
 sponsorship confirmation") — directly in the draft body so it's visible before Tung
@@ -312,11 +340,12 @@ reviews and sends.
 
 **Body format** (matches the actual precedent email, thread `19f7e17d2609aac6`,
 "July 2026 Expense Reimbursement - Tung Ho", <SUPERVISOR>-approved):
-- Greeting by first name, matching the To: recipients in order (e.g. "Hi <CONTROLLER>,
-  Lauren, <SUPERVISOR>,").
+- Greeting exactly as in the precedent: "Hi <CONTROLLER>, Lauren, <SUPERVISOR>,". It does not
+  follow the To: order and does not name <FINANCE_CONTACT>, who is still in To:. Keep it as is
+  unless Tung changes it.
 - One line stating the submission and period: "Please find my expense reimbursement
   submission for the period <start> - <end>, <Year> in the usual folder."
-- "Total: <X> VND across <N> items, both/all invoices filed:" followed by a numbered
+- "Total: <X> VND across <N> items, all <N> invoices filed:" followed by a numbered
   list, one line per item: `<n>. <vendor/description>, <DD/MM> - <amount> VND` — append
   a judgment-call flag inline on that line where relevant (e.g. "- this was our local
   team outing dinner, pending <SUPERVISOR>'s sponsorship if it's reasonable under our annual
@@ -331,15 +360,14 @@ reviews and sends.
 Construct and create the draft (same `GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-work`
 prefix on the final `gws` call):
 ```bash
-TO="<EMAIL>,<EMAIL>,<EMAIL>"
-CC="<EMAIL>"
+TO="<EMAIL>,<EMAIL>,<EMAIL>,<EMAIL>"
 SUBJECT="<PeriodLabel> Expense Reimbursement - Tung Ho"
 BODY="Hi <CONTROLLER>, Lauren, <SUPERVISOR>,
 
 Please find my expense reimbursement submission for the period <start> -
 <end>, <Year> in the usual folder.
 
-Total: <X> VND across <N> items, both invoices filed:
+Total: <X> VND across <N> items, all <N> invoices filed:
 1. <vendor>, <DD/MM> - <amount> VND
 2. <vendor>, <DD/MM> - <amount> VND<flag if any>
 
@@ -348,8 +376,8 @@ Tung
 
 <periodFolderWebViewLink>"
 
-RAW=$(printf "To: %s\r\nCc: %s\r\nSubject: %s\r\nContent-Type: text/plain; charset=UTF-8\r\n\r\n%s" \
-  "$TO" "$CC" "$SUBJECT" "$BODY" | base64 -w0 | tr '+/' '-_' | tr -d '=')
+RAW=$(printf "To: %s\r\nSubject: %s\r\nContent-Type: text/plain; charset=UTF-8\r\n\r\n%s" \
+  "$TO" "$SUBJECT" "$BODY" | base64 -w0 | tr '+/' '-_' | tr -d '=')
 
 GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-work gws gmail users drafts create --params '{"userId":"me"}' \
   --json "{\"message\":{\"raw\":\"$RAW\"}}"

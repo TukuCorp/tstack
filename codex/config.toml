@@ -147,6 +147,12 @@ trust_level = "trusted"
 [projects.'c:\users\tukum\downloads\workflow-bench']
 trust_level = "trusted"
 
+[projects.'C:\Users\tukum\Downloads\remote\ceba']
+trust_level = "trusted"
+
+[projects.'C:\Users\tukum\Downloads\remote\personal']
+trust_level = "trusted"
+
 [plugins."documents@openai-primary-runtime"]
 enabled = true
 

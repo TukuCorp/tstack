@@ -1,6 +1,6 @@
 ---
 name: apdeck
-description: "Build or revise Allotrope-style PowerPoint decks from report content, template decks, or existing slides. Use when the user says /apdeck, asks for an Allotrope deck, wants highest adherence to an Allotrope template, needs a report turned into a branded PPTX, or wants a template-following slide workflow with rendered QA. Do NOT use for browser decks or generic presentations — use /present instead."
+description: "Build or revise Allotrope-style PowerPoint decks from report content, template decks, or existing slides. Use when the user says /apdeck, asks for an Allotrope deck, wants highest adherence to an Allotrope template, needs a report turned into a branded PPTX, or wants a template-following slide workflow with rendered QA. Not for another organization's template (use /present to edit it in place), a deck with no template (use a from-scratch PowerPoint skill such as pptx), or a browser deck (use /present html mode)."
 argument-hint: "[source-content | template-path] [--new|--revise]"
 allowed-tools:
   - Bash

@@ -51,7 +51,9 @@ For each approved Accepted row, follow its Routing exactly:
 - Trivial edit to an existing skill (a bullet, a tightened sentence, a stale fact): edit it directly.
 - Substantive edit (a new section, a pattern table, more than ~10 lines): use the `skill-creator` skill if available, otherwise draft the change, show the diff, then apply.
 - `tune description: <skill path>`: rewrite the description to front-load the trigger phrases the user actually used.
-- `new skill via create-skill: <kebab-name>`: create it with `skill-creator`, matching the frontmatter conventions of the user's existing skills. Don't invent a shape ad hoc.
+- `new skill: <kebab-name>`: create it with `skill-creator`, matching the frontmatter conventions of the user's existing skills. Don't invent a shape ad hoc.
+
+If the edited skill is one the user mirrors across tools (the same skill under other agent tools' skill folders), list the matching edit for each mirror copy next to the row, adapted to that copy's frontmatter, paths, and tool names, so the user approves them together. Apply them all, or none.
 
 After editing, parse-check the YAML frontmatter of every touched `SKILL.md`.
 

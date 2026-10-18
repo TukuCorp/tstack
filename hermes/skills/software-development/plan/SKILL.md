@@ -69,6 +69,7 @@ lives in the plan.
 
 - Read `AGENTS.md`, `README*`, package manifests (`package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `Gemfile`, and similar), lockfiles, and CI config to extract: exact install, build, and test commands (full suite AND single test), stack and versions, lint/format expectations, naming conventions, and units/timezone/currency rules.
 - Verify commands against the repo (scripts blocks, CI steps, Makefiles) rather than guessing.
+- Cheaply prove the test command is real: run it in collect-only or dry-run form when the runner has one (e.g. `pytest --collect-only -q`, `cargo test --no-run`, `go test -run '^$' ./...`, `npx jest --listTests`) and note the result. If no such form exists or it cannot run here, record the command as an `ASM-xxx` assumption.
 - This section exists because the executor does NOT get agent instruction files or session context — the plan replaces them.
 - Anything unverifiable becomes a binding-default assumption.
 
@@ -119,6 +120,8 @@ lives in the plan.
 - **File Changes:** for each file, the exact path, whether to `create` or `modify`, what specifically to add or change, and what to leave alone.
 - **Function Signatures:** complete interfaces — parameter names, types, return types, and a one-line description of what each returns.
 - **Test Specs:** concrete scenarios with literal inputs and expected outputs, edge cases spelled out — not "write tests for X".
+- **Test level:** every Test Specs block starts with `Level:` — the highest feasible of E2E (nothing mocked) → integration (real DB/API/schema boundaries) → golden (real inputs, checked-in outputs) → unit (only for pure logic or math).
+- **Red/green order:** in each phase, the task that writes the failing tests and confirms they fail comes before the task that implements the change.
 - Record dependencies explicitly.
 - Add exit criteria that can be verified.
 - Add phase-specific risks when they materially change execution.

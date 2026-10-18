@@ -4,6 +4,8 @@ Use one of these inside the workflow's agent run step. Broad permission modes ar
 
 Each agent outputs differently, so response extraction varies. The goal is to get the agent's final formatted response into `/tmp/pr-body.md` for the PR body.
 
+**Model IDs.** `<MODEL>` below is a placeholder. Before filling it in, look up the provider's current model ID (its docs or the agent CLI's model list); don't reuse an ID from memory or from an older workflow.
+
 **Run the actuator locally before wiring CI.** Every command below is a headless CLI invocation — export the agent's secret and set `PROMPT`, then run it in your shell against a controller-selected target to confirm the actuator works before it goes into a workflow:
 
 ```bash
@@ -91,7 +93,7 @@ Secret: provider-specific, commonly `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`.
   run: |
     opencode run "$PROMPT" \
       --dir "$GITHUB_WORKSPACE" \
-      --model anthropic/claude-sonnet-4-5 \
+      --model anthropic/<MODEL> \
       --format json \
       --dangerously-skip-permissions \
       2>&1 | tee /tmp/agent-output.txt
@@ -126,7 +128,7 @@ Secret: usually `ANTHROPIC_API_KEY` for Anthropic-backed runs.
   run: |
     bunx @humanlayer/cli@latest codelayer \
       --provider anthropic \
-      --model claude-opus-4-8 \
+      --model <MODEL> \
       --thinking high \
       --prompt "$PROMPT" \
       2>&1 | tee /tmp/agent-output.txt

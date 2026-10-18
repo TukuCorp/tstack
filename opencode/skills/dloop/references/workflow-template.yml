@@ -8,6 +8,8 @@
 #
 # The /iterate path intentionally checks the PR body marker BEFORE checkout/setup so
 # every agent workflow can listen for /iterate while non-matching workflows no-op cheaply.
+#
+# <MODEL> is a placeholder: look up the provider's current model ID before filling it in.
 
 name: "Agent: <Task Title>"
 
@@ -159,7 +161,7 @@ jobs:
 
           # NOTE: replace with your agent runner from references/agent-runner-templates.md
           bunx @humanlayer/cli@latest codelayer \
-            --provider anthropic --model claude-sonnet-4-6 --thinking high \
+            --provider anthropic --model <MODEL> --thinking high \
             --prompt "$(cat /tmp/agent-prompt.md)" \
             2>&1 | tee /tmp/agent-output.txt
 
@@ -216,7 +218,7 @@ jobs:
           # NOTE: replace this block with your agent runner from references/agent-runner-templates.md.
           # Each agent has different output formats — see that file for extraction steps.
           bunx @humanlayer/cli@latest codelayer \
-            --provider anthropic --model claude-opus-4-8 --thinking high \
+            --provider anthropic --model <MODEL> --thinking high \
             --prompt "$PROMPT" \
             2>&1 | tee /tmp/agent-output.txt
 

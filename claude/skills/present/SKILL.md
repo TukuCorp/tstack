@@ -1,6 +1,6 @@
 ---
 name: present
-description: Build a presentation by editing a user-supplied template/ppt/pptx in place — preserve its real masters, layouts, logos, backgrounds, and diagrams, and replace the content at the existing shape positions with new text and rendered PNG charts/screenshots. Use whenever the user says /present, "make slides/deck from this template", "update last year's deck", "reskin this pptx", or gives an existing .pptx/.ppt to fill with new content. This produces an authentic continuation of the source deck, NOT a generated-looking from-scratch deck.
+description: Build a presentation by editing a user-supplied template/ppt/pptx in place — preserve its real masters, layouts, logos, backgrounds, and diagrams, and replace the content at the existing shape positions with new text and rendered PNG charts/screenshots. Use whenever the user says /present, "make slides/deck from this template", "update last year's deck", "reskin this pptx", or gives an existing .pptx/.ppt to fill with new content. This produces an authentic continuation of the source deck, NOT a generated-looking from-scratch deck. For an Allotrope template use apdeck; with no template use the pptx skill.
 user-invocable: true
 allowed-tools:
   - Read
@@ -33,6 +33,10 @@ user truly wants a brand-new deck with no reference file, say so and offer the
 managed generators (`anthropic-skills:pptx`, or a from-scratch `pptxgenjs`
 build) instead.
 
+Routing: an Allotrope template (or a request for an Allotrope-branded deck) goes
+to `anthropic-skills:apdeck`. Any other supplied template stays here. No template
+goes to `anthropic-skills:pptx`.
+
 ## Inputs to confirm before building
 
 1. **Template file** — the `.pptx`/`.ppt` to edit (ask for the path if not given).
@@ -48,9 +52,9 @@ build) instead.
 ## Procedure
 
 ### 1. Inventory the template
-Run the inspector to learn the exact shape index, type, geometry, and current
-text of every slide. **Shapes are targeted by index**, so this map is the
-contract for every edit:
+Run the inspector to learn each shape's index, id, name, type, geometry, and
+current text on every slide. This map is the contract for every edit. **Target
+shapes by `shape_id` or name**, not by a remembered index:
 
 ```
 python "<skill_dir>/scripts/inspect_template.py" "path/to/template.pptx"
@@ -69,7 +73,7 @@ they look crisp in the slide. Keep them in a dedicated asset folder.
 ### 3. Write the build script
 Create a Python script using `python-pptx` that:
 - Opens the template: `prs = Presentation(template_path)`.
-- For text: replace runs **in the existing shape** at its index. Reuse a
+- For text: replace runs **in the existing shape** (look it up by id or name). Reuse a
   `set_text(shape, text, size, bold, color, font, align)` helper that clears the
   text frame, zeroes margins, sets one run, and **suppresses any inherited
   bullet** (append `<a:buNone/>` to the paragraph's `pPr`) so reused
@@ -84,10 +88,10 @@ Create a Python script using `python-pptx` that:
 Keep edits minimal and positional — match the original layout. Do not add slides
 or restructure unless the user asks; this skill mirrors the source 1:1.
 
-A complete, working reference implementation of this exact pattern lives in the
-dppa-case repo at `build_2026_from_ref.py` — read it for the helper functions
-(`set_text`, `suppress_bullet`, `add_stat_card`, `add_bullets`, `delete_shape`,
-`add_picture_cover`, `cover`) and chart/table rendering. Adapt, don't reinvent.
+The reusable helpers live in `<skill_dir>/scripts/pptx_helpers.py`: `set_text`,
+`suppress_bullet`, `add_textbox`, `add_bullets`, `add_stat_card`, `delete_shape`,
+`add_picture_cover`, `replace_picture`, `cover`, `shape_by_id`, `shape_by_name`.
+Import them (`sys.path.insert(0, "<skill_dir>/scripts")`) instead of rewriting them.
 
 ### 4. Build and QA — this step is mandatory
 In-place edits keep the **original box sizes**, so replaced text frequently
@@ -115,8 +119,10 @@ remaining judgment calls (e.g. "no live screenshot included — want one?").
 ## Common pitfalls
 - **Don't delete decorative pictures by index blindly** — confirm a PICTURE is
   old content (chart/photo) before removing it; logos and rails are also PICTUREs.
-- **Indices shift after deletion only within your own added shapes**, not the
-  original ones you read — but re-inspect if behavior surprises you.
+- **Deleting a shape shifts the index of every later shape** in `slide.shapes`,
+  original template shapes included. Target shapes by `shape_id` or name
+  (`shape_by_id` / `shape_by_name`), or resolve every shape you need first and
+  delete in descending index order.
 - **Fonts**: match the template's fonts (inspect the master) so replaced text
   blends in.
 - **Never overwrite the source template.** Always write a new file.

@@ -1,6 +1,6 @@
 ---
 name: dloop
-description: Interview the user to design an agentic control loop (sensor, controller, actuator under disturbances) tailored to their codebase, then build it as locally-runnable components plus a scheduled coding-agent workflow. Triggers on "/dloop", "design a control loop", "control loop for this repo".
+description: Interview the user to design an agentic control loop (sensor, controller, actuator under disturbances) tailored to their codebase, then build it as locally-runnable components plus a scheduled coding-agent workflow. Triggers on "/dloop", "design a control loop", "control loop for this repo". Not for one-off refactors (use plan) or for iterating on a prompt until it wins (use gloop).
 user-invocable: true
 ---
 
@@ -58,7 +58,7 @@ Completion criterion: you can name the repo's package manager, install command, 
 
 ### Phase B — Design the loop with the user
 
-**Read the following references:** `references/control-loop-taxonomy.md`, `references/example-control-loop.md`, `references/agent-runner-templates.md`.
+**Read the following references:** `references/control-loop-taxonomy.md`, `references/agent-runner-templates.md`. (You already read `references/example-control-loop.md` in Phase A; don't reload it.)
 
 This is an interview. Work through each component below. Start by asking the user questions about the set point. Proposing options grounded in Phase A and surfacing trade-offs rather than mandating any choice. Record the decisions as you go.
 
@@ -151,7 +151,7 @@ Without this, a daily loop can stack up duplicate or conflicting PRs while no on
 
 **Validate** the workflow YAML (`bunx js-yaml file.yml`, `python -c "import yaml,sys; yaml.safe_load(open(sys.argv[1]))" file.yml`, or `yq`) and confirm every path named by the skill, workflow, and memory file exists or is created by this task.
 
-**Dry-run.** A workflow cannot be `workflow_dispatch`-ed until it has run once. Temporarily add a `push` trigger for the current branch, push, watch it run, then remove the trigger. Review any PR it opens to confirm the loop's behavior.
+**Dry-run.** Get explicit confirmation from the user before any push or PR: show the branch, the files that will be pushed, and the temporary trigger, then wait for a clear yes. Never push or open a PR on your own. A workflow cannot be `workflow_dispatch`-ed until it has run once. Once the user confirms, temporarily add a `push` trigger for the current branch, push, watch it run, then remove the trigger. Review any PR it opens to confirm the loop's behavior.
 
 **Ready to iterate faster** (once the loop is tuned and producing consistent, high-quality output): increase the schedule frequency; widen the controller's batch (e.g. select N targets per run); run the sense→control→actuate cycle N times per workflow run; or run the workflow multiple times and assign one PR to each teammate.
 

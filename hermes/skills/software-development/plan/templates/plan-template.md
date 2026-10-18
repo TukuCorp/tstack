@@ -24,7 +24,7 @@ research_inputs:
 - **Stack:** {{Language, framework, package manager, and the pinned versions that matter (e.g. "Python 3.12, FastAPI, uv — not pip")}}
 - **Setup:** {{Exact dependency-install command}}
 - **Build / Run:** {{Exact build and run commands}}
-- **Test:** {{Exact full-suite command}} — single test: {{exact single-test command}}
+- **Test:** {{Exact full-suite command}} — single test: {{exact single-test command}} — checked by: {{collect-only/dry-run command and its result, or `ASM-xxx` when it could not be run}}
 - **Conventions & traps:** {{Naming conventions, units/currency/timezone rules, lint/format expectations}}
 - **Repo map:** {{5-10 line orientation of the directories and files that matter for this plan}}
 
@@ -62,8 +62,9 @@ research_inputs:
 {{What this phase accomplishes}}
 
 **Tasks**
-- [ ] TASK-01-01: {{Atomic task another agent could execute without extra context}}
-- [ ] TASK-01-02: {{Atomic task}}
+<!-- Red/green: the task that writes this phase's failing tests (and confirms they fail) comes BEFORE the task that implements the change. -->
+- [ ] TASK-01-01: {{Write the failing tests from Test Specs; run them and confirm they fail for the expected reason}}
+- [ ] TASK-01-02: {{Atomic implementation task another agent could execute without extra context; then confirm the tests pass}}
 
 **File Changes**
 - `path/to/file` ({{create|modify}}): {{What specifically to add or change — and what to leave alone}}
@@ -74,7 +75,9 @@ research_inputs:
 - `function_name(param: Type, other: Type) -> ReturnType` — {{one-line description of what it returns}}
 
 **Test Specs**
-<!-- Literal inputs → expected outputs, edge cases spelled out — not "write tests for X". Write `None — no testable behavior changes in this phase.` when genuinely inapplicable. -->
+<!-- Literal inputs → expected outputs, edge cases spelled out — not "write tests for X". Write `None — no testable behavior changes in this phase.` when genuinely inapplicable.
+     Level: the highest feasible of E2E (nothing mocked) → integration (real DB/API/schema boundaries) → golden (real inputs, checked-in outputs) → unit (only for pure logic or math). -->
+- **Level:** {{E2E|integration|golden|unit}} — {{why this is the highest feasible level}}
 - {{`call_or_scenario(exact input values)`}} → {{exact expected output}}
 - {{Edge case}} → {{expected behavior}}
 
@@ -93,8 +96,8 @@ research_inputs:
 {{What this phase accomplishes}}
 
 **Tasks**
-- [ ] TASK-02-01: {{Atomic task}}
-- [ ] TASK-02-02: {{Atomic task}}
+- [ ] TASK-02-01: {{Write the failing tests from Test Specs; confirm they fail}}
+- [ ] TASK-02-02: {{Atomic implementation task; confirm the tests pass}}
 
 **File Changes**
 - `path/to/file` ({{create|modify}}): {{What specifically to add or change — and what to leave alone}}
@@ -103,6 +106,7 @@ research_inputs:
 - `function_name(param: Type) -> ReturnType` — {{one-line description}}
 
 **Test Specs**
+- **Level:** {{E2E|integration|golden|unit}} — {{why}}
 - {{`call_or_scenario(exact input values)`}} → {{exact expected output}}
 
 **Dependencies**
@@ -120,7 +124,7 @@ research_inputs:
 {{What this phase accomplishes}}
 
 **Tasks**
-- [ ] TASK-03-01: {{Atomic task}}
+- [ ] TASK-03-01: {{Failing-test task first when Test Specs is not `None`, then the implementation task}}
 
 **File Changes**
 - `path/to/file` ({{create|modify}}): {{Specific change}}
@@ -129,6 +133,7 @@ research_inputs:
 - {{Signature, or `None — no code interfaces change in this phase.`}}
 
 **Test Specs**
+- **Level:** {{E2E|integration|golden|unit}} — {{why}}
 - {{Spec, or `None — no testable behavior changes in this phase.`}}
 
 **Dependencies**

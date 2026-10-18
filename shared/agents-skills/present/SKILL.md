@@ -1,6 +1,6 @@
 ---
 name: present
-description: Turn any content into a polished presentation. Use when asked to /present, "make slides", "build a deck", "create a presentation", "present this data", "visualize this", or any time notes, research, data, or documents should become a shareable visual format. Two modes: html (interactive browser deck) and template (edit an existing .pptx in place, preserving its masters, layouts, logos, and backgrounds). Infer mode from context when not specified.
+description: 'Turn any content into a polished presentation. Use when asked to /present, "make slides", "build a deck", "create a presentation", "present this data", "visualize this", or any time notes, research, data, or documents should become a shareable visual format. Two modes: html (interactive browser deck) and template (edit an existing .pptx in place, preserving its masters, layouts, logos, and backgrounds). Infer mode from context when not specified. For an Allotrope template use apdeck; for a .pptx with no template use a from-scratch PowerPoint skill (pptx).'
 ---
 
 # present
@@ -11,11 +11,12 @@ Convert any content — notes, data, research, documents — into a polished pre
 
 | Situation | Mode |
 |-----------|------|
-| User supplies an existing .pptx/.ppt to edit/update | **template** |
+| User supplies an Allotrope template, or wants an Allotrope-branded deck | **apdeck** (use `/apdeck` instead) |
+| User supplies any other existing .pptx/.ppt to edit/update | **template** |
 | Internal review, browser-shareable, data/interactive | **html** |
 | User says "html", "interactive", "browser" | **html** |
 | User says "template", "edit this deck", "update last year's deck" | **template** |
-| User says "pptx", "powerpoint", "deck", "slides file" | **apdeck** (use `/apdeck` instead) |
+| User wants a .pptx file but supplies no template | not this skill: use a from-scratch PowerPoint skill (pptx, or officecli) |
 | Ambiguous | Ask: "HTML (interactive browser) or edit an existing template?" |
 
 ---
@@ -32,7 +33,7 @@ Single self-contained `.html` file with inline CSS/JS. Keyboard/click navigation
 
 Edit the user's actual template `.pptx` and replace content at existing shape positions. The output inherits 100% of the source's visual identity — masters, layouts, logos, backgrounds, diagrams all preserved.
 
-Use this mode **only** when there is a template/source deck to edit. If the user wants a brand-new deck with no reference file, use PowerPoint Mode or HTML Mode instead.
+Use this mode **only** when there is a template/source deck to edit. If the user wants a brand-new deck with no reference file, use HTML Mode or a from-scratch PowerPoint skill instead.
 
 ### Inputs to confirm before building
 
@@ -49,9 +50,9 @@ Use this mode **only** when there is a template/source deck to edit. If the user
 ### Procedure
 
 #### 1. Inventory the template
-Run the inspector to learn the exact shape index, type, geometry, and current
-text of every slide. **Shapes are targeted by index**, so this map is the
-contract for every edit:
+Run the inspector to learn each shape's index, id, name, type, geometry, and
+current text on every slide. This map is the contract for every edit. **Target
+shapes by `shape_id` or name**, not by a remembered index:
 
 ```
 python "<skill_dir>/scripts/inspect_template.py" "path/to/template.pptx"
@@ -70,7 +71,7 @@ they look crisp in the slide. Keep them in a dedicated asset folder.
 #### 3. Write the build script
 Create a Python script using `python-pptx` that:
 - Opens the template: `prs = Presentation(template_path)`.
-- For text: replace runs **in the existing shape** at its index. Reuse a
+- For text: replace runs **in the existing shape** (look it up by id or name). Reuse a
   `set_text(shape, text, size, bold, color, font, align)` helper that clears the
   text frame, zeroes margins, sets one run, and **suppresses any inherited
   bullet** (append `<a:buNone/>` to the paragraph's `pPr`) so reused
@@ -84,6 +85,11 @@ Create a Python script using `python-pptx` that:
 
 Keep edits minimal and positional — match the original layout. Do not add slides
 or restructure unless the user asks; this skill mirrors the source 1:1.
+
+The reusable helpers live in `<skill_dir>/scripts/pptx_helpers.py`: `set_text`,
+`suppress_bullet`, `add_textbox`, `add_bullets`, `add_stat_card`, `delete_shape`,
+`add_picture_cover`, `replace_picture`, `cover`, `shape_by_id`, `shape_by_name`.
+Import them (`sys.path.insert(0, "<skill_dir>/scripts")`) instead of rewriting them.
 
 #### 4. Build and QA — mandatory
 In-place edits keep the **original box sizes**, so replaced text frequently
@@ -111,8 +117,10 @@ remaining judgment calls (e.g. "no live screenshot included — want one?").
 ### Common pitfalls
 - **Don't delete decorative pictures by index blindly** — confirm a PICTURE is
   old content (chart/photo) before removing it; logos and rails are also PICTUREs.
-- **Indices shift after deletion only within your own added shapes**, not the
-  original ones you read — but re-inspect if behavior surprises you.
+- **Deleting a shape shifts the index of every later shape** in `slide.shapes`,
+  original template shapes included. Target shapes by `shape_id` or name
+  (`shape_by_id` / `shape_by_name`), or resolve every shape you need first and
+  delete in descending index order.
 - **Fonts**: match the template's fonts (inspect the master) so replaced text
   blends in.
 - **Never overwrite the source template.** Always write a new file.

@@ -1,20 +1,29 @@
 ---
 name: unslop
-description: Cut AI tells from any writing. Must always apply.
+description: Cut AI tells from prose meant for human readers (docs, reports, emails, slides, chat replies). Skip code, identifiers, quoted or reviewer text, and a skill's or domain's defined vocabulary.
 disable-model-invocation: true
 ---
 
 # Unslop
 
-Edit text to remove AI patterns and add human voice.
+Edit text to remove AI patterns and add human voice. This applies to prose meant for human readers. Leave code, identifiers, commands, quoted text and reviewer comments as they are.
 
 ## Process
 
 1. Find the house voice. If the text belongs to an organization or a series, such as a training deck, a client report or a docs site, read that organization's existing documents of the same kind first. Note how they title things, how long headings run and what register the body uses. Where the house style contradicts a rule below, the house style wins.
-2. Scan for the patterns below.
-3. Rewrite. Preserve meaning, match intended tone.
-4. Add soul (see next section), within the register the house voice allows.
-5. Self-audit: "What makes this obviously AI generated?" Fix remaining tells.
+2. Respect defined vocabulary. A domain glossary (such as a project's `CONTEXT.md`) or a skill's glossary overrides the rules below. If codebase-design defines "leverage" and "surface" as terms, keep them, even though rules 26 and 31 would cut them.
+3. Scan for the patterns below.
+4. Rewrite. Preserve meaning, match intended tone.
+5. Add soul (see next section), within the register the house voice allows.
+6. Self-audit: "What makes this obviously AI generated?" Fix remaining tells.
+7. Mechanical check before finishing. Grep the draft for em dashes, curly quotes and the banned words from rules 7, 26 and 31, then fix each hit unless a glossary or quoted text covers it:
+
+```bash
+grep -nE '—|[“”‘’]' draft.md
+grep -niwE 'additionally|crucial|delve|enduring|enhance|fostering|garner|interplay|intricate|landscape|pivotal|showcase|tapestry|testament|underscore|vibrant|substrate|wedge|vector|locus|vantage|nexus|primitive|harness|surface|bedrock|scaffolding|modality|paradigm|gold-plating|ratchet|evacuate|endgame|north star|flywheel|utilize|leverage|facilitate|numerous|in the event that' draft.md
+```
+
+For text that isn't in a file, write it to a temp file first or run the same check by eye, word by word.
 
 When revising a deliverable against reviewer feedback, also follow `references/review-feedback.md`.
 

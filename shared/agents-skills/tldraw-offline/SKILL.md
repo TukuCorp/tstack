@@ -1,6 +1,6 @@
 ---
 name: tldraw-offline
-description: Operate the user's tldraw offline canvas app, including open .tldraw or .tldr files. Use whenever a task involves inspecting, editing, arranging, connecting, linting, or scripting a tldraw Desktop canvas.
+description: Operate the user's tldraw offline canvas app, including open .tldraw or .tldr files. Use whenever a task involves inspecting, editing, arranging, connecting, linting, or scripting a tldraw Desktop canvas. Not for Excalidraw, Mermaid, draw.io or other diagram tools, and not for tldraw.com in a browser.
 ---
 <!-- installed-by:tldraw-desktop-agent-skills -->
 
@@ -16,29 +16,27 @@ A clean quit removes `server.json`; the next launch rewrites it. It also records
 
 Every request except `GET /` and `/readme` needs the per-launch `token` from that same `server.json`, sent as `-H "authorization: Bearer <token>"`.
 
-**If the server's base URL and bearer token are already in your context** — the app injects them at subagent launch when its agent hook is installed — use those literal values directly, or just call the installed `tq` helper (below). The rest of this section is the fallback for when neither is in hand.
+**If the server's base URL and bearer token are already in your context** (the app injects them at subagent launch when its agent hook is installed), use those literal values directly. Otherwise use `tq`.
 
-**Each Bash tool call runs in a fresh shell — exported env vars do NOT persist between calls.** A `TLDRAW_TOKEN` you `export` in one call is empty in the next, so the request sends `authorization: Bearer` with no token and 401s. "Export once and reuse" does not work here — re-establish the port and token on every call. Read them together at the top of each call (both stay fixed for the app's lifetime, so re-reading is cheap):
+### Helper: `tq` (canonical)
+
+`tq` lives at `"$HOME/skills/tldraw-offline/tq"` (installed by the tldraw desktop app, outside this skill folder). Invoke it as `sh "$HOME/skills/tldraw-offline/tq" <METHOD> <path> [body]`. It re-reads the port and token from `server.json` on every call, so you never handle the token, and fresh shells per call do not matter. A body starting with `{` is sent as JSON; anything else as raw `text/plain` JavaScript, which avoids JSON escaping:
+
+```bash
+TQ="$HOME/skills/tldraw-offline/tq"
+sh "$TQ" GET  /readme
+sh "$TQ" POST /api/search 'return await api.getDocs()'
+sh "$TQ" POST /api/doc/DOC_ID/exec 'return editor.getCurrentPageShapes().length'
+sh "$TQ" GET  /api/doc/DOC_ID/script-status
+```
+
+Run it from Git Bash. From PowerShell, `sh` is not on PATH: use `& 'C:\Program Files\Git\bin\sh.exe' "$HOME/skills/tldraw-offline/tq" ...`. If `tq` fails with `jq: error: Could not open file ...server.json`, the app is not running.
+
+Raw `curl` fallback (only if `tq` is missing). Each shell tool call is a fresh shell, so exported variables do not persist; re-read port and token in the same call that uses them:
 
 ```bash
 PORT=$(jq -r .port 'C:/Users/tukum/AppData/Roaming/tldraw/server.json'); TOKEN=$(jq -r .token 'C:/Users/tukum/AppData/Roaming/tldraw/server.json')
-# use as:  http://localhost:$PORT/...   -H "authorization: Bearer $TOKEN"
-```
-
-### Helper: `tq`
-
-A ready-made helper ships with this skill at `"$HOME/skills/tldraw-offline/tq"`. Invoke it as `sh "$HOME/skills/tldraw-offline/tq" <METHOD> <path> [body]` — it re-reads the port and token from `server.json` itself on every call, so you never handle the token or the fresh-shell env problem. A body starting with `{` is sent as JSON; anything else as raw `text/plain`:
-
-```bash
-sh "$HOME/skills/tldraw-offline/tq" POST /api/search '{"code":"return await api.getDocs()"}'
-sh "$HOME/skills/tldraw-offline/tq" POST /api/doc/DOC_ID/exec 'return editor.getCurrentPageShapes().length'
-sh "$HOME/skills/tldraw-offline/tq" GET  /api/doc/DOC_ID/script-status
-```
-
-If `tq` is missing (an older install), fall back to raw `curl` with the `PORT`/`TOKEN` reads shown above. The raw-`curl` examples below stay in explicit form so each request is visible; translate any to `sh "$HOME/skills/tldraw-offline/tq" <METHOD> <path> [body]`.
-
-```bash
-curl -s http://localhost:7236/readme
+curl -s -X POST "http://localhost:$PORT/api/search" -H "authorization: Bearer $TOKEN" -H 'content-type: text/plain' --data-binary 'return await api.getDocs()'
 ```
 
 ## Core endpoints
@@ -52,29 +50,22 @@ The code-taking POST endpoints accept raw JavaScript as the request body (`conte
 
 ## Use this first
 
-Most tasks do not require searching `api.members`. Start with these calls and search the full Editor API only if a snippet fails or you truly need an unknown method. The object is `api`, not `spec`. Each block below is shown as raw `curl` so the request is visible; `sh "$HOME/skills/tldraw-offline/tq" <METHOD> <path> [body]` is the shorter equivalent that handles the port and token for you.
+Most tasks do not require searching `api.members`. Start with these calls and search the full Editor API only if a snippet fails or you truly need an unknown method. The object is `api`, not `spec`.
 
 ```bash
-# Fresh shell per call: re-read port + token first (or use the values already in your context).
-PORT=$(jq -r .port 'C:/Users/tukum/AppData/Roaming/tldraw/server.json'); TOKEN=$(jq -r .token 'C:/Users/tukum/AppData/Roaming/tldraw/server.json')
+TQ="$HOME/skills/tldraw-offline/tq"
 
 # Pick the target doc by focused window or filename.
-curl -s -X POST http://localhost:$PORT/api/search \
-  -H 'content-type: application/json' \
-  -H "authorization: Bearer $TOKEN" \
-  -d '{"code":"return await api.getDocs({ name: \"NAME\" })"}'
+sh "$TQ" POST /api/search 'return await api.getDocs({ name: "NAME" })'
 
 # Read the current page's shapes with ids, bounds, text, and metadata.
-curl -s -X POST http://localhost:$PORT/api/search \
-  -H 'content-type: application/json' \
-  -H "authorization: Bearer $TOKEN" \
-  -d '{"code":"const doc = await api.getFocusedDoc(); const page = doc ? await api.getShapes(doc.id) : null; return { doc, shapes: page?.shapes.map(s => ({ id: s.id, type: s.type, x: s.x, y: s.y, props: s.props, meta: s.meta })) ?? [] }"}'
+sh "$TQ" POST /api/search 'const doc = await api.getFocusedDoc(); const page = doc ? await api.getShapes(doc.id) : null; return { doc, shapes: page?.shapes.map(s => ({ id: s.id, type: s.type, x: s.x, y: s.y, props: s.props, meta: s.meta })) ?? [] }'
 
 # Read bindings only for connection-dependent behavior.
-curl -s -X POST http://localhost:$PORT/api/search \
-  -H 'content-type: application/json' \
-  -H "authorization: Bearer $TOKEN" \
-  -d '{"code":"const doc = await api.getFocusedDoc(); return doc ? await api.getBindings(doc.id) : []"}'
+sh "$TQ" POST /api/search 'const doc = await api.getFocusedDoc(); return doc ? await api.getBindings(doc.id) : []'
+
+# Static edit: mutate with /exec, then verify once with api.getShapes().
+sh "$TQ" POST /api/doc/DOC_ID/exec 'const { createShapeId, toRichText } = await import("tldraw"); const id = createShapeId("r1"); editor.createShape({ id, type: "geo", x: 100, y: 100, props: { geo: "rectangle", w: 200, h: 100, richText: toRichText("Hello") } }); return { created: [id] }'
 ```
 
 ## Reference recipes
@@ -130,7 +121,7 @@ Use `api.getShapes(doc.id)` to inspect existing raw shape records before mutatin
    - Static drawing edits such as moving, arranging, labeling, or styling shapes use `/exec`.
    - Durable behavior such as clickable UI, animations, reactive layouts, or "run on open" logic uses `/script-workspace` and direct filesystem edits under `script/**`. Read the worked recipes from `api.recipes` (via `/api/search`) before building durable behavior.
 3. Verify once with records from `api.getShapes()`, `api.getBindings()`, `api.getScriptStatus()`, or a screenshot when visual placement is uncertain.
-5. Stop after one successful verification unless the user explicitly asks for debugging.
+4. Stop after one successful verification unless the user explicitly asks for debugging.
 
 Never edit `.tldraw` archive files directly while they are open, and never edit `db.sqlite`, `db.sqlite-wal`, `db.sqlite-shm`, `metadata.json`, `.lock`, or `.script-workspace/**`.
 
@@ -149,33 +140,6 @@ Use this when a document script draws a board that users should rearrange or res
 Custom shape types, tools, overlays, or UI components need a `script/config.js` next to `main.js` (create it through `/script-workspace`, same as `main.js`) — a `main.js`-only script cannot register them. Its default export runs BEFORE the editor mounts, receives `{ config }` (the app's default `TldrawConfig`), and returns it after mutating or spreading it. The passed `config` carries `shapeUtils`, `bindingUtils`, `assetUtils`, `overlayUtils`, `tools` (arrays of constructors), `components` (a `TLComponents` map), and `options`; optional `getShapeVisibility(shape, editor)`, `assetUrls`, and `initialState`. Push your constructors onto the arrays — a util/tool whose static `type`/`id` matches a stock one replaces it. Custom shapes subclass `ShapeUtil` and custom overlays subclass `OverlayUtil` (both from `'tldraw'`); define them in a sibling file and `import` them, since `config.js` and `main.js` are separate module graphs.
 
 Read the worked `custom-shape` and `custom-overlay` recipes from `api.recipes` for the full `ShapeUtil` / `OverlayUtil` skeletons before writing either. Saving `config.js` (or a file it imports) rebuilds the store and editor — document, camera, and selection are preserved but undo history resets — whereas saving `main.js` never remounts. Keep run-on-mount logic in `main.js`; `config.js` only builds the config. Types live in `.script-workspace/script-context.d.ts` (`ConfigScriptContext`, `TldrawConfig`).
-
-## Fast path for static edits
-
-Shown as raw `curl`; `sh "$HOME/skills/tldraw-offline/tq" <METHOD> <path> [body]` is the shorter equivalent that handles the port and token for you.
-
-```bash
-# Fresh shell per call: re-read port + token (or use the values already in your context).
-PORT=$(jq -r .port 'C:/Users/tukum/AppData/Roaming/tldraw/server.json'); TOKEN=$(jq -r .token 'C:/Users/tukum/AppData/Roaming/tldraw/server.json')
-
-# Discover docs.
-curl -s -X POST http://localhost:$PORT/api/search \
-  -H 'content-type: application/json' \
-  -H "authorization: Bearer $TOKEN" \
-  -d '{"code":"return await api.getDocs()"}'
-
-# Read shapes for a doc.
-curl -s -X POST http://localhost:$PORT/api/search \
-  -H 'content-type: application/json' \
-  -H "authorization: Bearer $TOKEN" \
-  -d '{"code":"const [doc] = await api.getDocs(); return await api.getShapes(doc.id)"}'
-
-# Mutate with /exec, then verify once with api.getShapes().
-curl -s -X POST http://localhost:$PORT/api/doc/DOC_ID/exec \
-  -H 'content-type: application/json' \
-  -H "authorization: Bearer $TOKEN" \
-  -d '{"code":"const { createShapeId, toRichText } = await import(\"tldraw\"); const id = createShapeId(\"r1\"); editor.createShape({ id, type: \"geo\", x: 100, y: 100, props: { geo: \"rectangle\", w: 200, h: 100, richText: toRichText(\"Hello\") } }); return { created: [id] }"}'
-```
 
 ## Reporting
 

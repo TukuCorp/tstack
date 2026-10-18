@@ -1,6 +1,6 @@
 ---
 name: gloop
-description: Turns any goal into one short, paste-ready "gauntlet loop" prompt - makes an agent set a real quality bar, split work into judgeable pieces, run builder vs harsh critic blind, and loop until it wins. Triggers on "/gloop", "gloop", "gauntlet loop", "gauntlet this", "make a gauntlet prompt", "loop until it beats X".
+description: Turns any goal into one short, paste-ready "gauntlet loop" prompt - makes an agent set a real quality bar, split work into judgeable pieces, run builder vs harsh critic blind, and loop until it wins or stalls. Triggers on "/gloop", "gloop", "gauntlet loop", "gauntlet this", "make a gauntlet prompt", "loop until it beats X".
 ---
 
 # Gauntlet Loop (gloop)
@@ -16,7 +16,7 @@ You are not doing the work. You are writing the prompt that makes another agent 
 3. **Write the prompt.** One block, paste-ready, no preamble, no headings inside it, no narration after it.
 4. **Offer to run it.** One flat line under the prompt: "I can run this here." Not a question.
 
-If they say run it, you become the lead agent and follow the prompt you just wrote — fan out builders and critics as parallel subagents via `delegate_task` and keep looping until the critic picks yours blind.
+If they say run it, you become the lead agent and follow the prompt you just wrote — fan out builders and critics as parallel subagents via `delegate_task` and keep looping until the critic picks yours blind or the stall rule stops it. Keep the judging blind: capture both outputs in a separate step, write them as A and B in shuffled order, and log the mapping in a file the critic is never given; reveal it only after the verdict.
 
 ## The bar is the whole trick
 
@@ -52,11 +52,11 @@ Build [GOAL].
 
 The bar is [BAR]. Get the real thing first and compare against it directly, not against a description of it.
 
-Break this into the smallest pieces that can be improved and judged on their own. For each piece, fan out a builder and a separate critic with fresh context. The critic inspects the actual output, puts it next to the bar blind with the labels stripped, says which one is better, and names the single biggest remaining gap. Then it goes back to the builder.
+Break this into the smallest pieces that can be improved and judged on their own. For each piece, fan out a builder and a separate critic with fresh context. A separate capture step produces ours and the bar in the same format, shuffles them into A and B, and logs which is which where the critic cannot see it. The critic judges A against B, says which one is better, and names the single biggest remaining gap. Only then is the mapping revealed. Then the gap goes back to the builder.
 
 The critic should be a harsh critic. Praise is not useful. If ours does not win, it keeps going.
 
-Loop on each piece until the critic picks ours blind. Do not stop before that.
+Loop on each piece until the critic picks ours blind. The only early stop: if 3 rounds in a row close no gap, stop that piece and report the gap that remains.
 
 Keep a live progress page updating as the work evolves so I can watch it.
 
@@ -66,13 +66,14 @@ Run builders and critics as parallel subagents via delegate_task and keep loopin
 Rules for what you fill in:
 
 - Bake the bar in as a concrete, fetchable thing. URL, product name, repo, title.
-- Add a budget or cost ceiling line **only if the user named one**. No default cap.
+- Always keep the early-stop sentence. It stops a piece after K rounds in a row with no gap closed; K is 3 unless the user names another number.
+- Add a budget or cost ceiling **only if the user named one**, as a second early stop in the same sentence ("..., or once $X is spent, stop and report the gap that remains"). No default budget.
 - Add tool names only if the goal needs them (image or video generation, a browser, a deploy target).
 - Everything else stays out. No architecture, no file layout, no decomposition, no round count, no stack choice unless the user demanded it. The agent decides those, and it decides better than a spec written before the work started.
 
 ## Length and voice
 
-Short. Around 120 to 180 words. If the prompt needs a heading to stay readable, it is too long.
+Short. Around 150 to 220 words. If the prompt needs a heading to stay readable, it is too long.
 
 Plain sentences. No bullet lists inside the prompt. It should read like someone telling an agent what perfect looks like and refusing to accept less.
 
@@ -87,11 +88,11 @@ Build a landing page for a running brand. Athletic, peak performance, green and 
 
 The bar is Nike's current running campaign page. Screenshot it at desktop and mobile and compare against those directly, not against a description of them.
 
-Break this into the smallest pieces that can be improved and judged on their own - hero, motion, type, colour, imagery, interaction, mobile. For each piece, fan out a builder and a separate critic with fresh context. The critic opens the real page in a browser, puts our screenshot next to Nike's blind with the labels stripped, says which is better, and names the single biggest remaining gap. Then it goes back to the builder.
+Break this into the smallest pieces that can be improved and judged on their own - hero, motion, type, colour, imagery, interaction, mobile. For each piece, fan out a builder and a separate critic with fresh context. A capture step screenshots our page and Nike's at the same viewports, shuffles them into A and B, and logs the mapping where the critic cannot see it. The critic says which is better and names the single biggest remaining gap; only then is the mapping revealed. Then it goes back to the builder.
 
 The critic should be a harsh critic. Praise is not useful. If ours does not win, it keeps going.
 
-Loop on each piece until the critic picks ours blind. Do not stop before that.
+Loop on each piece until the critic picks ours blind. The only early stop: if 3 rounds in a row close no gap, stop that piece and report the gap that remains.
 
 Keep a live progress page updating as the work evolves so I can watch it.
 
@@ -107,11 +108,11 @@ Write a 2000-word explainer on vector databases for readers who are smart but no
 
 The bar is Julia Evans' writing on hard technical topics. Pull three of her actual posts and compare against them directly, not against a description of her style.
 
-Break this into the smallest pieces that can be judged on their own - the opening, each explanation, the diagrams, the analogies, the ending. For each piece, fan out a writer and a separate critic with fresh context. The critic reads ours and hers blind with the bylines stripped, says which one a non-engineer would understand faster, and names the single biggest remaining gap. Then it goes back to the writer.
+Break this into the smallest pieces that can be judged on their own - the opening, each explanation, the diagrams, the analogies, the ending. For each piece, fan out a writer and a separate critic with fresh context. A capture step strips bylines and formatting from ours and hers, shuffles them into A and B, and logs the mapping where the critic cannot see it. The critic says which one a non-engineer would understand faster and names the single biggest remaining gap; only then is the mapping revealed. Then it goes back to the writer.
 
 The critic should be a harsh critic. Praise is not useful. If ours does not win, it keeps going.
 
-Loop on each piece until the critic picks ours blind. Do not stop before that.
+Loop on each piece until the critic picks ours blind. The only early stop: if 3 rounds in a row close no gap, stop that piece and report the gap that remains.
 
 Keep a live progress page updating as the work evolves so I can watch it.
 
@@ -123,5 +124,6 @@ Run builders and critics as parallel subagents via delegate_task and keep loopin
 - **A vague bar.** The critic invents a comparison and approves everything. Most common failure by far.
 - **The builder judging its own work.** The critic must be a separate agent with fresh context. It should not know how hard the builder tried.
 - **A soft critic.** Say "harsh" in the prompt and give it a binary job: which one is better, A or B. Scores out of 10 drift upward every round.
-- **Named exit after N rounds.** The exit is winning the comparison, or the user stopping the run. Never a round count.
+- **A fixed round count, or no stop at all.** The exit is winning the comparison. The only early stops are the stall rule (K rounds in a row with no gap closed, default 3) and a budget the user named. Both end by reporting the remaining gap, never by declaring a win.
+- **A critic that knows which one is ours.** If the critic gathers the outputs itself or can see file names, the comparison is not blind. Capture in a separate step, shuffle into A and B, keep the mapping out of the critic's context, and reveal it only after the verdict.
 - **Over-specifying.** Every extra instruction is one fewer decision the agent makes with its own judgment. Minimal wins.

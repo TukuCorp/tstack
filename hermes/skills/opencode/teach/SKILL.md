@@ -1,6 +1,6 @@
 ---
 name: teach
-description: This skill should be used when the user explicitly invokes `/teach` to learn a new skill or concept over multiple sessions. Treats the current working directory as a teaching workspace, grounds every lesson in a user-authored MISSION.md, curates RESOURCES.md, and produces beautiful self-contained HTML lessons in `./lessons/` plus learning records in `./learning-records/`.
+description: This skill should be used when the user explicitly invokes `/teach` to learn a new skill or concept over multiple sessions. Keeps state in a teaching workspace (the current directory, or a new `learn-<topic>/`), grounds every lesson in a user-authored MISSION.md, curates RESOURCES.md and GLOSSARY.md, and produces self-contained HTML lessons in `./lessons/`, reference sheets in `./reference/`, and learning records in `./learning-records/`.
 argument-hint: "What would you like to learn about?"
 disable-model-invocation: true
 allowed-tools:
@@ -18,7 +18,7 @@ The user has asked you to teach them something. This is a stateful request — t
 
 ## Teaching Workspace
 
-Treat the current directory as a teaching workspace. The state of their learning is captured in this directory in several files:
+The teaching workspace is the current directory if it already holds a `MISSION.md`. Otherwise use `learn-<topic>/` (dash-case topic) inside the current directory, creating it if it does not exist, and tell the user its path so later sessions start there. The state of their learning is captured in the workspace in several files:
 
 - `MISSION.md`: A document capturing the _reason_ the user is interested in the topic. This should be used to ground all teaching. See [references/MISSION-FORMAT.md](./references/MISSION-FORMAT.md).
 - `./reference/*.html`: A directory of reference materials. These are the compressed learnings from the lessons — cheat sheets, reference algorithms, syntax, yoga poses, glossaries. They are the raw units of learning. They should be beautiful documents which print out well, and are designed for quick reference.
@@ -27,7 +27,7 @@ Treat the current directory as a teaching workspace. The state of their learning
 - `./lessons/*.html`: A directory of lessons. A **lesson** is a single, self-contained HTML output that teaches one tightly-scoped thing tied to the mission. This is the primary unit of teaching in this workspace.
 - `./assets/*`: Reusable **components** shared across lessons. See [Assets](#assets).
 - `NOTES.md`: A scratchpad for you to jot down user preferences, or working notes.
-- `GLOSSARY.md` (optional): The canonical language of the workspace. See [references/GLOSSARY-FORMAT.md](./references/GLOSSARY-FORMAT.md).
+- `GLOSSARY.md`: The canonical language of the workspace; every lesson and learning record uses its terms. The glossary page in `./reference/` is rendered from it, so update `GLOSSARY.md` first and then regenerate that HTML. See [references/GLOSSARY-FORMAT.md](./references/GLOSSARY-FORMAT.md).
 
 ## Philosophy
 
@@ -62,7 +62,7 @@ A lesson should be **beautiful** — clean, readable typography and layout — s
 
 The lesson should be short, and completable very quickly. Learners' working memory is very small, and we need to stay within it. But each lesson should give the user a single tangible win that they can build on. It should be directly tied to the mission, and should be in the user's zone of proximal development.
 
-If possible, open the lesson file for the user by running a CLI command.
+If possible, open the lesson file for the user by running a CLI command (`start "" <file>` on Windows, `open` on macOS, `xdg-open` on Linux). If that fails or no command is available, print the lesson's path instead.
 
 Each lesson should link via HTML anchors to other lessons and reference documents.
 

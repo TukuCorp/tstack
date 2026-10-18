@@ -40,7 +40,7 @@ One message, three Agent tool calls. Reviewers must not edit anything. They retu
 | Lens | `subagent_type` | Prompt template |
 |---|---|---|
 | Judgment | `general-purpose` | `references/judgment-reviewer.md` |
-| Tooling | `ocx-gpt-6-sol` (different model family on purpose), else `general-purpose` | `references/tooling-reviewer.md` |
+| Tooling | `ocx-gpt-6-sol` if that agent type is available (a different model family helps), else `general-purpose` | `references/tooling-reviewer.md` |
 | Divergent | `general-purpose` | `references/divergent-reviewer.md` |
 
 Pass each template verbatim, substituting the digest path for `<ABSOLUTE_PATH>` (or the inline digest where marked). If an agent type is unavailable, fall back to `general-purpose` and say so.
@@ -62,9 +62,11 @@ Append Backlog items to the project's `lessons.md` under `## Backlog (from refle
 For each approved Accepted row, follow its Routing exactly:
 
 - Trivial edit to an existing skill (a bullet, a tightened sentence, a stale fact): edit it directly.
-- Substantive edit (a new section, a pattern table, more than ~10 lines): use the `skill-creator` skill if available, otherwise draft the change, show the diff, then apply.
+- Substantive edit (a new section, a pattern table, more than ~10 lines): use the `anthropic-skills:skill-creator` skill if available, otherwise draft the change, show the diff, then apply.
 - `tune description: <skill path>`: rewrite the description to front-load the trigger phrases the user actually used.
-- `new skill via create-skill: <kebab-name>`: create it with `skill-creator`, matching the frontmatter conventions of the user's existing skills. Don't invent a shape ad hoc.
+- `new skill: <kebab-name>`: create it with `anthropic-skills:skill-creator`, matching the frontmatter conventions of the user's existing skills. Don't invent a shape ad hoc.
+
+If the edited skill is one the user mirrors across tools (the same skill under other agent tools' skill folders), list the matching edit for each mirror copy next to the row, adapted to that copy's frontmatter, paths, and tool names, so the user approves them together. Apply them all, or none.
 
 After editing, parse-check the frontmatter of every touched `SKILL.md` (`claude plugin validate <skills-dir>` works for a whole folder).
 

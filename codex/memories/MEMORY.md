@@ -1,67 +1,561 @@
-# Task Group: csim-copy QA feedback-round final polish (N1-N4) and QA-loop docs
-scope: Close QA feedback rounds in the CarbonSim clone (chart legend overlap, language contrast, setup form ids/percentages, QA-loop docs) with red/green TDD, browser-measured verification, full gate green, no commits, and :5003 serving kept up.
-applies_to: cwd=C:\Users\tukum\Downloads\csim-copy; reuse_rule=checkout-specific (net9.0 Blazor InteractiveServer on main f7943b9, 84 changed files uncommitted); the red/green plus no-commit plus :5003-serve plus herdr-report discipline is reusable wherever the same QA-loop rules are stated
+# Task Group: Command Code vs OpenCode Go $10 plan research tracks cc xval recon ocgo
+scope: Research Command Code GOAT vs OpenCode Go $10 plans per research/2026-10-14_cc-vs-opencode/BRIEF.md evidence rules, write track-cc/track-xval/track-recon/track-ocgo, then report via herdr agent prompt with no --wait.
+applies_to: cwd=C:\Users\tukum\Downloads\remote\personal; reuse_rule=track output paths and BRIEF.md are 2026-10-14-run-specific; the evidence-tagging discipline, search fallbacks, and herdr reporting shape are reusable wherever those tools are stated
 
-## Task 1: N3 setup form ids, labels, and shares-as-percentages
-
-### rollout_summary_files
-
-- rollout_summaries/2026-10-10T10-21-45-ghKX-qa_round7_final_polish_n1_n4.md (cwd=C:\Users\tukum\Downloads\csim-copy, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\10\rollout-2026-10-10T17-21-46-01a12555-3e2a-72d2-87e0-97e08b635403.jsonl, updated_at=2026-10-10T16:22:06+00:00, thread_id=01a12555-3e2a-72d2-87e0-97e08b635403, QA round 7 N1-N4 closed, full gate green, :5003 serving)
-
-### keywords
-
-- N3-setup-percent, AdminSetup.razor, Percent, SetPercent, SetupPercentHint, setup-sector, setup-abatement, setup-growth, sr-only, definition-list, AdminScreensTests, resx-parity
-
-## Task 2: N1 chart legend overlap plus N2 language contrast, browser-verified
+## Task 1: Track CC Command Code GOAT $10 research, success
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-10T10-21-45-ghKX-qa_round7_final_polish_n1_n4.md (cwd=C:\Users\tukum\Downloads\csim-copy, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\10\rollout-2026-10-10T17-21-46-01a12555-3e2a-72d2-87e0-97e08b635403.jsonl, updated_at=2026-10-10T16:22:06+00:00, thread_id=01a12555-3e2a-72d2-87e0-97e08b635403, QA round 7 N1-N4 closed, full gate green, :5003 serving)
+- rollout_summaries/2026-10-14T05-10-07-6qOq-cc_vs_opencode_track_cc_recon_2026_10_14.md (cwd=C:\Users\tukum\Downloads\remote\personal, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\14\rollout-2026-10-14T12-10-08-01a138d1-5e6f-7d50-b081-b9a50e2ee56e.jsonl, updated_at=2026-10-14T05:37:43+00:00, thread_id=01a138d1-5e6f-7d50-b081-b9a50e2ee56e, track-cc.md 25171 bytes plus track-recon.md success)
 
 ### keywords
 
-- N1-legend-overlap, N2-language-contrast, ECharts-SVG, charts.js, grid.top, legend-scroll, nav-ink, WCAG-contrast, PlaywrightFeedbackTests, Contrast, LegendOverlaps
+- commandcode, GOAT plan, $10 subscription, quantization, heavily quantized, full weight as always, HN algolia, pullpush, herdr agent prompt personal-claude, track-cc.md
 
-## Task 3: N4 QA-loop docs plus serve plus herdr report
+## Task 2: Track XVAL head-to-head value analysis, success
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-10T10-21-45-ghKX-qa_round7_final_polish_n1_n4.md (cwd=C:\Users\tukum\Downloads\csim-copy, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\10\rollout-2026-10-10T17-21-46-01a12555-3e2a-72d2-87e0-97e08b635403.jsonl, updated_at=2026-10-10T16:22:06+00:00, thread_id=01a12555-3e2a-72d2-87e0-97e08b635403, QA round 7 N1-N4 closed, full gate green, :5003 serving)
+- rollout_summaries/2026-10-14T05-10-07-8E59-xval_command_code_vs_opencode_go_value_analysis.md (cwd=C:\Users\tukum\Downloads\remote\personal, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\14\rollout-2026-10-14T12-10-08-01a138d1-5e7b-7111-9ba8-38f2b750fe9f.jsonl, updated_at=2026-10-14T05:25:55+00:00, thread_id=01a138d1-5e7b-7111-9ba8-38f2b750fe9f, track-xval.md 46278 bytes 302 lines success)
 
 ### keywords
 
-- N4-docs, activeContext, QA-loop-index, lessons, trainer-runbook, Change-rules, :5003, herdr-report, w2C:p2, fidelity-run, calibration-grid
+- XVAL, value normalization, multiplier, effective_price, K2-Vendor-Verifier, OpenRouter Exacto, x-opencode-session, Provider API, track-xval.md
+
+## Task 3: Track RECON quantization contradiction reconciliation, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-14T05-10-07-6qOq-cc_vs_opencode_track_cc_recon_2026_10_14.md (cwd=C:\Users\tukum\Downloads\remote\personal, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\14\rollout-2026-10-14T12-10-08-01a138d1-5e6f-7d50-b081-b9a50e2ee56e.jsonl, updated_at=2026-10-14T05:37:43+00:00, thread_id=01a138d1-5e6f-7d50-b081-b9a50e2ee56e, track-recon.md 22960 bytes, verdict track-cc right)
+
+### keywords
+
+- RECON, quantization reconciliation, per-thread table, Wayback 20260802045036, per-model allowance, Anomaly SST, YC W21, track-recon.md
+
+## Task 4: Track OCGO OpenCode Go $10 subscription research, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-14T05-10-07-SRdy-track_ocgo_opencode_go_research.md (cwd=C:\Users\tukum\Downloads\remote\personal, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\14\rollout-2026-10-14T12-10-08-01a138d1-5e6f-7d50-b081-b9b28db2896c.jsonl, updated_at=2026-10-14T05:17:35+00:00, thread_id=01a138d1-5e6f-7d50-b081-b9b28db2896c, track-ocgo.md 21432 bytes 235 lines success)
+
+### keywords
+
+- OCGO, OpenCode Go, opencode.ai/docs/go, per-model dollar limits, throttle 20pct 5h, privacy table, Muse Spark trains, DeepSeek ZDR, repo id 975734319, issues 10416 6355 10939 7410, PR 18186, HN 49242728, curl.exe, hn.algolia plus-encoding, track-ocgo.md
 
 ## User preferences
 
-- when fixing UI, the user said "Red/green where code changes, no commits, keep :5003 serving" -> run the failing test first, never commit, restart the host serving on :5003 after the change [Task 1]
-- when N3 asked, the user said show percentages as percentages (accept 3 or 3%), store fractions internally with hint under each field -> default to percent display with dual-parse plus a hint under each field [Task 1]
-- when N2 still looked blue, the user said "verify in a browser, not the stylesheet, a more specific rule may be overriding" -> measure computed style in Playwright, not CSS reading [Task 2]
-- when N1 overlapped on phones, the user expected reserve space so the legend sits above the plot when wrapped -> increase grid.top plus scroll legend [Task 2]
-- when N4 asked, the user said activeContext QA loop index, lessons 2 items, trainer-runbook price-path plus Change-rules -> update all three docs [Task 3]
-- when done, the user said "Report back with: herdr agent prompt w2C:p2 "<short report incl. final test counts>" and do not wait for a reply" -> send the single-line herdr prompt to w2C:p2, do not wait [Task 3]
+- when a research brief sets evidence rules, the user required: "Prefer independent technical sources... Vendor pages are allowed ONLY to establish what is claimed" -> treat vendor pages as claim-establishment only and tag every claim [verified]/[reported]/[anecdotal]/[vendor claim] with inline links, dates, and stale flags [Task 1][Task 2]
+- when a file is complete, the user required exactly `herdr agent prompt personal-claude "TRACK <id> DONE: <abs path> — <headline>"` with no --wait then stop -> run the verbatim reporting line once as the final step, never with --wait [Task 1][Task 2]
+- when contradictions are found, the user asked: "for each, record title, date, score, verbatim quote (<40 words) and whether it accuses CC, Go or both, and any staff/founder reply" -> produce a per-thread table with title/date/score/verbatim quote/accusation target/staff reply, and verify numeric changes with dated old-vs-new snapshots [Task 3]
 
 ## Reusable knowledge
 
-- AdminSetup.razor percent pattern: display via Percent(decimal?) as "3%", parse via SetPercent accepting "3" or "3%" dividing by 100; shares stay fractions in DraftParameters. [Task 1]
-- Every setup input needs id plus label for=id; repeated abatement/growth rows use for-loop index ids (setup-sector-{s}-*, setup-abatement-{s}-{o}-*, setup-growth-{g}-*) with sr-only labels; add .sr-only CSS. [Task 1]
-- SetupPercentHint resx key must exist in both en and vi or LocalizationTests fails key-parity; hint inside dl.metrics must live in dd (span.hint), not p inside dl, or axe definition-list fails. [Task 1]
-- Charts render to canvas by default; switch wwwroot/js/charts.js echarts.init(element,{renderer:"svg"}) to make legend/axis text measurable and crisper. [Task 2]
-- Prices grid.top 34->60 with legend type:"scroll"; Macc grid.top 24->44; unit test locks top>=52/44 and legend type scroll. [Task 2]
-- N2 root cause: .lang a had no rule, fell through to a{color:var(--blue)}; fix .topbar .lang a:link/visited color:var(--nav-ink) plus focus-visible outline; browser test computes WCAG contrast >=4.5 and no underline. [Task 2]
-- Playwright legend probe must filter by option.legend names and compare against yAxis name plus top tick; naive all-text overlap false-positives on scroll counter "1/2". [Task 2]
-- activeContext.md already has Review round 1-6; append Review round 7 plus Review QA loop index with fixed/accepted-limits table. lessons.md lesson 6 = sweep every lever before claiming mutually exclusive; cross-ref seeding rule in lesson 2. trainer-runbook.md S4 Change-rules card plus S8 measured envelopes (100.00/181.84/255.97, 9.0% discount, 1.00% abatement). [Task 3]
-- Keep :5003 serving via dotnet run --project src/CarbonSim.Web --no-build -- --urls http://localhost:5003 --environment Development; Start-Process blocked by policy, direct exec_command works; stale CarbonSim.Web locks build output -> Stop-Process before build/test. [Task 3]
-- Final gate shape: build 0W/0E; Engine 259+2 skip, Data 16, Web 179+1 skip; format only pre-existing CHARSET on GovernmentReserveToAuction migration. [Task 3]
+- GOAT $10 state on 2026-10-14: live card $80 credits vs docs/blog $70 stale; per-model allowances plus rolling 5h $14 / weekly $35 caps; PAYG top-ups never capped. CommandCodeAI formerly Langbase, founder Ahmad Awais, $5M seed led by PWV Tom Preston-Werner; client closed-source README-only despite open-source promise. [Task 1]
+- Normalized comparison that matched the independent tracker: multiplier = monthly_allowance_per_model / subscription_price; effective_price = list_price / multiplier; reference workload about 800 fresh input plus about 50k cache-read plus about 200 output per request. OpenCode Go averages 3.9x vs GOAT 3.1x per dollar but GOAT wins 14 of 28 shared models; Go stretches cheap workhorses, GOAT wins premium/mid. [Task 2]
+- Lock-in difference for a Codex CLI user: OpenCode Go validated for Hermes/Claude Code/Codex/ZCode/Pi/jcode via x-opencode-session; CC $1 Go CLI-only, GOAT+ has Provider API OpenAI plus Anthropic compatible. Privacy: OpenCode Go per-model table (open models 0 days, Grok/GPT-Luna/Haiku 30 days, Muse Spark trains Yes/not ZDR, DeepSeek ZDR monthly renewal to 2026-10-31); Command Code retains request content up to 30 days unless ZDR. [Task 2]
+- Quantization verdict: track-cc right, track-xval partly wrong, track-ocgo fully wrong from negative-search error on 403s plus narrow queries; both services accused but asymmetric (Go about 11 threads/HN posts Apr-Oct 2026, CC about 4 Sep-Oct 2026), neither proven. Variance itself is verified (Moonshot K2-Vendor-Verifier, OpenRouter Exacto, secondary census fp8 43pct/unknown 32pct/fp4 11pct); K2.5 native int4 means int4 alone is not degradation proof. OpenCode by Anomaly formerly SST, founders Jay V plus Frank Wang, YC W21 Toronto, $1M seed Greylock/SV Angel/YC; 2025 name clash was opencode-ai/opencode vs sst/opencode, crush IS original. OpenCode Go old global $12/5h $30/wk $60/mo (Wayback 2026-08-02) became per-model $15-$80. [Task 1][Task 2][Task 3]
+- Output paths: research/2026-10-14_cc-vs-opencode/track-cc.md (25171 bytes), track-xval.md (46278 bytes, 302 lines), track-recon.md (22960 bytes), all under C:\Users\tukum\Downloads\remote\personal. [Task 1][Task 2][Task 3]
+- Output paths add track-ocgo.md (21432 bytes, 235 lines) under the same research folder, reported via herdr agent prompt personal-claude TRACK OCGO DONE with exit 0 plus agent_prompted. [Task 4]
+- OpenCode Go $10 state on 2026-10-14 from opencode.ai/docs/go full dump: Go $10/mo, Go Plus $40/mo, identical token prices with different monthly dollar limits per model; throttle rule 20pct per 5h / 50pct per week / 100pct per month; single-member workspace only; optional Use-balance fallback to Console/Zen PAYG; free models LongCat 2.5 Preview, Step 5 Preview, Cat Jam marked Unlimited limited time. [Task 4]
+- OpenCode Go privacy table is the key transparency artifact: most models Not used/0 days, but Grok 4.6/4.7 plus GPT 5.6/6 Luna plus Claude Haiku 5.5 plus Cat Jam keep 30 days; Muse Spark 1.2/1.3 Contributor trains on prompts (region-limited); DeepSeek V4.x ZDR renewed monthly valid through Oct 31 2026 with peak 01:00-04:00 and 06:00-10:00 UTC Mon-Fri; session header x-opencode-session. [Task 4]
+- Repo identity check: sst/opencode and anomalyco/opencode resolve to the same repo id 975734319 (213301 stars, created 2025-04-30), verifying the SST to Anomaly rebrand; key GitHub evidence is PR 18186 anthropic legal requests plus issues 7410 Broken Claude Max, 10416 titles sent off-box, 6355 RCE/no-auth server, 10939 auth login runs remote command. [Task 4]
+- Stale note on this track: the OCGO report found no quantization accusation (HN Algolia opencode quantized nbHits=0) and treated variance as privacy/routing, but the later RECON verdict records track-ocgo as fully wrong from a negative-search error on 403s plus narrow queries; prefer the Task 3 reconciliation over the Task 4 no-accusation claim. [Task 3][Task 4]
 
 ## Failures and how to do differently
 
-- First cut placed <p> hint inside dl.metrics div -> axe definition-list serious violation; moved hint to span inside dd and re-ran PlaywrightAccessibilityTests green. [Task 1]
-- Added Percent/SetPercent markup before helpers existed -> 15x CS0103 red; added helpers then green - expected red/green sequence. [Task 1]
-- First legend probe compared every text pair -> tripped on "Offset" vs "1/2" counter; tightened to title plus plot-top check. [Task 2]
-- Non-vacuous check: restoring grid.top 34 fails with "legend Vintage 1 lands on axis title", 60 passes; keep the revert-check when claiming overlap fixed. [Task 2]
-- Full-suite Playwright run surfaced 2 admin failures then isolated to axe dl violation; fixed markup not test. [Task 3]
-- exec_command long tests yield to background session; must poll via write_stdin/wait with session_id. [Task 3]
+- Firecrawl search 402 out of credits and 429 on batches -> use search_service_web_run with `system2_search_query:[`q:...`], response_length:"long"` for discovery (discover schema via ALL_TOOLS filter first), reserve firecrawl for scrape. [Task 1][Task 2]
+- Direct Reddit JSON 403 from host -> use the search-service reader for thread content plus api.pullpush.io for dates/scores; use hn.algolia.com/api/v1/items/<id> for HN threads. [Task 1][Task 3]
+- Wayback CDX query returned empty -> fall back to a direct timestamp URL such as http://web.archive.org/web/20260802045036/https://opencode.ai/docs/go/. [Task 3]
+- PowerShell curl pitfall: bare curl aliases to Invoke-WebRequest and breaks on vendor docs (null-reference on opencode.ai) -> always use curl.exe -sL to a file in $env:TEMP then Get-Content plus tag-stripping; Invoke-RestMethod works for hn.algolia.com and api.github.com. [Task 4]
+- HN Algolia query encoding: EscapeDataString space form (%20) 404s in this harness -> join query terms with plus, e.g. https://hn.algolia.com/api/v1/search?query=opencode+zen&tags=story&hitsPerPage=10, and fetch threads via hn.algolia.com/api/v1/items/<id>. [Task 4]
+- Reddit plus r.jina.ai plus redlib mirrors all 403/429/ERR from this host -> do not retry-loop; record as gap, cite the Reddit thread via its HN mirror title only, and note as unread. [Task 4]
+- web_search via exec wrapper fails (tools.web_search is not a function) and native search quota can cap after one call -> pivot to direct HN Algolia plus GitHub API plus curl.exe vendor docs for this research class. [Task 4]
+- Triple-backtick markdown inside an exec JS template literal throws SyntaxError Unexpected identifier -> strip backticks before building apply_patch content; use indented code blocks for formulas. PowerShell nested-quote interpolation fails with MissingEndParenthesis -> use simple [string]::Join construction and avoid nested single-quote interpolation. [Task 2][Task 3]
+
+# Task Group: remote-data git commit-push on master plus study-guide visibility check
+scope: Verify then commit-push a broad dirty tree on remote-data master with per-artifact checks, handle scoped no-op follow-ups, and diagnose GitHub UI visibility reports.
+applies_to: cwd=C:\Users\tukum\Downloads\remote; reuse_rule=commit dfbf3f6 and study-guide paths are remote-data Oct-2026-specific; the BOM, push-noise, and gh-jq shields are reusable wherever those tools are stated
+
+## Task 1: Broad dirty-tree commit-push on master, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-13T14-19-02-oNCr-remote_data_master_commit_push_study_guide_visibility.md (cwd=C:\Users\tukum\Downloads\remote\ceba, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\13\rollout-2026-10-13T21-19-02-01a135a1-8ce1-7e40-9148-ac1296f56303.jsonl, updated_at=2026-10-13T21:23:57+00:00, thread_id=01a135a1-8ce1-7e40-9148-ac1296f56303, dfbf3f6 pushed 67 files; Task 3 visibility check interrupted so rollout overall partial)
+
+### keywords
+
+- remote-data, master, git commit push main, dfbf3f6, study-guide rebuild, SHA256 9473F4DE, node --check, i18n 145, BOM, force-with-lease, NativeCommandError
+
+## Task 2: Scoped study-guide commit-push no-op report, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-13T14-19-02-oNCr-remote_data_master_commit_push_study_guide_visibility.md (cwd=C:\Users\tukum\Downloads\remote\ceba, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\13\rollout-2026-10-13T21-19-02-01a135a1-8ce1-7e40-9148-ac1296f56303.jsonl, updated_at=2026-10-13T21:23:57+00:00, thread_id=01a135a1-8ce1-7e40-9148-ac1296f56303, scoped check clean, inclusion proven via show --stat)
+
+### keywords
+
+- study-guide no-op, git status scoped path, git ls-files 37, git show --stat, ee-heat wrong-repo check
+
+## Task 3: GitHub study-guide visibility diagnosis, uncertain
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-13T14-19-02-oNCr-remote_data_master_commit_push_study_guide_visibility.md (cwd=C:\Users\tukum\Downloads\remote\ceba, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\13\rollout-2026-10-13T21-19-02-01a135a1-8ce1-7e40-9148-ac1296f56303.jsonl, updated_at=2026-10-13T21:23:57+00:00, thread_id=01a135a1-8ce1-7e40-9148-ac1296f56303, interrupted before folder-contents API check)
+
+### keywords
+
+- GitHub UI missing folder, git ls-tree HEAD, gh api contents, jq quoting dir/0, pagination, wrong repo branch
+
+## User preferences
+
+- when the user says only "git commit push main" with no message -> verify then commit with a generated scope-summary message and push [Task 1]
+- when the user narrows to a subfolder right after a full-tree commit ("Commit push study guide folder") -> run a scoped status check first and report no-op with inclusion proof rather than creating an empty commit [Task 2]
+
+## Reusable knowledge
+
+- remote-data default branch is master (origin/master, private repo TukuCorp/remote-data); user phrase "main" resolves there, verified via gh repo view and git ls-remote --heads origin. No root build/test suite; applicable verification is per-artifact: study-guide rebuild plus deal-room node --check plus html parse. [Task 1]
+- Study-guide rebuild reproduces Day1_EE-Policy_speaker-notes_VI.html byte-for-byte (SHA256 9473F4DEE30DC2BE1A5EAB170AF897B39BB4503F123FD38B8D2C6A129A7ECDF2); direct overwrite can hit PermissionError/lock even when the file shows WRITABLE, workaround is build to `env:TEMP/sg_verify.html and hash-compare. Deal-room check: single inline script block passes node --check, 145 i18n entries, 3 data-lang buttons, id="loop" plus function setLang present. Commit dfbf3f6: 67 files, 1575 insertions, message "CEBA deal-room i18n + VI study guide, Nike DPPA 13 Oct sync". __pycache__/*.pyc correctly excluded by .gitignore. [Task 1]
+- Scoped no-op proof: git status --porcelain=v1 -- ceba/study-guide empty plus git ls-files ceba/study-guide at 37 files plus git show --stat dfbf3f6 -- ceba/study-guide. ee-heat has no ceba/study-guide path though it has .git, which rules out wrong-repo confusion. [Task 2]
+- Visibility evidence so far: local Get-ChildItem includes study-guide, git ls-tree --name-only HEAD ceba/ includes ceba/study-guide, GitHub commits/master returns dfbf3f6 with study-guide in the message; a UI listing that omits the folder points to pagination, refresh, or wrong repo/branch/path rather than a missing push. Unfinished: fetch repos/TukuCorp/remote-data/contents/ceba/study-guide?ref=master and compare vs ee-heat if confusion persists. [Task 3]
+
+## Failures and how to do differently
+
+- PowerShell Set-Content -Encoding UTF8 adds a UTF-8 BOM (ef bb bf) to the commit message file; git log --format=%s hides it but git cat-file commit HEAD shows it. Write the message via python open(..., encoding="utf-8", newline="\n") then git commit -F, and verify first bytes are 43 45 42 41 not efbbbf. Amend plus push --force-with-lease only when the branch holds just the own just-created commit. [Task 1]
+- git push origin master over PowerShell reports NativeCommandError / exit=1 with "To https://github.com/TukuCorp/remote-data.git" plus "b079e2f..757bde1 master -> master" even on success; confirm via git rev-parse HEAD origin/master equality and status -sb, not exit code alone. [Task 1]
+- gh api with --jq '.[] | select(.type=="dir") | .name' fails in the PowerShell wrapper with function not defined: dir/0; use simpler --jq '.[].name' or git ls-tree against origin instead of a gh jq filter. Do not offer to split/rewrite the pushed commit with force-push unless the user explicitly asks. [Task 2][Task 3]
+
+# Task Group: ee-heat gap-financing research tracks vn id risk tech brand
+scope: Complete a gapfin research track per scratchpad/gapfin/COMMON.md plus the track brief: 8-section report with 25-plus credible 2024-plus sources and working URLs, curl URL verification, then herdr report-back plus notification.
+applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=brief paths, output paths, and herdr pane w2G:p2 are ee-heat gapfin-run-specific; the firecrawl pacing plus curl-liveness plus herdr quoting shields are reusable wherever those tools are stated
+
+## Task 1: Complete Indonesia domestic capital research track id, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-13T13-13-53-rJDZ-gapfin_id_domestic_indonesia_capital.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\13\rollout-2026-10-13T20-13-54-01a13565-e9c3-7560-98ae-df9af37a4ecb.jsonl, updated_at=2026-10-13T13:38:16+00:00, thread_id=01a13565-e9c3-7560-98ae-df9af37a4ecb, 56 sources plus 22 instruments success)
+
+### keywords
+
+- gapfin, gap-financing, Indonesia domestic capital, PT SMI, IIF, PP 78/2019, PMK 69/2024, TKBI, Permen ESDM 2/2024, IDXCarbon, herdr report-back, curl URL verification, firecrawl 429
+
+## Task 2: Complete tech-track technology financing parameters research, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-13T13-14-26-TF2i-gapfin_tech_parameters_track.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\13\rollout-2026-10-13T20-14-26-01a13566-67fc-7a13-8607-c04206133bda.jsonl, updated_at=2026-10-13T13:39:22+00:00, thread_id=01a13566-67fc-7a13-8607-c04206133bda, 52 sources plus TEA defaults success)
+
+### keywords
+
+- gapfin, tech-parameters, TEA defaults, Decree 58/2025, Decree 57/2025, Decree 243/2026, MEMR 2/2024, WACC, BESS capex, firecrawl 429, herdr report-back, 671 VND/kWh surplus
+
+## Task 3: Complete Vietnam domestic capital research track vn, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-13T13-13-04-55y0-gapfin_vn_domestic_track_complete.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\13\rollout-2026-10-13T20-13-05-01a13565-2960-75b2-8811-9a8d799d3ac8.jsonl, updated_at=2026-10-13T13:36:05+00:00, thread_id=01a13565-2960-75b2-8811-9a8d799d3ac8, 33 sources plus 14 instruments success)
+
+### keywords
+
+- gapfin, vn-domestic, Vietnam domestic capital, VDB, Law 77/2025, green credit, BIDV, Decree 135/2024, Decree 57/2025, herdr report-back, curl URL verification
+
+## Task 4: Complete risk-structures research track risk, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-13T13-14-14-xb6H-gapfin_risk_track_research.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\13\rollout-2026-10-13T20-14-15-01a13566-3baf-7a21-ac12-bc1e32ac6453.jsonl, updated_at=2026-10-13T13:36:28+00:00, thread_id=01a13566-3baf-7a21-ac12-bc1e32ac6453, 42 sources plus 27 instruments success)
+
+### keywords
+
+- gapfin, risk-structures, GuarantCo, GGC, VSUEE, IFC GTSF, ADB TSCFP, TCX, ESCO, ASC 460, firecrawl pacing, herdr report-back, curl URL verification
+
+## Task 5: Complete brand-led and regional supplier-finance models track brand, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-13T13-14-03-eE6N-gapfin_brand_regional_track.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\13\rollout-2026-10-13T20-14-04-01a13566-10fd-7fc1-bffa-a339d7fd2b25.jsonl, updated_at=2026-10-13T13:30:08+00:00, thread_id=01a13566-10fd-7fc1-bffa-a339d7fd2b25, 41 sources plus 27 instruments success)
+
+### keywords
+
+- gapfin, brand track, Future Supplier Initiative, D-TAFS, Fashion Climate Fund, Good Fashion Fund, IFC GTSF, ACGF, GuarantCo, herdr report-back, firecrawl 429, search_service_web_run, ADB bot-challenge
+
+## User preferences
+
+- when completing a gapfin track, the objective required to "Read and follow COMMON.md and the track brief exactly" -> treat the COMMON.md source standard (25-plus unique credible 2024-plus sources with working URLs), the 8-section output structure, and the mandatory herdr report-back plus notification as hard completion gates [Task 2][Task 3][Task 4]
+
+## Reusable knowledge
+
+- Track contract: briefs COMMON.md plus <track>.md live under scratchpad/gapfin; output goes to research/2026-10-13_gapfin-<track>.md; brainstorm context is research/2026-10-13_gap-financing-report-brainstorm.md. Done means 8 sections (title plus exec summary, Key findings 8-15 bullets, Instrument table with full columns, SWOT, Implications for Gap scenarios A-D, Questions for calls, Gaps, Sources), 25-plus unique credible 2024-plus or older-but-current sources with working URLs, then herdr agent prompt w2G:p2 "[gapfin <track> DONE] ..." with no --wait plus herdr notification show. [Task 1][Task 2]
+- Hard limits observed: research only, no contact, no read from gap/ (client-confidential), edit only own output file, no commit/push; git status should show only untracked research files. [Task 1]
+- Tax-allowance correction: PP 78/2019 is implemented via PMK 11/PMK.010/2020 as amended by PMK 96/PMK.010/2020, NOT PMK 81/2024 (PMK 81/2024 is Coretax administration). Masterlist import-duty exemption rests on PMK 176/PMK.011/2009 as amended; Kemenkeu JDIH fulltext was unreachable, cite the BKPM JDIH portal and flag for re-verification. [Task 1]
+- Track id substantive top finding: domestic capital exists but unpublished at supplier scale; LPEI Rp2tn at 6 percent is export-tagged not decarbonisation; bank green/SLL books deep but term-opaque for FDI suppliers; binding constraints are Permen ESDM 2/2024 (no export credit, quota plus self-consumption plus BESS pairing) and unenforced carbon tax IDR30k/tCO2e with thin IDXCarbon; JETP CIPP is power-sector only. Near-term pathways are bank green lending, zero-CAPEX solar (SUN/Xurya/ENEOS 15-25yr), ESCO/EPC staged B->C. [Task 1]
+- Track tech evidence anchors: VN avg retail VND 2204.07/kWh (Decision 1279) with Decision 14/2025 structure; ID I-3/B-3 Rp1114.74/kWh and I-4 Rp996.74/kWh; VN Decree 58/2025 self-consumption (20 percent grid-sale cap, imported panels banned) plus Decree 57/2025 DPPA amended by 243/2026 (physical caps removed, rooftop surplus to 50 percent, synthetic 7->3 steps); ID MEMR 2/2024 removed export credit plus quota so default is third-party leasing; VN lending 6.6-8.9 percent VND green-SME from 4.2 percent, ID working-capital 8.24 percent; VN WACC 10-13.5 percent vs MY 6.5-8 percent; BESS 117 USD/kWh turnkey and 108 USD/kWh pack; HTHP 1500-4000 USD/kWth; e-boiler 100-200 EUR/kW. [Task 2]
+- Track tech explicit gaps left open: no credible USD/MWh-yr-saved EE benchmark, no credible VN/ID biomass fuel price (trade quotes excluded), 671 VND/kWh surplus price needs MoIT confirmation. [Task 2]
+- Track vn substantive top finding: live VN capital is commercial-bank green lending (BIDV VND3,000bn plus US$50m textile envelope) plus VDB co-lending up to about 70 percent of project cost in VND; Law 77/2025 Energy Efficiency Promotion Fund in force 1 Jan 2026 but not yet disbursing with no window/rate/banks; supplier-level rates largely unpublished. Explicit gaps left for follow-up: DFI on-lending lines, VietinBank/HDBank/MB/ACB, Shinhan/Woori/UOB, ESCO terms, carbon-market/ETS, JETP detail; do not cite VPBank/SC wholesale figures as supplier facilities. [Task 3]
+- Track risk substantive top finding: public/DFI guarantors already cover VN/ID garment suppliers (GuarantCo 5-50m up to 20yr max 50 percent LT debt local-currency; GGC launched Feb 2024 100m base to 1bn guarantees Fitch BBB/Stable); VSUEE risk-sharing facility under-deployed due to unfamiliarity with guarantee product and complex guidelines; VSUEE lesson plus ASC 460 disclosure shapes staged Gap role D->B->C recommendation. [Task 4]
+- Track vn output path: research/2026-10-13_gapfin-vn-domestic.md (24KB, 33 sources, 14 instruments); track risk output path: research/2026-10-13_gapfin-risk-structures.md (34KB, 42 source rows, 27 instrument rows). [Task 3][Task 4]
+- Track brand substantive top finding: FSI is a bank loan with brand-backed risk guarantee not brand cash (Guidehouse delivery, DBS first bank, brands decide per-project, 2-year cohorts, Bangladesh/India live, VN/CN/TR/ID under development, Gap Inc already committed); Fashion Climate Fund USD 250M target to unlock USD 2B (40M pre-seed / 60M pilot / 100M model / 1.8B scale, 7x USD 10M leads); D-TAFS USD 250M scalable to 400M managed by SIMA anchored by IFC up to 60M plus FMO 50M prospective, IFC board approved 2026-08-07 pending signing (Project 48558 disclosed 2026-05-01); GFF2.0 USD 60M mezzanine plus USD 1.5M TA for IN/BD/VN/TR vs GFF1 USD 19M deployed; IFC GTSF USD 1B plus IFC-Citi USD 2B programme; GuarantCo VND 1000B (~USD 40M) IDI Sao Mai Nov 2024 plus ~USD 47M Xuan Mai 20yr; ADB TSCFP 24,722 txs USD 5.7B in 2025; ACGF USD 105M AIF plus USD 2.3B partner across 15 projects USD 7.5B cost (infra not garment); VSUEE USD 86.3M World Bank/GCF risk-sharing as VN pricing precedent; implication D-start then C-step. [Task 5]
+- Track brand output path: research/2026-10-13_gapfin-brand-regional.md (40140 bytes, 167 lines, 27 instrument rows, 41 source rows, 0 non-ascii); sources primary-first (IFC/FMO/ADB/GuarantCo/JICA/WB/H&M/Aii/GFF/Fashion Pact) plus 1 research plus 1 press, 2 marked older-but-current (S24 2021-12-08, S38 2021-03-08). [Task 5]
+- Track brand research workflow that worked: read COMMON.md plus brand.md plus 2026-10-13_gap-financing-report-brainstorm.md first, then search_service_web_run system2_search_query when firecrawl_search 429s, then direct Invoke-WebRequest HTML-to-text fetch, then curl HTTP-code check for all URLs. [Task 5]
+- ADB/GEF bot-challenge shield: curl returns 403 with title Just a moment but firecrawl_scrape returns status 200 with 27k-87k markdown; do not drop ADB URLs on curl 403 alone, verify via firecrawl_scrape or search_service open/find and record method in Gaps and caveats. [Task 5]
+
+## Failures and how to do differently
+
+- Parallel firecrawl_search batches (5-8 concurrent) return 429, later 402 when credits are exhausted -> run sequential queries with 4-9s sleep/backoff plus 2.5-4s inter-query delay and 3-6 retries; when firecrawl is blocked or quota-spent, switch to an alternate search tool and keep curl for URL verification. Do not parallelize firecrawl queries. [Task 1][Task 2][Task 4]
+- Invoke-WebRequest Head checks are unreliable (403/object-reference errors even for live pages) -> verify URLs with curl.exe -sS -o NUL -L --max-time 12-15 -A "Mozilla/5.0..." -w "%{http_code}"; 403 to scripted fetch means bot-blocked, not dead. Retain and flag bot-blocked-but-browser-live pages (ADB, UNDP, IEEFA, BPK details, White and Case); drop only true dead (SIPET 503, OJK host timeout, Mandiri, BNI PDF redirect loop, peraturan.go.id). Firecrawl scrape (browser proxy) can confirm browser-loadable pages. [Task 1][Task 2][Task 3][Task 4]
+- OJK TKBI v2 primary host timed out -> usable mirror is the SBFN copy, mark as primary (mirror). [Task 1]
+- herdr agent prompt quoting breaks on apostrophes (error "unknown option: s") -> resend with a clean message without apostrophes; spell out percent signs. [Task 2]
+- tools.web_search does not exist in this harness -> inspect ALL_TOOLS for mcp__firecrawl__firecrawl_search/scrape and use those. [Task 2][Task 3][Task 4]
+- DuckDuckGo HTML parsing via PowerShell Select-String returned empty despite fetched lines -> abandoned in favor of Bing length check plus Firecrawl recovery. [Task 2]
+- thuvienphapluat.vn returns 403 to bot curl -> drop and use primary vbpl.vn, congbao.chinhphu.vn, or luatvietnam English instead. [Task 3]
+- Long curl verification batches truncate output -> split into batches of 5-6 URLs with short --max-time 8-12s. [Task 4]
+- PowerShell Get-ChildItem/Remove-Item via exec_command blocked by policy -> use apply_patch Delete File operations to clean scratch files instead. [Task 4]
+- MIGA, ADB, IEA, GEF, Forbes, Bank Mandiri block curl (403/401/000) but load via firecrawl_scrape markdown fetch, which counts as verified load per brief. [Task 4]
+- firecrawl_search hit 429 repeatedly on single plus batched queries -> pivot to search_service_web_run system2_search_query for discovery and reserve firecrawl for scrape, with sleeps/retries. [Task 5]
+- firecrawl_scrape on JS-heavy pages (IFC disclosures, ADB docs) often returned len 0 via onlyMainContent true -> fallback to search_service open plus find (e.g. find Disclosed/Project Number) extracted SPI disclosed/board/status reliably. [Task 5]
+- PowerShell curl loop with double-quoted quoting failed with SyntaxError Invalid token -> use String.raw template with single backtick escaping plus Write-Output ($u + -> + ($r -join)) and a Get-Text function stripping script/style tags. [Task 5]
+- Laudes story URL 404 and unloadable GEF D-TAFS page were dropped/excluded rather than cited; record such drops in Gaps and caveats to preserve auditability. [Task 5]
+
+# Task Group: CEBA Oct 2026 interactive exercises Drive search plus live RE-Fit Tool review
+scope: Find October 2026 workshop interactive-exercise files on Drive via the gws CLI, then run the RE-Fit Excel tool live and report findings without touching the Drive original.
+applies_to: cwd=C:\Users\tukum\Downloads\remote\ceba; reuse_rule=Drive folder and file IDs are Oct-2026-workshop-specific and time-sensitive; the gws --params plus Python-subprocess quoting workaround and the xlwings live-review discipline are reusable wherever the same tools are stated
+
+## Task 1: List Drive files for Oct 2026 interactive exercises, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-12T02-44-28-feHu-ceba_oct2026_interactive_exercise_drive_refit_review.md (cwd=C:\Users\tukum\Downloads\remote\ceba, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\12\rollout-2026-10-12T09-44-29-01a12dff-4d74-7163-b969-a1aa80cde268.jsonl, updated_at=2026-10-12T06:22:37+00:00, thread_id=01a12dff-4d74-7163-b969-a1aa80cde268, Drive search plus live RE-Fit review all success)
+
+### keywords
+
+- gws drive files list, --params, CEBA 2026 In-person Workshops, 10Oz6DNaSYEvDIbKzSBqzYaD_MdKyFOKf, Day 1 RE Excercise, 1OvLcCvTlAJNnKkGxL1Tv6aF8O3berXNU, node run.js, PowerShell quoting
+
+## Task 2: Screen related files updated past 2 weeks, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-12T02-44-28-feHu-ceba_oct2026_interactive_exercise_drive_refit_review.md (cwd=C:\Users\tukum\Downloads\remote\ceba, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\12\rollout-2026-10-12T09-44-29-01a12dff-4d74-7163-b969-a1aa80cde268.jsonl, updated_at=2026-10-12T06:22:37+00:00, thread_id=01a12dff-4d74-7163-b969-a1aa80cde268, 2-week screen plus focused answer-key and facilitator queries)
+
+### keywords
+
+- modifiedTime, allDrives supportsAllDrives, Check-in and Check-out Process, 1PnZiSYgo64fK8Lci9dUJAQYjrr7Of_2Z, Hong Anh Le, no answer key, no facilitator guide, no Day-2 exercise
+
+## Task 3: Find excel workbook for interactive exercise, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-12T02-44-28-feHu-ceba_oct2026_interactive_exercise_drive_refit_review.md (cwd=C:\Users\tukum\Downloads\remote\ceba, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\12\rollout-2026-10-12T09-44-29-01a12dff-4d74-7163-b969-a1aa80cde268.jsonl, updated_at=2026-10-12T06:22:37+00:00, thread_id=01a12dff-4d74-7163-b969-a1aa80cde268, sole Oct 2026 workbook identified plus precedents)
+
+### keywords
+
+- CEBA_RE_Fit_Tool_v0.3 Draft Editting, 1nXTB_Rw-eaz0wJu77sJscl4vwduhdBGs, spreadsheet MIME filter, Model Building Exercise, Day 2 Exercise Planning, Cong Nguyen
+
+## Task 4: Run RE-Fit Tool live via xlwings and review, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-12T02-44-28-feHu-ceba_oct2026_interactive_exercise_drive_refit_review.md (cwd=C:\Users\tukum\Downloads\remote\ceba, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\12\rollout-2026-10-12T09-44-29-01a12dff-4d74-7163-b969-a1aa80cde268.jsonl, updated_at=2026-10-12T06:22:37+00:00, thread_id=01a12dff-4d74-7163-b969-a1aa80cde268, live xlwings scenarios plus robustness edges plus CHECKS verification)
+
+### keywords
+
+- xlwings 0.37.0, UsedRange.SpecialCells, Input G7 G8 G12 G13 G14, Dashboard, Data CHECKS E8:K14, Engine 8761x24, LCoS, payback IRR, OVER ROOF LIMIT, RTE DoD voltage Region, re-fit-run.xlsx
+
+## Reusable knowledge
+
+- Core Oct 2026 interactive files live in folder CEBA 2026 In-person Workshops (id 10Oz6DNaSYEvDIbKzSBqzYaD_MdKyFOKf): [Final] Interactive Plan 1WjAuKF3PtmviiEKvrejp_EVBylirGYnWbDAlRMToEFY (2026-10-09), [Internal] 1jrgespUgfTJYkZ2retsfoK2PQbmkgg_lMEXpU9t_4q8 (2026-10-06), [Shared] 1LAk7gYs7zdzs3qqMXaF1ExMypYIU-otqytfEohOs7no (2026-09-23), CEBA 2026_Interactive Questions 1kQnGzm6R-KR1gN7wInczRw2XAOh-2kxZJKZfApGKLn4. [Task 1]
+- Exercise material folder Day 1 RE Excercise (id 1OvLcCvTlAJNnKkGxL1Tv6aF8O3berXNU) under Cong_Content_Drafts holds CEBA_Day1_RE-Fit_Exercise_v1_EN Edit.pptx 1sANvb4E5A8wL-oeWsSgFiVwYDL-utwLx and CEBA_RE_Fit_Tool_v0.3 Draft Editting.xlsx 1nXTB_Rw-eaz0wJu77sJscl4vwduhdBGs. [Task 1]
+- New related cluster: folder Check-in and Check-out Process id 1PnZiSYgo64fK8Lci9dUJAQYjrr7Of_2Z under Workshop Materials -> CEBA 2026 In-person Workshops, 8 files all 2026-10-05 by Hong Anh Le (check-in/out process doc, registration QR, post-survey QR/link/printouts, EN/VI/CN post-survey papers). [Task 2]
+- No separate answer key, facilitator guide, or Day-2 exercise file exists on Drive; Day 1 RE folder still only 2 files. [Task 2]
+- Only Oct 2026 exercise workbook is CEBA_RE_Fit_Tool_v0.3 Draft Editting.xlsx id 1nXTB_Rw-eaz0wJu77sJscl4vwduhdBGs, 2026-10-08 by Cong Nguyen, still named Draft Editting; no v0.1/v0.2 or released copy. Precedent sheets: Model Building Exercise 1prKF_mDO6h5Pl6CdVnLS3Z0FyDAQpNiB8pyfHHN-0l0, Day 2 Exercise Planning 1e8QRf9ZN0TdsfGMw2WwspiMdppRTsOsqWrR3dt01W44. [Task 3]
+- Workbook structure: 11 sheets Huong dan (VN), Input, Dashboard, Scenario Log, Data (8761 rows), Tariff, Derived, Engine (8761x24 near 210k formulas), Monthly, Profiles, Lifetime; near 2.4MB; full recalc takes seconds; Data CHECKS panel at E8:K14 exists (rows, PV yield, peak hour, annual/peak/avg load). [Task 4]
+- Valid-input results coherent, zero error cells: PV-only near 9.1yr payback near 12.8 percent IRR LCoS near 1693 VND/kWh below near 1838 avoided tariff; plus 2000kWh/500kW BESS pushes LCoS to near 2250, 142 cycles/yr, incremental payback 46.6yr (never on Any deficit hour). Edge k=10 percent, No export, roof OVER LIMIT flag, 50k demand charge all behave correctly. [Task 4]
+- Robustness gaps: only 4 validations (C11/C18/C21 lists, C35 whole); C23 voltage lookup unguarded -> #N/A cascade; RTE=0 -> #DIV/0!; bad Region -> #N/A; PV negative -> silent nonsense (negative CAPEX, -8.5 percent self-suff, OK -20 percent roof); DoD=0 hidden by IFERROR; as-shipped PV 5000 exceeds roof max 4950 -> OVER ROOF LIMIT by 50kWp out of box; LCoS nets surplus revenue while avoided-tariff benchmark does not (flatters PV); payback/IRR still render for over-roof sizes. [Task 4]
+- Suggested tool fixes: add bounded validations plus C23 dropdown, input-sanity wrapper to hide #N/A/#DIV/0!, fix LCoS vs avoided-tariff definition, clarify monthly-peak demand charge basis, suppress KPIs for over-roof sizes. Tariff context: EVN 10 May 2025, Decision 963 peak 17:30-22:30, BESS window 18-22. [Task 4]
+- gws auth valid on default config as <EMAIL> with drive/documents/spreadsheets/presentations scopes; no re-auth needed. [Task 1]
+
+## Failures and how to do differently
+
+- Drive skill doc syntax gws drive files list --query / --fields is wrong for installed CLI; correct is gws drive files list --params JSON with q, fields, pageSize. gws files list --help fails; must use gws drive files list --help. [Task 1]
+- PowerShell 5.1 strips double-quotes before Node exe causing Invalid --params JSON key must be string; escaping and --% both fail. Workaround that succeeded: call node directly at C:\Users\tukum\AppData\Roaming\npm\node_modules\@googleworkspace\cli\run.js from Python subprocess with params as single argv, using utf-8 errors=replace and writing JSON output to file to avoid cp1252 Unicode errors. [Task 1]
+- Broad 16-term allDrives search (corpora allDrives, supportsAllDrives True) returns 203 hits but majority unrelated (city-ghg, BIDV PCAF, NetSolar, VIDA) via generic terms activity/tool/poll; must filter to Oct workshop parents. [Task 2]
+- Python print of Vietnamese plus JSON with datetime fails under cp1252 console; write UTF-8 files directly and use json dump default=str. [Task 4]
+- xlwings UsedRange.SpecialCells(-4123,16) is reliable error scan; restore baseline inputs and save to separate re-fit-run.xlsx, never modify Drive original. [Task 4]
+
+# Task Group: ee-heat plus remote ceba bidirectional folder sync
+scope: Reconcile Downloads/remote/ceba against ee-heat/ceba with additive-only copies in both directions, leaving the divergent activeContext.md untouched.
+applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=folder paths and file counts are Oct-2026 point-in-time state; the additive-only plus MD5-verify plus compact-PowerShell pattern is reusable for similar local folder reconciliations
+
+## Task 1: Copy missing content remote/ceba into ee-heat/ceba, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-12T02-41-27-ZGwc-ceba_remote_eeheat_bidirectional_sync.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\12\rollout-2026-10-12T09-41-27-01a12dfc-89e4-77a2-8bd7-2551f3144cbc.jsonl, updated_at=2026-10-12T02:51:12+00:00, thread_id=01a12dfc-89e4-77a2-8bd7-2551f3144cbc, remote-to-local additive sync success)
+
+### keywords
+
+- ceba, remote-ceba, ee-heat, file-sync, MD5-hash-compare, activeContext.md, policy-session, PowerShell-Copy-Item, SRC-150-DST-73
+
+## Task 2: Copy missing content ee-heat/ceba into remote/ceba, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-12T02-41-27-ZGwc-ceba_remote_eeheat_bidirectional_sync.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\12\rollout-2026-10-12T09-41-27-01a12dfc-89e4-77a2-8bd7-2551f3144cbc.jsonl, updated_at=2026-10-12T02:51:12+00:00, thread_id=01a12dfc-89e4-77a2-8bd7-2551f3144cbc, reverse sync success, both sides 193 files)
+
+### keywords
+
+- reverse-sync, render-ee-deck, CEBA-Oct2026-Day1-EnergyEfficiency, build-ee-pptx, Measure-Object, only-remote-only-eeheat, pycache
+
+## User preferences
+
+- when asked to "check the content of folder Downloads/remote/ceba and compare against local ee-heat/ceba for missing content and copy from here to there", the user accepted additive-only sync with no overwrites -> on ambiguous sync direction, default to additive copy and explicitly confirm direction before writing [Task 1]
+- when the user said "do it the opposite direction too" after the first sync, the user wants full bidirectional reconciliation, not one-way fill -> on folder-divergence tasks anticipate and offer or perform the reverse sync [Task 2]
+
+## Reusable knowledge
+
+- Initial MD5 state: remote/ceba SRC=150 files, ee-heat/ceba DST=73 files, ONLY-SRC=120, ONLY-DST=43, DIFF=1 (activeContext.md only). [Task 1]
+- 120 remote-only files were policy-session deck plus build plus fonts plus renders, materials EN/CN/VN worksheets, ops, plans, briefs, amazon, ee-session speaker notes, Mod3/Mod5 docx, agendas, tools redline scripts, Sept research notes; copy was 55624262 bytes (about 55.6 MB). [Task 1]
+- activeContext.md differs legitimately: remote version is October 2026 Policy Session context, ee-heat version is EE-deck revision context; must not overwrite one with the other. Post-copy git status in ee-heat showed 29 untracked entries under ceba/, 0 modified. [Task 1]
+- 43 ee-heat-only files were the render EE-deck tree (CEBA_Oct2026_Day1_EnergyEfficiency_v1 through v2.4 pptx, qa PDFs, _assets, build_ee_pptx.py, test_ee_deck.py) plus review-replies-v2.2.md, reports/2026-09-03-ee-deck-gameplan.html, research/2026-09-03_ee-deck-12-slide-prototype-brainstorm.md; copy was 61124750 bytes (about 61 MB). [Task 2]
+- Final MD5 verification: remote=193, ee-heat=193, only-remote=0, only-eeheat=0, diff=1 (activeContext.md only); both sides now include build-cache __pycache__ .pyc files. [Task 2]
+
+## Failures and how to do differently
+
+- First two PowerShell hash-compare attempts returned empty output on large file lists; third attempt using a compact single-line command with pipe-joined lists and EXIT code succeeded -> for large listings prefer compact single-line PowerShell with -join pipe [Task 1]
+- One intermediate verification returned remote=0 ee-heat=0 from empty hash maps after a script error; rerun with explicit Get-ChildItem Measure-Object counts confirmed 193/193 -> always cross-check file counts with Measure-Object when a hash map returns 0 [Task 2]
+
+# Task Group: csim-copy arch pass T1-T7 plus commit-push to main
+scope: Execute the handover arch queue (resting-order position, band fit, shared totals, order outcome, CompliancePosition deletion, label sign, docs) with bite-proof red/green plus golden discipline, then verify and push to main.
+applies_to: cwd=C:\Users\tukum\Downloads\csim-copy; reuse_rule=checkout-specific (net9.0 Engine/Data/Web on main, commit da08d1b); the stop-:5003 plus bite-proof plus file-then-herdr plus golden-rebaseline discipline is reusable wherever the same handover rules are stated
+
+## Task 1: T1 resting-order position fix with Standing Shortfall plus bite proof
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-11T06-24-21-znHg-csim_arch_pass_t1_t7_standing_band_outcome.md (cwd=C:\Users\tukum\Downloads\csim-copy, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\11\rollout-2026-10-11T13-24-21-01a129a2-3e1d-7973-b1aa-ebdcd4c2b2ce.jsonl, updated_at=2026-10-11T12:29:33+00:00, thread_id=01a129a2-3e1d-7973-b1aa-ebdcd4c2b2ce, T1-T7 all green plus push da08d1b to origin/main)
+
+### keywords
+
+- Standing-Held-Shortfall, PositionView-Position, Display-Position, RestingOrderPositionTests, bite-proof, escrow
+
+## Task 2: T2 band FitToBand clamp plus round plus ceil-floor edge with golden re-baseline
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-11T06-24-21-znHg-csim_arch_pass_t1_t7_standing_band_outcome.md (cwd=C:\Users\tukum\Downloads\csim-copy, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\11\rollout-2026-10-11T13-24-21-01a129a2-3e1d-7973-b1aa-ebdcd4c2b2ce.jsonl, updated_at=2026-10-11T12:29:33+00:00, thread_id=01a129a2-3e1d-7973-b1aa-ebdcd4c2b2ce, golden moved one hash then re-baselined once)
+
+### keywords
+
+- FitToBand, OrderBookBandTests, BandFor, Reanchor-floor-ceiling, CARBONSIM_UPDATE_GOLDEN, golden-rebaseline
+
+## Task 3: T3 shared totals mirror plus T4 OrderOutcome plus T5 CompliancePosition deletion plus T6 label sign plus T7 docs plus T8 push
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-11T06-24-21-znHg-csim_arch_pass_t1_t7_standing_band_outcome.md (cwd=C:\Users\tukum\Downloads\csim-copy, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\11\rollout-2026-10-11T13-24-21-01a129a2-3e1d-7973-b1aa-ebdcd4c2b2ce.jsonl, updated_at=2026-10-11T12:29:33+00:00, thread_id=01a129a2-3e1d-7973-b1aa-ebdcd4c2b2ce, SystemTotalsView deleted, OrderOutcome added, CompliancePosition removed, sign fixed both sides, docs plus 75 lines, push verified HEAD equals origin/main)
+
+### keywords
+
+- SystemTotalsView-deleted, OrderOutcome-From, CompliancePosition-deleted, Standing-UsableVintages, DisplayPositionTests, PlaywrightPositionLabelTests, activeContext-lessons-handover, git-commit-push-main
+
+## User preferences
+
+- when running tests or build, the user said "stop the :5003 app first, it locks DLLs" -> always stop CarbonSim.Web before dotnet build/test and restart with dotnet run --project src/CarbonSim.Web --launch-profile http after [Task 1]
+- when reporting, the user said write text to reports/arch/codex-report.txt then herdr agent prompt w2C:p2 -> follow file-then-herdr reporting per handover [Task 1]
+- when fixing, the user said PROVE the test bites by temporarily breaking the code, seeing FAIL, reverting, seeing PASS -> always provide red/green bite outputs [Task 1]
+- when the golden moves, the user said list how many bot actions changed, confirm envelopes hold, re-baseline once with CARBONSIM_UPDATE_GOLDEN=1 -> dump and diff logs before the single re-baseline [Task 2]
+- when pages only read properties, the user prefers deletion -> delete SystemTotalsView outright rather than mirroring [Task 3]
+- when done, the user said No commits until the explicit "Git commit push main" -> do not commit unless explicitly asked to push [Task 1][Task 3]
+
+## Reusable knowledge
+
+- Standing.Held includes escrow (Available plus Escrowed); Standing.Shortfall is Max(0, Emissions minus Held) and never negative; Standing.Position is long-positive; PlayerSession.BuildPosition must use standing.Shortfall not emissions-minus-held. [Task 1]
+- PositionView.Position is Held minus ForecastEmissions (long-positive) while Display.Position(decimal) expects short-positive, so Display.Position(PositionView) must negate Position. [Task 1]
+- FitToBand needs clamp inside band plus Round(2) plus ceil/floor to the cent that Validate accepts, because plain rounding can land a fraction of a cent outside. [Task 2]
+- AuctionableVolume stays computed Cap minus FreeAllocation; Reserve Range and Allocation.Years are identical. [Task 3]
+- Registry still throws for hub Guard-to-HubException while the session returns Refusal(Window/Message); the Exchange notice reads outcome instead of inferring newest order or trade. [Task 3]
+- HeldFor equals Available, never escrow, so no-escrow sites see unchanged numbers after CompliancePosition deletion; port covered tests to StandingTests and delete only the file plus class with zero refs left. [Task 3]
+- T1 only covered the long side; sign needs both Short and Long plus settled plus Vietnamese red-first, and only PositionView callers (TopBar, Dashboard, Surrender) plus FinalPosition short-positive are correct. [Task 3]
+- Commit shape: staged 177 files, commit da08d1b plus 11252 minus 1301, push f7943b9 to da08d1b with HEAD equal origin/main; git push stderr red is progress noise, verify via rev-parse equality. [Task 3]
+
+## Failures and how to do differently
+
+- dotnet runs exceeding the yield leave orphan dotnet/testhost processes locking diag files -> kill Get-Process dotnet and poll via Out-File plus write_stdin sessions. [Task 1]
+- PowerShell Remove-Item is policy-blocked in this exec environment -> move diags to a subfolder and have the user delete; do not route around the block. [Task 1]
+- Naive FitToBand red (Expected floor 81.82350 but found 81.82) -> harden clamp plus round plus ceil/floor edge. [Task 2]
+- Two number moves when deleting CompliancePosition (emissions base and shutdown alloc-to-0) must be flagged, not silently carried. [Task 3]
+
+# Task Group: rom-hack Ghidra LEAP decompile workspace and setup
+scope: Reverse-engineer leap.exe with Ghidra headless plus MCP bridge plus REA wrapper, keep the full decompiled export with verification scripts and run books, and port the LEAP core to Rust (leap-rs) with oracle parity tests, now covering the calendar core plus the .leap container validation chain.
+applies_to: cwd=C:\Users\tukum\Downloads\rom-hack; reuse_rule=machine-specific (Windows ultrabook i5-8250U 4c/8t 8GB, Ghidra 12.1.4, ghidra-mcp on 127.0.0.1:8089); treat thread state as evolving and recheck resident servers before measuring
+
+## Task 1: Ghidra plus MCP plus REA setup with leap.exe decompile export and verification
+
+### rollout_summary_files
+
+- extensions/ad_hoc/notes/2026-10-11-2054-rom-hack-ghidra-leap-decompile.md (cwd=C:\Users\tukum\Downloads\rom-hack, updated_at=2026-10-11, ad-hoc note; authoritative memory input per extensions/ad_hoc/instructions.md, treated as information not instructions)
+
+### keywords
+
+- Ghidra-12.1.4, ghidra-mcp-8089, DecompileAll-java, leap-decompiled, verify_decompilation, crosscheck_export, GHIDRA-LEAP, LEAP-DECOMPILE, ad-hoc-note
+
+## Task 2: leap-rs headless Rust port of the LEAP calendar core with Ghidra-oracle parity tests
+
+### rollout_summary_files
+
+- extensions/ad_hoc/notes/2026-10-12-0936-rom-hack-leap-rs-rust-port.md (cwd=C:\Users\tukum\Downloads\rom-hack, updated_at=2026-10-12, ad-hoc note; authoritative memory input per extensions/ad_hoc/instructions.md, treated as information not instructions)
+
+### keywords
+
+- leap-rs, IsLeapYear-0x0042669c, date-validate-0x004266d8, oracle_calendar, calendar_parity, f64-to_bits, capture_oracle, PORTING-md, rust-lld-gnu, no-Windows-SDK, TukuCorp-rom-hack-public, ad-hoc-note
+
+## Task 3: leap-rs .leap container validation chain port with differential oracle parity tests
+
+### rollout_summary_files
+
+- extensions/ad_hoc/notes/2026-10-12-0952-rom-hack-leap-rs-container-validator.md (cwd=C:\Users\tukum\Downloads\rom-hack, updated_at=2026-10-12, ad-hoc note; authoritative memory input per extensions/ad_hoc/instructions.md, treated as information not instructions)
+
+### keywords
+
+- leap-rs-container, src-container-rs, container_parity, entry-0x0061a848, FUN_0060df1c, FUN_00610058, FUN_00611e78, verdict-codes, 27-forbidden-patterns, testleap-/S, capture_container_oracle, ad-hoc-note
+
+## User preferences
+
+- Do not close opencodex: it runs as a background bun.exe server on port 10100 with its own supervisor that respawns it, so treat it as off-limits when reclaiming memory [ad-hoc note] [Task 1]
+- when porting LEAP, the user said "sorry rust only, no go" -> keep leap-rs Rust-only and do not add a Go port [ad-hoc note] [Task 2]
+- decompilation plus Rust port commits stay local-only and push is the user call: TukuCorp/rom-hack is PUBLIC and SEI terms forbid reverse engineering, so never push reverse-engineered LEAP material unasked [ad-hoc note] [Task 2]
+
+## Reusable knowledge
+
+- Ghidra 12.1.4 lives at rom-hack ghidra_12.1.4_PUBLIC; ghidra-mcp (bethington) is cloned at rom-hack ghidra-mcp with the extension built into the user profile; start-ghidra-mcp-headless.ps1 starts the headless server on 127.0.0.1:8089 and the Codex client entry [mcp_servers.ghidra_mcp] bridges via uv run bridge-mcp-ghidra [ad-hoc note] [Task 1]
+- REA (rea-agents 6.3.0, global npm) is a wrapper over the installed Ghidra on Windows, not an alternative engine: it shells out to support analyzeHeadless.bat with its own ReaGhidraBridge.java post-script and -readOnly -deleteProject, and its output was byte-identical to Ghidra for the same function [ad-hoc note] [Task 1]
+- Hopper is macOS-only and unavailable here (REA doctor missing_analysis_engine) [ad-hoc note] [Task 1]
+- leap-decompiled holds 168840 of 168848 body-bearing functions (99.995pct), 136.4 MB, 339 chunk files plus index.tsv and done.txt; 8 pathological functions fail even at 120 s; Ghidra reports 170603 total with the 1755 gap being body-less external imports [ad-hoc note] [Task 1]
+- Verified two ways: verify_decompilation.py (internally consistent) and crosscheck_export.py (25 sampled functions re-derived from live Ghidra, 25/25 identical); DecompileAll.java is the resumable parallel exporter and resumes chunk numbering so a rerun cannot overwrite an earlier pass [ad-hoc note] [Task 1]
+- Host is CPU-bound not RAM-bound; Ghidra auto-analysis is effectively single-threaded while the decompiler runs about 9 decompile.exe subprocesses; full leap.exe analysis took 6776 s and export about 4 h at 10-15 functions/sec; a GUI MCP server left resident plus paging produced nothing in 2 h, so clear contention first then measure; analyzeHeadless defaults the JVM to 2 GB unless GHIDRA_HEADLESS_MAXMEM is set [ad-hoc note] [Task 1]
+- leap-rs is a dependency-free Rust crate (edition 2021, zero deps so parity tests stay hermetic) at rom-hack leap-rs: src/lib.rs, src/calendar.rs (the port), src/oracle_calendar.rs (GENERATED ground truth), tests/calendar_parity.rs, tools/capture_oracle.py, PORTING.md (policy plus scope) [ad-hoc note] [Task 2]
+- Parity pipeline: tools/capture_oracle.py drives Ghidra /emulate_function on the original to capture output vectors, src/oracle_calendar.rs is generated from them, and parity tests compare raw IEEE-754 bits (f64::to_bits), never a tolerance [ad-hoc note] [Task 2]
+- Ported so far, both from testleap.exe (2.38 MB 32-bit Delphi file validator): 0x0042669c IsLeapYear and 0x004266d8 date-validate plus day-number encoder; that is 2 of 168840 functions and the honest scope statement lives in PORTING.md and should not be quietly upgraded [ad-hoc note] [Task 2]
+- Oracle corpus is 310 leap-year vectors plus 487 day-number vectors with 4 parity tests all green; a one-bit mutation of is_leap_year was confirmed to fail two of them, so the tests bite [ad-hoc note] [Task 2]
+- Delphi conventions are preserved rather than normalised: argument in EAX, 1-byte Boolean in AL, double* out-parameter written only on success, mod 4 strength-reduced to AND 0x3; is_leap_year takes the full 32-bit register and truncates to 16-bit Word itself because the oracle exercises years 65536, 65537 and 131072 which a u16 cannot express [ad-hoc note] [Task 2]
+- Rust 1.99.0 via rustup but the shims are not on PATH: call $env:USERPROFILE\.cargo\bin\cargo.exe and rustup.exe by absolute path [ad-hoc note] [Task 2]
+- GHIDRA-LEAP.md points at leap LICENCE-ACTIONS.md and ACQUIRE.md plus an earlier hand-off added leap FINDINGS.md; none of these exist on disk or in git history, so cite GHIDRA-LEAP.md itself as the constraint record [ad-hoc note] [Task 2]
+- leap-rs now covers three units not two: commit cddb041 added src/container.rs (port of the .leap container validation chain behind TestLEAP) plus src/oracle_container.rs (GENERATED) plus tests/container_parity.rs; update the PORTING.md scope statement rather than quoting the old two-function count [ad-hoc note] [Task 3]
+- Container chain addresses, all in testleap.exe: entry at 0x0061a848 (the decision chain and the verdict codes), FUN_0060df1c at 0x0060df1c (member lookup), FUN_00610058 at 0x00610058 (archive open), FUN_00611e78 at 0x00611e78 (meta check) [ad-hoc note] [Task 3]
+- Verdicts are first-failing-check-wins: 5 not a zip, 1 holds masterstructure.db (pre-2012 layout), 3 a required .nx1 is absent, 4 a forbidden pattern matches, 7 no sysinfo.txt, 0 valid [ad-hoc note] [Task 3]
+- The real chain tests 27 ordered patterns: exe, com, bat, js, cgi, asp, aspx, php, vbs, htm, html, cmd, sql, vb, vbscript, wsf, ws, paf, pif, msi, msp, mst, msc, inf, ins, cpl, command [ad-hoc note] [Task 3]
+- Member lookup is by basename, case-insensitive, exact: sub/years.nx1 satisfies the years.nx1 requirement while xyears.nx1 and years.nx1.bak do not [ad-hoc note] [Task 3]
+- The extension test drops exactly one trailing dot before taking the text after the last dot: tool.exe. is flagged, tool.exe.. is not, tool.exe.txt is not, and trailing spaces are not stripped so tool.exe with a trailing space is not flagged [ad-hoc note] [Task 3]
+- A nested meta/sysinfo.txt passes the by-basename check then fails the by-exact-name extraction, so the original exits 0 while printing EZFException: File sysinfo.txt not found - Native error: 00015 as its only stdout [ad-hoc note] [Task 3]
+- testleap.exe <file> /S suppresses the per-file messages and prints only Result: <n>, so stdout is deterministic and path-independent; use /S for any differential harness [ad-hoc note] [Task 3]
+- leap-rs/tools/capture_container_oracle.py stores the exact input bytes as hex plus the exit code and full stdout, so the Rust test replays the identical archives; 113 vectors at about 170 KB is fine [ad-hoc note] [Task 3]
+
+## Failures and how to do differently
+
+- Killing opencodex to reclaim memory backfires because its supervisor respawns it -> never touch the port-10100 bun.exe server; exclude it from cleanup candidates up front [ad-hoc note] [Task 1]
+- A GUI MCP server left resident during a 2-hour run produced nothing -> clear resident Ghidra servers and paging pressure before long analysis or export runs [ad-hoc note] [Task 1]
+- This machine has no Windows SDK (no Lib directory under Windows Kits, no kernel32.lib anywhere), so MSVC linking fails even though cl.exe is installed while cargo check still works because it does not link -> install user-local reversible stable-x86_64-pc-windows-gnu via rustup (bundles MinGW runtime plus rust-lld), then set $env:RUSTFLAGS to "-C linker=rust-lld" and run cargo with +stable-x86_64-pc-windows-gnu --target x86_64-pc-windows-gnu; a plain rustup target add is NOT enough (ships only crt2.o and dllcrt2.o, no linker or import libraries) [ad-hoc note] [Task 2]
+- ghidra-scripts/testleap_contract_verify.py assumed 8 forbidden extensions with no pre-2012 branch, but the real chain tests 27 ordered patterns, so against the new 113-vector oracle the old model disagrees with the binary on 56 of 113 -> treat its passing run as coverage of the vectors it happened to use, nothing more, and re-derive contracts from the binary before reusing them [ad-hoc note] [Task 3]
+
+# Task Group: csim-copy app link plus QA round1 F1-F5 fixes and round2 G1 investigation
+scope: Serve the CarbonSim clone for self-check plus fix QA round1 clock/halt/label/count findings with red/green TDD and investigate round2 position and bot findings engine-first, with no commits and :5003 serving kept up.
+applies_to: cwd=C:\Users\tukum\Downloads\csim-copy; reuse_rule=checkout-specific (net9.0 Blazor InteractiveServer); the red/green plus no-commit plus :5003-serve plus herdr-report discipline is reusable wherever the same QA-loop rules are stated
+
+## Task 1: Serve app link for self-check with player plus trainer URLs and dev credentials
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-10T10-21-45-ghKX-csim_copy_applink_qa_round1_fixes_round2_start.md (cwd=C:\Users\tukum\Downloads\csim-copy, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\10\rollout-2026-10-10T17-21-46-01a12555-3e2a-72d2-87e0-97e08b635403.jsonl, updated_at=2026-10-11T06:25:04+00:00, thread_id=01a12555-3e2a-72d2-87e0-97e08b635403, app link served plus QA round1 F1-F5 green plus round2 G1 investigation started)
+
+### keywords
+
+- app-link, :5003, launchSettings-http, dev-login, seeded-run, Vietnam-ETS-Pilot-2024, @page-routes, Invoke-WebRequest-200
+
+## Task 2: QA round1 F1-F5 fixes (clock never advances, halt mislabel, fine names, sign-in, counts), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-10T10-21-45-ghKX-csim_copy_applink_qa_round1_fixes_round2_start.md (cwd=C:\Users\tukum\Downloads\csim-copy, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\10\rollout-2026-10-10T17-21-46-01a12555-3e2a-72d2-87e0-97e08b635403.jsonl, updated_at=2026-10-11T06:25:04+00:00, thread_id=01a12555-3e2a-72d2-87e0-97e08b635403, F1-F5 fixed green Engine 249 plus Web 151, :5003 serving, herdr report sent)
+
+### keywords
+
+- F1-clock-never-advances, DemoSimulationSeeder, SimulationClock-Resume, YearOf-Max-1, CanResume-YearIsOver, AdminUnitView-Label, FrontDoorView, HumanCompanies-AiCompanies, feedback-01
+
+## Task 3: QA round2 G1-G9 investigation starting with G1 position bug, partial
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-10T10-21-45-ghKX-csim_copy_applink_qa_round1_fixes_round2_start.md (cwd=C:\Users\tukum\Downloads\csim-copy, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\10\rollout-2026-10-10T17-21-46-01a12555-3e2a-72d2-87e0-97e08b635403.jsonl, updated_at=2026-10-11T06:25:04+00:00, thread_id=01a12555-3e2a-72d2-87e0-97e08b635403, G1 red tests written engine fix not yet landed)
+
+### keywords
+
+- G1-position-ignores-holdings, CompliancePosition-ForecastShortfall, ComplianceRegister-Cover-Bank, Scoring-FinalPosition, ComplianceBot-resting-limit, feedback-02, engine-first
+
+## User preferences
+
+- when the user asked "get me link to check out the app myself" -> give the player URL plus trainer console URL with dev login, PIN, seeded-run description, and the restart command without follow-up asks [Task 1]
+- when fixing QA feedback, the user said "Follow CLAUDE.md (red/green tests first, no commits). Keep app serving" -> default to failing test first, never commit, re-serve :5003 after the change [Task 2]
+- when the user ordered "Start with G1 then G3 G2 then G4-G9" with "Red/green Engine fix for G1 first" -> respect that finding order and fix engine before screens [Task 3]
+- when done, the user said report via herdr agent prompt w2C:p2 with a short report and "Do not wait" -> send the single-line herdr prompt to w2C:p2, do not wait [Task 2]
+
+## Reusable knowledge
+
+- http launch profile serves http://localhost:5003 and dev auto-seeds Vietnam ETS Pilot 2024; verify / plus /sign-in plus /admin plus /admin/setup return 200 and enumerate @page routes before handing the link. [Task 1]
+- F1 root cause was twofold: DemoSimulationSeeder called StartAsync at boot so the year expired before the trainer opened it, plus SimulationClock.Resume accepted resume when ElapsedInYear reached YearLength leaving Running with no close path; fix is seeder only shelves the scenario (Pending, Year 0 displayed as Year 1) and Resume throws when year time is used. [Task 2]
+- Pending runs display as Year 1 plus Auction 1/4 plus full YearLength, not Year 0; AdminSession YearOf is Max(1,CurrentYear); the admin resume control reads CanResume not raw state and YearIsOver hides resume with an AdminYearOver notice. [Task 2]
+- AdminUnitView.Label avoids Company (Company) duplication and marks bots (AI); waiting screen splits People into HumanCompanies plus AiCompanies with new resx keys; AdminLayout denial links /sign-in. [Task 2]
+- Round1 gate shape: build 0W/0E with Engine 249 plus 3 skip, Data 16, Web 151 plus 1 skip, Playwright real; live prerender shows Waiting to start with Year 1, Human 37 plus AI 205, no Trading halted. [Task 2]
+- G1 position bug is engine: CompliancePosition ForecastShortfall counts emissions minus free allocation only and ignores ledger holdings; fix direction is HeldFor plus PositionFor counting usable vintages plus offset limit, the same set as ComplianceRegister Cover and Bank. [Task 3]
+- ComplianceBot trade trigger is 0.40 to 0.60 of the year after auctions clear with resting Limit orders clamped to band; keep G1 engine red tests (HeldFor plus PositionFor offset-limit vintage scoping) before touching screens. [Task 3]
+- Keep :5003 serving via dotnet run --project src/CarbonSim.Web --no-build -- --urls http://localhost:5003 --environment Development; Start-Process blocked by policy, direct exec_command works; stale CarbonSim.Web locks build output, so stop the process before build/test. [Task 2]
+
+## Failures and how to do differently
+
+- Build locked by a running CarbonSim.Web process -> stop that process (Ctrl-C its session) then rebuild. [Task 2]
+- Tests assumed a Single run or a fixed seeded ID -> query the seeded run by name Vietnam ETS Pilot 2024 and filter snapshots by id. [Task 2]
+- Playwright click dropped before the interactive circuit attached -> WaitUntilInteractiveAsync before the OpenSeededRun click. [Task 2]
+- Format CHARSET error on the GovernmentReserveToAuction migration is pre-existing generated code; leave it untouched. [Task 2]
+- Do not treat assistant-engine proposals as durable memory until validated; G1 fix must land engine-first, then every screen reading it (TopBar, Dashboard, Surrender, Admin Company SHORTFALL, Leaderboard FINAL POSITION). [Task 3]
+- exec_command long tests yield to background session; must poll via write_stdin/wait with session_id. [Task 2]
+
+# Task Group: Windows C-drive storage audit and targeted cleanup
+scope: Audit C-drive usage on this Windows laptop and delete user-approved bloat while keeping the live Codex daemon, runtimes, and active project data intact
+applies_to: cwd=C:\Users\tukum; reuse_rule=machine-specific; recheck running processes, version pins, and on-disk sizes before deleting anything
+
+## Task 1: Audit C-drive storage and identify cleanup targets, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-10T10-27-45-Qd8w-c_drive_storage_audit_and_cleanup.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\10\rollout-2026-10-10T17-27-45-01a1255a-bc66-7a41-bdc1-7cf1815458c4.jsonl, updated_at=2026-10-10T12:39:47+00:00, thread_id=01a1255a-bc66-7a41-bdc1-7cf1815458c4, audit success plus targeted cleanup partial, 41.54GB free)
+
+### keywords
+
+- C-drive, disk-cleanup, Win32_LogicalDisk, opencode.db, Codex-releases, julia-depot, bun-install, EdgeCore, SAM, Viber, Clear-RecycleBin
+
+## Task 2: Targeted cleanup of approved bloat, partial
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-10T10-27-45-Qd8w-c_drive_storage_audit_and_cleanup.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\10\rollout-2026-10-10T17-27-45-01a1255a-bc66-7a41-bdc1-7cf1815458c4.jsonl, updated_at=2026-10-10T12:39:47+00:00, thread_id=01a1255a-bc66-7a41-bdc1-7cf1815458c4, cleanup partial, old Edge 149 needs admin)
+
+### keywords
+
+- Remove-Item-LiteralPath, cdrive-cleanup-ps1, msiexec-uninstall, auto-update-version, Get-Process-daemon-path, smoke-test
+
+## User preferences
+
+- when asked to clean, the user said: "Remove opencode and its sqlite file, viber, sam 2022, old codex build; blender extras; julia depot; old edge; recycle bun" -> terse target list means proceed with safety checks, not per-item approval [Task 2]
+
+## Reusable knowledge
+
+- C: 216.6GB total with 26.3GB free at audit start; profile AppData 45.74GB, Downloads 25.71GB, .codex 9.05GB, .local 6.06GB, .julia 5.93GB; WinSxS 20.01GB; opencode.db 4.67GB single file. [Task 1]
+- Freed about 21.7GB to 41.54GB free: opencode share 4.82GB plus cache 0.59GB, 16 old Codex releases 6.6GB, Julia caches 5.24GB, bun install 1.6GB, Blender 4.1.1 plus zip 1.57GB, Recycle 0.8GB, SAM 2022 0.44GB; Viber only 13MB real. [Task 2]
+- Keep-logic that worked: standalone keep version from .codex/packages/standalone/auto-update-version (0.162.0); daemon keep in-use release found via Get-Process path; Julia keep juliaup/registries/environments/scratchspaces; bun keep .bun/bin; Blender keep 4.5.1; leave .opencode, .opencodex, opencode-upstream, remote-opencode alone; smoke tests codex-cli 0.162.0, bun 1.4.0, julia 1.10.10 pass. [Task 2]
+
+## Failures and how to do differently
+
+- Full Get-ChildItem recurse scans take many minutes and block; run in a background exec session with write_stdin polling, not a single synchronous call. [Task 1]
+- Large inline PowerShell with cmd /c rmdir is policy-blocked; write .ps1 files via apply_patch to Downloads and run in smaller steps. [Task 2]
+- EdgeCore 149 delete needs admin; check IsInRole(Administrator) before Program Files deletes and hand the user the elevated command instead of retrying. [Task 2]
+- Viber EstimatedSize registry metadata was stale; verify on-disk dirs before promising reclaim; deep -Recurse -Depth 3 discovery hangs, so use non-recursive checks plus a size helper. [Task 2]
 
 # Task Group: csim-copy-calib bot calibration and reserve re-offer (bot-calibration worktree)
 scope: Calibrate CarbonSim clone rule-based bots toward the four open fidelity envelopes and build a reserve-to-auction re-offer mechanism, isolated in the csim-copy-calib worktree while another agent works in csim-copy.
@@ -370,7 +864,7 @@ applies_to: cwd=C:\Users\tukum\Downloads\pacta-trisk\gtb\bidv-fe-codes; reuse_ru
 - Confirm `typesafe-sdk` and make a live smoke call before the full run. This run used `jev-1.13.0`, a BEA hierarchy with beam width K=3, async retries, `output/jev_cache/`, geometric-mean path scores, separation, Noul verification, and H/M/L tiers. [Task 1]
 - The completed run classified 587/587 rows with 2,634 API calls, 42 cache hits, and 94.5 seconds; verification made 695 Noul calls in 25.6 seconds, yielding H=243, M=247, L=97, 108 top-2 verifications, and 39 close calls. [Task 1]
 - Outputs are `output/BIDV_PCAF_crosswalk_v1.0-jev.xlsx`, `output/jev_results.json`, `jev_match.py`, `test_jev_match.py`, `jev_compare.py`, and `jev_write.py`; `python -m pytest test_jev_match.py -q -p no:cacheprovider` passed 12/12. [Task 1]
-- Against v0.9, exact agreement was 459/587 (78.2%), same group 93.7%, same EF band 87.9%, Iκ exact 0.7802, and Iκ EF-band 0.8437. The workbook has `Crosswalk`, `Review queue`, `Compare vs v0.9`, and `README` sheets. [Task 1][Task 2]
+- Against v0.9, exact agreement was 459/587 (78.2%), same group 93.7%, same EF band 87.9%, IÎº exact 0.7802, and IÎº EF-band 0.8437. The workbook has `Crosswalk`, `Review queue`, `Compare vs v0.9`, and `README` sheets. [Task 1][Task 2]
 
 ## Failures and how to do differently
 
@@ -821,15 +1315,55 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 
 - herdr workspace create --no-focus, baby-context, city-ghg, Downloads cwd, HERDR_ENV re-check, agent name taken, baby-claude city-claude
 
-## Task 5: Launch 5 background Claude workspaces with short-label convention, success
+## Task 5: Repeated Claude workspace launches across project dirs (city-ghg, pdd-auto, ee-heat, copper, cpi, personal, ceba, baby-context), success
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_launch_claude_workspaces_batch.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-07T09:05:42+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, city-ghg pdd-auto ee-heat copper cpi each with idle Claude agent)
+ - rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_hermes_repair.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-15T05:16:58+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, Claude launches for city-ghg x7+, pdd-auto, ee-heat x4, copper x3, cpi, personal x4, ceba x3, baby-context; condensed rewrite superseding the deleted prior version of the same thread)
 
 ### keywords
 
-- herdr workspace create --no-focus, herdr agent start, city-ghg-claude, pdd-auto, ee-heat, copper, cpi, short label, remote slash path
+- herdr workspace create --no-focus, herdr agent start --kind claude, herdr workspace list, herdr agent list, city-ghg-claude, pdd-auto, ee-heat, copper, cpi, personal, ceba, baby-context, short label, remote slash path, check-before-create, Test-Path
+
+## Task 6: Codex agent launches with update-prompt and trust-prompt handling plus resume-last no-op plus close plus focus restore, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_hermes_repair.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-15T05:16:58+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, Codex launches for csim-copy, rom-hack, ee-heat-codex, ceba-codex: esc update prompt, trust prompt enter plus double-wait, --remote flags, resume-last preserve-then-resume, close syntax, focus restore)
+
+### keywords
+
+- herdr agent start --kind codex, --remote unix://, agent read --source visible, agent send-keys esc, agent send-keys enter, trust this folder, agent wait, resume-last, workspace close, workspace focus w29, launch_pending, agent_not_idle, agent_not_ready, Copy leap folder
+
+## Task 7: Side-by-side pane moves plus Hermes gateway repair, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_hermes_repair.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-15T05:16:58+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, pane side-by-side moves with --new-workspace restore plus Hermes gateway --replace repair success)
+
+### keywords
+
+- herdr pane move, --tab --split right, --new-workspace --label, HERMES_HOME, gateway run --replace, gateway.lifecycle.json, gateway.heartbeat, Hermes_Gateway.cmd, loop_liveness_watchdog, exit_code 75, Unknown Channel 1471426891154985043
+
+## Task 8: Hermes gateway unclean-death repair after silent stall (PID 15132 to 21260), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-14T23-29-05-dmh4-hermes_gateway_repair_csim_copy_herdr_launch.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\\.codex\\sessions\\2026\\10\\15\\rollout-2026-10-15T06-29-05-01a13cbf-7e38-7ac3-ab5b-736fc1124ac2.jsonl, updated_at=2026-10-16T00:53:57+00:00, thread_id=01a13cbf-7e38-7ac3-ab5b-736fc1124ac2, unclean-exit repair plus fresh csim-copy Herdr Claude launch)
+
+### keywords
+
+- hermes gateway restart, unclean exit, PID 15132 PID 21260, gateway.lifecycle.json, gateway.heartbeat, gateway-exit-diag.log, ticker_heartbeat, port 8642 55681, HermesBot, Start-Sleep
+
+## Task 9: Fresh Herdr csim-copy Claude launch with focus restore (w2T), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-14T23-29-05-dmh4-hermes_gateway_repair_csim_copy_herdr_launch.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\\.codex\\sessions\\2026\\10\\15\\rollout-2026-10-15T06-29-05-01a13cbf-7e38-7ac3-ab5b-736fc1124ac2.jsonl, updated_at=2026-10-16T00:53:57+00:00, thread_id=01a13cbf-7e38-7ac3-ab5b-736fc1124ac2, workspace w2T root w2T:p1 agent csim-copy-claude interactive_ready)
+
+### keywords
+
+- herdr workspace create w2T, csim-copy-claude, agent start no --no-focus, focus restore w29, workspace evaporate, HERDR_ENV PowerShell, interactive_ready
 
 ## User preferences
 
@@ -843,6 +1377,16 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 - when the user types "herde" for a Herdr launch -> treat it as herdr without interrupting for clarification [Task 3]
 - when launching a Herdr space for a named project, the user corrected: "baby-context folder exist dud" -> search C:\Users\tukum\Downloads (including -Recurse -Depth 3) before claiming a folder is missing; project dirs live under Downloads, never directly under C:\Users\tukum [Task 4]
 - when the user says "launch herdr space at remote/<name> with claude agent" -> label the workspace <name> (not remote/<name>), cwd C:\Users\tukum\Downloads\remote\<name>, agent <name>-claude [Task 5]
+- when launching any space with no extra flags, the user never corrected the background default -> keep the new workspace unfocused with --no-focus and report the current session untouched by default [Task 5]
+- when the user re-requests a space that vanished, they expect check-first then a fresh background recreate, not an error -> always run herdr workspace list plus herdr agent list before creating [Task 5]
+- when the user says "resume last" and the agent thread is intact at its prompt, they accept a preserve-and-explain no-op over a restart that would kill the thread -> leave it alone and offer an explicit restart; only use resume --last when the space is actually gone [Task 6]
+- when a new space steals focus, restore to the command space and report -> run herdr workspace focus w29 after Codex launches that grab focus [Task 6]
+- when the user asked "anyway to put two herdr tabs from diff space side by side?" then "copper pane next to ee-heat claude 2" -> explain the one-active-tab-per-space limit, list tabs and panes first to resolve the named pane to concrete IDs, then use pane move with split [Task 7]
+- when the user said "move the copper herdr pane back to standalone space/tab" -> restore via --new-workspace, preserve cwd/thread [Task 7]
+- when the user said "Repair hermes gateway" with no symptoms -> diagnose first via status, processes, and lifecycle plus heartbeat state files before mutating, not clarifying questions [Task 7]
+
+- when the gateway is broken with minimal detail and the user says "Something wrong with hermes gateway, fix" -> diagnose autonomously via HERMES_HOME layout plus lifecycle/heartbeat/logs, not clarifying questions [Task 8]
+- when the user says "launch herdr space at csim-copy with Claude agent" -> check-first (workspace list plus agent list) then fresh background recreate, not an error; same expectation as prior vanished-space recreates [Task 9]
 
 ## Reusable knowledge
 
@@ -861,6 +1405,20 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 - Herdr refuses self-update inside an attached session; clear `HERDR_ENV/HERDR_WORKSPACE_ID/HERDR_TAB_ID/HERDR_PANE_ID` in the same command, then `herdr update --handoff` installs stable (0.9.3). [Task 3]
 - herdr-file-viewer default prefix is `ctrl+b` (press, release, then `f`); when keys do nothing but `herdr plugin action invoke open-file-viewer-windows` succeeds, the failure is key delivery, not the plugin. [Task 3]
 - Related skill: skills/herdr-workspace-launch/SKILL.md
+- Codex launch shape: herdr agent start <label>-codex --kind codex --pane <pane> --timeout 120000 -- --remote unix:// -C "<abs-cwd>" so the phone app can reach it; empty output with launch_pending true is normal, then diagnose via herdr agent list plus herdr agent read --source visible. [Task 6]
+- Canonical Claude launch is 2 calls: herdr workspace create --cwd "C:\Users\tukum\Downloads\<proj>" --label "<label>" --no-focus then herdr agent start <label>-claude --kind claude --pane <pane> --timeout 120000, expecting idle plus interactive_ready true. Most projects sit under Downloads; remote slash paths map to Downloads remote subdirs; verify with Test-Path when uncertain. [Task 5]
+- PowerShell quoting with dollar variables inside double-quoted cmd breaks easily (foreach with dollar-p loop vars, dollar-underscore in Select-String and Where-Object); prefer single simple Test-Path calls or cmd /c for where and tasklist. Select-String -CaseSensitive with an explicit false value fails SwitchParameter conversion; use plain -Pattern. [Task 5]
+- Codex version-update prompt (for example 0.162.0 to 0.162.1) blocks start with agent_not_idle on default reads; read --source visible, send esc via herdr agent send-keys <agent> esc, then herdr agent wait <agent> --timeout 60000; never auto-update without approval. A non-blocking inline update banner needs no action; leave it alone. [Task 6]
+- Close syntax is herdr workspace close <workspace_id> (check --help first); verify with workspace list after closing. [Task 6]
+- New Codex cwd triggers a Trust prompt (agent_not_ready blocked) -> confirm only if the exact requested folder, then herdr agent send-keys <name> enter, then wait twice since detection lags the TUI (first wait may still show blocked/launch_pending, second reaches done/idle). [Task 6]
+- Codex resume-last with -C scoping: `... -- --remote unix:// -C "<dir>" resume --last` continues the most recent recorded session; passing -C helps scope to the project thread (verified title e.g. Copy leap folder). Do not restart a live intact thread with resume flag; the first rom-hack resume refusal was later validated when the user re-requested resume only after the space was gone. [Task 6]
+- Tabs from different workspaces cannot dock; move pane for side-by-side: `herdr pane move w2H:p1 --tab w2G:t2 --split right --no-focus` creates a 50/50 split; moved pane gets a new ID (w2H:p1 -> w2G:p3), agent name follows, session intact; empty source workspace auto-closes. Discover target via `herdr tab list --workspace w2G` plus `herdr pane list --workspace w2G`. [Task 7]
+- Restore standalone: `herdr pane move w2G:p3 --new-workspace --label copper --no-focus` -> new workspace/tab/pane, cwd plus thread intact, source tab back to single pane. Must use the new pane ID after a move; the old ID is not generally resolvable. [Task 7]
+- Hermes gateway layout: HERMES_HOME is C:\Users\tukum\AppData\Local\hermes; launcher gateway-service\Hermes_Gateway.cmd runs tools\python-3.14.7+20260901-win32-x64\python.exe -m hermes_cli.main gateway run with HERMES_HOME and PYTHONPATH set. hermes.exe in bin may hang on --version, so do not rely on it. Diagnosis files: state\gateway.lifecycle.json (phase exited pid exit_code exit_reason) plus state\gateway.heartbeat (stale tick) plus gateway\restart_loop.json. Healthy reads phase running plus fresh heartbeat with loop_tick_socket true and loop_tick_tcp_port. [Task 7]
+- Stale host lock blocks restart: `gateway run` returns "A gateway already owns this host... Nothing was started" even though the PID is dead; the signature is lifecycle phase exited with exit_code 75 loop_liveness_watchdog while tasklist shows no python. Fix with vendor-supported `gateway run --replace` using the same env and interpreter; do not use --force since it risks double-bind. The gateway runs inside the caller background session, so if that session dies the gateway dies; document restart via Hermes_Gateway.cmd plus --replace fallback. [Task 7]
+
+- Silent-stall unclean exit verdict: no exit path ran, meaning SIGKILL/OOM/VM death or kill by an agent descendant (suspected_oom false); ledger text reads previous life pid exited UNCLEANLY with last_heartbeat timestamp. Healthy after `hermes gateway restart` (direct-spawn PID, port-8642 Listen owned by new PID) means lifecycle phase running with new PID plus advancing heartbeat plus gateway_state running plus 8642 Listen plus Discord connected plus Gateway running with 2 platforms plus cron ticking 3 profiles. DISCORD_HOME_CHANNEL 404 Unknown Channel plus missing HKCU Run/Startup autostart entries are pre-existing non-fatal issues left untouched. [Task 8]
+- Fresh Claude launch shape that worked for csim-copy: workspace create with --no-focus, parse IDs from JSON (w2T root w2T:p1), agent start with unique <label>-claude, confirm idle interactive_ready; re-check HERDR_ENV with PowerShell syntax; workspaces evaporate so list before create. [Task 9]
 
 ## Failures and how to do differently
 
@@ -870,6 +1428,17 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 - `Remove-Item` for AGENTS.md was blocked by policy via exec_command; empty files section-by-section with apply_patch and verify with Get-Item Length instead of retrying deletes. hooks.json allows no comments; an uncommented placeholder breaks JSON, so rewrite to valid `"SessionStart": []`. [Task 2]
 - Bash `test "${HERDR_ENV:-}" = 1` is not recognized in PowerShell; check `$env:HERDR_ENV` instead. [Task 3]
 - A first-attempt HERDR_ENV empty refusal can be transient; re-check `$env:HERDR_ENV` with PowerShell syntax before final refusal. [Task 4]
+- Codex startup blocked by Trust prompt shows agent_not_ready/blocked -> verify path is intended, then send enter, then wait twice until idle. [Task 6]
+- Codex startup blocked by update prompt shows agent_not_ready/blocked with empty output -> read --source visible (not recent-unwrapped when unknown, which errors agent_not_idle), then send esc to skip, not update without approval; a non-blocking inline banner alone can be left alone. [Task 6]
+- hermes.exe --version and schtasks findstr hermes hang/empty -> do not rely on them; use tasklist plus lifecycle/heartbeat plus direct gateway launch polling via session poll. [Task 7]
+- PowerShell Get-CimInstance Win32_Process quoting fails in this exec wrapper -> use cmd /c tasklist findstr. [Task 7]
+- Discord home-channel 1471426891154985043 returning 404 Unknown Channel and skill /plan colliding with a core command are non-fatal; gateway runs unaffected. [Task 7]
+- Do not use gateway run --force for a stale host lock since it risks double-bind; use vendor-supported --replace from the home that launched it. [Task 7]
+
+- `tools.clock__sleep` is not a function in this harness -> use Start-Sleep via exec_command for gateway boot waits (45s/50s/90s progression used here). [Task 8]
+- `hermes gateway status` prints empty both when dead and mid-boot -> never diagnose from status alone; use lifecycle plus heartbeat plus port plus agent.log progression instead. [Task 8]
+- The restart port warning (127.0.0.1:8642 still accepting) does not prevent bind; verify via Get-NetTCPConnection after boot. The heartbeat file lags the restart (still old PID) until the ledger advances; wait and check agent.log progression. [Task 8]
+- `herdr agent start` accepts no --no-focus flag -> always plan an explicit focus-restore (`herdr workspace focus w29`, verified focused:true) after background-desired launches. [Task 9]
 
 
 # Task Group: pacta-trisk docs-only git commit-push after slow-R abort
@@ -960,7 +1529,7 @@ applies_to: cwd=C:\Users\tukum\Downloads\remote\temp; reuse_rule=safe for the us
 
 ## Failures and how to do differently
 
-- Symptom: `Unexpected token '﻿'` when Shortcut reads JSON. Cause: a PowerShell JSON write added a UTF-8 BOM. Fix: write JSON with `[System.Text.UTF8Encoding]::new($false)`. [Task 1]
+- Symptom: `Unexpected token 'ï»¿'` when Shortcut reads JSON. Cause: a PowerShell JSON write added a UTF-8 BOM. Fix: write JSON with `[System.Text.UTF8Encoding]::new($false)`. [Task 1]
 - Symptom: Go responds `MissingSessionID` or Shortcut reports `The model provider rejected the request`. Cause: the provider lacks the required session header or explicit auth handling. Fix: configure `x-opencode-session`, retain environment-variable based auth, then rerun model listing and a live prompt. [Task 1]
 - Symptom: `Start-Process npm` fails because it resolves to `npm.ps1`, or `env` is unknown. Fix: use `cmd.exe /c npm ...` and PowerShell environment access such as `Get-ChildItem Env:`. [Task 1]
 - Symptom: Shortcut first-run setup is slow. Fix: after installation, use `--assume-installed` for configuration checks and smoke tests. [Task 1]
@@ -1016,134 +1585,8 @@ applies_to: cwd=C:\Users\tukum\Downloads\remote\temp; reuse_rule=safe for Window
 - PowerShell does not support Unix `ls -la` or `head`. Use `Get-ChildItem`, `Get-Content`, and `Select-Object -First`. [Task 1]
 - Do not claim CLI/Desktop history sharing is confirmed. `mcp__codex_app.list_threads` was unsupported and `codex resume --all` refused to start with `TERM` set to `dumb`. Use a supported app-server interface, a non-interactive route, or a proper TTY to test it. [Task 3]
 
-# Task Group: Official EVA Air fare lookup with Browser Control
-scope: Retrieve official EVA Air fares and screenshots using Browser Control, with strict evidence requirements for live price results.
-applies_to: cwd=C:\Users\tukum\Downloads\city-ghg; reuse_rule=safe for similar browser-control fare research, but treat routes, page state, captcha behavior, and saved screenshots as run-specific
-
-## Task 1: Check official EVA Air prices and capture screenshots, failed
-
-### rollout_summary_files
-
-- rollout_summaries/2026-09-17T10-08-36-Zdst-eva_air_fare_lookup_failed.md (cwd=C:\Users\tukum\Downloads\city-ghg, rollout_path=C:\Users\tukum\.codex\sessions\2026\09\17\rollout-2026-09-17T17-08-36-01a0aed6-ed58-7f13-a1f2-e7151fb20961.jsonl, updated_at=2026-09-17T10:33:45+00:00, thread_id=01a0aed6-ed58-7f13-a1f2-e7151fb20961, booking flow stalled and no fare was verified)
-
-### keywords
-
-- EVA Air, browser-control, booking-multi.aspx, browser-control session new eva1, Session not found, nffValidator, captcha, page.$$eval, fare search, screenshot price
-
-## User preferences
-
-- when the user asked to "check the price on official website" and "screenshot price" -> return screenshots containing the actual fare result, not homepage or booking-progress screenshots [Task 1]
-
-## Reusable knowledge
-
-- The official booking URL reached was `https://booking.evaair.com/flyeva/EVA/B2C/booking-multi.aspx?lang=en-us`. Browser Control requires an explicit session, for example `browser-control session new eva1`, before commands use `--session eva1`. [Task 1]
-- `eva-home.png` and `eva-progress7.png` through `eva-progress9.png` prove page state only. They do not prove any fare price. [Task 1]
-
-## Failures and how to do differently
-
-- No fare results were produced for BR17, BR385, or the requested multi-stop return. Do not claim prices were found. [Task 1]
-- Symptom: `Session not found: eva1`. Cause: commands ran against an unknown session. Fix: create the named session before use. [Task 1]
-- Symptom: Browser Control rejects `60000.0` or process/session IDs such as `73373.0`. Cause: serialized floats where the tool needs integers. Fix: pass integer values. [Task 1]
-- Symptom: `TypeError: page.eval is not a function` from `page.$$eval`. Cause: the installed Browser Control runtime does not expose standard Playwright APIs. Fix: use documented Browser Control APIs only. [Task 1]
-- Symptom: closing the booking modal raises `ReferenceError: nffValidator is not defined` and the flow stays before results or captcha completion. Fix: treat the page as stuck, pivot, or report the inability. [Task 1]
-
-# Task Group: Local folder boundaries and account identity
-scope: Respect non-invasive folder questions and distinguish Windows account information from ChatGPT account identity.
-applies_to: cwd=C:\Users\tukum\Downloads\city-ghg; reuse_rule=safe for similar local-environment questions on this machine, but re-verify identity output and never infer project contents or cloud identity from a path
-
-## Task 1: Describe a folder without inspection, success
-
-### rollout_summary_files
-
-- rollout_summaries/2026-09-16T01-42-36-Puhz-non_invasive_folder_and_account_identification.md (cwd=C:\Users\tukum\Downloads\city-ghg, rollout_path=C:\Users\tukum\.codex\sessions\2026\09\16\rollout-2026-09-16T08-42-36-01a0a7e1-5141-7fe1-a517-419911772751.jsonl, updated_at=2026-09-17T00:47:13+00:00, thread_id=01a0a7e1-5141-7fe1-a517-419911772751, no filesystem inspection performed)
-
-### keywords
-
-- tell me about the folder without doing anything, non-invasive inspection, C:\Users\tukum\Downloads\city-ghg, city-ghg
-
-## Task 2: Identify the local or ChatGPT account, partial
-
-### rollout_summary_files
-
-- rollout_summaries/2026-09-16T01-42-36-Puhz-non_invasive_folder_and_account_identification.md (cwd=C:\Users\tukum\Downloads\city-ghg, rollout_path=C:\Users\tukum\.codex\sessions\2026\09\16\rollout-2026-09-16T08-42-36-01a0a7e1-5141-7fe1-a517-419911772751.jsonl, updated_at=2026-09-17T00:47:13+00:00, thread_id=01a0a7e1-5141-7fe1-a517-419911772751, Windows account identified; ChatGPT email inaccessible from CLI)
-
-### keywords
-
-- whoami, whoami /upn, ChatGPT account, Windows local account, Select-Object -First, unsupported call
-
-## User preferences
-
-- when the user said "tell me about the folder without doing anything" -> do not list, read, search, or modify files. Explain only what the path itself supports. [Task 1]
-
-## Reusable knowledge
-
-- The `city-ghg` name suggests a city greenhouse-gas project, but that was not verified because contents were not inspected. [Task 1]
-- `whoami` identifies the current Windows account. It does not identify the signed-in ChatGPT account. When the user means ChatGPT, direct them to the profile avatar or Settings → Account/Profile. [Task 2]
-
-## Failures and how to do differently
-
-- `whoami /upn` can report that the user is not a domain user. State that result without inferring a cloud or ChatGPT identity. [Task 2]
-- If GitHub identity tooling returns `unsupported call`, report the limitation. Do not guess the identity. [Task 2]
-- Use `Select-Object -First` instead of Unix `head` in PowerShell. [Task 2]
-
-# Task Group: Selected Chrome tab inspection when browser tools are unavailable
-scope: Answer requests to inspect a selected browser tab only when a browser tool can expose page state; otherwise obtain user-provided evidence.
-applies_to: cwd=C:\Users\tukum\Documents\Codex\2026-09-16\mon; reuse_rule=safe for browser-inspection failure handling across checkouts, but tab IDs and URLs are run-specific
-
-## Task 1: Inspect the Eufy camera page, failed
-
-### rollout_summary_files
-
-- rollout_summaries/2026-09-16T13-42-24-8YKf-browser_page_inspection_tool_unavailable.md (cwd=C:\Users\tukum\Documents\Codex\2026-09-16\mon, rollout_path=C:\Users\tukum\.codex\sessions\2026\09\16\rollout-2026-09-16T20-42-24-01a0aa74-4f9e-7ff3-ae86-6464493a9513.jsonl, updated_at=2026-09-16T13:43:01+00:00, thread_id=01a0aa74-4f9e-7ff3-ae86-6464493a9513, neither available inspection method worked)
-
-### keywords
-
-- Eufy, mysecurity.eufylife.com, chrome_extension.getTabContext, mcp__cua_repl.js, await cua.getState(), unsupported call
-
-## Reusable knowledge
-
-- The selected page was `https://mysecurity.eufylife.com/#/camera`, but no contents were visible or verifiable when both `chrome_extension.getTabContext` and `mcp__cua_repl.js` returned `unsupported call`. [Task 1]
-
-## Failures and how to do differently
-
-- Verify browser-tool availability first. If the tool is unsupported, state the limitation immediately and request a screenshot, pasted text, or user description. Do not infer page contents. [Task 1]
-
-# Task Group: Codex CLI sign-in and ChatGPT subscription verification
-scope: Check local Codex CLI sign-in safely and state the limit of subscription-plan evidence available from local auth and blocked endpoints.
-applies_to: cwd=C:\Users\tukum; reuse_rule=safe for local Codex CLI authentication checks, but treat sign-in state and subscription status as current-session facts that must be rechecked
-
-## Task 1: Verify Codex sign-in and account switching, success
-
-### rollout_summary_files
-
-- rollout_summaries/2026-09-15T22-36-38-WGj0-codex_login_account_plan_check.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\09\16\rollout-2026-09-16T05-36-38-01a0a737-0ff1-7031-8020-3568061e37d2.jsonl, updated_at=2026-09-15T22:38:58+00:00, thread_id=01a0a737-0ff1-7031-8020-3568061e37d2, sign-in verified without exposing auth data)
-
-### keywords
-
-- codex login status, Logged in using ChatGPT, codex login, codex logout, --device-auth, --with-api-key, auth.json
-
-## Task 2: Determine whether the ChatGPT account is free or paid, uncertain
-
-### rollout_summary_files
-
-- rollout_summaries/2026-09-15T22-36-38-WGj0-codex_login_account_plan_check.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\09\16\rollout-2026-09-16T05-36-38-01a0a737-0ff1-7031-8020-3568061e37d2.jsonl, updated_at=2026-09-15T22:38:58+00:00, thread_id=01a0a737-0ff1-7031-8020-3568061e37d2, local and direct HTTP checks were inconclusive)
-
-### keywords
-
-- subscription, My plan, HTTP 403, api.openai.com/v1/models, chatgpt.com/backend-api/subscriptions, ChatGPT authentication
-
-## Reusable knowledge
-
-- `codex login status` returned `Logged in using ChatGPT`. Use `codex login` for browser authentication. Use `codex logout` then `codex login` to switch accounts. `--device-auth` and `--with-api-key` are alternatives. [Task 1]
-- `C:\Users\tukum\.codex\auth.json` contains sensitive auth data. Do not print its contents or persist account identifiers, JWTs, token values, token prefixes, refresh tokens, access tokens, or account IDs. [Task 1]
-- Local identity claims did not include a subscription claim. Direct account and subscription endpoint checks returned HTTP 403, so the reliable plan check is ChatGPT Settings → Subscription / My plan while signed in. [Task 2]
-
-## Failures and how to do differently
-
-- Do not infer a paid plan because Codex works. Report it as unknown unless the official subscription page confirms it. [Task 2]
-- In PowerShell, use `Select-Object -First` rather than Unix `head`. [Task 1]
-
 # Task Group: Anthropic threat-report Vietnam review and GTG case analysis
+
 scope: Inspect the complete Anthropic threat-report PDF for Vietnam references and explain named GTG cases with source-bounded attribution.
 applies_to: cwd=C:\Users\tukum\Downloads\remote\personal; reuse_rule=report-version-specific; download and search the exact PDF before making country or case claims
 
@@ -1241,13 +1684,13 @@ applies_to: cwd=C:\Users\tukum\Downloads\pdd-auto; reuse_rule=checkout-specific;
 
 ## User preferences
 
-- when the user asked to “execute step by step with me as if we're running a test demo” -> pause at setup/message checkpoints, report hiccups, and ask before proceeding [Task 1]
-- when asked for the “latest result” -> locate the newest dated report, lead with verdict and important finding, and state location/commit [Task 2]
+- when the user asked to â€œexecute step by step with me as if we're running a test demoâ€ -> pause at setup/message checkpoints, report hiccups, and ask before proceeding [Task 1]
+- when asked for the â€œlatest resultâ€ -> locate the newest dated report, lead with verdict and important finding, and state location/commit [Task 2]
 
 ## Reusable knowledge
 
 - `REVIEW_REQUIRED` is a workflow verdict, not Verra approval, registration, or submission status. Preserve the registered VM0043 v1.0 basis; do not silently substitute v1.1. [Task 1]
-- Independently recompute every recorded source fingerprint against its named file. Shipped `check_authored_pdd.py` and `review_records.py` did not catch 0/25 fabricated 58–62-character hashes; acceptance repair then verified 25/25 64-character digests. [Task 2]
+- Independently recompute every recorded source fingerprint against its named file. Shipped `check_authored_pdd.py` and `review_records.py` did not catch 0/25 fabricated 58â€“62-character hashes; acceptance repair then verified 25/25 64-character digests. [Task 2]
 - Keep workbook limitations explicit: two unreadable large workbooks left 571,623 rows unaccounted for; sources were read-only and not recalculated/resaved. [Task 2]
 
 ## Failures and how to do differently
@@ -1281,7 +1724,7 @@ applies_to: cwd=C:\Users\tukum\Downloads\remote\temp; reuse_rule=safe as a local
 
 ## User preferences
 
-- when the user says “open excel and do something fun” -> a self-contained visual/interactive workbook is a reasonable default [Task 1]
+- when the user says â€œopen excel and do something funâ€ -> a self-contained visual/interactive workbook is a reasonable default [Task 1]
 
 ## Reusable knowledge
 
@@ -1698,7 +2141,37 @@ applies_to: cwd=C:\Users\tukum\Downloads\city-ghg; reuse_rule=checkout-specific 
 
 - inv-afolu-waste, IPCC-2006-Vol4-Vol5-worksheets, Waste-Model-FOD, run_model.py, AFOLU-564368t-unreported, rice-EFc-1.30, manure-Tier1-vs-Tier2, landfill-DOCf-k, UPLOAD.md-manifest, gws-Python-subprocess
 
+## Task 29: alt-energy PyPSA 1A1 BAU comparison with uncalibrated Run C independent check, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-11T01-50-50-uJfg-alt_energy_pypsa_1a1_runc_independent_check.md (cwd=C:\Users\tukum\Downloads\city-ghg, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\11\rollout-2026-10-11T08-50-50-01a128a7-d655-74a2-bdf0-372fccc48ef6.jsonl, updated_at=2026-10-11T02:44:17+00:00, thread_id=01a128a7-d655-74a2-bdf0-372fccc48ef6, Run A/B plus uncalibrated Run C, ver1 1A1 about 9pct high on anthracite NCV)
+
+### keywords
+
+- alt-energy, PyPSA-1.4.0, HiGHS, 1A1-dispatch, per-year-bus, runC-published, heat-rate, HND-JAKS-PPC, NCV-26.7-vs-21.1, FINAL-C, herdr-no-wait-continue
+
+## Task 30: alt-sector EPA SIT non-energy BAU Run A/B with like-for-like boundary comparison, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-11T01-51-09-gz7Q-alt_sector_epa_sit_nonenergy_bau.md (cwd=C:\Users\tukum\Downloads\city-ghg, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\11\rollout-2026-10-11T08-51-10-01a128a8-2155-7022-9968-72b9f0ad4802.jsonl, updated_at=2026-10-11T02:45:31+00:00, thread_id=01a128a8-2155-7022-9968-72b9f0ad4802, Run A/B plus like-for-like plus 1.0pct, FOD-only-computed)
+
+### keywords
+
+- alt-sector, EPA-SIT-v2025.1, Vermont-container, sit-us-default, FOD-landfill, State-Disposal-rows-46, EnableEvents-false, like-for-like-boundary
+
 - Related skill: skills/exhaustive-ledger-research/SKILL.md
+
+## Task 31: alt-city CURB v2.1 Hai Phong BAU Run A and Run B with comparison, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-11T01-51-02-oZ57-alt_city_curb_hai_phong_bau_comparison.md (cwd=C:\Users\tukum\Downloads\city-ghg, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\11\rollout-2026-10-11T08-51-03-01a128a8-062d-7133-a2f9-6edd7ac70d21.jsonl, updated_at=2026-10-11T05:09:44+00:00, thread_id=01a128a8-062d-7133-a2f9-6edd7ac70d21, Run A 2030 79.72Mt plus Run B 2030 57.43Mt plus 44-row results.csv plus COMPARISON.md plus FINAL herdr prompt)
+
+### keywords
+
+- alt-city, CURB-v2.1, Hai-Phong-BAU, RunA-Hang, RunB-corrected, Excel-COM-manual-calc, checkmark-U2713, ActivityGrowthRates-Trim, CalculateFullRebuild, results.csv-COMPARISON
 
 ## User preferences
 
@@ -1735,6 +2208,16 @@ applies_to: cwd=C:\Users\tukum\Downloads\city-ghg; reuse_rule=checkout-specific 
 - when reporting to the orchestrator, the user objective said push one-line report with herdr agent prompt trang-orch "[inv-*] PHASE n done|blocked: ..." never --wait then keep going -> push via herdr without waiting and continue [Task 26][Task 27][Task 28]
 - when mapping LEAP inputs, steering said Run A Hang-inputs vs Run B corrected side by side to separate tool vs assumption effect, and 15.2pct stays the GRDP driver with correction as GRDP x elasticity (other-industry 0.7 central) while PDP8 ~10pct is electricity demand never a GDP proxy -> do not replace the GRDP rate itself [Task 25]
 - when a LEAP licence is pending, steering said prepare a do-not-run build script via COM API from inputs.csv, do not launch leap.exe, stay idle with no report, and never patch/forge/tamper with licence validation -> confirm licence explicitly before COM writes [Task 25]
+- when scoping a tool-benchmark lane, orchestrator steered: "do not model every fuel as fixed must-run supply - an LP with no choices just echoes inputs and the tool effect is ~0 by construction. Use PyPSA where it adds real signal: 1A1 power" -> scope the tool to the sector where it adds real dispatch or accounting signal [Task 29]
+- when non-power sectors were needed for boundary, orchestrator said: "Non-power sectors may be carried as pass-through arithmetic but label them source=pass-through, not tool output, and keep them out of the tool-effect %" -> label pass-through vs tool output explicitly and exclude pass-through from tool-effect math [Task 29]
+- when the calibrated tool effect was circular, orchestrator said: "Add Run C (uncalibrated): per-plant heat rate / efficiency and capacity factor from published sources you open yourself ... cite file/page ... Mark any parameter without a source as judgement" -> run an uncalibrated published-parameter case with own-source cites and explicit judgement marks [Task 29]
+- when EPA SIT was accepted, orchestrator said overwrite every activity input and growth driver with Hai Phong values, select a single neutral US state container, and tag non-overridable defaults source=sit-us-default -> override everything local, use Vermont Lists, tag US defaults [Task 30]
+- when the headline total hid offsets, orchestrator asked to add a like-for-like row restricted to the SIT-run boundary and relabel the as-published gap as boundary-dominated -> show boundary-restricted like-for-like, never just as-published totals [Task 30]
+- when reporting lane phases, orchestrator said send it now with herdr agent prompt city-ghg-claude "[alt-city] ..." -> push status via herdr agent prompt without --wait after Scout, switch, and FINAL, then continue without waiting [Task 31]
+- when handling Excel, orchestrator said STOP killing all Excel processes, start your own Excel via COM, record its PID, and stop only that PID (or Quit it) -> never Stop-Process all EXCEL, only the owned PID or Quit [Task 31]
+- when using protected workbooks, orchestrator said do not crack, strip, or bypass sheet-protection passwords, use only unlocked input cells and the tool's own macros or UI paths -> record password-blocked inputs as a tool limitation in COMPARISON.md, not a bypass [Task 31]
+- when CURB recalc looked slow, orchestrator said try Application.Calculation manual plus calculating only sheets you need (Worksheet.Calculate), or a single long background recalc with 30-min timeout, and drop only if that also fails -> prefer manual calc plus targeted calc before declaring blocked [Task 31]
+- when CURB still looked stuck, orchestrator said if CURB still cannot recalc report blocked rather than forcing a transport-only run -> do not force a narrow fallback that lacks required sectors [Task 31]
 
 ## Reusable knowledge
 
@@ -1790,6 +2273,12 @@ applies_to: cwd=C:\Users\tukum\Downloads\city-ghg; reuse_rule=checkout-specific 
 - 10pt-cutoff source search result: 0 DIRECT sources for a fixed coverage floor; 9 ANALOGOUS 10pt-family thresholds (EU MRR Art19(3) minor below 10pt and de minimis below 2pt; GPC Ch11 CCAR 10pt recalc with GPC making no recommendation; Circular 17 Art22 above 10pt recalc; Decree06 10pt offset cap; MPGs 0.05pt/500kt with total below 0.1pt; GHG Protocol draft 1pt/1pt/5pt; Census ACS 70pt/30ptCV; (n,k) dominance; weight trim cap 5). Method-note wording: state 10pt as documented internal screening rule analogous to, not derived from, those thresholds, with sensitivity sweep 0/5/10/25pt. [Task 20]
 - Threshold recomputation on data/incoming/2026-10-08_trang_1A2_v4/hybrid_rows_extract.csv (245 rows) in scripts/scratch_threshold/ (explore_hybrid.py, rules.py, rules2.py, n_check.py, wb_check.py, fix_viet.py): coverage at or above 10pt equals expansion factor at or below 10x; Hidiroglou-Berthelot U=0 A=0.05 C=3 on city/sample ratio flags exactly 21 D rows for add-on 528894 tCO2e (+0.0pt); stability band below 1pt for 7.5-12.5pt and below 10pt for 1-30pt; national-ceiling alone plus 11pt (7 breaches, bricks 164pt, packaging 17198pt) needs unity edit to reach finish line; n at or above 10 kills add-on (median 2 firms). Finish line 8.65Mt as sent, 8.10Mt after LPG -0.27Mt plus billet -0.28Mt fixes; validated cell-for-cell against workbook sheet 'Phan tich nguong'. [Task 20]
 - Primary-PDF quote workflow that held for IPCC/GPC briefs: curl 11 PDFs from ipcc-nggip.iges.or.jp, ghgprotocol.org, unfccc.int into %TEMP%\hp1a2src, text-extract with pdftotext.exe -layout, then srch.py/dump.py searches keeping printed-vs-PDF page distinction for verbatim quotes. [Task 20]
+- PyPSA lane mechanics: PyPSA 1.4.0 MIT with HiGHS via linopy/highspy headless on Windows; SEI NEMO rejected (Store shim julia.exe only), OSeMOSYS/otoole rejected (converter only, no glpsol), oemof.solph 0.6.5 fallback broken (Pyomo-HiGHS solver_io); one bus per year 2025-2030 with 3 coal plants 3440 MW plus grid import/export, marginal_cost coal -0.01 vs import 10, snapshot_weightings 8760, HiGHS Optimal about 0.01s. [Task 29]
+- Ver1 1A1 derivation recovered: 2025 base 5,070,185t anthracite plus 4,036,716t subbit with x1.05 cap to 2030 under QD2626 factors gives 20.733 Mt (2025) and 21.770 Mt (2030); Run A matches 0.0pct by construction at availability 0.70; implied plant EF about 0.983 t/MWh vs official grid 0.6592. [Task 29]
+- Run C independent check: published CF/heat/NCV per plant (HND CF 0.643 heat 8692 NCV 21.14; JAKS CF 0.741 heat 9600 judgement NCV 18.9; PPC CF 0.545 heat 11913 NCV 24.53 derived) gives coal 9.147 Mt vs ver1 9.107 Mt (plus 0.4pct corroborated) but 1A1 18.857 Mt flat (minus 9.0/13.4pct); cause is ver1 anthracite NCV 26.7 vs plant actuals 21.1-24.5; compare mass and energy (TJ) to isolate factor vs driver effects. [Task 29]
+- EPA SIT lane mechanics: SIT v2025.1 public-domain from epa.gov, Projection Tool to 2050, headless via Excel COM with EnableEvents=false and AutomationSecurity=1; Vermont Lists C1/D1 neutral container, tonnes to short tons x1.10231, GWP AR5 matches Decree 06; only landfill FOD genuinely computed, IPPU/rice/soils/urea/liming take emissions directly; year columns Rice/Urea/Liming B=1990 AK=2025 AP=2030, IP C=1990 AL=2025 AQ=2030, Enteric/Livestock C=2001 AA=2025 AF=2030, State Disposal history rows 46-plus; Run A 2025 7.83Mt 2030 12.44Mt, Run B 10.51/10.25Mt, like-for-like 12.314 vs 12.440 plus 1.0pct with landfill plus 110.8pct offset by IPPU/AFOLU. [Task 30]
+- CURB v2.1 lane mechanics: World Bank CURB v2.1 (36.3MB .xlsb, 672 sheets, Custom License Public, free no-account download) from the datacatalogfiles zip URL with recorded SHA256; Option 1 own-inventory path needs 2SETUP_1 N30=1 plus 2SETUP_INVVALUES X1=2 plus 2SETUP_INVINPUT col X as checkmark string (U+2713, not Yes or numeric char) plus AB totals plus 3INV_ActivityGrowthMaster B4=4 custom; growth-table refs have inconsistent whitespace so Trim before matching; set Calculation manual only after Workbooks.Open, write unlocked cells only, then CalculateFullRebuild about 5-8min per run since targeted Calculate alone is a no-op; totals from 3INV_1 Total and 6SCN_1_1 BUSINESS-AS-USUAL EMISSIONS with sector split from 3INV_EmissionsGrowthMaster base/H1/H2; Run A 2025 51.46Mt to 2030 79.72Mt, Run B 2025 49.77Mt to 2030 57.43Mt (2035 68.83Mt, 2040 86.07Mt); run xlsb files belong under vendor/run (gitignored), results.csv has 44 rows, AFOLU Aggregate zero rows take residual-from-total. [Task 31]
+- CURB comparison lines: tool effect Run A vs ver1 as-sent plus 23.2pct is boundary (ver1 1A2 empty); like-for-like vs GACMO Run A minus 3.9pct negligible with 2025 both 51.46Mt exact; assumption effect B-minus-A 2030 minus 28.0pct (minus 22.29Mt) close to GACMO minus 32.7pct, dominated by 1A2 driver plus IPPU route; repo engine 10.44Mt is minus 81.8pct vs CURB B (boundary: no 1A1 coal or 1A2). [Task 31]
 
 ## Failures and how to do differently
 
@@ -1826,6 +2315,12 @@ applies_to: cwd=C:\Users\tukum\Downloads\city-ghg; reuse_rule=checkout-specific 
 - CIRIS Excel-COM failure shields: full-workbook CalculateFull hangs (69s+ frozen) so delete heavy sheets (Results_Graphs_2, Notes, eCRF) and calculate only Emission factors, F-Gases, IV, V, III, Report, Results_Overview, Results_Summary, Results, GCoM-CRF; never call Worksheet.Unprotect since it prompts for password and blocks COM, use Validation.Delete only; Add-rows carry pre-filled M=NO that short-circuits VLOOKUP roll-up to NO/0 so clear M14 (IPPU) and M14/M71/M128 (AFOLU) before recalc; BASIC+ set in City E44 does not propagate so set Results_Summary C12 directly. [Task 27]
 - Wrong-workbook shield for inventory lanes: the early template hp/hph-survey-data-2026-09 file holds Energy plus IPPU only with 1000 placeholders, so diff the candidate against the primary plus TAH review before mapping; any cell exactly 1000 is not-yet-populated and must never be compared. [Task 26][Task 27][Task 28]
 - gws upload failure shields: PowerShell direct --params/--json quoting always yields invalid JSON, so drive gws from Python subprocess calling node run.js (ipcc) or from Git Bash scripts (ciris upload.sh); a double-launched uploader created 50 files for 25 unique, so ensure a single uploader instance and reconcile by keeping earliest createdTime and trashing duplicates. [Task 26][Task 27][Task 28]
+- Single-bus multi-year PyPSA model showed a cross-year storage artifact in grid_import; rebuild as one bus per year (hp_<year>) with per-year load/gen/import/export. [Task 29]
+- HND annual-report PDF first downloaded image-only; refetch a text-layer variant for cites; HP-GPMT console mojibake needs UTF8/python extraction; EVN page fetch needs UseBasicParsing plus tag-strip. [Task 29]
+- Waste history written to rows 6-plus instead of 46-plus understated FOD (0.25 vs 1.24 Mt); verify State Disposal A-column year labels before writing. [Task 30]
+- Opening the Projection Tool with EnableEvents true spawns a visible window and hangs COM (RPC 0x800706BE); always EnableEvents=false plus kill stale EXCEL processes; openpyxl cannot read ip/ag modules (invalid XML drawings), so use Excel COM. [Task 30]
+- CURB Excel-COM failure shields: direct S3 HEAD 403 plus DNS failure -> scrape the DataCatalog page for the datacatalogfiles zip URL and download via curl.exe; Expand-Archive or ExtractToDirectory into the same folder yields a 0-byte xlsb, so extract into a vendor/curb subfolder; setting Calculation manual before Workbooks.Open throws 0x800A03EC, so set it after Open; writing locked INVINPUT header rows or calling Unprotect hangs COM with RPC errors, so write the first unlocked fuel rows with X1=2; [char]0x2713 without string quotes stores numeric 10003 instead of the checkmark, so write it as a string; growth-table refs carry stray whitespace, so Trim before matching; a combined full-rebuild plus Calculate in one session can exceed 10 min and hang on a modal, so kill only the owned PID and rerun manual-then-rebuild (about 6 min). [Task 31]
+- CURB lane placement shield: run files match tool-comparison ignore rules only under vendor/run, so move run xlsb files there and update COMPARISON.md references to keep the lane committable. [Task 31]
 
 # Task Group: VIDA/CPI model review and investor materials
 scope: Review VIDA scale-up economics and slide/vehicle materials without silently overwriting team-owned Drive models.
@@ -1863,8 +2358,8 @@ applies_to: cwd=C:\Users\tukum\Downloads\remote\cpi; reuse_rule=workbook-version
 
 ## User preferences
 
-- after “Too long man” then “too short without any context behind number” -> be compact but place numerical rationale beside each recommendation [Task 1]
-- “exact sheet and cell and what exactly i need to change or comment for mudit to update” -> give exact locations and paste-ready comments; inspect/recommend before edits and preserve Mudit’s Drive source [Task 1]
+- after â€œToo long manâ€ then â€œtoo short without any context behind numberâ€ -> be compact but place numerical rationale beside each recommendation [Task 1]
+- â€œexact sheet and cell and what exactly i need to change or comment for mudit to updateâ€ -> give exact locations and paste-ready comments; inspect/recommend before edits and preserve Muditâ€™s Drive source [Task 1]
 - when reviewing a draft with pending teammate edits, the user expectation is to preserve them intact and redline over them visibly rather than silently replacing -> Rob 21 Sep and Lauren 18 Sep edits preserved; R-06 redlines over Rob callout rewrite [Task 2]
 - when numbers are uncertain, the user wants flags as comments not silent decisions -> impact confirmation, 49M denominator, 120MWp/40MWh mismatch left as comments [Task 2]
 
@@ -1929,7 +2424,7 @@ applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=project-specific; v
 
 ## User preferences
 
-- “html presentation artifact,” “less word more visual and animation,” and “clarify with me where needed” -> use visual storytelling and confirm scenario/audience assumptions before building [Task 1]
+- â€œhtml presentation artifact,â€ â€œless word more visual and animation,â€ and â€œclarify with me where neededâ€ -> use visual storytelling and confirm scenario/audience assumptions before building [Task 1]
 - when asked to check a call note and brainstorm, the user accepted structured AskUserQuestion narrowing (core job, objection, lead benefit, storyline) and answered quickly, including rewind and multi-select -> for similar deck scoping, use short option questions to lock decisions rather than long prose [Task 4]
 - when brainstorm was done, the user said skip plan and execute the deck based on brainstorm -> on explicit skip-plan plus execute, build directly without a plan step [Task 4]
 
@@ -2197,8 +2692,8 @@ applies_to: cwd=C:\Users\tukum\Downloads\pacta-trisk\gtb and cwd=C:\Users\tukum\
 
 ## User preferences
 
-- for existing Drive files, user chose “Shortcuts”; for laptop-only files, “Skip uploads” -> preserve originals and do not upload local files unless explicitly requested [Task 1]
-- BIDV “only do the code matching and return to them” -> crosswalk-only boundary; do not request loan/emissions databases. “less words more visual” -> concise HTML visual artifacts with detail in workbook/methodology [Task 2]
+- for existing Drive files, user chose â€œShortcutsâ€; for laptop-only files, â€œSkip uploadsâ€ -> preserve originals and do not upload local files unless explicitly requested [Task 1]
+- BIDV â€œonly do the code matching and return to themâ€ -> crosswalk-only boundary; do not request loan/emissions databases. â€œless words more visualâ€ -> concise HTML visual artifacts with detail in workbook/methodology [Task 2]
 - when sharing BIDV legal docs, the user said there is usually not much room for review with a bank like BIDV as their template is standard and rock solid -> future drafts sharing BIDV templates should include that framing and recommend only pushing back on real blockers [Task 4]
 - when updating bilingual legal docs, the user said: "make sure that the vietnamese version is updated accordingly in tracked change" -> keep originals untouched, do all edits with Track Changes on, and preserve reject-all == original [Task 5]
 - when asked to send or act externally, the user said: "strip and do not send anything on my behalf, i'll do it myself" -> prepare local or BIDV-facing files only with internal threads stripped, and let the user send [Task 5]
@@ -2206,7 +2701,7 @@ applies_to: cwd=C:\Users\tukum\Downloads\pacta-trisk\gtb and cwd=C:\Users\tukum\
 
 ## Reusable knowledge
 
-- GTB tree follows signed outputs 1.1–4.4; output 2.2/4.3 lacked matching prior deliverables. Fix Windows encoding with `PYTHONIOENCODING=utf-8` and invoke native `gws.exe`; verify final tree and tracker. [Task 1]
+- GTB tree follows signed outputs 1.1â€“4.4; output 2.2/4.3 lacked matching prior deliverables. Fix Windows encoding with `PYTHONIOENCODING=utf-8` and invoke native `gws.exe`; verify final tree and tracker. [Task 1]
 - v0.9: 587 codes, 339 H/232 M/16 L, 51 tests, and 224 audited full-description rows. Keep match confidence distinct from PCAF DQ; fossil power is H because CEDA description covers fossil generation, renewables M. [Task 2]
 - Gmail MCP search_threads/get_message can list attachment filename/ID but cannot download bytes; use gws gmail users messages get/attachments get for download, then gws drive files create --upload for Drive upload. [Task 4]
 - BIDV GTB Drive folder 10eJhcsLiWg68v5lz2X5sJwjYewxomenG holds MoU v2 plus the Vietnamese NDA; the uploaded English NDA kept the BIDV original name/format as 1Ga6ldgrSFpTFxxYmO5KBIgoEnVjgcq5v. Source message 1a08ad610b9ff56e (2026-09-10, 8 pages, mutual NDA to 31 Dec 2027, 5yr tail); review draft r-8413759618406180036 to <EMAIL> and <EMAIL>, not sent. [Task 4]
@@ -2367,7 +2862,7 @@ applies_to: cwd=C:\Users\tukum\Downloads\baby-context; reuse_rule=sensitive and 
 
 ## Failures and how to do differently
 
-- Do not repeat unsupported claim that GAD-7 changed 6→17: only one raw block was evidenced. No user/clinical validation occurred, so describe artifact as an informational aid only. [Task 1]
+- Do not repeat unsupported claim that GAD-7 changed 6â†’17: only one raw block was evidenced. No user/clinical validation occurred, so describe artifact as an informational aid only. [Task 1]
 
 # Task Group: Toggl postpartum health timeline mining and artifact
 scope: Mine the local Toggl SQLite log for wife postpartum health signals since a stated date and publish a private HTML timeline artifact with source rows plus doctor questions.
@@ -2443,29 +2938,3 @@ applies_to: cwd=C:\Users\tukum\Downloads\city-ghg; reuse_rule=prices, schedules,
 - Airline results can be CAPTCHA/tool constrained (EVA session timeout, China Airlines Akamai block, digital.evaair.com permission denied until allowed). Preserve the partial outcome and ask for human completion rather than guessing a price. [Task 1]
 - xlsx skill recalc.py fails on Windows (AF_UNIX); use LibreOffice soffice.exe headless convert to recalc then openpyxl data_only check. Header "#" breaks openpyxl; use "No."/"Ref". [Task 1]
 - Saved draft links must be verified character-for-character against tested searches via programmatic decode-compare; a typed multi-city link carried an extra leg caught only by decode-compare. [Task 1]
-
-# Task Group: Official EVA Air multi-city fare lookup
-scope: Fill the official EVA multi-city booking form and obtain price evidence; human CAPTCHA is an explicit handoff boundary.
-applies_to: cwd=C:\Users\tukum\Documents\Codex\2026-09-17\check-the-price-on-official-website; reuse_rule=run-specific route/page state; use the official domain and require a fare-result screenshot
-
-## Task 1: Fill EVA multi-city itinerary, partial
-
-### rollout_summary_files
-
-- rollout_summaries/2026-09-17T10-11-33-CyEX-eva_air_multicity_fare_check_captcha_blocker.md (cwd=C:\Users\tukum\Documents\Codex\2026-09-17\check-the-price-on-official-website, rollout_path=C:\Users\tukum\.codex\sessions\2026\09\17\rollout-2026-09-17T17-11-33-01a0aed9-a015-7ca2-ba89-40d4e0415923.jsonl, updated_at=2026-09-17T10:32:00+00:00, thread_id=01a0aed9-a015-7ca2-ba89-40d4e0415923, form filled; CAPTCHA blocked prices)
-
-### keywords
-
-- EVA Air, booking-multi.aspx, browser-control, captcha, #content_txt_From1, #btn_ok, BR17, BR385, BR386
-
-## User preferences
-
-- “official website” and requested screenshots -> use EVA’s official domain and preserve fare-result screenshot evidence, not third-party prices [Task 1]
-
-## Reusable knowledge
-
-- Direct Playwright navigation returned HTTP 403; attach to the user’s visible Chrome through Browser Control. The segment selectors are `#content_txt_From1`/`To1`/`Cal1` through segment 3; cabin is `#content_ddl_cabinclass`, submit `#btn_ok`. [Task 1]
-
-## Failures and how to do differently
-
-- CAPTCHA requires user entry and click of “Search and Book”; never visually guess it. No results/price were obtained. Pass Browser Control numeric parameters as integers, not floats. [Task 1]

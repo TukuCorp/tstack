@@ -11,6 +11,7 @@ Convert any content — notes, data, research, documents — into a polished pre
 
 | Situation | Mode |
 |-----------|------|
+| User supplies an Allotrope template, or wants highest adherence to one | **apdeck** (use the apdeck skill instead) |
 | Formal deliverable, client-facing, needs a file | **pptx** |
 | Internal review, browser-shareable, data/interactive | **html** |
 | User says "html", "interactive", "browser" | **html** |

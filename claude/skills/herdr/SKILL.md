@@ -13,6 +13,10 @@ Before issuing any control command, verify that this agent is running inside a H
 test "${HERDR_ENV:-}" = 1
 ```
 
+```powershell
+if ($env:HERDR_ENV -ne '1') { throw 'Not running inside Herdr' }
+```
+
 If the check fails, say that you are not running inside Herdr and stop. Do not inspect or control the focused Herdr session from outside Herdr.
 
 When the check passes, the `herdr` binary in `PATH` talks to the current session. Use it to inspect neighboring work, create terminal layout, start agents and commands, read output, and wait for state changes.
@@ -140,7 +144,7 @@ Submit work through the agent surface:
 herdr agent prompt reviewer "Review the current diff and report only actionable findings." --wait --timeout 120000
 ```
 
-`agent prompt` atomically submits text and encoded Enter while honoring the pane's live bracketed-paste mode. For normal agent work, `--wait` is enough: it waits for the first settled `idle`, `done`, or `blocked` state. Do not repeat those defaults with `--until`.
+`agent prompt` atomically submits text and encoded Enter while honoring the pane's live bracketed-paste mode. For normal agent work, `--wait --timeout <ms>` is enough: it waits for the first settled `idle`, `done`, or `blocked` state. Do not repeat those defaults with `--until`. Always pass `--timeout`; without it the wait can block forever.
 
 A prompt sent from a non-working state must produce an observed lifecycle change within five seconds. Otherwise Herdr returns `agent_prompt_stalled` instead of waiting indefinitely. This wait tracks lifecycle state, not an individual turn; if the agent is already working, completion of the active turn may satisfy it.
 
@@ -150,7 +154,7 @@ Use `--until` only for a state-specific workflow, such as waiting for an already
 herdr agent wait reviewer --until blocked --timeout 120000
 ```
 
-Without `--until`, standalone `agent wait` uses the same settled-state defaults as `agent prompt --wait`.
+Without `--until`, standalone `agent wait` uses the same settled-state defaults as `agent prompt --wait`. It also needs `--timeout`.
 
 Use logical keys for interactive agent UI controls:
 
@@ -179,12 +183,12 @@ herdr pane split --current --direction right --cwd "$PWD" --no-focus
 Read the new pane ID from `.result.pane.pane_id`, then run and inspect the command:
 
 ```bash
-herdr pane run <returned-pane-id> "just test"
-herdr pane wait-output <returned-pane-id> --match "test result" --timeout 120000
+herdr pane run <returned-pane-id> "npm test"
+herdr pane wait-output <returned-pane-id> --regex "passing|failing" --timeout 120000
 herdr pane read <returned-pane-id> --source recent-unwrapped --lines 120
 ```
 
-`pane run` atomically sends command text and Enter. `pane wait-output` searches the selected snapshot immediately, so output that already exists can match. Use `--match <text>` for a literal substring or `--regex <pattern>` for a Rust regular expression. Omitting `--timeout` allows an indefinite wait.
+`pane run` atomically sends command text and Enter. `pane wait-output` searches the selected snapshot immediately, so output that already exists can match. Match text the command prints when it finishes (here the test runner's summary), not text from the command line itself. Use `--match <text>` for a literal substring or `--regex <pattern>` for a Rust regular expression. Always pass `--timeout`; omitting it allows an indefinite wait that hangs the caller.
 
 Use the read source that matches the task:
 
@@ -197,11 +201,12 @@ Use `--format ansi` when colors and terminal styling are evidence. Otherwise use
 
 `--lines` asks Herdr for more rows from the pane's available screen and host scrollback. If increasing it does not reveal more of a completed response, the pane is probably running the agent on the terminal's alternate screen. Rows that leave the alternate screen do not enter Herdr's host scrollback, so a larger line count cannot recover them.
 
-After that failed read, ask the agent to write its complete response as Markdown in a temporary directory and reply only with the file path, then read the file directly. Use this only as a fallback; do not request file output in the initial prompt.
+After that failed read, ask the agent to write its complete response as Markdown to a file in this session's scratchpad directory (give it the full absolute path, e.g. `<scratchpad>\herdr-<agent-name>.md`) and reply only with the file path, then read the file directly. Use this only as a fallback; do not request file output in the initial prompt.
 
 ## Safety and coordination rules
 
 - Use `--no-focus` for background work unless the user asked to switch context.
+- Pass `--timeout <ms>` on every `agent prompt --wait`, `agent wait`, and `pane wait-output`.
 - Use `--current`, an explicit pane ID, or a unique agent name. Do not rely on another client's focused pane.
 - Parse IDs from JSON responses. Do not derive them from sidebar order or examples.
 - Do not close workspaces, tabs, panes, or sessions you did not create unless the user explicitly asked.

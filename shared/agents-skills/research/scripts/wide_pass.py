@@ -31,16 +31,32 @@ Example:
 """
 import argparse, json, os, re, subprocess, sys, time, urllib.parse, urllib.request, urllib.error
 
-DEF_MAILTO = "<EMAIL>"
+# OpenAlex "polite pool" contact. Set OPENALEX_MAILTO to override; the fallback keeps old runs working.
+DEF_MAILTO = os.environ.get("OPENALEX_MAILTO") or "<EMAIL>"
+
+
+_ARXIV_RE = re.compile(r"^(?:export\.)?arxiv\.org/(?:abs|pdf)/(.+?)(?:v\d+)?(?:\.pdf)?$")
 
 
 def norm_url(u):
+    """Dedup key: lowercase host+path without scheme, www, query, fragment, or trailing slash.
+    DOIs (doi.org, dx.doi.org, `doi:` or bare `10.x/...`) become `doi.org/<doi>`; arXiv abs/pdf/
+    version variants and arXiv DOIs (10.48550/arxiv.<id>) become `arxiv.org/abs/<id>`."""
     if not u:
         return ""
     u = u.strip().lower()
-    u = re.sub(r"^https?://(www\.)?", "", u)
+    u = re.sub(r"^doi:\s*", "", u)
+    u = re.sub(r"^https?://", "", u)
+    u = re.sub(r"^www\.", "", u)
     u = re.sub(r"[?#].*$", "", u)
     u = re.sub(r"/+$", "", u)
+    u = re.sub(r"^(?:dx\.)?doi\.org/", "", u)
+    if re.match(r"^10\.\d{4,9}/", u):
+        m = re.match(r"^10\.48550/arxiv\.(.+)$", u)
+        return f"arxiv.org/abs/{m.group(1)}" if m else f"doi.org/{u}"
+    m = _ARXIV_RE.match(u)
+    if m:
+        return f"arxiv.org/abs/{m.group(1)}"
     return u
 
 
@@ -227,7 +243,9 @@ def main():
         firecrawl_status = "unavailable: no key"
     else:
         firecrawl_status = "ok"
-        fc_specs = [("industry", args.industry_target, args.industry_query, 3),
+        # industry starts at tier 4 like web: the lead promotes real lab/gov/standards reports to
+        # tier 2-3 after reviewing the publisher (vendor PDFs otherwise inflate the qualified pool).
+        fc_specs = [("industry", args.industry_target, args.industry_query, 4),
                     ("web", args.web_target, args.web_query, 4)]
         for bucket, target, queries, tier in fc_specs:
             if firecrawl_status != "ok":

@@ -1,6 +1,6 @@
 ---
 name: verify
-description: Independently verify that a completed task's claims are actually true, from a fresh evidence-gathering pass — never trusting prior conversation as evidence. Reproduces evidence by running the repo's own tests, inspecting git diff/log, and checking claimed artifacts, then emits a verified/partial/refuted verdict with a reports/verify-*.md file. Use when the user explicitly invokes `/verify`, or asks to double-check, confirm, or independently validate that a change actually works after any agent-driven change when you need to trust "done" rather than assume it.
+description: Independently verify that a completed task's claims are actually true, from a fresh evidence-gathering pass — never trusting prior conversation as evidence. Reproduces evidence by running the repo's own tests, inspecting git diff/log, and checking claimed artifacts, then emits a verified/partial/refuted verdict with a reports/verify-*.md file. Use when the user invokes `/verify`, right before committing, or when the user asks to double-check, confirm, or independently validate that a change actually works after any agent-driven change when you need to trust "done" rather than assume it.
 ---
 
 # Verify
@@ -21,7 +21,8 @@ memory does not count — run them again, right now.
 
 ## Trigger
 
-- Run only on explicit `/verify`.
+- Run on `/verify`, when asked to confirm that work is really done, and right before
+  committing agent-driven changes.
 - Treat the user's arguments as the claims/task description to verify.
 
 ## Procedure
@@ -47,6 +48,16 @@ a claim like "added the feature and all tests pass" becomes two statements:
 
 ### 2. Reproduce evidence for each claim
 
+Gather evidence in a fresh subagent: use one if this environment offers one,
+giving it only the claims list from step 1, the repo path, and the checks below. Pass no conversation history, no summary of the
+work, and no hint about what should pass. It returns, per claim, each exact command,
+its exit code, and the relevant output tail. Base the verdict only on what it returns.
+If no subagent is available, run the checks yourself and record `independence: inline` in the report.
+
+`<base>` below means `git merge-base HEAD origin/<default-branch>` (`git symbolic-ref
+--short refs/remotes/origin/HEAD` prints `origin/<default-branch>`); if there is no such
+remote, use `HEAD~1`. For uncommitted work, the base is `HEAD`.
+
 For every claim, take actions that could actually falsify it — do not just read
 code and eyeball plausibility. Use whichever of these apply:
 
@@ -61,17 +72,21 @@ code and eyeball plausibility. Use whichever of these apply:
 - **Artifact claimed to be created/updated:** check the file exists on disk, has
   non-zero size, and — if the claim specifies content — actually contains it
   (`grep` for the expected string, or parse it if structured).
-- **Bug claimed fixed:** if a regression test is claimed, run just that test in
-  isolation and confirm it passes; if no test exists for it, that itself is
-  evidence the claim is unverifiable, not verified.
+- **Bug claimed fixed:** run the regression test in isolation and confirm it
+  passes. Then run the same test against `<base>` and confirm it FAILS there:
+  `git worktree add <tmp-dir> <base>`, copy in the test file if the base lacks it,
+  run it, then `git worktree remove <tmp-dir>` (for uncommitted work, `git stash`
+  the non-test changes, run the test, `git stash pop`). A test that passes on both
+  sides proves nothing about the fix: mark the claim not reproduced. If no
+  regression test exists, the claim is unverifiable, not verified.
 - **No test files were altered to force a pass:** check whether the diff touches
   `tests/**`, `test_*`, `*_test.*`, `conftest.py`, or spec files in ways that look
   like the test was weakened rather than the code fixed. If so, flag it explicitly
   as suspicious evidence, not supporting evidence.
 
 A claim with no way to obtain evidence for it (unclear test command, ambiguous
-scope, no diff to inspect) counts as **not reproduced** — fail closed. Do not give
-the benefit of the doubt.
+scope, no diff to inspect) counts as **not reproduced** — fail closed. A test run
+that times out also counts as not reproduced. Do not give the benefit of the doubt.
 
 ### 3. Determine the verdict
 
@@ -85,13 +100,16 @@ the benefit of the doubt.
 ### 4. Write the verdict file and report
 
 Write `reports/verify-YYYYMMDD-HHMM.md` (create the `reports/` directory if it
-doesn't exist) with:
+doesn't exist). Keep the report out of the commit that usually follows: if
+`git check-ignore -q reports/` fails, add `reports/` to `.gitignore`, and never stage
+the report. Contents:
 
 ```markdown
 ---
 verdict: verified|partial|refuted
 date: "{{ISO-8601 timestamp with local offset}}"
 claims_checked: {{n}}
+independence: subagent|inline
 ---
 
 # Verify: {{one-line summary of what was checked}}

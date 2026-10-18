@@ -64,18 +64,11 @@ Support these depth levels: `standard`, `deep`, `exhaustive`.
 - Guard: `--depth exhaustive` is resource-intensive (runs 250+ source wide-pass with orchestrator fan-out). For simple or quick questions, suggest `--depth standard` or `--depth deep` instead.
 - `standard` should stay compact and high-signal.
 - `deep` should widen search, compare competing approaches more explicitly, and gather enough evidence to surface contradictions and caveats without turning into a paper.
-- `exhaustive` switches on the source-bucket ratio system, orchestrator-worker fan-out, two-pass retrieval, and source ledger in [references/exhaustive.md](references/exhaustive.md). The written brief still stays compact; the volume lives in the ledger.
+- `exhaustive` switches on the source-bucket ratio system, optional orchestrator-worker fan-out, two-pass retrieval, and source ledger in [references/exhaustive.md](references/exhaustive.md). The written brief still stays compact; the volume lives in the ledger.
 
 ## Exhaustive Depth
 
-These flags apply only under `--depth exhaustive` (ignore them at other depths, with a one-line notice):
-
-- `--sources N` - total wide-pass source target. Default `250`. Clamp to `[50, 400]`; below 50, tell the user to use `--depth deep` instead.
-- `--ratio github=..,academia=..,industry=..,web=..` - relative bucket weights, normalized to sum 1. Omitted buckets are excluded; unknown keys are an error. Per-bucket target = `round(N * weight)`, remainder to the largest bucket.
-- `--strict-ratio` - forbid cross-bucket reallocation when a bucket cannot meet its target with qualified sources.
-- `--max-workers K` - cap concurrent research subagents. Default `5`.
-
-Default ratio is an even 4-way split (`github=0.25, academia=0.25, industry=0.25, web=0.25`). If `--ratio` is omitted, **ask the user to confirm or adjust this ratio before running the wide pass** (all four buckets are script-filled and quota-free when `FIRECRAWL_API_KEY` is set; if Firecrawl is unavailable, `industry`/`web` fall back to `WebFetch` against authoritative domains and shortfalls backfill into `github`/`academia` at high `--sources`); if `--ratio` is passed explicitly, use it without asking. Then print the final ratio used. Follow [references/exhaustive.md](references/exhaustive.md) for bucket backends, the mandatory Wide-Pass Execution discipline, the ask-before-running step, saturation rules, the tier-based quality gate (`qualified = tier <= 3`), and the source ledger.
+`--sources`, `--ratio`, `--strict-ratio`, and `--max-workers` apply only under `--depth exhaustive` (ignore them at other depths, with a one-line notice). If `--ratio` is omitted, ask the user to confirm or adjust the even default ratio before the wide pass. Defaults, flag resolution, backends, the source ledger, and the tier-based quality gate live in [references/exhaustive.md](references/exhaustive.md); follow it.
 
 ## Background Execution
 
@@ -83,10 +76,12 @@ Run the research in the background so the user can keep working while it reads.
 
 - Finish every interactive step first (subject check, the exhaustive ratio confirmation),
   then launch the work in the background and tell the user it is running.
-- `standard` / `deep`: launch one background subagent that runs the full workflow and
-  writes the brief. Give it the topic, flags, modes, output path, and these rules.
-- `exhaustive`: the lead stays in the main session; launch the bucket workers as
-  background subagents and merge, tier, and write when they report back.
+- `standard` / `deep`: launch one background subagent that runs the full workflow
+  inline (every selected mode itself, no nested subagents) and writes the brief.
+  Give it the topic, flags, modes, output path, and these rules.
+- `exhaustive`: the lead stays in the main session and runs the wide-pass helper itself;
+  if it fans out, the bucket workers run as background subagents and the lead merges,
+  tiers, and writes when they report back.
 - Do not predict or summarize findings before the run reports back. When it does,
   print the saved filepath(s).
 - If the harness has no background subagents, run in the foreground as before.
@@ -105,7 +100,7 @@ Then write the cross-mode synthesis after all selected modes complete.
 ## Core Operating Rules
 
 - Inspect local repository context first when the workspace is relevant.
-- Prefer official docs, maintained repos, technical reports, standards bodies, and open papers over commentary.
+- Rank sources by the Preferred Source Order in [references/source-quality.md](references/source-quality.md); prefer primaries over commentary.
 - Follow every material claim back to the source that owns it (the official doc, spec,
   source code, first-party API, or original paper) and cite that; when a secondary
   write-up is all you can find, cite it as secondary and say the primary was not located.
@@ -131,30 +126,14 @@ Then write the cross-mode synthesis after all selected modes complete.
 - Use at most two focused subagents unless `--mode all` or equivalent scope makes broader parallelization clearly worthwhile.
 - Assign one mode or one tightly scoped evidence-gathering task per subagent.
 - The main agent must merge, deduplicate, and reconcile all findings before writing the brief.
-- Exception: under `--depth exhaustive`, use the orchestrator-worker fan-out in [references/exhaustive.md](references/exhaustive.md) instead - one worker per active source bucket (split a bucket into two when its target exceeds 50), capped by `--max-workers` (default 5). The lead still merges, dedupes, tiers, and writes the brief.
+- Exception: under `--depth exhaustive`, the orchestrator-worker fan-out in [references/exhaustive.md](references/exhaustive.md) is optional: the helper script fills every bucket from the lead, so source volume never depends on spawning workers. If you do fan out, cap it at `--max-workers` (default 5); the lead still merges, dedupes, tiers, and writes the brief.
+- If this run is itself a background subagent, run every selected mode inline: no nested subagents.
 
 ## Mode Guides
 
-For detailed query patterns, evidence standards, and section templates, see:
-- [references/modes.md](references/modes.md)
-- [references/source-quality.md](references/source-quality.md)
-- [references/examples.md](references/examples.md)
-
-### Domain
-
-Identify the landscape, leading tools, dominant approaches, prior art, and known gaps.
-
-### Codebase
-
-Identify relevant repositories, architecture patterns, important files, maintenance signals, DeepWiki coverage, and reuse opportunities.
-
-### Math
-
-Identify formulations, algorithms, assumptions, complexity, solver choices, approximations, failure modes, and reference implementations.
-
-### Literature
-
-Identify recent papers, technical reports, credible practitioner write-ups, evidence quality, contradictions, and gaps in published work.
+- Per-mode query patterns, evidence standards, and section templates for `domain`, `codebase`, `math`, and `literature`: [references/modes.md](references/modes.md).
+- Source tiers, citation discipline, and quality signals: [references/source-quality.md](references/source-quality.md).
+- Calibration examples for mode, depth, and subagent choices: [references/examples.md](references/examples.md).
 
 ## Brief Structure
 
@@ -180,7 +159,7 @@ Use this exact top-level structure:
 
 ## Sources
 - [Title](URL) - source type; why it matters
-<exhaustive only: end with a pointer to the full ledger at research/sources/<slug>.sources.jsonl>
+<exhaustive only: end with a pointer to the full ledger at research/sources/YYYY-MM-DD_slug.sources.jsonl>
 ```
 
 ## Mode Section Contract

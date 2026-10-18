@@ -58,7 +58,9 @@ For each approved Accepted row, follow its Routing exactly:
 - Trivial edit to an existing skill (a bullet, a tightened sentence, a stale fact): `skill_manage(action='patch')`.
 - Substantive edit (a new section, a pattern table, more than ~10 lines): follow `hermes-agent-skill-authoring`, show the draft, then apply with `skill_manage`.
 - `tune description: <skill path>`: rewrite the description to front-load the trigger phrases the user actually used.
-- `new skill via create-skill: <kebab-name>`: `skill_manage(action='create')`, following `hermes-agent-skill-authoring` and the frontmatter of the user's existing skills. Don't invent a shape ad hoc.
+- `new skill: <kebab-name>`: `skill_manage(action='create')`, following `hermes-agent-skill-authoring` and the frontmatter of the user's existing skills. Don't invent a shape ad hoc.
+
+If the edited skill is one the user mirrors across tools (the same skill under other agent tools' skill folders), list the matching edit for each mirror copy next to the row, adapted to that copy's frontmatter, paths, and tool names, so the user approves them together. Apply them all, or none.
 
 The skill validator runs on `skill_manage` writes. Fix anything it rejects before declaring done.
 

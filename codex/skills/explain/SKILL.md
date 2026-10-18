@@ -1,6 +1,6 @@
 ---
 name: explain
-description: Explain a topic visually — either quick inline visuals (pseudocode, call/file trees, Mermaid, diffs) for the user, or a polished, grounded HTML explainer page for a named audience that knows little about the subject (clients, executives, partner teams, regulators, new joiners). Use when the user invokes `/explain`, or asks to "explain X to <team/person>", "make an explainer/one-pager/walkthrough page", "help <audience> understand how this works", or wants a process, method, system, model or analysis turned into something a non-technical reader can follow. Works for any domain — code, data pipelines, finance, science, policy, operations.
+description: Use when the user invokes `/explain`, names an audience ("explain X to <team/person>", "help <audience> understand how this works"), or asks for a page, one-pager or walkthrough ("make an explainer page"). Produces quick inline visuals (pseudocode, call/file trees, Mermaid, diffs) for the user, or a polished, grounded HTML explainer page for a reader who knows little about the subject (clients, executives, partner teams, regulators, new joiners), in any domain. A plain "explain X" question answered in chat doesn't need this skill.
 ---
 
 # Explain
@@ -119,8 +119,10 @@ whatever exists) and:
 
 - Save the file in the project, next to the material it explains (or an
   `explain/` folder at the project root) — never only in a temp directory.
-- Publish if the harness can: Claude Code `Artifact` tool (private by default —
-  tell the user the audience cannot open it until they share it); `lavish-axi
+- Publish if the harness can: Claude Code `Artifact` tool (load the
+  `artifact-design` skill first; the template already meets its token and
+  dark-mode rules. Artifacts are private by default, so tell the user the
+  audience cannot open it until they share it); `lavish-axi
   <file>` for annotation and Excalidraw editing; otherwise open it with the
   platform opener (`start ""`, `open`, `xdg-open`).
 - Hand-off message: link + project path, the arc in one line per section, which

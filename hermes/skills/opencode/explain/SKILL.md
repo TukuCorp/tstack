@@ -1,6 +1,6 @@
 ---
 name: explain
-description: This skill should be used when the user explicitly invokes `/explain`. Explain the current topic, or a given one, visually with concise pseudocode, call trees, component and file trees, Mermaid diagrams, diffs, or one focused HTML visual.
+description: Use when the user explicitly invokes `/explain`, names an audience to explain something to, or asks for an explainer page, one-pager or walkthrough. Explains the current topic, or a given one, visually with concise pseudocode, call trees, component and file trees, Mermaid diagrams, diffs, or one focused HTML visual. A plain "explain X" question answered in chat doesn't need this skill.
 argument-hint: "[topic, or blank for the current conversation topic]"
 disable-model-invocation: true
 allowed-tools:

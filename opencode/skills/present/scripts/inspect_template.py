@@ -4,9 +4,10 @@
 Usage:
     python inspect_template.py "path/to/template.pptx" [--slide N]
 
-For every slide it prints each shape's index, type, geometry (inches), and the
-current text. Use the printed indices to target replacements in the build
-script (set_text / delete_shape / add_picture_cover at the existing positions).
+For every slide it prints each shape's index, shape id, name, type, geometry
+(inches), and the current text. Target replacements by the printed id or name
+(shape_by_id / shape_by_name in pptx_helpers.py), not by index: deleting a shape
+shifts the index of every later shape on that slide.
 """
 import sys
 from pathlib import Path
@@ -47,7 +48,7 @@ def main():
             if sh.has_text_frame:
                 txt = sh.text_frame.text.replace("\n", " / ").replace("\x0b", " / ")[:70]
             img = " [IMAGE]" if st == "PICTURE" else ""
-            print(f"  [{i:2}] {st:11} {geo}{img}  txt={txt!r}")
+            print(f"  [{i:2}] id={sh.shape_id:<3} {st:11} {geo}{img}  name={sh.name!r}  txt={txt!r}")
         print()
 
 

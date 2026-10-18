@@ -1,434 +1,179 @@
 ---
 name: excel-automation
-description: Automate live Excel via xlwings - drive an open workbook in real time, run VBA macros, build charts/pivots/tables, and write UDFs. Use for live Excel dashboards, VBA execution, or Excel work needing a running Excel instance rather than file-only editing.
+description: Automate live Excel via xlwings - drive an open workbook in real time, run VBA macros, build charts and tables, refresh pivots and queries, export PDFs, and write UDFs. Use for live Excel dashboards, VBA execution, or Excel work needing a running Excel instance. Not for file-only .xlsx edits with Excel closed; use the xlsx or officecli skill for those.
 ---
 
-# Excel Automation Skill
+# Excel Automation (xlwings)
 
-## Overview
+Drive a running desktop Excel from Python with **xlwings**: read and write a
+workbook the user has open, run VBA, refresh charts and data, export PDFs, and
+write UDFs. Requires Windows (or macOS) with Excel installed.
 
-This skill enables advanced Excel automation using **xlwings** - a library that can interact with live Excel instances. Unlike openpyxl (file-only), xlwings can control Excel in real-time, execute VBA, update dashboards, and automate complex workflows.
+```bash
+python -m pip install xlwings
+xlwings addin install        # only needed for UDFs / calling Python from Excel
+```
 
-## How to Use
-
-1. Describe the Excel automation task you need
-2. Specify if you need live Excel interaction or file processing
-3. I'll generate xlwings code and execute it
-
-**Example prompts:**
-- "Update this live Excel dashboard with new data"
-- "Run this VBA macro and get the results"
-- "Create an Excel add-in for data validation"
-- "Automate monthly report generation with live charts"
-
-## Domain Knowledge
-
-### xlwings vs openpyxl
-
-| Feature | xlwings | openpyxl |
-|---------|---------|----------|
-| Requires Excel | Yes | No |
-| Live interaction | Yes | No |
-| VBA execution | Yes | No |
-| Speed (large files) | Fast | Slow |
-| Server deployment | Limited | Easy |
-
-### xlwings Fundamentals
+## Connect
 
 ```python
 import xlwings as xw
 
-# Connect to active Excel workbook
-wb = xw.Book.caller()  # From Excel add-in
-wb = xw.books.active   # Active workbook
+# The user's running Excel. Check before touching books.active.
+if xw.apps.count == 0:
+    raise RuntimeError("Excel is not running; ask the user to open the workbook")
+wb = xw.books['Budget.xlsx']   # by name; xw.books.active is whatever the user last clicked
+sheet = wb.sheets['Sheet1']    # or wb.sheets[0]
 
-# Open specific file
-wb = xw.Book('path/to/file.xlsx')
-
-# Create new workbook
-wb = xw.Book()
-
-# Get sheet
-sheet = wb.sheets['Sheet1']
-sheet = wb.sheets[0]
+# A separate hidden instance for batch work (never shows the user's books)
+app = xw.App(visible=False, add_book=False)
+wb = app.books.open(r'C:\full\path\file.xlsx')
+new_wb = app.books.add()       # not xw.Book(): that targets the active (user's) app
 ```
 
-### Working with Ranges
+## Live Workbook Safety
 
-#### Reading and Writing
+- Never `quit()` or `kill()` an App you did not create. `xw.apps.active` is the
+  user's Excel with their unsaved work.
+- Check `xw.apps.count` before `xw.books.active`, and prefer selecting the
+  workbook by name.
+- Before writing to a workbook the user has open, confirm with the user or save
+  a backup first: `wb.api.SaveCopyAs(r'C:\full\path\Budget.backup.xlsx')`
+  (writes a copy, leaves the open workbook untouched).
+- Change `display_alerts`, `screen_updating`, and `calculation` only inside
+  `try`, and restore the saved values in `finally`.
+- After writing, read the cells back and compare. Excel coerces values (ints
+  return as floats, dates as `datetime`, leading zeros dropped).
+
 ```python
-# Single cell
+app = wb.app
+saved = (app.display_alerts, app.screen_updating, app.calculation)
+try:
+    app.display_alerts = False
+    app.screen_updating = False
+    app.calculation = 'manual'
+    sheet['A2'].value = rows               # one 2D write, never cell by cell
+    app.calculate()
+finally:
+    app.display_alerts, app.screen_updating, app.calculation = saved
+written = sheet['A2'].resize(len(rows), len(rows[0])).options(ndim=2).value
+assert written == rows, written
+```
+
+## Ranges And Formatting
+
+```python
+import pandas as pd
+
 sheet['A1'].value = 'Hello'
-value = sheet['A1'].value
+sheet['A1:C2'].value = [[1, 2, 3], [4, 5, 6]]
+block = sheet['A1'].expand().value                         # connected block
+df = sheet['A1'].options(pd.DataFrame, expand='table', index=False).value
+sheet['E1'].options(index=False).value = df                # write a DataFrame
+last_row = sheet.range((sheet.cells.last_cell.row, 1)).end('up').row
 
-# Range
-sheet['A1:C3'].value = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-data = sheet['A1:C3'].value  # Returns list of lists
-
-# Named range
-sheet['MyRange'].value = 'Named data'
-
-# Expand range (detect data boundaries)
-sheet['A1'].expand().value  # All connected data
-sheet['A1'].expand('table').value  # Table format
-```
-
-#### Dynamic Ranges
-```python
-# Current region (like Ctrl+Shift+End)
-data = sheet['A1'].current_region.value
-
-# Used range
-used = sheet.used_range.value
-
-# Last row with data
-last_row = sheet['A1'].end('down').row
-
-# Resize range
-rng = sheet['A1'].resize(10, 5)  # 10 rows, 5 columns
-```
-
-### Formatting
-```python
-# Font
 sheet['A1'].font.bold = True
-sheet['A1'].font.size = 14
-sheet['A1'].font.color = (255, 0, 0)  # RGB red
-
-# Fill
-sheet['A1'].color = (255, 255, 0)  # Yellow background
-
-# Number format
-sheet['B1'].number_format = '$#,##0.00'
-
-# Column width
-sheet['A:A'].column_width = 20
-
-# Row height
-sheet['1:1'].row_height = 30
-
-# Autofit
+sheet['A1'].color = (255, 255, 0)
+sheet['B:B'].number_format = '#,##0.00'
 sheet['A:D'].autofit()
 ```
 
-### Excel Features
+## Charts, Tables, Refresh
 
-#### Charts
 ```python
-# Add chart
-chart = sheet.charts.add(left=100, top=100, width=400, height=250)
-chart.set_source_data(sheet['A1:B10'])
-chart.chart_type = 'column_clustered'
-chart.name = 'Sales Chart'
-
-# Modify existing chart
-chart = sheet.charts['Sales Chart']
+chart = sheet.charts.add(left=300, top=10, width=400, height=250)
+chart.set_source_data(sheet['A1'].expand())
 chart.chart_type = 'line'
+
+table = sheet.tables.add(source=sheet['A1'].expand(), name='Sales')
+table.update(df, index=False)      # replace the table body, resizing it
 ```
 
-#### Tables
+- xlwings has no `table.refresh()` or `chart.refresh()`. Charts redraw when
+  their source cells change. To force a redraw on Windows use
+  `chart.api[1].Refresh()` (`chart.api` is a `(ChartObject, Chart)` tuple).
+- Existing pivot tables, Power Query tables and other connections:
+  `wb.api.RefreshAll()`, then `wb.app.api.CalculateUntilAsyncQueriesDone()` and
+  `wb.app.calculate()`. Do not call `table.api.Refresh()`; `ListObject.Refresh`
+  only works for SharePoint-linked lists.
+
+## VBA
+
 ```python
-# Create Excel Table
-rng = sheet['A1'].expand()
-table = sheet.tables.add(source=rng, name='SalesTable')
-
-# Refresh table
-table.refresh()
-
-# Access table data
-table_data = table.data_body_range.value
+total = wb.macro('Module1.CalculateTotal')(100, 200)   # returns the VBA return value
 ```
 
-#### Pictures
+The workbook must be `.xlsm` (or the macro in an open add-in) and macros must be
+enabled. Reading or writing VBA code through `wb.api.VBProject` also needs
+File > Options > Trust Center > Trust Center Settings > Macro Settings >
+**Trust access to the VBA project object model**; without it COM raises
+"Programmatic access to Visual Basic Project is not trusted". Ask the user to
+tick it; do not change it from a script.
+
+## UDFs
+
 ```python
-# Add picture
-sheet.pictures.add('logo.png', left=10, top=10, width=100, height=50)
-
-# Update picture from matplotlib
-import matplotlib.pyplot as plt
-fig, ax = plt.subplots()
-ax.plot([1, 2, 3], [1, 4, 9])
-sheet.pictures.add(fig, name='MyPlot', update=True)
-```
-
-### VBA Integration
-```python
-# Run VBA macro
-wb.macro('MacroName')()
-
-# With arguments
-wb.macro('MyMacro')('arg1', 'arg2')
-
-# Get return value
-result = wb.macro('CalculateTotal')(100, 200)
-
-# Access VBA module
-vb_code = wb.api.VBProject.VBComponents('Module1').CodeModule.Lines(1, 10)
-```
-
-### User Defined Functions (UDFs)
-```python
-# Define a UDF (in Python file)
 import xlwings as xw
-
-@xw.func
-def my_sum(x, y):
-    """Add two numbers"""
-    return x + y
 
 @xw.func
 @xw.arg('data', ndim=2)
-def my_array_func(data):
-    """Process array data"""
-    import numpy as np
-    return np.sum(data)
-
-# These become Excel functions: =my_sum(A1, B1)
+def total(data):
+    return sum(v for row in data for v in row if isinstance(v, (int, float)))
 ```
 
-### Application Control
+Put the module next to the workbook (or list it under UDF Modules in the
+xlwings ribbon tab), then click **Import Functions**. The function becomes
+`=total(A1:C10)`.
+
+## Export And Save
+
+Use absolute paths for every open, save and export. Excel resolves relative
+paths against its own current directory (usually Documents), not your shell's.
+
 ```python
-# Excel application settings
-app = xw.apps.active
-app.screen_updating = False  # Speed up
-app.calculation = 'manual'   # Manual calc
-app.display_alerts = False   # Suppress dialogs
-
-# Perform operations...
-
-# Restore
-app.screen_updating = True
-app.calculation = 'automatic'
-app.display_alerts = True
+pdf = r'C:\full\path\report.pdf'
+sheet.api.ExportAsFixedFormat(0, pdf)    # 0 = xlTypePDF; sheet.to_pdf(pdf) also works
+wb.save(r'C:\full\path\report.xlsx')
 ```
 
-## Best Practices
+## Batch Over Files (Hidden App)
 
-1. **Disable Screen Updating**: For batch operations
-2. **Use Arrays**: Read/write entire ranges, not cell-by-cell
-3. **Manual Calculation**: Turn off auto-calc during data loading
-4. **Close Connections**: Properly close workbooks when done
-5. **Error Handling**: Handle Excel not being installed
-
-## Common Patterns
-
-### Performance Optimization
 ```python
-import xlwings as xw
-
-def batch_update(data, workbook_path):
-    app = xw.App(visible=False)
-    try:
-        app.screen_updating = False
-        app.calculation = 'manual'
-        
-        wb = app.books.open(workbook_path)
-        sheet = wb.sheets['Data']
-        
-        # Write all data at once
-        sheet['A1'].value = data
-        
-        app.calculation = 'automatic'
-        wb.save()
-    finally:
-        wb.close()
-        app.quit()
-```
-
-### Dashboard Update
-```python
-def update_dashboard(data_dict):
-    wb = xw.books.active
-    
-    # Update data sheet
-    data_sheet = wb.sheets['Data']
-    for name, values in data_dict.items():
-        data_sheet[name].value = values
-    
-    # Refresh all charts
-    dashboard = wb.sheets['Dashboard']
-    for chart in dashboard.charts:
-        chart.refresh()
-    
-    # Update timestamp
-    from datetime import datetime
-    dashboard['A1'].value = f'Last Updated: {datetime.now()}'
-```
-
-### Report Generator
-```python
-def generate_monthly_report(month, data):
-    template = xw.Book('template.xlsx')
-    
-    # Fill data
-    sheet = template.sheets['Report']
-    sheet['B2'].value = month
-    sheet['A5'].value = data
-    
-    # Run calculations
-    template.app.calculate()
-    
-    # Export to PDF
-    sheet.api.ExportAsFixedFormat(0, f'report_{month}.pdf')
-    
-    template.save(f'report_{month}.xlsx')
-```
-
-## Examples
-
-### Example 1: Live Dashboard Update
-```python
-import xlwings as xw
-import pandas as pd
-from datetime import datetime
-
-# Connect to running Excel
-wb = xw.books.active
-dashboard = wb.sheets['Dashboard']
-data_sheet = wb.sheets['Data']
-
-# Fetch new data (simulated)
-new_data = pd.DataFrame({
-    'Date': pd.date_range('2024-01-01', periods=30),
-    'Sales': [1000 + i*50 for i in range(30)],
-    'Costs': [600 + i*30 for i in range(30)]
-})
-
-# Update data sheet
-data_sheet['A1'].value = new_data
-
-# Calculate profit
-data_sheet['D1'].value = 'Profit'
-data_sheet['D2'].value = '=B2-C2'
-data_sheet['D2'].expand('down').value = data_sheet['D2'].formula
-
-# Update KPIs on dashboard
-dashboard['B2'].value = new_data['Sales'].sum()
-dashboard['B3'].value = new_data['Costs'].sum()
-dashboard['B4'].value = new_data['Sales'].sum() - new_data['Costs'].sum()
-dashboard['A1'].value = f'Updated: {datetime.now().strftime("%Y-%m-%d %H:%M")}'
-
-# Refresh charts
-for chart in dashboard.charts:
-    chart.api.Refresh()
-
-print("Dashboard updated!")
-```
-
-### Example 2: Batch Processing Multiple Files
-```python
-import xlwings as xw
 from pathlib import Path
-
-def process_sales_files(folder_path, output_path):
-    """Consolidate multiple Excel files into one summary."""
-    
-    app = xw.App(visible=False)
-    app.screen_updating = False
-    
-    try:
-        # Create summary workbook
-        summary_wb = xw.Book()
-        summary_sheet = summary_wb.sheets[0]
-        summary_sheet.name = 'Consolidated'
-        
-        headers = ['File', 'Total Sales', 'Total Units', 'Avg Price']
-        summary_sheet['A1'].value = headers
-        
-        row = 2
-        for file in Path(folder_path).glob('*.xlsx'):
-            wb = app.books.open(str(file))
-            data_sheet = wb.sheets['Sales']
-            
-            # Extract summary
-            total_sales = data_sheet['B:B'].api.SpecialCells(11).Value  # xlCellTypeConstants
-            total_units = data_sheet['C:C'].api.SpecialCells(11).Value
-            
-            # Calculate and write
-            summary_sheet[f'A{row}'].value = file.name
-            summary_sheet[f'B{row}'].value = sum(total_sales) if isinstance(total_sales, (list, tuple)) else total_sales
-            summary_sheet[f'C{row}'].value = sum(total_units) if isinstance(total_units, (list, tuple)) else total_units
-            summary_sheet[f'D{row}'].value = f'=B{row}/C{row}'
-            
-            wb.close()
-            row += 1
-        
-        # Format summary
-        summary_sheet['A1:D1'].font.bold = True
-        summary_sheet['B:D'].number_format = '$#,##0.00'
-        summary_sheet['A:D'].autofit()
-        
-        summary_wb.save(output_path)
-        
-    finally:
-        app.quit()
-    
-    print(f"Consolidated {row-2} files to {output_path}")
-
-# Usage
-process_sales_files('/path/to/sales/', 'consolidated_sales.xlsx')
-```
-
-### Example 3: Excel Add-in with UDFs
-```python
-# myudfs.py - Place in xlwings project
-
 import xlwings as xw
-import numpy as np
 
-@xw.func
-@xw.arg('data', pd.DataFrame, index=False, header=False)
-@xw.ret(expand='table')
-def GROWTH_RATE(data):
-    """Calculate period-over-period growth rate"""
-    values = data.iloc[:, 0].values
-    growth = np.diff(values) / values[:-1] * 100
-    return [['Growth %']] + [[g] for g in growth]
-
-@xw.func
-@xw.arg('range1', np.array, ndim=2)
-@xw.arg('range2', np.array, ndim=2)
-def CORRELATION(range1, range2):
-    """Calculate correlation between two ranges"""
-    return np.corrcoef(range1.flatten(), range2.flatten())[0, 1]
-
-@xw.func
-def SENTIMENT(text):
-    """Basic sentiment analysis (placeholder)"""
-    positive = ['good', 'great', 'excellent', 'amazing']
-    negative = ['bad', 'poor', 'terrible', 'awful']
-    
-    text_lower = text.lower()
-    pos_count = sum(word in text_lower for word in positive)
-    neg_count = sum(word in text_lower for word in negative)
-    
-    if pos_count > neg_count:
-        return 'Positive'
-    elif neg_count > pos_count:
-        return 'Negative'
-    return 'Neutral'
+app = xw.App(visible=False, add_book=False)
+try:
+    app.display_alerts = False
+    summary = app.books.add()
+    out = summary.sheets[0]
+    out['A1'].value = ['File', 'Total Sales']
+    row = 2
+    for path in Path(r'C:\data\sales').glob('*.xlsx'):
+        wb = None
+        try:
+            wb = app.books.open(str(path), read_only=True)
+            ws = wb.sheets['Sales']
+            last = ws.range((ws.cells.last_cell.row, 2)).end('up').row
+            col = ws.range((2, 2), (max(last, 2), 2)).options(ndim=1).value
+            out[f'A{row}'].value = [path.name, sum(v for v in col if isinstance(v, (int, float)))]
+            row += 1
+        finally:
+            if wb is not None:
+                wb.close()
+    summary.save(r'C:\data\sales\summary.xlsx')
+finally:
+    app.quit()    # safe: this script created the app
 ```
 
-## Limitations
+Bound COM calls such as `SpecialCells` to a real range (`ws.used_range.api`),
+never a whole column, and catch the COM error it raises when no cells match.
 
-- Requires Excel to be installed
-- Limited support on macOS for some features
-- Not suitable for server-side processing
-- VBA features require trust settings
-- Performance varies with Excel version
+## Gotchas
 
-## Installation
-
-```bash
-pip install xlwings
-
-# For add-in functionality
-xlwings addin install
-```
-
-## Resources
-
-- [xlwings Documentation](https://docs.xlwings.org/)
-- [GitHub Repository](https://github.com/xlwings/xlwings)
-- [UDF Tutorial](https://docs.xlwings.org/en/stable/udfs.html)
-- [Excel VBA Reference](https://docs.microsoft.com/en-us/office/vba/api/overview/excel)
+- A cell in edit mode or an open Excel dialog blocks COM ("Call was rejected by
+  callee"). Ask the user to press Esc, then retry.
+- A script that dies before `app.quit()` leaves a hidden `EXCEL.EXE`. Clean up
+  only instances your script started (`app.pid`), never the user's.
+- Not for servers or headless machines: xlwings needs an interactive desktop
+  session with Excel.

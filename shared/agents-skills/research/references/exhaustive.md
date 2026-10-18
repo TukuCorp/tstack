@@ -61,7 +61,7 @@ unless they already passed an explicit `--ratio`:
 LEAD (main agent)
   1. parse flags, compute per-bucket targets, print the plan (targets + final ratio)
   2. decompose the topic into 2-4 sub-questions
-  3. spawn WORKERS - one per active bucket; split a bucket into two disjoint-query workers
+  3. (optional) spawn WORKERS - one per active bucket; split a bucket into two disjoint-query workers
      when its target > 50; total concurrent workers <= --max-workers
   4. workers run the wide pass concurrently, each appending candidate rows to the ledger
   5. LEAD reconciles: dedupe, tier, enforce ratio, select the deep set (~30-50)
@@ -73,6 +73,7 @@ Fan-out is an **optimization, not the source of volume.** Volume comes from batc
 (`curl`/`gh`/`WebFetch` return many results per call), so the lead may run the entire wide pass directly
 without spawning any workers and still reach the target. Never let the run's source count depend on
 whether subagents were spawned. If you do spawn workers, give each the Wide-Pass Execution recipe below.
+If the run is itself a background subagent, it runs the whole wide pass inline: no nested subagents.
 
 ### Worker contract (wide pass)
 - Input: bucket name, target count, topic + sub-questions, this file's backend section, ledger path.
@@ -95,8 +96,7 @@ backend for a quota-free one when Firecrawl is available is the specific bug tha
 
 ### Step 1 - all four buckets via the helper (run this; do not hand-roll)
 
-Run `scripts/wide_pass.py` (next to this skill, e.g.
-`~/.config/opencode/skills/research/scripts/wide_pass.py`). It calls OpenAlex (academia),
+Run `scripts/wide_pass.py` (path relative to this skill's directory). It calls OpenAlex (academia),
 `gh search` (github), and Firecrawl search (industry, web - requires `FIRECRAWL_API_KEY` in the
 environment), dedupes against the existing ledger, and writes candidate rows. It is safe to call
 repeatedly. Provide 2-4 diversified queries per bucket drawn from the sub-questions:
@@ -121,7 +121,7 @@ The academia/github buckets never use WebFetch and are not subject to session se
 carry the bulk of `--sources` even when Firecrawl is unavailable.
 
 (Manual fallback for academia/github if the script is unavailable: `curl -s
-"https://api.openalex.org/works?search=<terms>&per-page=200&mailto=<contact>"` parsing
+"https://api.openalex.org/works?search=<terms>&per-page=200&mailto=$OPENALEX_MAILTO"` parsing
 `results[]`, and `gh search repos|code ... --json ...`. Never use WebFetch for these two buckets.)
 
 ### Step 2 - fallback: industry + web via WebFetch (only when the helper reports Firecrawl unavailable)
@@ -166,8 +166,8 @@ actually in the ledger for that bucket. If they disagree, the ledger wins.
   responsiveness, license, README/docs. Stars are a weak secondary signal.
 
 ### academia (free; the cheap path to dozens of papers)
-- OpenAlex (primary, broadest):
-  `curl -s "https://api.openalex.org/works?search=<terms>&per-page=200&page=N&mailto=<contact>"`
+- OpenAlex (primary, broadest; set `OPENALEX_MAILTO` to a contact email for the polite pool - the helper reads it too):
+  `curl -s "https://api.openalex.org/works?search=<terms>&per-page=200&page=N&mailto=$OPENALEX_MAILTO"`
   -> JSON: title, abstract (inverted index), publication_year, cited_by_count, open_access, doi, host venue.
 - arXiv (CS/physics/math preprints):
   `curl -s "http://export.arxiv.org/api/query?search_query=all:<terms>&start=0&max_results=100"`
@@ -193,7 +193,8 @@ actually in the ledger for that bucket. If they disagree, the ledger wins.
 - `WebFetch` the report pages/PDFs that survive the wide pass (deep pass only, regardless of which
   backend found them).
 - Quality risk: this bucket attracts tier-inflation. Vendor marketing PDFs are tier 4-5, not tier 2.
-  Tag honestly per `source-quality.md`.
+  Tag honestly per `source-quality.md`. The helper writes every industry row at tier 4; the lead promotes a row
+  to tier 2-3 only after checking that the publisher is a lab, agency, standards body, or operator.
 
 ### web
 - Firecrawl search via the helper (`scripts/wide_pass.py --web-target ... --web-query ...`),
@@ -251,6 +252,8 @@ terminate honestly instead of padding (Sparse-Evidence Rule in `source-quality.m
 
 1. Tier every candidate using the Preferred Source Order in `source-quality.md` (tier 1 = official
    docs / source repos ... tier 5 = aggregators / marketing).
+   The helper's tiers are provisional starting points (repos 2; papers and code hits 3; industry and
+   web 4); re-tier after review.
 2. `qualified = tier <= 3`. Enforce the bucket ratio on the **qualified** set, never on raw hits, so a
    quota cannot be filled with junk.
 3. Shortfall handling when a bucket cannot reach its target with qualified sources:
@@ -273,7 +276,7 @@ On top of the standard brief structure:
 - Narrative and claim-level citations cover only the deep set - keeping the brief readable and
   every cited claim genuinely verified.
 - End the `## Sources` section with a pointer to the full ledger:
-  `Full source pool: research/sources/<slug>.sources.jsonl (<row count> rows).`
+  `Full source pool: research/sources/YYYY-MM-DD_slug.sources.jsonl (<row count> rows).`
 - Each bucket gets a one-line confidence reflecting its shortfalls and saturation outcome.
 
 ## Failure Handling

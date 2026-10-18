@@ -1,6 +1,7 @@
 # Research Examples
 
 Use these examples to calibrate invocation, mode choice, depth choice, and selective subagent use.
+Without a `--depth` flag the default is `exhaustive` (Examples 1 and 2).
 
 ## Example 1
 
@@ -13,7 +14,7 @@ Input:
 Expected mode choice:
 
 - `domain -> codebase -> math -> literature`
-- `--depth standard`
+- `--depth exhaustive` (default; no depth flag given)
 
 Expected emphasis:
 
@@ -24,7 +25,9 @@ Expected emphasis:
 
 Expected behavior:
 
-- Keep the brief compact.
+- No `--depth` flag, so the default `exhaustive` applies: confirm the even default ratio with the
+  user, run the helper wide pass into the ledger, and cite only the ~30-50 source deep set.
+- Keep the brief compact; the volume lives in the ledger.
 - Cite claims near the relevant bullets or sentences.
 - Compare the formulation found in docs or code with the formulation described in papers.
 
@@ -39,7 +42,7 @@ Input:
 Expected mode choice:
 
 - `domain -> literature`
-- `--depth standard`
+- `--depth exhaustive` (default; no depth flag given)
 
 Expected emphasis:
 
@@ -49,6 +52,8 @@ Expected emphasis:
 
 Expected behavior:
 
+- No `--depth` flag, so the default `exhaustive` applies: confirm the even default ratio with the
+  user, run the helper wide pass into the ledger, and cite only the ~30-50 source deep set.
 - Surface what exists already and what remains missing.
 - Avoid turning the output into a product spec.
 
@@ -139,14 +144,19 @@ Input:
 
 Expected behavior:
 
-- Compute per-bucket targets: github 75, academia 75, industry 50, web 50; print them and the final ratio.
-- Spawn one worker per bucket via the orchestrator-worker fan-out in `exhaustive.md`; split github and
-  academia (target > 50) into two disjoint-query workers each, staying within `--max-workers` (default 5).
-- Each worker runs the wide pass against its backend (gh search; OpenAlex/arXiv/Semantic Scholar;
-  topic-derived browsing of authoritative domains; practitioner sources) and appends candidate rows
-  to `research/sources/<date>_battery-dispatch-optimization.sources.jsonl`.
-- Lead dedupes, tiers (`qualified = tier <= 3`), enforces the ratio on the qualified set, and selects a
-  ~30-50 source deep set for full-text fetch and claim-level citation.
+- Compute per-bucket targets: github 75, academia 75, industry 50, web 50; print them and the final
+  ratio. `--ratio` was passed, so there is no confirmation prompt.
+- The lead runs `scripts/wide_pass.py` with 2-4 queries per bucket: `gh search` (github), OpenAlex
+  (academia), and Firecrawl search (industry and web; needs `FIRECRAWL_API_KEY`). It appends deduped
+  candidate rows to `research/sources/<date>_battery-dispatch-optimization.sources.jsonl`; re-run it
+  with broader queries for any bucket still short of target.
+- Fan-out is optional. The lead may hand buckets to workers within `--max-workers` (default 5), but
+  source volume comes from the helper either way.
+- Only if the helper reports `firecrawl: unavailable` do industry and web fall back to
+  browsing topic-derived authoritative domains; any shortfall is reallocated to github/academia unless `--strict-ratio`.
+- Lead dedupes, tiers (`qualified = tier <= 3`; industry and web rows start at tier 4 and are promoted
+  after review), enforces the ratio on the qualified set, and selects a ~30-50 source deep set for
+  full-text fetch and claim-level citation.
 - The brief stays compact: a Source Coverage table after Synthesis, claim-level citations for the deep
   set only, and a closing pointer to the full ledger.
 
@@ -161,10 +171,11 @@ Input:
 Expected behavior:
 
 - No `--ratio` given, so first **ask the user** to confirm or adjust the even default
-  (`github=0.25, academia=0.25, industry=0.25, web=0.25`) at the `--sources` default of 250, noting the
-  browsing caveat for industry/web in this environment; wait for the answer, then print the final ratio used.
-- At 250 with the even default, `industry` and `web` (each target ~62) will likely be capped by the
-  seed-domain browsing budget; the shortfall backfills into `github`/`academia` so the run still
-  reaches ~250.
-- Otherwise identical machinery: curl/gh batch wide pass, ledger, saturation stops, tier-gated ratio
+  (`github=0.25, academia=0.25, industry=0.25, web=0.25`) at the `--sources` default of 250; wait for
+  the answer, then print the final ratio used.
+- With Firecrawl available, the helper fills all four buckets (~62 each) and the run reaches ~250
+  without reallocation. If it reports Firecrawl unavailable, industry and web fall back to
+  browsing topic-derived authoritative domains and will likely fall short at this size; the shortfall backfills into
+  github/academia so the run still reaches ~250.
+- Otherwise identical machinery: helper-driven wide pass, ledger, saturation stops, tier-gated ratio
   enforcement, compact brief plus coverage table and ledger pointer.

@@ -12,3 +12,5 @@ metadata:
 - Hermes: `%LOCALAPPDATA%/hermes/SOUL.md` holds persona only ("procedures live in skills"), so rules go into the relevant skills. The `~/.hermes/SOUL.md` copy is different from the live one and may be stale.
 
 On 2026-10-05 a shared Testing rule (E2E → integration → golden → unit for pure logic only; red/green at that level) was added to all five. Related: [[cross-tool-skill-mirrors]].
+
+On 2026-10-18 Environment (Windows: MSYS slash rewrite, cp1252 open()) and routing sections were added to the Claude Code and Opencode files only; Codex and omp were left at Testing-only on purpose.

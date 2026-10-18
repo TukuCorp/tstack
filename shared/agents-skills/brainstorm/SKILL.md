@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: This skill should be used when the user explicitly invokes `/brainstorm` to interrogate an idea, problem, or feature through a Socratic-then-exhaustive interview (one question at a time, with a recommended answer each), grounded in the repo by a subagent, then write a brainstorm markdown to `research/` that the `/plan` skill ingests automatically.
+description: This skill should be used when the user explicitly invokes `/brainstorm` to shape an open idea or feature before any plan exists, through an interview grounded in the current repo, one question per turn with a recommended answer each, saved as a brainstorm markdown in `research/` that the `/plan` skill ingests automatically. Not for stress-testing a plan or decision already held; that is the `grilling` skill.
 argument-hint: "[idea, problem, or feature] [--depth quick|standard|deep] [--auto]"
 disable-model-invocation: true
 allowed-tools:
@@ -67,7 +67,7 @@ unattended (no human to answer pickers):
 - Save one markdown file in the active workspace.
 - Use `research/` if it already exists; otherwise create `research/`.
 - Use filename `YYYY-MM-DD_<slug>-brainstorm.md`.
-- Derive `<slug>` as a 2-6 word ASCII kebab-case noun phrase from the subject.
+- Derive `<slug>` as a 2-4 word ASCII kebab-case noun phrase from the subject.
 - If the same-day filename already exists, append `-2`, `-3`, and so on.
 - After writing, print the saved filepath and the exact next command: `/plan <slug>`.
 
@@ -84,13 +84,15 @@ filesystem; the two skills stay decoupled.
 
 ### 2. Ground the interview in the repo (subagent)
 
-- If the workspace contains a codebase, spawn ONE `explore` subagent (read-only) to
-  map the surfaces relevant to the subject: existing modules, patterns, data shapes,
+- If the workspace contains a codebase, use ONE read-only exploration subagent if
+  available (otherwise explore inline) to map the surfaces relevant to the subject: existing modules, patterns, data shapes,
   routes/jobs, config, and anything the idea would reuse, extend, or collide with.
 - Ask the subagent for conclusions only (relevant files + how they relate), not dumps.
 - Also check whether `research/**/*.md` already holds a related brief; if so, read the
   1-2 closest matches and fold their findings in.
 - If the workspace is greenfield or has no relevant code, skip exploration and say so.
+- If the exploration subagent fails or returns nothing, proceed ungrounded and say so
+  in the brainstorm's `Current state` line (e.g. `Ungrounded: repo exploration failed`).
 - Use the findings to make questions concrete ("you already have `X` — reuse it or
   replace it?") instead of generic.
 
@@ -146,7 +148,7 @@ slug: "{{SLUG}}"
 
 ## Current vs Desired State
 <!-- seeds /plan ## Context Snapshot -->
-- **Current state:** {{What exists today, grounded in repo findings.}}
+- **Current state:** {{What exists today, grounded in repo findings, or `Ungrounded: <why>` when exploration failed.}}
 - **Desired state:** {{What should exist after this work.}}
 - **Key repo surfaces:** {{Files/modules/routes/jobs/tables the work touches, or `None (greenfield)`.}}
 
