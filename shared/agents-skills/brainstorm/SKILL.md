@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: This skill should be used when the user explicitly invokes `/brainstorm` to shape an open idea or feature before any plan exists, through an interview grounded in the current repo, one question per turn with a recommended answer each, saved as a brainstorm markdown in `research/` that the `/plan` skill ingests automatically. Not for stress-testing a plan or decision already held; that is the `grilling` skill.
+description: This skill should be used when the user explicitly invokes `/brainstorm` to shape an open idea or feature before any plan exists, through an interview grounded in the current repo, one question per turn with a recommended answer each, saved as a brainstorm markdown in `research/` that the `/plan` skill ingests automatically. Not for stress-testing a plan or decision already held.
 argument-hint: "[idea, problem, or feature] [--depth quick|standard|deep] [--auto]"
 disable-model-invocation: true
 allowed-tools:

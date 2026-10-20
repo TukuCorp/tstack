@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: "Shape an open idea or feature before any plan exists, through an interview grounded in the current repo, one question per turn with a recommended answer each, saved as a brainstorm markdown in `research/`. Not for stress-testing a plan or decision already held; that is the `grilling` skill. Use only when the user explicitly invokes `/brainstorm`."
+description: "Shape an open idea or feature before any plan exists, through an interview grounded in the current repo, one question per turn with a recommended answer each, saved as a brainstorm markdown in `research/`. Not for stress-testing a plan or decision already held. Use only when the user explicitly invokes `/brainstorm`."
 version: 1.0.0
 platforms: [linux, macos, windows]
 metadata:
