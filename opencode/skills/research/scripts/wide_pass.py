@@ -5,13 +5,21 @@ Executes all four bucket backends without depending on the host environment's ow
 tools:
   - academia : OpenAlex (keyless HTTP; up to 200 works per call)
   - github   : `gh search repos` / `gh search code`
-  - industry : Firecrawl search (requires FIRECRAWL_API_KEY in the environment)
-  - web      : Firecrawl search (requires FIRECRAWL_API_KEY in the environment)
+  - industry : Firecrawl search (FIRECRAWL_API_KEY), else Perplexity search
+  - web      : Firecrawl search (FIRECRAWL_API_KEY), else Perplexity search
+
+Perplexity runs the Search API's "fast" preset, either directly (PERPLEXITY_API_KEY) or through a
+local Hermes Agent install's own Perplexity provider (its Nous Portal gateway or its key). Each query
+uses the first engine still available, so Firecrawl running out of credits mid-run hands the remaining
+queries to Perplexity.
 
 It appends candidate rows to a JSONL ledger, deduping against whatever is already there, and prints a
-JSON summary on stdout, including a `firecrawl` status field. When FIRECRAWL_API_KEY is unset or the
-API reports it invalid or out of credits, industry/web are skipped here and must be filled by this
-environment's fallback backend within its own budget, appending to the SAME ledger.
+JSON summary on stdout, including `firecrawl` and `perplexity` status fields. When neither engine is
+available, industry/web are skipped here and must be filled by this environment's fallback backend
+within its own budget, appending to the SAME ledger.
+
+`--merge FILE` (repeatable) folds rows written by hermes_worker.py into the ledger with the same
+dedupe and id sequence, as `pass: "agentic"` candidates.
 
 Stdlib only (urllib + subprocess). Safe to call repeatedly on the same ledger.
 
@@ -137,6 +145,81 @@ def firecrawl_search(terms, api_key, limit=30, timeout=60):
     return (payload.get("data") or {}).get("web") or [], ""
 
 
+PPLX_URL = "https://api.perplexity.ai/search"
+PPLX_MAX = 20
+# Runs inside the Hermes venv so the search uses whatever Hermes is configured with (Nous gateway or
+# its own key). Prints one marked JSON line; anything else on stdout is ignored.
+_HERMES_SNIPPET = (
+    "import json, sys\n"
+    "from plugins.web.perplexity.provider import PerplexityWebSearchProvider\n"
+    "r = PerplexityWebSearchProvider().search(sys.argv[1], limit=int(sys.argv[2]))\n"
+    "print('WIDEPASS_JSON ' + json.dumps(r))\n")
+
+
+def hermes_python():
+    """(python, agent_dir) of a local Hermes Agent install, or (None, None)."""
+    for d in [os.environ.get("HERMES_AGENT_DIR", ""),
+              os.path.join(os.environ.get("LOCALAPPDATA", ""), "hermes", "hermes-agent"),
+              os.path.expanduser("~/.hermes/hermes-agent")]:
+        if not d or not os.path.isdir(d):
+            continue
+        for py in ("venv/Scripts/python.exe", "venv/bin/python", ".venv/Scripts/python.exe",
+                   ".venv/bin/python"):
+            if os.path.isfile(os.path.join(d, py)):
+                return os.path.join(d, py), d
+    return None, None
+
+
+def _pplx_fatal(text):
+    t = text.lower()
+    return any(s in t for s in ("401", "402", "unauthorized", "invalid api key", "insufficient",
+                                "quota", "not entitled", "missing", "no perplexity", "api key"))
+
+
+def perplexity_search(terms, limit=PPLX_MAX, timeout=120):
+    """Perplexity Search API, fast preset. Returns (results, route, error, fatal). Never raises.
+    results: [{url, title, description}]; fatal=True means stop using Perplexity this run."""
+    key = os.environ.get("PERPLEXITY_API_KEY", "")
+    if key:
+        # Fast Search (the Photon "fast preset"): docs.perplexity.ai/docs/search/fast-search, max 20.
+        body = json.dumps({"query": terms, "max_results": min(limit, PPLX_MAX),
+                           "search_type": "fast"}).encode("utf-8")
+        req = urllib.request.Request(PPLX_URL, data=body, method="POST", headers={
+            "Authorization": f"Bearer {key}", "Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                res = json.load(r).get("results") or []
+        except urllib.error.HTTPError as e:
+            return [], "direct", f"HTTP {e.code}", e.code in (401, 402, 403)
+        except Exception as e:  # noqa: BLE001
+            return [], "direct", f"{type(e).__name__}: {e}", False
+        return ([{"url": x.get("url", ""), "title": x.get("title", ""),
+                  "description": x.get("snippet", "")} for x in res], "direct", "", False)
+    py, agent_dir = hermes_python()
+    if not py:
+        return [], "", "no PERPLEXITY_API_KEY and no Hermes install", True
+    try:
+        out = subprocess.run([py, "-c", _HERMES_SNIPPET, terms, str(min(limit, PPLX_MAX))],
+                             cwd=agent_dir, capture_output=True, text=True, encoding="utf-8",
+                             errors="replace", timeout=timeout)
+    except Exception as e:  # noqa: BLE001
+        return [], "hermes", f"{type(e).__name__}: {e}", False
+    line = next((ln for ln in out.stdout.splitlines() if ln.startswith("WIDEPASS_JSON ")), None)
+    if line is None:
+        err = (out.stderr or out.stdout).strip().splitlines()[-1:] or ["no output"]
+        return [], "hermes", f"hermes provider failed: {err[0][:200]}", True
+    r = json.loads(line[len("WIDEPASS_JSON "):])
+    if not r.get("success"):
+        err = str(r.get("error", "unknown error"))[:200]
+        return [], "hermes", err, _pplx_fatal(err)
+    return (r.get("data") or {}).get("web") or [], "hermes", "", False
+
+
+BUCKETS = ("github", "academia", "industry", "web")
+PROVISIONAL_TIER = {"github": 2, "academia": 3, "industry": 4, "web": 4}
+_HTTP_URL = re.compile(r"^https?://[^\s/]+\.[^\s]+$")
+
+
 def main():
     ap = argparse.ArgumentParser(
         description="Deterministic quota-free wide pass (academia, github, industry, web).")
@@ -153,6 +236,8 @@ def main():
     ap.add_argument("--industry-query", action="append", default=[])
     ap.add_argument("--web-target", type=int, default=0)
     ap.add_argument("--web-query", action="append", default=[])
+    ap.add_argument("--merge", action="append", default=[],
+                    help="hermes_worker.py output file to fold into the ledger (repeatable)")
     args = ap.parse_args()
 
     os.makedirs(os.path.dirname(os.path.abspath(args.ledger)) or ".", exist_ok=True)
@@ -163,16 +248,46 @@ def main():
         counters[bucket] = counters.get(bucket, 0) + 1
         return f"{bucket[:2]}-{counters[bucket]:03d}"
 
-    def add(bucket, url, title, tier, signal, via):
+    def add(bucket, url, title, tier, signal, via, pass_="wide", hint=None):
         k = norm_url(url)
         if not k or k in seen:
             return False
         seen.add(k)
-        new_rows.append({
-            "id": next_id(bucket), "bucket": bucket, "url": url, "title": (title or "")[:200],
-            "tier": tier, "status": "candidate", "pass": "wide",
-            "discovered_via": via, "signal": signal})
+        row = {"id": next_id(bucket), "bucket": bucket, "url": url, "title": (title or "")[:200],
+               "tier": tier, "status": "candidate", "pass": pass_,
+               "discovered_via": via, "signal": signal}
+        if hint:
+            row["hint"] = str(hint)[:300]
+        new_rows.append(row)
         return True
+
+    # ---- rows from Hermes workers (hermes_worker.py), deduped like everything else ----
+    merged = {}
+    for path in args.merge:
+        stats = {"added": 0, "duplicate": 0, "invalid": 0}
+        try:
+            with open(path, encoding="utf-8") as f:
+                lines = f.read().splitlines()
+        except OSError as e:
+            errors.append(f"merge [{path}]: {e}")
+            lines = []
+        for line in lines:
+            if not line.strip():
+                continue
+            try:
+                r = json.loads(line)
+            except json.JSONDecodeError:
+                stats["invalid"] += 1
+                continue
+            url, bucket = str(r.get("url", "")), r.get("bucket")
+            if bucket not in BUCKETS or not _HTTP_URL.match(url):
+                stats["invalid"] += 1
+            elif add(bucket, url, r.get("title", ""), PROVISIONAL_TIER[bucket], {},
+                     str(r.get("discovered_via", ""))[:200], pass_="agentic", hint=r.get("hint")):
+                stats["added"] += 1
+            else:
+                stats["duplicate"] += 1
+        merged[path] = stats
 
     # ---- academia via OpenAlex (quota-free) ----
     a_cap = int(round(args.academia_target * args.oversample))
@@ -232,43 +347,63 @@ def main():
                 g_count += 1
         time.sleep(0.5)
 
-    # ---- industry + web via Firecrawl search (requires FIRECRAWL_API_KEY) ----
+    # ---- industry + web: Firecrawl, else Perplexity (fast preset), per query ----
     fc_key = os.environ.get("FIRECRAWL_API_KEY", "")
-    wants_firecrawl = bool(args.industry_target or args.web_target
-                            or args.industry_query or args.web_query)
-    if not wants_firecrawl:
-        firecrawl_status = "skipped"
-    elif not fc_key:
-        errors.append("firecrawl: FIRECRAWL_API_KEY not set")
-        firecrawl_status = "unavailable: no key"
+    wants_search = bool(args.industry_target or args.web_target or args.industry_query or args.web_query)
+    if not wants_search:
+        firecrawl_status = perplexity_status = "skipped"
     else:
-        firecrawl_status = "ok"
+        firecrawl_status = "ok" if fc_key else "unavailable: no key"
+        if not fc_key:
+            errors.append("firecrawl: FIRECRAWL_API_KEY not set")
+        perplexity_status = "not needed"
+    engine_rows = {"firecrawl": 0, "perplexity": 0}
+
+    def search(terms):
+        """First available engine for one query: (engine, results). Updates engine statuses."""
+        nonlocal firecrawl_status, perplexity_status
+        if firecrawl_status == "ok":
+            results, err = firecrawl_search(terms, fc_key)
+            if err in ("invalid FIRECRAWL_API_KEY", "credits exhausted"):
+                errors.append(f"firecrawl [{terms}]: {err}")
+                firecrawl_status = f"unavailable: {err}"
+            else:
+                if err:
+                    errors.append(f"firecrawl [{terms}]: {err}")
+                return "firecrawl", results
+        if perplexity_status.startswith("unavailable"):
+            return None, []
+        results, route, err, fatal = perplexity_search(terms)
+        if err:
+            errors.append(f"perplexity [{terms}]: {err}")
+        if fatal:
+            perplexity_status = f"unavailable: {err}"
+            return None, []
+        if not err:
+            perplexity_status = "ok (direct)" if route == "direct" else "ok (hermes provider)"
+        return "perplexity", results
+
+    if wants_search:
         # industry starts at tier 4 like web: the lead promotes real lab/gov/standards reports to
         # tier 2-3 after reviewing the publisher (vendor PDFs otherwise inflate the qualified pool).
-        fc_specs = [("industry", args.industry_target, args.industry_query, 4),
-                    ("web", args.web_target, args.web_query, 4)]
-        for bucket, target, queries, tier in fc_specs:
-            if firecrawl_status != "ok":
-                break
+        for bucket, target, queries in [("industry", args.industry_target, args.industry_query),
+                                        ("web", args.web_target, args.web_query)]:
             cap = int(round(target * args.oversample))
             count = 0
             for terms in queries[:8]:
                 if target and count >= cap:
                     break
-                results, err = firecrawl_search(terms, fc_key)
-                if err in ("invalid FIRECRAWL_API_KEY", "credits exhausted"):
-                    errors.append(f'firecrawl [{bucket}] [{terms}]: {err}')
-                    firecrawl_status = f"unavailable: {err}"
+                engine, results = search(terms)
+                if engine is None:
                     break
-                if err:
-                    errors.append(f'firecrawl [{bucket}] [{terms}]: {err}')
                 for item in results:
                     if target and count >= cap:
                         break
-                    if add(bucket, item.get("url", ""), item.get("title", ""), tier,
+                    if add(bucket, item.get("url", ""), item.get("title", ""), PROVISIONAL_TIER[bucket],
                            {"desc": (item.get("description") or "")[:100]},
-                           f'firecrawl search="{terms}"'):
+                           f'{engine} search="{terms}"'):
                         count += 1
+                        engine_rows[engine] += 1
                 time.sleep(0.5)
 
     with open(args.ledger, "a", encoding="utf-8") as f:
@@ -279,15 +414,15 @@ def main():
     for r in new_rows:
         by_bucket[r["bucket"]] = by_bucket.get(r["bucket"], 0) + 1
 
-    if firecrawl_status == "ok":
-        note = "All four buckets script-filled. Proceed to dedupe/tiering and the deep pass."
-    elif firecrawl_status.startswith("unavailable"):
-        note = (f"Firecrawl unavailable ({firecrawl_status[len('unavailable: '):]}): fill industry + "
-                f"web via this environment's fallback backend (<=8 queries/fetches each), appending "
-                f"to this same ledger.")
+    if not wants_search:
+        note = ("Merged worker rows. Proceed to dedupe/tiering and the deep pass." if args.merge
+                else "No industry/web queries given; nothing searched for those buckets.")
+    elif firecrawl_status == "ok" or perplexity_status.startswith("ok"):
+        note = "All requested buckets script-filled. Proceed to dedupe/tiering and the deep pass."
     else:
-        note = ("Quota-free academia/github done. Fill industry + web via this environment's search "
-                "backend (Firecrawl, or the fallback if unavailable), appending to this same ledger.")
+        note = (f"No search engine available (firecrawl: {firecrawl_status}; perplexity: "
+                f"{perplexity_status}): fill industry + web via this environment's fallback backend "
+                f"(<=8 queries/fetches each), appending to this same ledger.")
 
     print(json.dumps({
         "ledger": args.ledger,
@@ -297,6 +432,9 @@ def main():
         "targets": {"academia": args.academia_target, "github": args.github_target,
                     "industry": args.industry_target, "web": args.web_target},
         "firecrawl": firecrawl_status,
+        "perplexity": perplexity_status,
+        "rows_by_engine": engine_rows,
+        "merged": merged,
         "errors": errors,
         "note": note,
     }, indent=2))
