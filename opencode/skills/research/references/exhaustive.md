@@ -32,8 +32,10 @@ Buckets are orthogonal to modes. Modes set topic emphasis; buckets set source-ty
 
    **Backend note for the even default:** all four buckets are filled by quota-free scripted backends
    (`gh`, OpenAlex, and Firecrawl search via the helper - Firecrawl requires `FIRECRAWL_API_KEY` in the
-   environment), so the even split is normally achievable without cross-bucket pressure. If Firecrawl
-   is unavailable (no key, invalid key, or exhausted credits), `industry`/`web` fall back to `WebFetch`
+   environment), so the even split is normally achievable without cross-bucket pressure. When Firecrawl is
+   unavailable (no key, invalid key, or exhausted credits), the helper searches with Perplexity instead
+   (Search API fast preset, via `PERPLEXITY_API_KEY` or a signed-in local Hermes Agent install). If both
+   are unavailable, `industry`/`web` fall back to `WebFetch`
    against a topic-derived seed list of authoritative domains, which is narrower than full web search -
    this environment has no general web-search tool. At large `--sources`, the fallback `industry`/`web`
    targets will usually be capped by the domain seed list (Wide-Pass Execution, <=8 fetches per bucket,
@@ -48,7 +50,8 @@ Under `--depth exhaustive`, before launching the wide pass, confirm the bucket r
 unless they already passed an explicit `--ratio`:
 
 - Present the default `github=0.25, academia=0.25, industry=0.25, web=0.25` and the chosen `--sources`.
-- Note the fallback condition: if Firecrawl is unavailable, `industry`/`web` fall back to `WebFetch`
+- Note the fallback condition: if Firecrawl is unavailable, the helper switches to Perplexity; if both
+  are unavailable, `industry`/`web` fall back to `WebFetch`
   against authoritative domains in this environment, and the shortfall backfills into
   `github`/`academia`.
 - Let the user accept the default or give different weights. Wait for the answer before any backend call.
@@ -97,8 +100,8 @@ backend for a quota-free one when Firecrawl is available is the specific bug tha
 ### Step 1 - all four buckets via the helper (run this; do not hand-roll)
 
 Run `scripts/wide_pass.py` (path relative to this skill's directory). It calls OpenAlex (academia),
-`gh search` (github), and Firecrawl search (industry, web - requires `FIRECRAWL_API_KEY` in the
-environment), dedupes against the existing ledger, and writes candidate rows. It is safe to call
+`gh search` (github), and Firecrawl search (industry, web - requires
+`FIRECRAWL_API_KEY` in the environment; each query falls back to Perplexity search when Firecrawl is unavailable), dedupes against the existing ledger, and writes candidate rows. It is safe to call
 repeatedly. Provide 2-4 diversified queries per bucket drawn from the sub-questions:
 
 ```
@@ -115,7 +118,9 @@ python <skill>/scripts/wide_pass.py \
 ```
 
 It prints a JSON summary (`new_rows`, `by_bucket`, `firecrawl`, `errors`). The `firecrawl` field is
-`"ok"`, `"skipped"` (no industry/web targets given), or `"unavailable: <reason>"`. If a bucket is
+`"ok"`, `"skipped"` (no industry/web targets given), or `"unavailable: <reason>"`. The `perplexity` field is `"not needed"` (Firecrawl
+served every query), `"ok (direct)"`, `"ok (hermes provider)"`, `"skipped"`, or `"unavailable: <reason>"`;
+`rows_by_engine` counts rows per engine. If a bucket is
 short of target, call it again with broader/different queries - it will only add new, deduped rows.
 The academia/github buckets never use WebFetch and are not subject to session search quota, so they
 carry the bulk of `--sources` even when Firecrawl is unavailable.
@@ -124,9 +129,9 @@ carry the bulk of `--sources` even when Firecrawl is unavailable.
 "https://api.openalex.org/works?search=<terms>&per-page=200&mailto=$OPENALEX_MAILTO"` parsing
 `results[]`, and `gh search repos|code ... --json ...`. Never use WebFetch for these two buckets.)
 
-### Step 2 - fallback: industry + web via WebFetch (only when the helper reports Firecrawl unavailable)
+### Step 2 - fallback: industry + web via WebFetch (only when the helper reports Firecrawl and Perplexity unavailable)
 
-Trigger: the Step 1 summary's `firecrawl` field starts with `"unavailable"` (missing/invalid key or
+Trigger: the Step 1 summary's `firecrawl` and `perplexity` fields both start with `"unavailable"` (missing/invalid key or
 exhausted credits). When it does, these buckets use `WebFetch` against a topic-derived seed list of
 authoritative URLs/domains; this environment has no general web-search tool. The seed list is
 **topic-specific** - derive it from the topic itself rather than using a fixed set. Examples
@@ -145,6 +150,43 @@ If the budget is hit before target, stop and record a deficit - do not borrow fe
 the deficit to github/academia (re-run the helper) unless `--strict-ratio`. Use full-text
 `WebFetch` only in the deep pass. State the fallback reason (the `firecrawl` field's value) in the
 brief's coverage narrative so the degraded run is visible, not silent.
+
+### Step 3 - optional agentic pass: Hermes workers in Herdr tabs
+
+Batch queries miss sources that only turn up by following leads. When a sub-question needs that, the
+lead can hand it to Hermes Agent workers that search iteratively with Hermes' own web tools (Perplexity
+through the Nous Portal gateway when Hermes' web backend is `nous`). This step is optional: never let
+`--sources` depend on it.
+
+Preconditions (skip the step with a one-line note if any fails): the session runs inside Herdr
+(`HERDR_ENV=1`), `hermes` is on PATH, and `hermes portal info` shows web tools routed.
+
+1. Write one brief per worker at `research/sources/<date>_<slug>.hermes-<n>.brief.md`: the topic, ONE
+   sub-question, the buckets that matter, a target of 8-20 sources, and sources already in hand so the
+   worker doesn't repeat them. At most 3 workers (each Hermes process uses real memory), and never more
+   than `--max-workers`.
+2. Launch each worker in its own tab without moving focus. Read the root pane id and tab id from the
+   `tab create` JSON:
+
+   ```
+   herdr tab create --workspace "$HERDR_WORKSPACE_ID" --cwd "$PWD" --label hermes-<n> --no-focus
+   herdr pane run <root_pane_id> "python -I <skill>/scripts/hermes_worker.py --brief research/sources/<date>_<slug>.hermes-<n>.brief.md --out research/sources/<date>_<slug>.hermes-<n>.jsonl --id hermes-<n> --notify $HERDR_PANE_ID"
+   ```
+
+   Then carry on with other work; do not poll.
+3. Each worker prompts the lead pane with `HERMES_WORKER_DONE hermes-<n> rows=<k> status=<ok|empty|failed>`
+   when it finishes. If the lead is not an agent Herdr recognizes, wait instead with
+   `herdr pane wait-output <root_pane_id> --match HERMES_WORKER_DONE --timeout <ms>` as a background command.
+4. Merge the finished files into the ledger:
+   `python <skill>/scripts/wide_pass.py --ledger <ledger> --merge <hermes-1.jsonl> --merge <hermes-2.jsonl>`.
+   It dedupes against the ledger and appends `pass:"agentic"` candidates with provisional tiers and the
+   worker's one-line `hint`.
+5. Close the tabs you created (`herdr tab close <tab_id>`). Keep each `.jsonl` and `.jsonl.log` next to
+   the ledger as the trail.
+
+Worker rows are candidates like any other: tier them, and before citing one, fetch it in the deep pass
+and check the claim yourself. A `hint` is never evidence. A `failed` or `empty` worker is a coverage
+note in the brief, not a run failure.
 
 **Zero-row rule:** if a bucket returns 0 rows, retry its assigned backend once with broader
 seed domains before recording a deficit. Never substitute WebFetch for the helper when Firecrawl
@@ -187,7 +229,8 @@ actually in the ledger for that bucket. If they disagree, the ledger wins.
   major operators, established consultancies, and credible trade organizations relevant to the
   field. Query patterns pass through as search terms: `"<topic>" report filetype:pdf`, `"<topic>"
   site:*.gov`, `"<topic>" site:*.org whitepaper`.
-- Fallback (Firecrawl unavailable): `WebFetch` against a topic-derived seed list of authoritative
+- Perplexity search (fast preset) via the same helper when Firecrawl is unavailable, automatic per query.
+- Fallback (Firecrawl and Perplexity unavailable): `WebFetch` against a topic-derived seed list of authoritative
   domains - fetch the seed index page and follow links to reports/whitepapers, <=8 fetches/bucket
   (Wide-Pass Execution Step 2).
 - `WebFetch` the report pages/PDFs that survive the wide pass (deep pass only, regardless of which
@@ -200,7 +243,8 @@ actually in the ledger for that bucket. If they disagree, the ledger wins.
 - Firecrawl search via the helper (`scripts/wide_pass.py --web-target ... --web-query ...`),
   metadata-only, <=8 queries/bucket, for practitioner write-ups, official docs, and
   evidence-bearing forum/issue threads.
-- Fallback (Firecrawl unavailable): general `WebFetch` against practitioner write-up hubs,
+- Perplexity search (fast preset) via the same helper when Firecrawl is unavailable, automatic per query.
+- Fallback (Firecrawl and Perplexity unavailable): general `WebFetch` against practitioner write-up hubs,
   official docs sites, and evidence-bearing forum/issue threads known to the lead, <=8
   fetches/bucket (Wide-Pass Execution Step 2).
 - Lowest default tier; use it for coverage and to surface primary sources the other buckets
@@ -223,10 +267,11 @@ that the lead reads back.
   "title": "...",
   "tier": 1,
   "status": "candidate|verified|rejected",
-  "pass": "wide|deep",
+  "pass": "wide|agentic|deep",
   "discovered_via": "the query string that found it",
   "signal": {"stars": 1200, "updated": "2026-03", "citations": 84, "oa": true},
   "claim": "what this source supports (deep pass only)",
+  "hint": "a Hermes worker's one-line claim (agentic rows only; unverified)",
   "note": "paywalled | dead | redirected | rate-limited | duplicate-of:gh-002"
 }
 ```
@@ -234,7 +279,7 @@ that the lead reads back.
 - Dedup key: normalized URL - lowercase host, strip query/tracking params, canonicalize DOI to
   `doi.org/<doi>`, collapse arXiv abs/pdf/version variants to the base id. Mark duplicates
   `status:rejected, note:"duplicate-of:<id>"` rather than deleting them (keeps the audit trail).
-- Lifecycle: wide pass writes `candidate` rows -> lead tiers + dedupes -> deep set promoted to
+- Lifecycle: wide pass (and agentic merge) writes `candidate` rows -> lead tiers + dedupes -> deep set promoted to
   `verified` with a `claim` -> promoted-but-broken sources become `rejected` with a `note`.
 
 ## Saturation
@@ -283,7 +328,8 @@ On top of the standard brief structure:
 
 - A down or rate-limited backend is not a run failure: the worker records the event in the ledger
   `note`, the bucket reports a shortfall, and the run completes degraded rather than aborting.
-- A missing/invalid `FIRECRAWL_API_KEY` or exhausted Firecrawl credits is not a run failure: the
+- A missing/invalid `FIRECRAWL_API_KEY` or exhausted Firecrawl credits is not a run failure: the helper
+  moves the remaining queries to Perplexity. If Perplexity is unavailable too, it is still not a run failure: the
   helper reports `firecrawl: unavailable: <reason>` in its summary, `industry`/`web` fall back to
   `WebFetch` per Wide-Pass Execution Step 2, and the brief states the fallback reason next to the
   coverage table.

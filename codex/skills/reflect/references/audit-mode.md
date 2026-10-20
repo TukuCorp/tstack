@@ -1,6 +1,6 @@
 # Audit mode
 
-Grade the installed skills by scoring recent local agent conversations, then draft the skill edits the evidence justifies and render one HTML report. Adapted from the skill-doctor skill in warpdotdev/common-skills (MIT), see `LICENSE-warp-skill-doctor`.
+Grade the installed skills by scoring recent local agent conversations, then draft the skill edits the evidence justifies and render one HTML report. Adapted from the skill-doctor skill in warpdotdev/common-skills (MIT), see `NOTICE-warp-skill-doctor.txt`.
 
 Everything runs locally. Never upload transcripts, session files, or excerpts of them anywhere. Let `SKILL_ROOT` be the directory containing `SKILL.md`. Run every Python script with `python -I`.
 

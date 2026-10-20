@@ -69,7 +69,7 @@ Support these depth levels: `standard`, `deep`, `exhaustive`.
 
 ## Exhaustive Depth
 
-`--sources`, `--ratio`, `--strict-ratio`, and `--max-workers` apply only under `--depth exhaustive` (ignore them at other depths, with a one-line notice). If `--ratio` is omitted, ask the user to confirm or adjust the even default ratio before the wide pass. Defaults, flag resolution, backends, the source ledger, and the tier-based quality gate live in [references/exhaustive.md](references/exhaustive.md); follow it.
+`--sources`, `--ratio`, `--strict-ratio`, and `--max-workers` apply only under `--depth exhaustive` (ignore them at other depths, with a one-line notice). If `--ratio` is omitted, ask the user to confirm or adjust the even default ratio before the wide pass. Defaults, flag resolution, backends, the source ledger, and the tier-based quality gate live in [references/exhaustive.md](references/exhaustive.md); follow it. When Firecrawl is unavailable the wide-pass helper searches with Perplexity (Search API fast preset, through `PERPLEXITY_API_KEY` or a signed-in Hermes Agent install), and an optional agentic pass hands single sub-questions to Hermes Agent workers in Herdr tabs (Step 3 in [references/exhaustive.md](references/exhaustive.md)).
 
 ## Research Workflow
 
