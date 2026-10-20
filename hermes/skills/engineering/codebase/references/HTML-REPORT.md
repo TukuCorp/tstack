@@ -50,6 +50,7 @@ Each candidate is one `<article>`:
 - **Problem**: one sentence. What hurts.
 - **Solution**: one sentence. What changes.
 - **Wins**: bullets, ≤6 words each. e.g. "Tests hit one interface", "Pricing logic stops leaking", "Delete 4 shallow wrappers".
+- **Enforcement**: one line with a level chip (`architecture`, `types`, `lint`, `test`, `docs`) and the concrete mechanism, e.g. `architecture` "`exports` hides `pricing/internal`". A `docs` chip renders slate as a warning: nothing fails when an agent skips it.
 - **ADR callout** (if applicable): one line in an amber-tinted box.
 
 No paragraphs of explanation. If the diagram needs a paragraph to be understood, redraw the diagram.

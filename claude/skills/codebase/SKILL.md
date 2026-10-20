@@ -5,11 +5,11 @@ description: Scan a codebase for deepening opportunities, present them as a visu
 
 # Improve Codebase Architecture
 
-Surface architectural friction and propose **deepening opportunities**: refactors that turn shallow modules into deep ones. The aim is testability and AI-navigability.
+Surface architectural friction and propose **deepening opportunities**: refactors that turn shallow modules into deep ones. The aim is testability, AI-navigability, and fewer wrong choices left open to the next agent: an enforced deep interface narrows what an agent can get wrong.
 
 This command is _informed_ by the project's domain model and built on a shared design vocabulary:
 
-- Call the Skill tool with "codebase-design" for the architecture vocabulary (**module**, **interface**, **depth**, **seam**, **adapter**, **leverage**, **locality**) and its principles (the deletion test, "the interface is the test surface", "one adapter = hypothetical seam, two = real"). Use these terms exactly in every suggestion, and don't drift into "component," "service," "API," or "boundary."
+- Call the Skill tool with "codebase-design" for the architecture vocabulary (**module**, **interface**, **depth**, **seam**, **adapter**, **leverage**, **locality**) and its principles (the deletion test, the constraint test, "the interface is the test surface", "one adapter = hypothetical seam, two = real", "an abstraction is not a seam"). Use these terms exactly in every suggestion, and don't drift into "component," "service," "API," or "boundary."
 - The domain language in `CONTEXT.md` gives names to good seams; ADRs in `docs/adr/` record decisions this command should not re-litigate.
 
 ## Process
@@ -20,6 +20,7 @@ This command is _informed_ by the project's domain model and built on a shared d
 
 - If the user named a direction (a module, a subsystem, a pain point), take it, and skip the inference below.
 - Otherwise, walk back a good stretch of the commit history (`git log --oneline`) to find the codebase's hot spots, the files and areas that keep coming up, and let those paths pull your attention first. If the changes are scattered with no clear hot spot, widen the net.
+- Weigh a second signal alongside change frequency: **where agents went wrong**. Reverts, `fix` commits that follow soon after another change to the same files, review comments, `lessons.md`, and the rules in `CLAUDE.md`/`AGENTS.md` (a written rule usually records a mistake that happened). A mistake class counts once it has happened twice. Those areas are where an enforced interface removes the most wrong choices.
 
 Read the project's domain glossary (`CONTEXT.md`) and any ADRs in the area you're touching first.
 
@@ -30,8 +31,9 @@ Then spawn a sub-agent to walk the codebase. Don't follow rigid heuristics; expl
 - Where have pure functions been extracted just for testability, but the real bugs hide in how they're called (no **locality**)?
 - Where do tightly-coupled modules leak across their seams?
 - Which parts of the codebase are untested, or hard to test through their current interface?
+- Where would an agent that sees only one file go wrong? Look for two ways to do one task, internals importable from outside, hand-synced lists, and state with more than one writer.
 
-Apply the **deletion test** to anything you suspect is shallow: would deleting it concentrate complexity, or just move it? A "yes, concentrates" is the signal you want.
+Apply the **deletion test** to anything you suspect is shallow: would deleting it concentrate complexity, or just move it? A "yes, concentrates" is the signal you want. Apply the **constraint test** too: would the deepened interface remove wrong choices the next agent could make? A candidate can earn its place on either test.
 
 ### 2. Present candidates as an HTML report
 
@@ -45,6 +47,7 @@ For each candidate, render a card with:
 - **Problem**: why the current architecture is causing friction
 - **Solution**: plain English description of what would change
 - **Benefits**: explained in terms of locality and leverage, and how tests would improve
+- **Enforcement**: how the deepened shape stays deep once agents start editing it, at the highest level that works (architecture, then types, then a lint whose error names the fix, then a test, docs last; see the `codebase-design` enforcement ladder). Name the concrete mechanism for this repo's language and tooling, not a category
 - **Before / After diagram**: side-by-side, custom-drawn, illustrating the shallowness and the deepening
 - **Recommendation strength**: one of `Strong`, `Worth exploring`, `Speculative`, rendered as a badge
 
@@ -67,4 +70,5 @@ Side effects happen inline as decisions crystallize; call the Skill tool with "d
 - **Naming a deepened module after a concept not in `CONTEXT.md`?** Add the term to `CONTEXT.md`. Create the file lazily if it doesn't exist.
 - **Sharpening a fuzzy term during the conversation?** Update `CONTEXT.md` right there.
 - **User rejects the candidate with a load-bearing reason?** Offer an ADR, framed as: _"Want me to record this as an ADR so future architecture reviews don't re-suggest it?"_ Only offer when the reason would actually be needed by a future explorer to avoid re-suggesting the same thing; skip ephemeral reasons ("not worth it right now") and self-evident ones.
+- **Candidate agreed?** Offer to land its enforcement check first, in its own commit: make it fail on a real past mistake (or a scratch change that reintroduces one) before trusting it, and run the same command locally and in CI. Then add a row to a "rule → enforced by" table in the project's `CLAUDE.md`/`AGENTS.md`, so a later correction can tell whether the rule already had teeth.
 - **Want to explore alternative interfaces for the deepened module?** Call the Skill tool with "codebase-design" and use its design-it-twice parallel sub-agent pattern.

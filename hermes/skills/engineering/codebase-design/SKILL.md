@@ -5,7 +5,7 @@ description: "Shared vocabulary for deep modules, seams, and interfaces."
 
 # Codebase Design
 
-Design **deep modules**: a lot of behaviour behind a small interface, placed at a clean seam, testable through that interface. Use this language and these principles wherever code is being designed or restructured. The aim is leverage for callers, locality for maintainers, and testability for everyone.
+Design **deep modules**: a lot of behaviour behind a small interface, placed at a clean seam, testable through that interface. Use this language and these principles wherever code is being designed or restructured. The aim is leverage for callers, locality for maintainers, testability for everyone, and fewer wrong choices for the next agent.
 
 ## Glossary
 
@@ -63,6 +63,8 @@ When designing an interface, ask:
 - **The deletion test.** Imagine deleting the module. If complexity vanishes, it was a pass-through. If complexity reappears across N callers, it was earning its keep.
 - **The interface is the test surface.** Callers and tests cross the same seam. If you want to test *past* the interface, the module is probably the wrong shape.
 - **One adapter means a hypothetical seam. Two adapters means a real one.** Don't introduce a seam unless something actually varies across it.
+- **The constraint test.** Imagine the next contributor is an agent that sees only the files it opened. Does this interface remove wrong choices it could otherwise make (an invalid state, a second way to do the task, an internal it could reach into)? A "yes" earns the module its keep even when the deletion test is borderline.
+- **An abstraction is not a seam.** The one-adapter rule is about swappable implementations. A deep module with one implementation and a small, enforced interface needs no second adapter to justify itself. Be strict about speculative seams; be brave about deep modules.
 
 ## Designing for testability
 
@@ -93,6 +95,25 @@ Good interfaces make testing natural:
    ```
 
 3. **Small surface area.** Fewer methods = fewer tests needed. Fewer params = simpler test setup.
+
+## Designing for the next agent
+
+Assume every contributor is an agent that sees only the files it opened, copies the nearest example, and takes the shortest path that compiles. A good interface makes the change that looks right from one file also right for the whole codebase. Four shapes defeat that agent:
+
+- **Two ways to do one task.** The agent copies whichever it finds first, so both keep gaining callers. Keep one way; move callers off the other and delete it in the same change.
+- **Importable internals.** If an import from outside the module compiles, the agent will use it, and the internal becomes part of the interface. Make internals unreachable so the wrong import fails the build.
+- **Hand-synced lists.** Two places list the same items; the agent updates the one it saw. Keep one list and derive the rest, or fail the build when they disagree.
+- **Split ownership.** More than one module writes the same state; the agent edits one writer and the rules diverge. Give each piece of state one owner that others ask.
+
+**An interface only constrains if something enforces it.** Lock a deepened module at the highest level that works:
+
+1. **Architecture**: the wrong path doesn't exist (one owner, one way, internals unreachable: `exports` in `package.json`, Python `_internal/` plus `import-linter`, Rust `pub(crate)`, Go `internal/`).
+2. **Types**: the bad state can't be written (branded IDs, discriminated unions, parsing raw input into domain types at the seam).
+3. **A lint or CI check whose error names the fix** (the file, type, or function to use instead). Where the bad pattern is already common, fail only when a change adds more.
+4. **A test through the interface** that fails when the behaviour breaks.
+5. **Docs or agent rules**, only for judgment calls. Nothing fails when an agent skips them.
+
+Prove a new check fails on a real past mistake (or on a scratch change that reintroduces it) before trusting it.
 
 ## Relationships
 
