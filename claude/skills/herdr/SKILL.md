@@ -137,6 +137,8 @@ This connects the Codex TUI to the local app-server daemon, so the user can open
 - A new working directory may show a "Trust this folder?" prompt, which leaves `agent start` reporting `agent_not_ready` (blocked). Read the pane, confirm the folder is the intended one, then `herdr agent send-keys <name> enter`.
 - `/daemon` cannot update the daemon from a `--remote` session. Update it from a shell with `codex app-server daemon update --from-cli --yes`, which pins the daemon to the CLI build.
 - When typing slash commands into a pane from Git Bash, prefix `MSYS_NO_PATHCONV=1`, or `/daemon` arrives as `C:/Program Files/Git/daemon`.
+- `agent start` can report ready while Codex is still starting MCP servers. An `agent prompt` sent then sits unsubmitted in the input box, and the status shows `done`. Check `agent read --source visible` for the text still in the input. Do not clear it with `ctrl+c`: that exits Codex back to the shell (verified 2026-10-19). If you pass the first prompt as Codex's positional argument instead, keep it free of `$`, because the pane's PowerShell expands it.
+- **Report-back without polling.** Background watcher loops in the caller get reaped when memory runs low (2026-10-19). That happened twice with 8 codex agents on an 8 GB machine. Instead, end each agent's prompt with: "as your very last action run `herdr agent prompt <caller-pane-id> '<name> finished: <counts>'` without --wait". The message lands in the caller's pane as a new turn. An agent that is already working can be given this instruction with a plain `agent prompt`; Codex queues it until after the next tool call. Close finished tabs to free memory.
 
 Submit work through the agent surface:
 

@@ -26,6 +26,12 @@
       "env": {
         "PYTHONPATH": "<REDACTED>"
       }
+    },
+    "powerpoint": {
+      "type": "stdio",
+      "command": "C:\\Users\\tukum\\.local\\bin\\ppt-mcp.exe",
+      "args": [],
+      "env": {}
     }
   }
 }

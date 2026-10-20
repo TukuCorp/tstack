@@ -1,3 +1,170 @@
+# Task Group: leap-rs evaluator and resolver port, round-3 entry point, base-year override, and share pin
+scope: Port the LEAP expression evaluator and resolver in leap-rs (series grammar, resolve.rs, eval.rs growth family plus round-3 entry point, Interp/Step base-year override, Million/Billion/BaselineValue, 861/1009 share pin); use when touching src/expr.rs, src/resolve.rs, src/eval.rs, or evaluator goldens.
+applies_to: cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs; reuse_rule=checkout-specific (leap-rs crate plus Freedonia vendor bytes at C:/Program Files/LEAP/Freedonia.zip); the red-then-green plus no-commit plus herdr-report discipline is reusable wherever those brief rules are stated
+
+## Task 1: Resolver round with series grammar, resolve.rs, and growth family, 112 tests green, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T05-48-21-GQ5s-leapeval_resolver_growth_eval.md (cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T12-48-22-01a152b4-2c2f-7490-999c-f310e91f9b52.jsonl, updated_at=2026-10-19T06:23:54+00:00, thread_id=01a152b4-2c2f-7490-999c-f310e91f9b52, 112 tests across 15 suites green plus goal report delivered)
+
+### keywords
+
+- leapeval, resolver, parse_series, SeriesPoint, FUN_01be8250, FUN_01bbc620, Growth, Interp, Step, GrowthAs, AnnualizedCost, CURRENT, MainParentScenarioID, DiscountRate
+
+## Task 2: Round-3 evaluator with entry point, base-year override, codes 29/30/69, and 861/1009 share, 119 tests green, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-37-36-1DiL-leapeval_r3_evaluator_entry_override_codes_share.md (cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T14-37-38-01a15318-3165-7601-a4b3-ceacce1dafbf.jsonl, updated_at=2026-10-19T08:18:05+00:00, thread_id=01a15318-3165-7601-a4b3-ceacce1dafbf, 119 tests across 15 suites green)
+
+### keywords
+
+- leapeval, text_in_context, base_year_override, GrowthAs, BaselineValue, Million, Billion, FUN_01c203c0, FUN_01bfc500, FUN_01bcf370, 861/1009, scenarios, Freedonia
+
+## User preferences
+
+- when validating expressions, the brief required red-first with real vendor bytes and no mock tests -> test against every series literal the area holds and confirm failure reason before implementing [Task 1]
+- when reading other-owned tables, the brief required public API only -> build on records/model/heap public APIs and add parsing in owned files instead of editing unowned files [Task 1]
+- when expected values were needed, the brief required an independent source not the port output -> derive goldens from decompiled bodies plus hand arithmetic with LEAP docs [Task 1]
+
+## Reusable knowledge
+
+- Related skill: skills/leap-rs-verify/SKILL.md
+- expr::parse_series inner grammar is comma-separated alternating year then value, years strictly ascending, plain decimals only; refuses empty, odd tokens, non-numbers, out-of-order, exponents, NaN [Task 1]
+- Area holds 35 distinct series literals found by heap walk of every NXHD blob block; the checked-in NX1_EXPRESSIONS corpus covers only 16 NUL-terminated ones because the capture tool misses unterminated memos such as unterminated 2050,25 versus terminated 2050, 25 [Task 1]
+- Years are min/max of years table YearID list: 2020 to 2050; scenario_expressions resolves model::scenarios rows via heap::memo where memo_block is the page number in the same file; 1009 rows resolve in the shipped table [Task 1]
+- constants table has 17 rows of molecular weights such as C 12.011 CO2 44.01 S 32.064 SO2 64.063; discount_rate reads areadata DiscountRate 5.0 as 0.05 but that row is a template default (BaseYear 2000 EndYear 2030 LastVariableID 27 versus live 2020-2050/2327) [Task 1]
+- VarRef has 8 numeric args with CURRENT=-99 meaning current region/scenario per FUN_01baa390 and trailing 4 must be 0; GrowthAs uses the same shape @F037 8 args and @F041 8 plus elasticity; scenario inheritance follows scenarios MainParentScenarioID with a cycle guard [Task 1]
+- 32 bare @Fxxx with one padding unit plus 3 trailing-note memos do not parse as stored; the test pins padded=29 plus noted=3 after discovering the variable-length note case [Task 1]
+- Growth V(base)=base then V(y)=V(y-1)*(1+r) iterative from FUN_01be8250; base comes from the first ancestor scenario expression for the same branch/variable read at base year [Task 1]
+- GrowthAs is own*(ref_now/ref_base)^elasticity with zero when ref_base is 0 or factor <=0; AnnualizedCost is cost*CRF(rate,life)+om with CRF=rate*(1+rate)^life/((1+rate)^life-1), life 0 returns cost+om, rate 0 splits evenly, refuses negative/fractional life [Task 1]
+- Stored goldens: (2,2027) 3 percent from 8 =9.8389909234 at 2027; (32,2027) 3.5 percent from 3; (48,2027) 2040=39.0; (65,2145) Step; (40,776) CRF life1; (579,2027) GrowthAs 40/41/42.025; None for (595,2027) stray-byte base and region0/scenario-1 selectors [Task 1]
+- eval::text_in_context is the single entry point: parse plus at() with Context::new; context-free text() stays unchanged and all stored-expression tests delegate via a stored() helper [Task 2]
+- Interp/Step base-year override: both reach FUN_01c203c0 via FUN_01c25af0 with trailing flag 0; on the param_9==0 path the worker sorted-inserts the Current Accounts value at base year via FUN_01bfc500 when the first series year is past base global 0x7bc; port as base_year_override(ctx, points) returning series as-is when first.year <= base or with no CA value, with a CA-self guard [Task 2]
+- Single-point series with a CA head lerps, not flat: (48,2027) headed by 25 reads 25 at 2020 and 27.1 at 2027; (244,804) headed by 300 reads 970/3 at 2027; Step (65,2145) headed by 2500 holds to 2030; (582,2027) headed by 400; (842,2145) with no CA row stays series-only [Task 2]
+- Million FUN_01bcf370 is param*1e6 via FUN_0053a590(10.0,6) and Billion FUN_01bcf3b0 is param*1e9 via FUN_0053a590(10.0,9); BaselineValue _blvl at 0x1bd1be0 via FUN_01bd1c70 walks to the scenario directly inheriting Current Accounts, refuses in CA itself, falls back to CA in the baseline scenario, cycle-safe, code 69 takes zero args with golden (583,2040,s10) at 2035 = 0.02*0.85 [Task 2]
+- PORTED grew 7->10: [1,7,8,10,29,30,37,41,43,69]; remaining frequency over 1009 exprs is @184x26, @176x21, @F185x21, @F009x18, @F069x3, @F164x2, @F029x2, @F030x1 with unsettled reasons 184/176/185 need branch-to-fuel join, 09 Remainder needs branch hierarchy, 164 YearlyShape reads shape profiles [Task 2]
+- Share at 2027 in own row context pinned by test: 861 evaluate, 69 parse-fail (37 names/settings, 29 padded property refs, 3 trailing notes), 67 unsettled codes, 12 unresolvable (junk-byte GrowthAs base, Growth with no CA row, unknown @C1000, missing rows, out-of-area selectors region0/scenario-1) [Task 2]
+- Discount 5 percent corroborated as areadata-sourced with no code change: area-load writes stored setting 0x895 into global 0x698 and code-43 wrapper FUN_01bbca50 passes global/100 with om=0; scenarios table has no rate column (21 fields checked); sysinfo.txt independently states Base Year 2020 End Year 2050 [Task 2]
+
+## Failures and how to do differently
+
+- Corpus-only sweep undercounted series (16 of 35) because the capture tool misses unterminated memos -> future similar sweeps walk heap blocks, not just NUL-terminated scans [Task 1]
+- CRF(5 percent,1) floats one ulp low 5.249999999999996 versus 5.25 -> use closeness 1e-12, never ==, for life-1 annualized goldens [Task 1]
+- First override expectation assumed single-point plus head stays flat (300); the engine lerps between head and point (970/3) -> always recompute mid-years as lerp/step from head when porting series override [Task 2]
+- Stale round-2 goldens had to be corrected to override values (48 at 2027 28->27.1, 244 at 2027 400->970/3) [Task 2]
+
+# Task Group: Gap Stage1 workbook audit cluster c Rooftop plus Electricity
+scope: Audit the v0.8 Gap Stage1 prioritisation workbook cluster c (Rooftop plus Electricity sheets) read-only from audit-source dumps with full recompute plus scenario sensitivity; use when auditing Stage1 clusters or writing findings/coverage/summary outputs.
+applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=workbook version plus sheet ownership plus output paths are audit-run-specific; the never-modify-xlsx plus recompute-every-cell plus DONE-severity-count discipline is reusable wherever an audit brief states it
+
+## Task 1: Cluster c Rooftop and Electricity audit with 9 findings, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-54-27-wnMF-gap_stage1_cluster_c_rooftop_electricity_audit.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T14-54-28-01a15327-9ec6-75e2-9805-76fe69449395.jsonl, updated_at=2026-10-19T08:18:07+00:00, thread_id=01a15327-9ec6-75e2-9805-76fe69449395, 9 findings: 3 critical, 1 high, 3 medium, 2 low, 1063 formula cells covered)
+
+### keywords
+
+- gap, stage1-workbook, v0.8-audit-source, Rooftop, Electricity, openpyxl, DPPA, Yi-Da, existing-PV, audit-findings, c-findings.jsonl, recompute
+
+## User preferences
+
+- when the brief path had a typo (AUDITw-BRIEF.md), the user expected exact brief compliance -> fuzzy-find the brief on miss (Get-ChildItem *BRIEF*) rather than stopping [Task 1]
+- when commissioning an audit, the user required three output files in findings/ plus scratch in work-c/ and a final DONE plus one-line severity count -> deliver c-findings.jsonl plus c-coverage.csv plus c-summary.md and reply DONE with the critical/high/medium/low counts [Task 1]
+
+## Reusable knowledge
+
+- Hard rules: never modify the xlsx; work from v0.8-audit-source.xlsx plus dump CSVs; write findings to review/audit/findings/ and scratch to work-c/; run python -I; every claim reproducible with Sheet!Cell plus formula plus stored plus recomputed [Task 1]
+- Rooftop flow: W gated by confidence (Low plus Roof_UseLow No gives blank), K=W*0.65*0.15, M from Baseline!M/yield else supplier estimate, R=MIN(P,O) or load-share fallback; Electricity AA=MIN(D,O+Y)*EF with Y=D*0.5 when K is Pass/Conditional [Task 1]
+- Recompute covered 1062/1063 cells within 0.5 percent from Baseline!L/M plus Supplier_Master!N plus Inputs; only T23 hard-code flagged; rank sensitivity: removing Indonesia DPPA drops PT Win 9->16, netting 2026 existing PV drops Jasan 2->4, Yi Da removal puts Hantex in top 10 [Task 1]
+- Binding decisions checked: Yi Da off-list (violated), DPPA 200k kWh/mo, Yakjin double-count check; PV/BESS capex are placeholders (Inputs B26-28) [Task 1]
+- Do not verify without GIS: roof areas/coords, site yields, C&T 2026 boundary, Hantex/Top Sports plan commitment [Task 1]
+- R1C1 grouping split Rooftop M/Q/R/S into per-row groups through absolute refs and was not useful -> rely on recompute plus manual formula review instead [Task 1]
+
+## Failures and how to do differently
+
+- Initial Get-Content on AUDITw-BRIEF.md failed (ObjectNotFound) -> use Get-ChildItem *BRIEF* to locate AUDIT-BRIEF.md [Task 1]
+- First roof-cap scenario mixed MWh/MW units -> use volume Y with MIN(D,O+Y)*EF [Task 1]
+
+# Task Group: leap-rs NX1 records engine rule, 8KiB pages, blob framing, eval subset, and stride-rule verdict
+scope: Implement the NX1 record-size engine rule with measured strides, 8KiB page tiling, memo framing, and a tested eval subset in leap-rs, then test whether a universal stride rule replaces the measured values; use when touching records.rs, the capture tool, oracle regeneration, or NX1 sweep tests.
+applies_to: cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs; reuse_rule=checkout-specific (leap-rs crate plus Freedonia vendor bytes at C:/Program Files/LEAP/Freedonia.zip); the red-then-green plus no-commit plus herdr-report discipline is reusable wherever the same brief rules are stated
+
+## Task 1: Goal-brief steps 1-5, record-size plus pages plus blob plus eval, 82 tests green with final report, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T02-11-36-MGgL-leap_rs_record_size_pages_blob_eval.md (cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T09-11-36-01a151ed-b871-7682-aab9-c6e71b1d1b17.jsonl, updated_at=2026-10-19T03:32:25+00:00, thread_id=01a151ed-b871-7682-aab9-c6e71b1d1b17, 82 tests across 13 suites green plus goal report delivered)
+
+### keywords
+
+- leap-rs, NX1, record_size, MEASURED_STRIDE, page_size, geometry_in, heap memos, eval, FUN_012ec9e0, FUN_01bcf430, nx1_area_sweep, oracle_records, rust-lld
+
+## Task 2: Stride-rule investigation, no universal rule, 28 measured stand with refutation evidence plus 2 pinning tests, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T05-48-18-Eesv-leapstride_stride_rule_investigation.md (cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T12-48-18-01a152b4-1ec5-7ed0-a2ef-3c4de753303f.jsonl, updated_at=2026-10-19T06:05:45+00:00, thread_id=01a152b4-1ec5-7ed0-a2ef-3c4de753303f, 91 tests green after 2 new sweep tests)
+
+### keywords
+
+- leapstride, MEASURED_STRIDE, OriginalFieldCount, slot_map, stride-refutation, padding-all-zero, nx1_area_sweep, chunk-00122, rust-lld, parallel-agent-tree
+
+## Task 3: Round-3 stride brief with no stride source plus 0x1c free-list head claim, partial plus success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-37-36-xwl1-leapstride_r3_stride_free_list_head.md (cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T14-37-38-01a15318-3165-7601-a4b3-ce939fe3cadf.jsonl, updated_at=2026-10-19T08:14:10+00:00, thread_id=01a15318-3165-7601-a4b3-ce939fe3cadf, stride-source search partial, 0x1c claim success, owned 36 plus whole-tree 126 tests green)
+
+### keywords
+
+- leapstride, MEASURED_STRIDE, free_list_head, 0x1c, FUN_012ec9e0, FUN_012ec2e0, NXDH, slot_map, area-wide chain, Freedonia
+
+## User preferences
+
+- when pursuing brief steps, the brief said: "write the failing test first, at the highest feasible level (real vendor bytes or the area sweep), run it, and confirm it fails for the right reason before implementing" -> default to red-then-green at sweep or bytes level, not unit-only [Task 1]
+- when implementing, the brief said: "Find root causes. No workarounds keyed on table names. A rule must hold across the whole area, so check it with the sweep" -> prefer an area-wide rule validated by the sweep over per-table hacks [Task 1]
+- when the same bug survives two fix attempts, the brief said: "stop that step" -> cap retries at two, then record and move on [Task 1]
+- when finishing, the brief said: "Do not commit or push. Leave changes in the working tree" -> leave the tree uncommitted for auto-backup [Task 1]
+- when the brief allows fallback, the brief said: "If no rule explains them all, keep the measurements" -> keep honest measured values with cause re-documented as unknown rather than forcing a unifying rule [Task 2]
+- when editing shared docs on a parallel-agent tree, re-read before each edit and make small local edits only [Task 2]
+
+## Reusable knowledge
+
+- records::record_size is the engine FUN_012ec9e0 rule: round_up_to_four(sum_field_ends) + 4*ceil(field_count/32); it replaces the 4032-divisor, which is refuted (RegressionResults 40 not 42, writtenresults 12 not 9, balcat2-4 300 not 336, timeslices 768 not 1008); 28 wider-dictionary tables use MEASURED_STRIDE and stride(table,fields) with per-table byte evidence (wide-string pitch, free-list number, full-block count) [Task 1]
+- free-list number is slot_index+2 (years slot31 holds 33, slot100 holds 102, last holds 0); slot_is_unwritten checks index+2 in both Rust and the Python tool [Task 1]
+- file header at 0x14 (+4) is authoritative for page size: 5 tables state 0x1ffc (8192B: PluginProperties, Plugins, emissionmappings, refs, uservardata), rest 0x0ffc; use records::page_size, data_blocks_in(bytes,page), geometry_in(page,size), and records/live_records keyed off block.len(); refs belonged to the pages step, not the stride step [Task 1]
+- memo record stride is round_up_to_four(allocation+2), not +3 (block4 alloc66 second record at 0x58, alloc25 kind5, proves it); all 7 blob blocks read to stated counts 190,199,149,170,152,114,41; text starts after the kind byte, or one later when the byte after kind is zero (blocks 5 and 7 first records: 0x2000 reads as space, 0x3900 reads as 9) [Task 1]
+- heap::text and records::wide_string use char::decode_utf16 so surrogate pairs stay whole; wide_string uses a saturating limit; records::decode returns Unset when the slot is narrower than the type via bytes::<N> guards; heap::memo walks headers only and decodes the requested memo, returning None past the stated count [Task 1]
+- src/eval.rs number(text) values numbers with +-*/ precedence; @F010 is x/100.0 per FUN_01bcf430 (chunk-00197.c, _pc, 0x1bcf430); Growth, Interp, Step, GrowthAs, AnnualizedCost return None and need a variable/year/series resolver; area codes in use are 1,7,8,10,37,41,43,176,185 and only 10 is ported, tested against 7 real memos (0.2,5,1000,5,0,1,2040) [Task 1]
+- FUN_012ec9e0 has one record-size rule only: both branches derive from the current field list (rounded running total at +0x50, or maintained rounded total at +0x54 via FUN_012ec810) plus 4*ceil(count/32); the +0x58 value is a cached recompute written by FUN_012ec2e0, not a second rule [Task 2]
+- OriginalFieldCount equals the placed field count in all 82 tables that state it, including all 28 measured tables; 4 tables state none: MapUpdate, PluginProperties, branchreferences, version [Task 2]
+- padding past the rule end to the measured stride is all zeros in every slot of every data block for all 28 tables (4517 slots checked), so the extra is not dropped trailing fields; the dictionary stream carries no stored LE32 stride and neither file nor block headers carry a stride-shaped field [Task 2]
+- toolchain that links on this host: set $env:RUSTFLAGS='-C linker=rust-lld' and run cargo +stable-x86_64-pc-windows-gnu test --target x86_64-pc-windows-gnu; leapstride used $env:CARGO_TARGET_DIR='target-leapstride' plus --no-fail-fast [Task 1][Task 2]
+- src/oracle_records.rs is generated via python tools/capture_nx1_records.py src/oracle_records.rs and is never hand-edited [Task 1]
+- Related skill: skills/leap-rs-verify/SKILL.md
+- u16 at 0x1c is the free-list head: one-based (slot+1), 0 when full; each free slot first u16 links next, last is 0; area-wide proof over 2191 blocks (2105 full hold 0, other 86 chains visit exactly the free set from slot_map); years head 32 means slot31, units Peso block head 9 means slot8; explains slot_is_unwritten index+2 as chain link, not a numbering quirk [Task 3]
+- FUN_012ec9e0 has one rule only and FUN_012ec2e0 has no direct caller in the binary, so there is no hidden second stride rule; stride as LE u16/u32 appears in no dictionary region except coincidences also present in rule tables; creation-time-width stays neither confirmed nor ruled out [Task 3]
+- reporting discipline for these briefs: write docs/goal-report-*.md, then exactly once herdr agent prompt w2Z:p1 "leap-rs goal finished. Report: ..." without --wait, then update_goal complete [Task 1][Task 2]
+- setup and toolchain background (Ghidra workspace, Rust-only no-Go rule, local-only commits on the PUBLIC repo) lives in the rom-hack Ghidra block Tasks 1-3 of this file [Task 1][Task 2]
+
+## Failures and how to do differently
+
+- 4032-divisor and engine-only both fail area-wide (sweep short set non-empty) -> fixed by rule plus measured table with per-table byte evidence, with the sweep asserting slot_map accounts for every block and zero short [Task 1]
+- +3 memo stride stops 1/152 on zeros inside a real header -> validated deltas 1-4 across all blocks and only +2 walks all 7 to stated counts [Task 1]
+- old slot_is_unwritten used index not index+2 (2099/2191 vs 2062/2191 agreement) -> fix by checking years/areadata/regions bytes [Task 1]
+- sweep assumed 4KiB for emissionmappings (8192 vs 4096 miscount) -> read page_size from the file everywhere, never assume 4096 [Task 1]
+- PowerShell (Get-Content ...)-replace collapsed newlines when rewriting a file -> rewrite the file via patch instead [Task 1]
+- PowerShell heredoc python - <<'PY' and head/wc/cat fail on this Windows host -> use python -c with newline-joined lines plus Get-Content and Select-String [Task 2]
+- apply_patch with @@ -0,0 +1,2 @@ hunks is rejected -> use the +line form without @@ hunks [Task 2]
+- piping test output to Select-Object gave a spurious exit 1 -> write to a log file and check $LASTEXITCODE for the true result [Task 2]
+- RG search for NXDH/NXSH strings returns nothing because the decompile is stripped to FUN_ names -> search by FUN_ addresses instead [Task 3]
+- Per-byte Python scan over all tables exceeded the 10s timeout -> rewrite with bytes.find loops (about 3s) [Task 3]
+- Direct Remove-Item of the target dir is policy-blocked -> use cargo clean with CARGO_TARGET_DIR [Task 3]
+
+
 # Task Group: Command Code vs OpenCode Go $10 plan research tracks cc xval recon ocgo
 scope: Research Command Code GOAT vs OpenCode Go $10 plans per research/2026-10-14_cc-vs-opencode/BRIEF.md evidence rules, write track-cc/track-xval/track-recon/track-ocgo, then report via herdr agent prompt with no --wait.
 applies_to: cwd=C:\Users\tukum\Downloads\remote\personal; reuse_rule=track output paths and BRIEF.md are 2026-10-14-run-specific; the evidence-tagging discipline, search fallbacks, and herdr reporting shape are reusable wherever those tools are stated
@@ -1319,7 +1486,7 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 
 ### rollout_summary_files
 
- - rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_hermes_repair.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-15T05:16:58+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, Claude launches for city-ghg x7+, pdd-auto, ee-heat x4, copper x3, cpi, personal x4, ceba x3, baby-context; condensed rewrite superseding the deleted prior version of the same thread)
+ - rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_launch_and_repair.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-18T04:22:00+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, Claude launches for city-ghg x7+, pdd-auto, ee-heat x4, copper x3, cpi, personal x4, ceba x3, baby-context through 2026-10-18; condensed rewrite superseding the deleted hermes_repair version of the same thread; final baby-context launch left uncertain-pending)
 
 ### keywords
 
@@ -1329,7 +1496,7 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_hermes_repair.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-15T05:16:58+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, Codex launches for csim-copy, rom-hack, ee-heat-codex, ceba-codex: esc update prompt, trust prompt enter plus double-wait, --remote flags, resume-last preserve-then-resume, close syntax, focus restore)
+ - rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_launch_and_repair.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-18T04:22:00+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, Codex launches for csim-copy, rom-hack, ee-heat-codex, ceba-codex: esc update prompt, trust prompt enter plus double-wait, --remote flags, resume-last preserve-then-resume, close syntax, focus restore)
 
 ### keywords
 
@@ -1339,7 +1506,7 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_hermes_repair.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-15T05:16:58+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, pane side-by-side moves with --new-workspace restore plus Hermes gateway --replace repair success)
+ - rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_launch_and_repair.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-18T04:22:00+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, pane side-by-side moves with --new-workspace restore plus Hermes gateway --replace repair success)
 
 ### keywords
 

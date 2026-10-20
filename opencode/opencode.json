@@ -90,6 +90,13 @@
         "browser-control-mcp"
       ],
       "enabled": true
+    },
+    "powerpoint": {
+      "type": "local",
+      "command": [
+        "C:\\Users\\tukum\\.local\\bin\\ppt-mcp.exe"
+      ],
+      "enabled": true
     }
   },
   "experimental": {

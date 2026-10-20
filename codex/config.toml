@@ -153,6 +153,12 @@ trust_level = "trusted"
 [projects.'C:\Users\tukum\Downloads\remote\personal']
 trust_level = "trusted"
 
+[projects.'C:\Users\tukum\Downloads\remote\expense']
+trust_level = "trusted"
+
+[projects.'C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors']
+trust_level = "trusted"
+
 [plugins."documents@openai-primary-runtime"]
 enabled = true
 
@@ -235,59 +241,50 @@ diffRemoved = "#ef5350"
 skill = "#c792ea"
 
 [mcp_servers.node_repl]
-args = []
 command = 'C:\Users\tukum\AppData\Local\OpenAI\Codex\runtimes\cua_node\b63ee7ee40c23b77\bin\node_repl.exe'
 env_vars = ["CODEX_WINDOWS_REGISTERED_CORE"]
-startup_timeout_sec = 120
+startup_timeout_sec = 120.0
 
 [mcp_servers.node_repl.env]
+BROWSER_USE_AVAILABLE_BACKENDS = "<REDACTED>"
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "<REDACTED>"
+BROWSER_USE_CODEX_APP_VERSION = "<REDACTED>"
+BROWSER_USE_TINYSKY_ENABLED = "<REDACTED>"
+CODEX_CLI_PATH = "<REDACTED>"
+CODEX_HOME = "<REDACTED>"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "<REDACTED>"
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "<REDACTED>"
 NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "<REDACTED>"
 NODE_REPL_NODE_MODULE_DIRS = "<REDACTED>"
 NODE_REPL_NODE_PATH = "<REDACTED>"
 NODE_REPL_TRUSTED_CODE_PATHS = "<REDACTED>"
-CODEX_HOME = "<REDACTED>"
-BROWSER_USE_AVAILABLE_BACKENDS = "<REDACTED>"
-BROWSER_USE_TINYSKY_ENABLED = "<REDACTED>"
-NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "<REDACTED>"
-NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "<REDACTED>"
-BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "<REDACTED>"
-BROWSER_USE_CODEX_APP_VERSION = "<REDACTED>"
 NODE_REPL_TRUSTED_SERVICES = "<REDACTED>"
+NODE_REPL_UNTRUSTED_ENV_ALLOWLIST = "<REDACTED>"
 SKY_CUA_NATIVE_PIPE = "<REDACTED>"
 SKY_CUA_NATIVE_PIPE_DIRECTORY = "<REDACTED>"
-CODEX_CLI_PATH = "<REDACTED>"
-NODE_REPL_UNTRUSTED_ENV_ALLOWLIST = "<REDACTED>"
 
 [mcp_servers.firecrawl]
-# node directly instead of "cmd /c" so no console window flashes on start
 command = "node"
 args = ['C:\Users\tukum\AppData\Roaming\npm\node_modules\firecrawl-mcp\dist\index.js']
 
 [mcp_servers.firecrawl.env]
 FIRECRAWL_API_KEY = "<REDACTED>"
 
-# Disabled 2026-09-28: notebooklm-mcp leaks temp dirs and is unused; re-add only with NOTEBOOKLM_HEADLESS=true
-#[mcp_servers.notebooklm-mcp]
-# command = "notebooklm-mcp"
-
-#[mcp_servers.notebooklm-mcp.env]
-# PYTHONPATH = ""
-
 [mcp_servers.officecli]
 command = 'C:\Users\tukum\AppData\Roaming\npm\node_modules\@officecli\officecli\vendor\officecli.exe'
 args = ["mcp"]
 
 [mcp_servers.ghidra_mcp]
-# Ghidra reverse-engineering bridge -> GhidraMCP headless server on 127.0.0.1:8089.
-# Start the server first, then this bridge attaches to the open Ghidra project:
-#   .\start-ghidra-mcp-headless.ps1 -Project 'C:\Users\tukum\Downloads\rom-hack\ghidra-projects'
 command = 'C:\Users\tukum\AppData\Local\hermes\bin\uv.EXE'
 args = ["run", "--directory", 'C:\Users\tukum\Downloads\rom-hack\ghidra-mcp', "bridge-mcp-ghidra", "--transport", "stdio"]
-startup_timeout_sec = 120
+startup_timeout_sec = 120.0
 
 [mcp_servers.ghidra_mcp.env]
 GHIDRA_MCP_URL = "<REDACTED>"
 PYTHONIOENCODING = "<REDACTED>"
+
+[mcp_servers.powerpoint]
+command = 'C:\Users\tukum\.local\bin\ppt-mcp.exe'
 
 [tui]
 screen_reader_detection_done = true
