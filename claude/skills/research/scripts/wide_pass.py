@@ -181,9 +181,9 @@ def perplexity_search(terms, limit=PPLX_MAX, timeout=120):
     results: [{url, title, description}]; fatal=True means stop using Perplexity this run."""
     key = os.environ.get("PERPLEXITY_API_KEY", "")
     if key:
-        # search_type "fast" is what Hermes' Nous gateway sends; assumed accepted by the direct API.
+        # Fast Search (the Photon "fast preset"): docs.perplexity.ai/docs/search/fast-search, max 20.
         body = json.dumps({"query": terms, "max_results": min(limit, PPLX_MAX),
-                           "search_context_size": "low", "search_type": "fast"}).encode("utf-8")
+                           "search_type": "fast"}).encode("utf-8")
         req = urllib.request.Request(PPLX_URL, data=body, method="POST", headers={
             "Authorization": f"Bearer {key}", "Content-Type": "application/json"})
         try:
