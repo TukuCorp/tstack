@@ -1,0 +1,4 @@
+interface:
+  display_name: "Swarm"
+  short_description: "Fan a task out to Codex agents in Herdr tabs"
+  default_prompt: "Use $swarm to split this task across Codex agents in Herdr tabs and synthesize the results."
