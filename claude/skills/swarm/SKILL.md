@@ -1,13 +1,13 @@
 ---
 name: swarm
-description: Delegate a research, audit or bulk-analysis task to several Codex agents running DeepSeek v4.1 in separate Herdr tabs, each in /goal mode, which report back to the calling pane without polling, then verify and synthesize their output into one deliverable. Use for `/swarm`, "swarm this", "spawn codex agents", "delegate to codex/deepseek agents in herdr", "same cadence" after an earlier swarm, or any request to fan a task out to parallel background agents in new Herdr tabs. Requires HERDR_ENV=1. Not for a single quick lookup (do it inline) or for controlling existing panes (use the herdr skill).
+description: Delegate a research, audit or bulk-analysis task to several Codex agents in separate Herdr tabs, each in /goal mode on a model the user picks for that run, which report back to the calling pane without polling, then verify and synthesize their output into one deliverable. Use for `/swarm`, "swarm this", "spawn codex agents", "delegate to codex/deepseek agents in herdr", "same cadence" after an earlier swarm, or any request to fan a task out to parallel background agents in new Herdr tabs. Requires HERDR_ENV=1. Not for a single quick lookup (do it inline) or for controlling existing panes (use the herdr skill).
 user-invocable: true
 argument-hint: "<task to fan out>"
 ---
 
 # Swarm
 
-Fan one task out to a few Codex agents on `opencode-go/deepseek-v4.1-flash`, each in its own Herdr tab, let them run unattended, and take the results back through a report-back message instead of polling. Then check their work and merge it into one deliverable.
+Fan one task out to a few Codex agents on a model the user picks for this run, each in its own Herdr tab, let them run unattended, and take the results back through a report-back message instead of polling. Then check their work and merge it into one deliverable.
 
 This skill is self-contained. The Herdr commands it needs are in `references/herdr-cli.md`; the brief layout is in `references/brief-template.md`. Read the first before you launch anything.
 
@@ -33,19 +33,22 @@ Throwaway files go in a scratch folder (`_<prefix>/`), deliverables in the proje
 
 ## 3. Launch
 
-Per lane, with the caller's workspace and working directory (full syntax and gotchas in `references/herdr-cli.md`):
+Choose the model first (see Model choice below). Then, per lane, with the caller's workspace and working directory (full syntax and gotchas in `references/herdr-cli.md`):
 
 1. `herdr tab create --workspace <ws> --cwd <dir> --label <lane> --no-focus`; read the new tab and pane ids from the JSON.
-2. `herdr agent start <lane> --kind codex --pane <pane-id> --timeout 120000 -- --remote unix:// -C <absolute project dir> -m opencode-go/deepseek-v4.1-flash`
+2. `herdr agent start <lane> --kind codex --pane <pane-id> --timeout 120000 -- --remote unix:// -C <absolute project dir> -m <model-slug>`
 3. Confirm the model name in the pane header (`herdr agent read <lane> --source visible --lines 12`).
 4. Send the goal prompt: `/goal Read the brief <file> in this folder and execute it fully. As your last action, send the report-back command it specifies.` A prompt that starts with `/` needs `MSYS_NO_PATHCONV=1` in Git Bash.
 5. After a few seconds, check `herdr agent get <lane>` shows `working`.
 
-Model notes:
+**Model choice (ask every run).** There is no default model. Settle it with the user before the first launch:
 
-- `opencode-go/deepseek-v4.1-flash` is the default. It is routed through a local proxy listed in the user's Codex config and model catalog (`~/.codex/config.toml`, `~/.codex/opencodex-catalog.json`). If the agent errors on connect, check the proxy is running before blaming the brief.
-- If the user names another model ("swarm with muse-spark"), find its id in that catalog and pass it with `-m` in the same `opencode-go/<id>` form. Check the pane header to confirm it took.
-- If the default model is not in the catalog on this machine, tell the user and ask which to use instead of silently falling back.
+- If the request already names a model ("swarm with muse-spark"), resolve it against the catalog and skip the question.
+- Otherwise ask with your harness's user-question tool: "Which model should the Codex agents use?", single select, with the tool's free-text "Other" for anything else. If the harness has no such tool, ask in plain text and stop until the user answers.
+- Build up to four options from the catalog `~/.codex/opencodex-catalog.json` (`models[].slug`, `display_name`, `description`): the `model` set in `~/.codex/config.toml` first, labelled as the current Codex default, then up to three others from different model families, each with the catalog's description. Every label is a real catalog `slug`; never invent one.
+- Whatever is picked or typed, confirm the slug is in the catalog (case-insensitive; an `opencode-go/` model may be given without the prefix). If it is not, show the closest matches and ask again. Never fall back silently.
+- Use the same model for every lane unless the user asks to mix. Pass it as `-m <slug>` and check the pane header to confirm it took.
+- Models are routed through a local proxy listed in the Codex config and catalog. If an agent errors on connect, check the proxy is running before blaming the brief.
 
 ## 4. Wait without polling
 

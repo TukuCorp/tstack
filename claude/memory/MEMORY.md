@@ -7,5 +7,7 @@
 - [NotebookLM: CLI only](notebooklm-cli-preference.md) — use `nlm` CLI directly, not the mcp__notebooklm__* tools, per explicit user instruction
 - [gws scope replacement breaks VN Weekly](gws-scope-replacement-vn-weekly.md) — `gws auth login` wipes unnamed scopes; job needs spreadsheets + gmail.modify
 - [Concise, deliverable first](concise-deliverable-first.md) — lead with the tight deliverable; minimal commentary after
+- [expense skill is project-scoped](expense-skill-project-scoped.md) — lives in Downloads/remote/expense/.claude/skills; global copies deleted 2026-10-21; 3 open questions pending
 - [ppt-mcp setup](ppt-mcp-setup.md) — live PowerPoint MCP (uv tool) registered in all five harnesses; per-tool config paths and the Hermes stdin gotcha
 - [Global agent rules locations](global-agent-rules-locations.md) — CLAUDE.md/AGENTS.md paths for Claude Code, Opencode, Codex, omp, Hermes; mirror shared rules to all
+- [Hermes Nous web routing](hermes-nous-web-routing.md) — live config is %LOCALAPPDATA%/hermes/config.yaml; web.backend=nous → Perplexity search via Nous free pool (2026-10-21), undo steps

@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: f17ad96e-f79f-4aab-9802-1c005097b22b
-  modified: 2026-10-20T20:07:02.455Z
+  modified: 2026-10-20T21:29:54.177Z
 ---
 
 Tung maintains the same authoring skill set (brainstorm, plan, report, research, explain) in four agent tools. When any of these skills changes in Claude Code, mirror the change to the others in the same session.
@@ -25,3 +25,5 @@ Tung maintains the same authoring skill set (brainstorm, plan, report, research,
 `explain` (added 2026-09-27, adapted from an external show-me skill): `~/.claude/skills/explain/SKILL.md`, `~/.codex/skills/explain/SKILL.md`, `~/.config/opencode/skills/explain/SKILL.md`, `%LOCALAPPDATA%/hermes/skills/opencode/explain/SKILL.md`. Body is byte-identical across all four; only frontmatter differs.
 
 `reflect` (added 2026-10-04, adapted from pstack @ 12d587d, MIT): `~/.claude/skills/reflect/`, `~/.codex/skills/reflect/`, `~/.config/opencode/skills/reflect/`, `%LOCALAPPDATA%/hermes/skills/software-development/reflect/`. `references/*.md` (4 reviewer/synthesizer templates) are byte-identical across all four; SKILL.md differs per tool (transcript digest source, subagent mechanism, frontmatter). Backlog goes to the project's `lessons.md`.
+
+Since 2026-10-21 `/reflect` defaults to **audit mode** (adapted from Warp skill-doctor, MIT, `LICENSE-warp-skill-doctor` kept in each copy) and the old flow is `/reflect --session`. New byte-identical files in all four copies: `scripts/{collect_sessions,render_report}.py` + their tests, `scorers/*.md`, `references/audit-mode.md`, `references/audit-edit-gate.md`. The collector scans Claude Code, Codex and Hermes history only (Opencode/omp not parsed), so the audit docs name those tools by necessity, an exception to the no-cross-tool-references rule. Reports go to `reports/reflect-<date>/` in cwd; transcripts stay in a temp dir. Not yet synced to tstack as of that date.

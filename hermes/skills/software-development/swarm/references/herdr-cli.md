@@ -58,7 +58,7 @@ Native Codex arguments go after `--`. Put `--remote unix://` first so the thread
 
 ```bash
 herdr agent start rc1 --kind codex --pane w34:pG --timeout 120000 -- \
-  --remote unix:// -C 'C:\path\to\project' -m opencode-go/deepseek-v4.1-flash
+  --remote unix:// -C 'C:\path\to\project' -m <model-slug>
 ```
 
 Then confirm the model in the pane header: `herdr agent read rc1 --source visible --lines 12`.
