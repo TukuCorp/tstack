@@ -1,0 +1,34 @@
+{
+  "task": "Port Perplexity fallback (wide_pass.py, hermes_worker.py, exhaustive.md) to the hermes research skill copy and keep all five copies in sync",
+  "claims": [
+    {
+      "id": "scripts-identical",
+      "claim": "wide_pass.py and hermes_worker.py are byte-identical across the five research skill copies",
+      "run": "for f in wide_pass.py hermes_worker.py; do md5sum claude/skills/research/scripts/$f codex/skills/research/scripts/$f opencode/skills/research/scripts/$f shared/agents-skills/research/scripts/$f hermes/skills/opencode/research/scripts/$f || exit 1; n=$(md5sum claude/skills/research/scripts/$f codex/skills/research/scripts/$f opencode/skills/research/scripts/$f shared/agents-skills/research/scripts/$f hermes/skills/opencode/research/scripts/$f | awk '{print $1}' | sort -u | wc -l); [ \"$n\" -eq 1 ] || { echo \"MISMATCH $f ($n distinct hashes)\"; exit 1; }; echo \"IDENTICAL $f\"; done",
+      "expect_exit": 0,
+      "expect_output": "(?s)IDENTICAL wide_pass\\.py.*IDENTICAL hermes_worker\\.py"
+    },
+    {
+      "id": "hermes-tests-pass-live-perplexity",
+      "claim": "Research scripts test suite passes from the hermes copy, with the live PerplexityFallback test actually running (not skipped)",
+      "run": "cd hermes/skills/opencode/research/scripts && python -m unittest discover -s tests -v",
+      "expect_exit": 0,
+      "expect_output": "(?s)(?=.*test_web_bucket_filled_by_perplexity_when_firecrawl_unavailable[^\\n]*\\.\\.\\. ok\\r?$)(?=.*^OK\\r?$)",
+      "timeout": 600
+    },
+    {
+      "id": "exhaustive-md-step3-perplexity",
+      "claim": "All five references/exhaustive.md files contain '### Step 3 - optional agentic pass' and exactly 2 '- Perplexity search (fast preset)' lines",
+      "run": "python .verify/checks/exhaustive_md.py",
+      "expect_exit": 0,
+      "expect_output": "all 5 exhaustive.md files pass"
+    },
+    {
+      "id": "sync-scan-clean",
+      "claim": "python sync.py at repo root prints 'scan clean'",
+      "run": "python sync.py",
+      "expect_exit": 0,
+      "expect_output": "scan clean"
+    }
+  ]
+}
