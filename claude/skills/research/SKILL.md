@@ -2,7 +2,6 @@
 name: research
 description: Produce a cited pre-planning research brief for a topic, repository, or upcoming project phase and save it to `research/YYYY-MM-DD_slug.md`.
 argument-hint: "[topic or phase] [--mode domain|codebase|math|literature|all] [--depth standard|deep|exhaustive] [--sources N] [--ratio github=..,academia=..,industry=..,web=..] [--strict-ratio] [--max-workers K] [--then ...]"
-disable-model-invocation: true
 allowed-tools:
   - Bash
   - Read
