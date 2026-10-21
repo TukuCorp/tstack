@@ -2,6 +2,54 @@
 scope: Port the LEAP expression evaluator and resolver in leap-rs (series grammar, resolve.rs, eval.rs growth family plus round-3 entry point, Interp/Step base-year override, Million/Billion/BaselineValue, 861/1009 share pin); use when touching src/expr.rs, src/resolve.rs, src/eval.rs, or evaluator goldens.
 applies_to: cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs; reuse_rule=checkout-specific (leap-rs crate plus Freedonia vendor bytes at C:/Program Files/LEAP/Freedonia.zip); the red-then-green plus no-commit plus herdr-report discipline is reusable wherever those brief rules are stated
 
+# Task Group: stroke rehab provider shortlists public plus private HCMC with evidence labels
+scope: Build Vietnamese-first stroke-rehab provider shortlists (public rc-public.md 14 rows, private rc-private.md 22 rows) with 6-field rows, 0-3x6 scoring, referral path, and VERIFIED/PARTIAL/CLAIMED/NOT FOUND/UNVERIFIED labels; use for inlaw-health provider research lanes ending in a herdr report-back.
+applies_to: cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors; reuse_rule=lane brief paths plus output filenames are lane-specific; the script-first extraction plus evidence-label plus no-invention plus herdr-report-last discipline is reusable wherever an rc brief states it
+
+## Task 1: Public stroke-rehab shortlist 14 rows per rc-brief-public, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T12-19-42-brqv-rcpub_public_stroke_rehab_hcmc_14_rows.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T19-19-42-01a15940-d068-7941-86b0-29414e8c5a0f.jsonl, updated_at=2026-10-20T12:58:54+00:00, thread_id=01a15940-d068-7941-86b0-29414e8c5a0f, 14 candidates with 0-3x6 scoring plus referral path plus 25 sources)
+
+### keywords
+
+- rcpub, rc-brief-public, rc-public.md, stroke rehab, PHCN, BHYT, PubMed affiliation, Playwright msedge fallback, herdr agent prompt w34:p1, VERIFIED PARTIAL CLAIMED NOT FOUND UNVERIFIED
+
+## Task 2: Private stroke-rehab shortlist 22 rows per rc-brief-private, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T12-20-01-GiwT-rcpriv_private_stroke_rehab_hcmc_22_rows.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T19-20-02-01a15941-1be9-7441-8dae-65f7017b4aff.jsonl, updated_at=2026-10-20T12:42:15+00:00, thread_id=01a15941-1be9-7441-8dae-65f7017b4aff, 22 rows Table1 plus Table2 disciplines/price/BHYT plus Top 12 plus 22 sources)
+
+### keywords
+
+- rcpriv, rc-brief-private, rc-private.md, private rehab, home-visit, nursing home, An Nhien tariff, Vuon Lai monthly, Tam Anh, FV, Hoan My, stroke protocol NOT FOUND
+
+## User preferences
+
+- when an rc brief requires Vietnamese-first reading/writing with UTF-8, economical tokens, script extraction to short rows, and evidence labels on every claim -> work script-first with helpers in _rc/ and never invent fees/beds/equipment/phones; mark thin rows NOT FOUND or UNVERIFIED with explicit caveats [Task 1][Task 2]
+- when an rc brief mandates as last action a herdr report-back with the true row count and no --wait -> verify counts then run herdr agent prompt w34:p1 with the real N even if partial, and only then mark the goal complete [Task 1][Task 2]
+
+## Reusable knowledge
+
+- Public PHCN in Vietnam is usually outpatient plus inpatient consultation, not a dedicated ward; only PHCN-DTBNN charters noi tru/ngoai tru/ban ngay; ask each hospital: dedicated PHCN beds vs consult, swallow assessor plus FEES/videofluoroscopy, post-L3-S1 weight-bearing orders, paper price plus BHYT share [Task 1]
+- Top public scores: PHCN-DTBNN 12/18, Nhan dan 115 11/18, Cho Ray/175/Gia Dinh 8/18, 30/4 7/18, Thu Duc 6/18, UMC/Thong Nhat/Nguyen Tri Phuong 4/18; contacts: PHCN-DTBNN 028 3856 9147, 115 1900 09 99 83, 175 1900 1175 [Task 1]
+- Only numeric private prices found: An Nhien tariff 28/02/2026 (swallow/speech/aphasia 200k, hemiplegic stand-walk 84k, treadmill-supported 84k, e-stim 59,465d per session) and Vuon Lai 12-16M basic / 13-16M advanced per month plus 10M deposit; private hospitals publish no rehab price [Task 2]
+- Strongest private inpatient on paper: Tam Anh (ThS.BSNT.CKI Vo Duong Huong Quynh deputy plus 2 PHCN doctors, standing-walking system for post-stroke hemiplegia), FV (BS Catherine Cousin, JCI 2016-2025, BHYT from 01/01/2026), Hoan My (Bs Nguyen The Hung YHCT-PHCN, WSO platinum 29/8/2026) [Task 2]
+- Columbia Asia/Cuu Long is not one HCMC site: Columbia Asia only Binh Duong, no Cuu Long general hospital found (4 domain variants NXDOMAIN) [Task 2]
+
+## Failures and how to do differently
+
+- tools.web_search missing plus DDG/Bing scraping gave 0 or irrelevant hits -> use official-site crawling (links.py/rl.py) plus PubMed E-utilities by affiliation instead [Task 1]
+- Parallel fetch.py hung with no stdout -> redirect to a log file plus write_stdin polling and cache in _rc/raw/ from the start [Task 1]
+- Price pages with no VLTL per-session prices and absent bed counts -> record NOT FOUND, do not infer [Task 1]
+- UMC/YHCT/Dan Toc unreadable is access failure, not absence -> mark UNVERIFIED/PARTIAL, keep out of Top10 with explicit caveat [Task 1]
+- Bing RSS/vnsearch plus DDG batch hit limits on Vietnamese queries -> pivot to direct page reads for known providers and state the exhaustiveness limit explicitly [Task 2]
+- PowerShell quoting broke python -c one-liners -> use files in _rc/ called via python -X utf8 [Task 2]
+- Vinmec PHCN URL 404, Phap Viet/Mekong/Cuu Long NXDOMAIN, Binh My cert fail, FV/Vinmec JS-only pages -> record UNVERIFIED/NOT FOUND with check method, keep in table so family knows they were checked [Task 2]
+- Self-published facility pages do not earn VERIFIED -> use CLAIMED when only the facility page was seen; no So Y Te list means no VERIFIED licences [Task 2]
+
 ## Task 1: Resolver round with series grammar, resolve.rs, and growth family, 112 tests green, success
 
 ### rollout_summary_files
@@ -54,6 +102,38 @@ applies_to: cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs; reuse_rule=checkout-s
 - CRF(5 percent,1) floats one ulp low 5.249999999999996 versus 5.25 -> use closeness 1e-12, never ==, for life-1 annualized goldens [Task 1]
 - First override expectation assumed single-point plus head stays flat (300); the engine lerps between head and point (970/3) -> always recompute mid-years as lerp/step from head when porting series override [Task 2]
 - Stale round-2 goldens had to be corrected to override values (48 at 2027 28->27.1, 244 at 2027 400->970/3) [Task 2]
+
+# Task Group: Gap Stage1 workbook audit cluster a data plus baseline critic
+scope: Critic-audit the v0.8 Gap Stage1 workbook cluster-a data/baseline findings read-only with full Baseline recompute plus rank validation plus scenario sensitivity; use when critic-auditing Stage1 clusters or writing a-critic outputs.
+applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=workbook version plus cluster ownership plus output paths are audit-run-specific; the never-modify-xlsx plus recompute-every-cell plus herdr-notify-last discipline is reusable wherever a critic brief states it
+
+## Task 1: Critic-a audit of 14 cluster-a findings with 7 CONFIRMED 7 PARTIAL 1 NEW, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T09-58-48-rqnM-critic_a_cluster_data_baseline_audit.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T16-58-48-01a15399-73ea-7992-a0c3-9e53361d5822.jsonl, updated_at=2026-10-19T10:17:38+00:00, thread_id=01a15399-73ea-7992-a0c3-9e53361d5822, 15 lines: 7 CONFIRMED 7 PARTIAL 0 REJECTED 1 NEW plus summary plus done markers plus herdr notify)
+
+### keywords
+
+- critic-a, a-findings.jsonl, a-critic.jsonl, Baseline recompute, FDM_Monthly, AO AP AQ AR ranks, Yi Da exclusion, Far Eastern, national-grid factor, steam EF, Higg, openpyxl, data_only, utf-8 stdout
+
+## User preferences
+
+- when the brief path has a mangled placeholder (findings$c-findings.jsonl) -> list the findings dir to resolve the real cluster file rather than stopping [Task 1]
+- when commissioned as critic, the brief required never modifying the xlsx and notifying via herdr without --wait as the very last action -> write a-critic.jsonl plus summary plus .done, validate JSONL, then notify [Task 1]
+
+## Reusable knowledge
+
+- FDM has 356 rows/23 sites, 240 rows with production T>0 but 0 formula refs to FDM_Monthly T; 45 rows where N != O+P+Q+R+S across 7 site names; GridCase/EF_VN_NAT only in Electricity I5:I32 [Task 1]
+- Yi Da removal: 2225.7447-31.3888=2194.3559 kt, shifts Daehan 17->16, Regent 18->17, Ha Phong 19->18, Sun Duck 20->19, Hantex 21->20 [Task 1]
+- Far Eastern: 2025x12=74.075 kt rank5, 2026 raw=30.309 kt rank16 vs stored 90.928 rank4; national factor AB33 2276.196 (+50.45) with 6 rank moves as claimed [Task 1]
+- Beijiang D12 256k vs median 9.585M (~1/37); steam EF Beijiang 0.0953 identical to coal 95.3 t/TJ; Vinatex K316/K317 steam 0 on 58.76 TJ (~6.69 kt at 0.1139); Gistex coal months 1-5, De Licacy 1-9 in 2025; Yakjin Intertex Higg14674 vs Yakjin Vietnam Higg566 distinct; Q32 has 2 unlabelled fuels summing 100.01% [Task 1]
+- New A-C001: Top Sports H23 0.211568 vs site 30%, at 0.30 AI 8.175->11.592 AQ 12->10 [Task 1]
+
+## Failures and how to do differently
+
+- Empty stdout from verify scripts under default timeout/encoding -> force utf-8 stdout and 30s yield; read openpyxl with data_only False plus True [Task 1]
+- apply_patch hunk error on verify3 -> wrote the file via PowerShell here-string plus Set-Content [Task 1]
 
 # Task Group: Gap Stage1 workbook audit cluster c Rooftop plus Electricity
 scope: Audit the v0.8 Gap Stage1 prioritisation workbook cluster c (Rooftop plus Electricity sheets) read-only from audit-source dumps with full recompute plus scenario sensitivity; use when auditing Stage1 clusters or writing findings/coverage/summary outputs.
@@ -122,6 +202,16 @@ applies_to: cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs; reuse_rule=checkout-s
 
 - leapstride, MEASURED_STRIDE, free_list_head, 0x1c, FUN_012ec9e0, FUN_012ec2e0, NXDH, slot_map, area-wide chain, Freedonia
 
+## Task 4: Round-3 blobs stated encoding plus kind-5 segment directories plus embedded graphics triage, 128 tests green, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-37-37-O6MU-leapblob_r3_blobs_encoding_kind5.md (cwd=C:\Users\tukum\Downloads\rom-hack, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T14-37-38-01a15318-32b2-71a0-9ea4-9ae0b7064f50.jsonl, updated_at=2026-10-19T14:34:43+00:00, thread_id=01a15318-32b2-71a0-9ea4-9ae0b7064f50, 128 tests across 19 suites green plus goal report delivered; branch under leap-rs tree owning heap/model/blobs)
+
+### keywords
+
+- leapblob, blobs.rs, Width, field_width, Segment, tombstoned, kind3, kind4, kind5, SEGMENT 4059, memo census 5505, blobdump, target-leapblob
+
 ## User preferences
 
 - when pursuing brief steps, the brief said: "write the failing test first, at the highest feasible level (real vendor bytes or the area sweep), run it, and confirm it fails for the right reason before implementing" -> default to red-then-green at sweep or bytes level, not unit-only [Task 1]
@@ -130,6 +220,8 @@ applies_to: cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs; reuse_rule=checkout-s
 - when finishing, the brief said: "Do not commit or push. Leave changes in the working tree" -> leave the tree uncommitted for auto-backup [Task 1]
 - when the brief allows fallback, the brief said: "If no rule explains them all, keep the measurements" -> keep honest measured values with cause re-documented as unknown rather than forcing a unifying rule [Task 2]
 - when editing shared docs on a parallel-agent tree, re-read before each edit and make small local edits only [Task 2]
+- when the brief required an isolated target dir on a shared parallel tree, the agent used CARGO_TARGET_DIR target-leapblob -> default to per-agent target dirs on parallel-tree runs [Task 4]
+- when the brief bans commits, leave the worktree dirty for auto-backup and delete scratch examples plus the isolated target dir before the final suite [Task 4]
 
 ## Reusable knowledge
 
@@ -148,6 +240,10 @@ applies_to: cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs; reuse_rule=checkout-s
 - u16 at 0x1c is the free-list head: one-based (slot+1), 0 when full; each free slot first u16 links next, last is 0; area-wide proof over 2191 blocks (2105 full hold 0, other 86 chains visit exactly the free set from slot_map); years head 32 means slot31, units Peso block head 9 means slot8; explains slot_is_unwritten index+2 as chain link, not a numbering quirk [Task 3]
 - FUN_012ec9e0 has one rule only and FUN_012ec2e0 has no direct caller in the binary, so there is no hidden second stride rule; stride as LE u16/u32 appears in no dictionary region except coincidences also present in rule tables; creation-time-width stays neither confirmed nor ruled out [Task 3]
 - reporting discipline for these briefs: write docs/goal-report-*.md, then exactly once herdr agent prompt w2Z:p1 "leap-rs goal finished. Report: ..." without --wait, then update_goal complete [Task 1][Task 2]
+- Kind census of all 5505 memos: kinds 4:2446, 3:2607, 5:449, 0:3; kind3 counted 13B odd-narrow/even-wide trailing-word rule, kind4 narrow nxtBlob/Memo wide nxtBlobWideMemo (1214/467 live); wide extras only U+00A4 plus 0x0b/0x0e/0x0f; rule matches content-guess on 5363/5505 with 142 classed overrides [Task 4]
+- Kind5 triples decode as (chunk, remainder, distribution) with C=chunk*4059+remainder universally and SEGMENT=4059 max content; op1 plain op2 current-higher-superseded; live 199x1/191x2, dead 304x1 tail to 170 [Task 4]
+- Embedded graphics triage is cheap-only: memos 157/161 are dead max-size narrow memos mirrored in tedeffects (hex map labels plus RTF soil citation), no WMF/EMF/BMP/PNG/GIF/zip/gzip magic and no renderer per brief [Task 4]
+- Parallel-tree hygiene: PowerShell lacks head/cat/heredoc and writes UTF-16, so use python/base64 helpers; base64 appends can inject NULs so strip 0x00 before rustc [Task 4]
 - setup and toolchain background (Ghidra workspace, Rust-only no-Go rule, local-only commits on the PUBLIC repo) lives in the rom-hack Ghidra block Tasks 1-3 of this file [Task 1][Task 2]
 
 ## Failures and how to do differently
@@ -1486,7 +1582,7 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 
 ### rollout_summary_files
 
- - rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_launch_and_repair.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-18T04:22:00+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, Claude launches for city-ghg x7+, pdd-auto, ee-heat x4, copper x3, cpi, personal x4, ceba x3, baby-context through 2026-10-18; condensed rewrite superseding the deleted hermes_repair version of the same thread; final baby-context launch left uncertain-pending)
+ - rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_launch.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-19T12:16:31+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, Claude launches for city-ghg, pdd-auto, ee-heat, copper, cpi, personal, ceba, baby-context plus Codex launches, pane moves, and Hermes gateway repair; rewritten file superseding the deleted launch_and_repair version of the same thread)
 
 ### keywords
 
@@ -1496,7 +1592,7 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 
 ### rollout_summary_files
 
- - rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_launch_and_repair.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-18T04:22:00+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, Codex launches for csim-copy, rom-hack, ee-heat-codex, ceba-codex: esc update prompt, trust prompt enter plus double-wait, --remote flags, resume-last preserve-then-resume, close syntax, focus restore)
+ - rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_launch.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-19T12:16:31+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, Codex launches for csim-copy, rom-hack, ee-heat-codex, ceba-codex: esc update prompt, trust prompt enter plus double-wait, --remote flags, resume-last preserve-then-resume, close syntax, focus restore; rewritten file superseding the deleted launch_and_repair version)
 
 ### keywords
 
@@ -1506,7 +1602,17 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 
 ### rollout_summary_files
 
- - rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_launch_and_repair.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-18T04:22:00+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, pane side-by-side moves with --new-workspace restore plus Hermes gateway --replace repair success)
+ - rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_launch.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-19T12:16:31+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, pane side-by-side moves with --new-workspace restore plus Hermes gateway --replace repair success; rewritten file superseding the deleted launch_and_repair version)
+
+## Task 10: Nine-request Herdr launch marathon with trust-prompt and resume-last plus exec escaping lesson, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-18T21-41-36-a6uk-herdr_launch_spaces_claude_codex.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T04-41-37-01a150f6-8a67-7f00-8edf-55fd3dcb9380.jsonl, updated_at=2026-10-19T14:31:42+00:00, thread_id=01a150f6-8a67-7f00-8edf-55fd3dcb9380, 9 launches: city-ghg, ee-heat, rom-hack, remote expense, remote ceba, remote personal with Claude plus expense Codex trust-flow and 2 resume-last; herdr 0.9.3 caller w29)
+
+### keywords
+
+- herdr workspace create --no-focus, herdr agent start, remote-expense-codex, resume --last, Trust this folder, send-keys enter, agent wait, Select-Object Name, IN_HERDR, Check Trang expense files
 
 ### keywords
 
@@ -1532,6 +1638,16 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 
 - herdr workspace create w2T, csim-copy-claude, agent start no --no-focus, focus restore w29, workspace evaporate, HERDR_ENV PowerShell, interactive_ready
 
+## Task 11: Hermes gateway loop-liveness watchdog exit-75 repair with vendor detached relaunch, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T12-19-40-Nher-hermes_gateway_watchdog_exit75_repair.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T19-19-40-01a1541a-6f0b-7a10-9fb5-9852ef614d2b.jsonl, updated_at=2026-10-19T12:27:23+00:00, thread_id=01a1541a-6f0b-7a10-9fb5-9852ef614d2b, exit-75 watchdog repair PID 14452 to 11516 with logon-only supervision gap root-caused)
+
+### keywords
+
+- hermes gateway run --replace, loop_liveness_watchdog, exit_code 75, gateway.lifecycle.json, gateway.heartbeat, Hermes_Gateway scheduled task, logon-only, discord_websocket_health_stale, Unknown Channel, health 200 0.21.5
+
 ## User preferences
 
 - when the user issues `codex remote-control start` -> execute directly and report the concrete startup/verification result without unrelated repository exploration [Task 1]
@@ -1554,6 +1670,9 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 
 - when the gateway is broken with minimal detail and the user says "Something wrong with hermes gateway, fix" -> diagnose autonomously via HERMES_HOME layout plus lifecycle/heartbeat/logs, not clarifying questions [Task 8]
 - when the user says "launch herdr space at csim-copy with Claude agent" -> check-first (workspace list plus agent list) then fresh background recreate, not an error; same expectation as prior vanished-space recreates [Task 9]
+- when the user says "Fix hermes gatewayy" with a typo and no symptoms -> treat as the gateway repair workflow and diagnose autonomously via lifecycle/heartbeat/logs, not clarifying questions [Task 11]
+- when the user repeats "launch herdr space at remote/expense with codex agent resume last" for an already-resumed thread -> still create the requested space and resume; repeat resume-last requests are intentional recreates, not duplicates to refuse [Task 10]
+- when launching into remote/<name>, the user expects label <name> with a disambiguating agent name (remote-expense-claude, remote-ceba-claude) when several remote spaces exist -> keep the short-label default but qualify agent names under remote/ [Task 10]
 
 ## Reusable knowledge
 
@@ -1572,6 +1691,12 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 - Herdr refuses self-update inside an attached session; clear `HERDR_ENV/HERDR_WORKSPACE_ID/HERDR_TAB_ID/HERDR_PANE_ID` in the same command, then `herdr update --handoff` installs stable (0.9.3). [Task 3]
 - herdr-file-viewer default prefix is `ctrl+b` (press, release, then `f`); when keys do nothing but `herdr plugin action invoke open-file-viewer-windows` succeeds, the failure is key delivery, not the plugin. [Task 3]
 - Related skill: skills/herdr-workspace-launch/SKILL.md
+- In exec_command PowerShell filters avoid a dollar-underscore item variable (it arrives mangled and Where-Object fails); list plainly with Get-ChildItem <dir> -Directory plus Select-Object Name instead [Task 10]
+- Codex new-cwd Trust prompt shows blocked plus launch_pending and default reads fail agent_not_idle; read with --source visible, confirm cwd matches the request, then send-keys enter plus agent wait until idle [Task 10]
+- Resume-last proves itself by thread title (for example Check Trang expense files): no trust prompt appears and argv keeps --remote unix:// -C <cwd> before resume --last [Task 10]
+- Exit-75 watchdog signature: lifecycle phase exited with exit_reason loop_liveness_watchdog, heartbeat stale thousands of seconds, lock still naming the dead PID, port 8642 free; relaunch detached-hidden via the vendor python path with gateway run --replace and verify lifecycle phase running plus heartbeat age under 30s plus /health 200 [Task 11]
+- Hermes_Gateway scheduled task is logon-only (30s delay, wscript VBS) so RestartOnFailure never fires after a watchdog exit; expect no auto-restart and repair manually [Task 11]
+- Discord 404 Unknown Channel for the home channel plus slash-sync rate-limit are non-fatal during repair; gateway is healthy when discord shows connected as HermesBot plus api_server connected plus 2 platforms plus cron ticking [Task 11]
 - Codex launch shape: herdr agent start <label>-codex --kind codex --pane <pane> --timeout 120000 -- --remote unix:// -C "<abs-cwd>" so the phone app can reach it; empty output with launch_pending true is normal, then diagnose via herdr agent list plus herdr agent read --source visible. [Task 6]
 - Canonical Claude launch is 2 calls: herdr workspace create --cwd "C:\Users\tukum\Downloads\<proj>" --label "<label>" --no-focus then herdr agent start <label>-claude --kind claude --pane <pane> --timeout 120000, expecting idle plus interactive_ready true. Most projects sit under Downloads; remote slash paths map to Downloads remote subdirs; verify with Test-Path when uncertain. [Task 5]
 - PowerShell quoting with dollar variables inside double-quoted cmd breaks easily (foreach with dollar-p loop vars, dollar-underscore in Select-String and Where-Object); prefer single simple Test-Path calls or cmd /c for where and tasklist. Select-String -CaseSensitive with an explicit false value fails SwitchParameter conversion; use plain -Pattern. [Task 5]

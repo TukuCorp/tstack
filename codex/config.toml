@@ -159,6 +159,9 @@ trust_level = "trusted"
 [projects.'C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors']
 trust_level = "trusted"
 
+[projects.'C:\Users\tukum\Downloads\remote\personal\inlaw-health']
+trust_level = "trusted"
+
 [plugins."documents@openai-primary-runtime"]
 enabled = true
 
