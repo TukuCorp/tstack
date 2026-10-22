@@ -68,8 +68,22 @@ Gotchas:
 - A new folder may show "Trust this folder?"; `agent start` then reports not ready. Read the pane, confirm the folder, send `enter`.
 - `agent start` can return while MCP servers are still starting. A prompt sent then sits in the input box and the status shows `done`. Check `agent read --source visible`; if the text is still in the input, re-send. Do not press `ctrl+c`: it exits Codex.
 - A prompt that begins with `/` (such as `/goal ...`) is rewritten into a Windows path by Git Bash. Prefix the call with `MSYS_NO_PATHCONV=1`, or send it from PowerShell.
-- Under `--remote unix://` the agent lives in a shared Codex daemon, so closing its tab does not stop it. Wait for its report and its idle status before closing the tab.
+- Under `--remote unix://` the agent lives in a shared Codex daemon, so closing its tab does not stop it or unload its thread. Wait for its report and its idle status before closing the tab, then unload the thread (below).
 - Keep the first prompt free of the dollar sign when it passes through PowerShell.
+
+## Unloading finished threads
+
+Closing a tab ends the Codex client process, but the thread stays loaded in the daemon (tested 2026-10-22: still loaded 30 s after the close). `codex archive` unloads it. The thread id is the UUID at the end of the rollout file that holds the lane's goal prompt:
+
+```bash
+id=$(grep -rl --include='rollout-*.jsonl' "Read the brief <prefix>-brief-<lane>.md" ~/.codex/sessions \
+  | sed -E 's/.*-([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\.jsonl$/\1/')
+codex archive --remote unix:// "$id"       # unloads it; `codex unarchive <id>` restores it to history
+```
+
+- Expect exactly one id per lane. If the grep returns none or several, stop and read the matches; do not archive a guess.
+- Success prints `Archived session <id>.`; in the test that thread left the daemon's loaded list at once.
+- Do not use `codex app-server daemon stop` or `restart`: the daemon holds every other session's agents.
 
 ## Report-back without polling
 

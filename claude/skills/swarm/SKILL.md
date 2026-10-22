@@ -69,4 +69,10 @@ Then produce the deliverable in the project folder (an HTML report when asked, o
 
 ## 6. Clean up
 
-Close the lane tabs you created (`herdr tab close <tab-id>`), keep the briefs and agent outputs in the folder as an audit trail, and keep the throwaway folder out of git.
+Free the memory each lane used. Closing a tab ends only the Codex client: the agent's thread stays loaded in the shared Codex daemon until it is archived. For each lane this run created, once its final file is read:
+
+1. Close its tab: `herdr tab close <tab-id>`.
+2. Find its thread id from the rollout that holds its goal prompt, then archive it, which unloads it from the daemon (commands in `references/herdr-cli.md`, "Unloading finished threads").
+3. Confirm it printed `Archived session <id>.`
+
+Archive only threads this run started; other sessions share the daemon. Never stop or restart the daemon. Keep the briefs and agent outputs in the folder as an audit trail, and keep the throwaway folder out of git.

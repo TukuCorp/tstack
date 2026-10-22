@@ -1,3 +1,443 @@
+# Task Group: OpenCode Go model-list refresh across opencode CLI, ShortcutXL, and opencodex proxy
+scope: Diagnose and repair stale OpenCode Go model inventories when the user reports outdated model lists; use when a fixed list does not appear in a specific surface (opencode TUI, shortcut list-models, Codex-via-opencodex :10100)
+applies_to: cwd=C:\Users\tukum; reuse_rule=machine-specific; live model IDs, installed versions, and cache paths are time-specific and must be rechecked against live opencode models plus the docs page on each run
+
+## Task 1: Refresh stale opencode-go inventories and verify per surface, partial
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-21T08-58-26-TNjD-opencode_go_opencodex_model_list_refresh_2026_10_21.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\21\rollout-2026-10-21T15-58-26-01a15dae-e92a-7140-b338-049607d6a84.jsonl, updated_at=2026-10-21T10:06:32+00:00, thread_id=01a15dae-e92a-7140-b338-049607d6a84, opencode CLI plus ShortcutXL fixed and verified; opencodex proxy still serves 8 retired IDs pending binary upgrade; noctty scan aborted with no deliverable)
+
+### keywords
+
+- opencode models, opencode-go, opencodex, shortcut list-models, model.json, models.json, model-metadata.ts, space-bunny-free, omen-alpha, BOM, port 10100, modelDiscovery, model-cache TTL
+
+## User preferences
+
+- when asked to fix stale lists, the user said: "just make sure model list up to date" -> refresh caches directly with backup plus verify, defer binary upgrades without approval [Task 1]
+- when the fix did not show, the user said: "not seeing the updated model list" and "still seeing space bunny dude" and "right here man codex cli using opencodex to have opncode go models" -> disambiguate which surface is stale (opencode TUI picker vs opencode models vs shortcut list-models vs Codex-via-opencodex :10100) before assuming which cache to fix [Task 1]
+- inferred standing rule referenced in rollout: confirm scope and rollback before installing or upgrading system software (opencodex and @opencode/cli upgrades deferred for user approval) [Task 1]
+
+## Reusable knowledge
+
+- Live truth is opencode models (29 opencode-go IDs on 2026-10-21: GLM-5.3/Flash, Kimi K3/K2.7-Code, LongCat-2.0/2.5-preview-free, Beam Free, MiMo V2.5/V2.6 family, MiniMax M3/M3.1-flash-free, DeepSeek V4.1-flash/V4-pro, Hy3/Hy4-preview, Grok 4.7, GPT 6-Luna/5.6-Luna, Haiku 5.5, Gemini 4-Argon-Contributor, Qwen3.8-Max/Flash, Qwen3.7-Plus, Step-5-preview, Muse Spark 1.2/1.3-contributor) plus the live docs page via curl.exe -sL https://opencode.ai/docs/go/; local caches diverge, and installed versions were behind (@opencode/cli 2.0.18 vs 2.1.2 latest, opencodex 2.67.0 vs 2.89.0 latest) [Task 1]
+- opencode CLI cache lives at .local/state/opencode/model.json (recent/favorite still pointed at retired union-alpha, ox-alpha-free, deepseek-v4-flash/vision-exp, qwen3.7-max); back up to model.json.bak-<date>, filter recent to still-valid, remap favorites (vision-exp to v4.1-flash, ox-alpha-free to beam-free, deepseek-v4-flash to qwen3.8-max), drop dead variant keys, then verify every ID resolves in opencode models; restart background opencode.exe serve --service when a running TUI holds old rows [Task 1]
+- ShortcutXL cache lives at .shortcut/agent/models.json; after editing verify shortcut --assume-installed --list-models opencode-go returns 29 entries (21+3+5) [Task 1]
+- opencodex caches live at .opencodex/config.json modelDiscovery.knownModels.opencode-go.ids plus the bundled @bitkyc08/opencodex src/generated/model-metadata.ts roster; after editing restart the bun proxy and refetch :10100/v1/models (57 to 50 total, go 40 to 36, space-bunny gone); remaining retired rows come from in-build discovery leftovers (new-model-policy grace, model-cache TTL 5min) and need an opencodex upgrade plus Codex restart, and .codex/models_cache.json clearing is policy-blocked [Task 1]
+
+## Failures and how to do differently
+
+- Symptom: ShortcutXL shows "No models matching opencode-go" after rewrite. Cause: PowerShell JSON write added a UTF-8 BOM. Fix: restore .bak and rewrite BOM-free via UTF8Encoding(false), verify first bytes (expect 123, not 239 187 191), re-run list-models [Task 1]
+- Symptom: :10100 still serves retired IDs (glm-5.1, grok-4.6, kimi-k2.6, minimax-m2.5/m2.7, omen-alpha, qwen3.6-plus, qwen3.7-max) plus missing deepseek-v4-pro after config plus metadata edits. Cause: in-build discovery leftovers, not file state. Fix: propose the opencodex upgrade with rollback (reinstall plus restore two .bak files) and get approval per the install rule instead of looping edits; do not kill the port-10100 bun without warning since the supervisor respawns it with a new PID [Task 1]
+- apply_patch helper rejects python heredoc patches (invalid hunk header) and python -c with nested quotes fails on PowerShell; write temp .py via Out-File and run it instead [Task 1]
+- user aborted a full home-directory scan for the noctty/ghostty fork ask immediately; start with binary plus config paths, not a broad scan [Task 1]
+
+# Task Group: noctty defaults reset to fix lag vs Windows Terminal
+scope: Reset noctty config to built-in defaults when lag is reported vs Windows Terminal; use when custom cursor or shader deviations are suspected
+applies_to: cwd=C:\Users\tukum; reuse_rule=machine-specific; noctty install path, LOCALAPPDATA config path, and default template bytes are machine-specific and must be rechecked per machine
+
+## Task 1: Reset noctty config to all defaults and verify via +show-config, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-21T09-37-11-40WO-noctty_reset_defaults_fix_lag.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\21\rollout-2026-10-21T16-37-11-01a15dd2-63d8-78a0-a3db-93c702b3024e.jsonl, updated_at=2026-10-21T09:54:47+00:00, thread_id=01a15dd2-63d8-78a0-a3db-93c702b3024e, lag fixed after removing cursor shader plus color, user confirmed no lag now)
+
+### keywords
+
+- noctty, config.ghostty, custom-shader, cursor_warp.glsl, +show-config, lag, defaults, LOCALAPPDATA
+
+## User preferences
+
+- when noctty felt laggy vs Windows Terminal, the user said: "make sure asll settings are default" -> reset to built-in defaults rather than tuning values [Task 1]
+
+## Reusable knowledge
+
+- Noctty binary lives at C:\Users\tukum\AppData\Local\Programs\noctty\noctty\noctty.exe (not on PATH); run CLI via noctty.com in the same folder with +show-config [Task 1]
+- Active config is %LOCALAPPDATA%\noctty\config.ghostty; default template is comment-only around 1975 bytes with zero active lines, so any non-comment line is a deviation [Task 1]
+- Lag cause was custom-shader pointing at .config/noctty/shaders/cursor_warp.glsl plus cursor-color #19D3FF and cursor-style-blink false; removing them fixed it [Task 1]
+- Verify with +show-config --default (custom-shader, cursor-color, cursor-style-blink empty; cursor-style block) against +show-config effective overrides; reload needs Ctrl+Shift+, or a full restart [Task 1]
+- Shader files stay preserved at .config/noctty/shaders/cursor_warp.glsl and cursor_tail.glsl; laggy config backed up at %LOCALAPPDATA%\noctty\config.ghostty.bak-20261021-laggy [Task 1]
+
+## Failures and how to do differently
+
+- Symptom: Unix idioms fail on PowerShell. Cause: head, which, ls -la do not exist there. Fix: use Get-ChildItem, Get-Command, Select-Object -First [Task 1]
+- Symptom: Get-ChildItem -MaxDepth errors. Cause: flag unsupported on Windows PowerShell. Fix: omit it or use -Recurse with Select -First [Task 1]
+- Symptom: RED test wrongly flagged cursor-style block as non-default. Cause: block is the built-in default so effective config omits it. Fix: assert only cursor plus custom-shader overrides are absent [Task 1]
+
+# Task Group: csim-copy trainer playtest 3-year exercise with host restore
+scope: Run the trainer playtest brief end-to-end (clock plus console, 6min years, 0.75min auction window, 3 years) on the local host; use when the host is down or the brief mandates the exact herdr report-back shape
+applies_to: cwd=C:\Users\tukum\Downloads\csim-copy; reuse_rule=checkout-specific; host port, brief paths, and run IDs are checkout-specific and must be rechecked per run
+
+## Task 1: Execute trainer brief from partial abort to full 3-year completion, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-21T07-02-13-o7u0-carbonsim_trainer_playtest_3_years.md (cwd=C:\Users\tukum\Downloads\csim-copy, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\21\rollout-2026-10-21T14-02-13-01a15d44-8121-75e0-ac26-3f5d586a9de0.jsonl, updated_at=2026-10-21T08:52:12+00:00, thread_id=01a15d44-8121-75e0-ac26-3f5d586a9de0, host restored after low-memory reap, full 3-year exercise completed with 4 findings)
+
+### keywords
+
+- carbonsim, playtest-trainer, chrome-devtools-axi, dotnet publish, Demo environment, AdminSession, SimulationClock, leaderboard, herdr
+
+## User preferences
+
+- when the host was dead, the user STOP message said: stop sessions, write partial observations, send report-back with partial -> abort cleanly with idempotent stops and an honest partial file rather than hanging [Task 1]
+- the brief mandates as the very last action a herdr agent prompt to the dispatch pane with the finished shape and no --wait -> preserve that exact handoff on every lane [Task 1]
+
+## Reusable knowledge
+
+- Host restore recipe: confirm no dotnet plus no listener plus low free RAM, check scripts/run-demo.ps1 plus publish plus demo-data/hosted-credentials, confirm the Release build is current, publish to reports/playtest/_playtest/publish to respect the no-edit rule, then start the host in a background exec session with Demo env plus brief PIN and creds on 5097 and verify migrations plus admin seeded plus listening [Task 1]
+- Trainer setup: sign in, open /admin/setup, set year-length 6 and auction 0.75 via eval plus change, register Alpha (Power) id2 and Bravo (Cement) id3 via /api/accounts/register, then run year 1 plus 2 plus 3 with pause, halt, reopen, messaging, and shock checks before ending the exercise [Task 1]
+- Verification: leaderboard ranks, cross-player message, surrender arithmetic, probe run for no self-start (60s Waiting) and expired-year no-resume with reason, then clean up sessions plus host and send the final report-back [Task 1]
+- 4 findings: MAJOR owner name shows company not display name (also message sender); MINOR auction-volume column all-channel vs auction price plus CSV header mismatch; MINOR trainer doubled unit(player) vs player de-duplication; NOTE company report year-3 vs leaderboard overall [Task 1]
+
+## Failures and how to do differently
+
+- Symptom: chrome-devtools-axi open returns empty with no snapshot. Cause: host is down, not a browser failure. Fix: probe the host plus pages before blaming the browser [Task 1]
+- Symptom: Blazor @bind does not fire on fill. Cause: missing change events. Fix: use input plus change events, or type/fill then change; message textarea needs both before Send enables [Task 1]
+- Symptom: eval quoting fails with colon or equals. Cause: double-quoted JS breaks in the PowerShell eval string. Fix: single-quoted JS inside the double-quoted PowerShell string [Task 1]
+- Symptom: Start-Process launcher blocked by policy. Cause: process launch blocked in this harness. Fix: use a background exec session with tty true for the host instead [Task 1]
+
+# Task Group: inlaw-health local Vietnamese audio fetch and STT (zalofetch, sttpick, phowhisper)
+
+scope: Fetch the newest Zalo My Documents doctor audio read-only and transcribe it fully locally, first with faster-whisper small int8 then with PhoWhisper-small CT2; use for _zv audio and STT lanes that end in a herdr report-back to w36:p1.
+applies_to: cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health; reuse_rule=brief paths plus _zv layout plus w36:p1 handoff are lane-specific; the local-only plus no-cloud plus no-terminal-transcript plus temp-cleanup discipline is reusable wherever a medical-audio brief states it
+
+## Task 1: Fetch newest Zalo My Documents audio read-only (zv-brief-zalofetch.md), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-21T02-22-38-Njso-zalofetch_zalo_audio_download.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\21\rollout-2026-10-21T09-22-39-01a15c44-8cac-7f03-8d65-94004e349b24.jsonl, updated_at=2026-10-21T02:32:53+00:00, thread_id=01a15c44-8cac-7f03-8d65-94004e349b24, 1 verified m4a via Downloads-tmp workaround plus zv-zalofetch.md)
+
+### keywords
+
+- zalofetch, browser-control, chat.zalo.me, My Documents, file-message-v2, Downloads tmp, ffprobe, zv-zalofetch.md, herdr agent prompt w36:p1
+- Related skill: skills/inlaw-health-evidence-lanes/SKILL.md
+
+## Task 2: Local Vietnamese STT with faster-whisper small int8 (zv-brief-sttpick.md), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-21T02-22-38-Cvca-sttpick_vietnamese_local_stt_faster_whisper_small.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\21\rollout-2026-10-21T09-22-39-01a15c44-8cac-7f03-8d65-941030fcd0ae.jsonl, updated_at=2026-10-21T03:04:00+00:00, thread_id=01a15c44-8cac-7f03-8d65-941030fcd0ae, 277 segs 61 low-confidence in 1723.5s plus zv-sttpick.md)
+
+### keywords
+
+- faster-whisper, whisper small int8, av==13.1.0, uv venv python 3.12, vad_filter, transcribe_vi.py, low-confidence, zv-sttpick.md, herdr agent prompt w36:p1
+
+## Task 3: PhoWhisper-small CT2 retranscription with 0 low-confidence segs (zv-brief-phow.md), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-21T03-17-34-hrpw-phowhisper_ct2_retranscription_inlaw_health.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\21\rollout-2026-10-21T10-17-34-01a15c76-d696-7521-a0bd-93a0c12123c2.jsonl, updated_at=2026-10-21T03:47:14+00:00, thread_id=01a15c76-d696-7521-a0bd-93a0c12123c2, 26 segs 0 low-confidence in 1267.7s plus zv-phow.md)
+
+### keywords
+
+- PhoWhisper-small, CTranslate2 int8, Sporer PhoWhisper-ct2-FasterWhisper-small, transcribe_phow.py, snapshot_download, stt16k temp cleanup, zv-phow.md
+
+## User preferences
+
+- when handling private medical audio, the brief required local-only transcription with no cloud STT/uploads and no transcript pasted to terminal -> for similar medical or private audio tasks default to a fully local pipeline and write the transcript to file only [Task 2]
+- when operating in Zalo, the brief required read-only, never send/forward/react/delete/pin and never open other conversations beyond My Documents -> respect strict read-only scope on similar fetches [Task 1]
+
+## Reusable knowledge
+
+- Zalo web at https://chat.zalo.me was already logged in; the hidden div.lb-tab-title My Documents label is not clickable, click the visible preview text instead; the download control is a.file-message__actions.download with empty href and no download attribute, and browser-control tabs expose no audio URL, so copy the GUID .tmp that lands in C:\Users\tukum\Downloads (7.13 MB label) to _zv/audio and verify bytes [Task 1]
+- Verified file: AAC 48kHz mono, 872.256s (14m32s), 7470401 bytes, single file-message card so N=1; low-RAM rule is one page only: create session zalofetch then delete it after [Task 1]
+- With Python 3.14.2 on PATH, use uv venv _zv/venv --python 3.12 then uv pip install --python .\_zv\venv\Scripts\python.exe faster-whisper; faster-whisper 1.2.1 pulls av 19.0.1 which breaks decode_audio, pin uv pip install av==13.1.0 which has cp312 win_amd64 wheels [Task 2]
+- Operating point for ~0.36-1.1GB free RAM on Win11 CPU-only: faster-whisper small int8, device cpu, language vi, vad_filter True, beam 5; medium and large-v3-turbo need ~1.5GB and were excluded; transcribe_vi.py converts to 16kHz mono wav via ffmpeg, writes [mm:ss] segments with [low-confidence] flag when avg_logprob below -1.0, and steps down large-v3-turbo to tiny on OOM [Task 2]
+- Pre-converted Sporer/PhoWhisper-ct2-FasterWhisper-small CT2 (model.bin 483546977 bytes) loads directly in faster-whisper WhisperModel with device cpu compute int8; PhoWhisper-small int8 ran 872.2s audio in 1267.7s (~0.7x realtime), VAD on, beam 5, peak self RSS ~1125 MiB, needs ~1.2GB free, medium judged not to fit; result 26 segs 0 low-confidence spanning [00:03]-[14:26] vs 277 segs 61 low on the small run [Task 3]
+- Mandatory last action in all three lanes: herdr agent prompt w36:p1 with the finished counts and file name, then update_goal complete [Task 1][Task 2][Task 3]
+
+## Failures and how to do differently
+
+- Direct inline browser-control execute with quoted JS failed with SyntaxError missing ) after argument list -> use --file scripts managed via Set-Content/Add-Content then deleted after; getByText My Documents timed out as not visible -> probe bounding rects and click the visible preview text [Task 1]
+- page.on tracing for audio/download/media returned 0 hits and no audio elements -> fall back to checking Downloads for new .tmp files; Copy-Item with unescaped apostrophe failed -> quote the destination path [Task 1]
+- The pip.exe shim is missing in the uv venv so pip cannot be called directly -> use uv pip install --python .\_zv\venv\Scripts\python.exe; PowerShell head, ampersand, %TEMP%, and single-quote curl args break under the exec tool -> use curl.exe -sL with double quotes plus Select-String and Get-ChildItem [Task 2]
+- One Wikimedia wav download returned HTML not wav -> verify every sample with ffprobe before concat and drop bad files; long transcription exceeds a single exec yield -> launch in a background session then poll via write_stdin and wait on session_id and check for the output file plus a WorkingSet64 sampler loop [Task 2]
+- PowerShell has no head and piped head -c fails -> avoid Unix pipes, use Select-Object or Python slicing; inline python -c with dollar signs, brackets, nested quotes fails easily -> write helper .py files per the brief; apply_patch Add File with a wrong hunk header fails -> use Update File on existing files; apply_patch string replace on zv-phow.md failed on line-wrap mismatch -> Python regex replace with re.S [Task 3]
+- Two full-length stt16k_*.wav ffmpeg conversions (27.9MB each) were left in system temp -> delete them after the run, 7 deleted with 0 remaining [Task 3]
+
+# Task Group: inlaw-health ward rules and informal-payment review (cg-rules, vn-gifting)
+
+scope: Produce the cg-rules.md ward plus home-care rulebook (51 rows) and the vn-gifting.md phong-bi descriptive review (65 rows) in Vietnamese with evidence labels; use for stroke-doctors lanes about 115 ward practice, informal payments, and legitimate alternatives.
+applies_to: cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors; reuse_rule=lane brief paths plus output filenames are lane-specific; the descriptive-only plus evidence-label plus no-contacts plus herdr-report-last discipline is reusable wherever a vn or cg brief states it
+
+## Task 1: Build cg-rules.md sections A-F plus last action (cg-brief-rules.md), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T06-36-22-s2GX-cgrules_cg_rules_51_rows_115.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T13-36-23-01a15806-7d69-7a03-8c93-b83039a5779f.jsonl, updated_at=2026-10-20T06:41:08+00:00, thread_id=01a15806-7d69-7a03-8c93-b83039a5779f, LINES=150 TABLEROWS=51 A6+B8+C6+D14+E6+F11, 23532 bytes)
+
+### keywords
+
+- cgrules, cg-brief-rules.md, cg-rules.md, BV-115 sitter rules, 30-day cost arithmetic, labor law, sonde, scams, vnsearch, herdr agent prompt w34:p1
+- Related skill: skills/inlaw-health-evidence-lanes/SKILL.md
+
+## Task 2: Produce vn-gifting.md phong-bi review with A-G tables (vn-brief-gifting.md), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T04-06-00-EWiK-vn_gifting_informal_payments_review.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T11-06-00-01a1577c-d06a-7500-b5d4-59e05fb388f2.jsonl, updated_at=2026-10-20T04:37:35+00:00, thread_id=01a1577c-d06a-7500-b5d4-59e05fb388f2, A-G tables 65 rows 5 agreements 10 conflicts 39 sources)
+
+### keywords
+
+- vn-gifting, vn-brief-gifting.md, vn-gifting.md, phong-bi, bao-thu, PAPI-2024, BLHS-354-364, QD2151, gia115, Google-News-RSS, _vng
+
+## User preferences
+
+- when executing brief, the brief required Vietnamese-first search and findings with an evidence label on every claim and NOT FOUND over guessing -> for similar cg briefs default to Vietnamese-first with labeled claims [Task 1]
+- when the brief covers informal payments, it required: describe what sources report, no instructions for handing over money, no advice on avoiding detection, equal weight on law and legitimate alternatives, no personal accusations -> for similar sensitive lanes default to strict descriptive compliance over helpful how-to [Task 2]
+- when executing brief, the brief required mandatory herdr agent prompt w34:p1 without --wait as the very last action -> always run the exact handoff even if partial [Task 1][Task 2]
+
+## Reusable knowledge
+
+- cg-rules.md shape that satisfied the brief: sections A-F with TABLEROWS=51 (A6+B8+C6+D14+E6+F11), 30-day cost arithmetic shown, tables over prose, 23532 bytes, LINES=150 [Task 1]
+- PAPI 2024 Fig1.14 health lot-tay 1 percent in 2024 with no HCMC-specific prevalence found; price points: Cho Ray 3 envelopes 1-2M each (3-6M total, disputed); BV E 50-100k per session; BV K 200k per session; postpartum 2M (warning); out-of-hours 10M claim is a single-surgeon statement not a price list [Task 2]
+- Law: BLHS 354/364 from 2M, 364(7) coerced and voluntary-report exemption; PCTN22 ban; QD2151 ban duoi moi hinh thuc; CV5766 no surcharge; Loi86/2025 top band life; Loi132/2025 no change to Dieu22 [Task 2]
+- 115 legitimate alternatives: on-demand clinic gate 3, KYC/VIP fees, service beds, BHYT Res399, hotlines 096.777.1010 and 0989.401.155, social-work dept, day-treatment unit; no ICU private-room or named-surgeon price found; no 115 occupancy percent or no-gift signage found [Task 2]
+- 115 prices live in JS-embedded Google Sheets not HTML: parse gia.js for the sheet ID and gid, then fetch CSV (gia115b 3232 rows, exam plus bed tiers effective 29/12/2025) [Task 2]
+- Google News RSS harvesters (_vng/gn.ps1 with pipe delimiter) beat Bing helpers for Vietnamese diacritics: 12+5+5+5 queries yielded 146+57+66+36 items and resolved the Cho Ray Oct 2026 bao-thu case, BV E Sep 2026 kep-tien case, 71-ty drug-commission trial, and the overload series; mined PAPI 2024 PDF (22.9MB) with PyMuPDF and PMC papers for envelope-share figures [Task 2]
+
+## Failures and how to do differently
+
+- cg-brief tooling check: vnsearch.ps1 (Bing RSS) over 12 Vietnamese queries returned DONEQ=12 ROWS=114 of irrelevant gold/GIA/Translate noise, and script fetch to 115/thuvienphapluat failed on connection/403 -> pivot to parallel web searches plus direct page opens (benhvien115.com.vn verified, giupviec.vn CLAIMED-only) and write cg-rules.md via apply_patch after 2 patch-format failures, verifying LINES plus TABLEROWS counts [Task 1]
+- Bing-based helpers are unusable for Vietnamese diacritics in this env and DDG returned 202 HITS 0 -> use Google News RSS plus search_service web_run, then direct fetch; Firecrawl search 402 means do not depend on it [Task 2]
+- Python heredoc via PowerShell fails -> write .py via apply_patch and run with PYTHONIOENCODING=utf-8; price data lives in JS-embedded Google Sheet not HTML -> parse gia.js for sheet ID/gid [Task 2]
+
+# Task Group: HCMC post-stroke rehab extensions and Vietnamese sweep (rec-physicians, rec-centers, rec-therapists, vn-recovery)
+
+scope: Extend lane-rehab.md and lane-rehab-2.md without repeating names (rec-physicians.md 7, rec-centers.md 12 settings, rec-therapists.md 12 allied) plus the Vietnamese final sweep vn-recovery.md (71 rows), all with strict source hierarchy and a mandatory herdr report-back to w34:p1.
+applies_to: cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors; reuse_rule=lane brief paths plus output filenames plus w34:p1 handoff are lane-specific; the Vietnamese-first plus evidence-label plus no-invention plus de-duplicate plus herdr-report-last discipline is reusable wherever a rec or vn lane brief states it
+
+## Task 1: Build rec-physicians.md from verified hospital pages, 7 people at 4 hospitals, partial
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T02-37-33-pEfK-hcmc_rec_physicians_partial_7.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T09-37-33-01a1572b-d75e-7073-843b-bf4c94541128.jsonl, updated_at=2026-10-20T03:59:43+00:00, thread_id=01a1572b-d75e-7073-843b-bf4c94541128, 11752 bytes, honestly PARTIAL not padded)
+
+### keywords
+
+- rec-physicians, recphys, Thong Nhat, Hospital 1A, 30-4, Cho Ray 4524, content-filter, name-title-role-only, herdr agent prompt w34:p1
+- Related skill: skills/inlaw-health-evidence-lanes/SKILL.md
+
+## Task 2: Research recovery settings and write rec-centers.md, 12 settings, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T02-37-33-brMb-hcmc_rec_centers_rehab_settings.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T09-37-33-01a1572b-d77e-7382-be28-c0420572721f.jsonl, updated_at=2026-10-20T02:44:18+00:00, thread_id=01a1572b-d77e-7382-be28-c0420572721f, 24499 bytes, A/B/C grades plus accreditation plus red-flags plus phone script)
+
+### keywords
+
+- rec-centers, reccenters, inpatient day-rehab home-nursing, PHCN-DTBNN ban ngay, Hospital-175-A26a, Tam Anh Ampcare, FV-BHYT, JCI, CARF, herdr agent prompt w34:p1
+
+## Task 3: Build 12-item allied shortlist (rec-therapists.md), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T02-37-33-gCw2-hcmc_rec_therapists_allied_shortlist.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T09-37-34-01a1572b-d7af-7d91-ae41-130e3d01ce2a.jsonl, updated_at=2026-10-20T02:54:36+00:00, thread_id=01a1572b-d7af-7d91-ae41-130e3d01ce2a, 21416 chars 12 rows 0 dups, 13 source URLs 12x200 plus PubMed 203)
+
+### keywords
+
+- rec-therapists, SLP, dysphagia, FEES, VFSS, OT, neuropsychology, Hospital-1A, UMP roster, pmfetch-B64, herdr agent prompt w34:p1
+
+## Task 4: Vietnamese final sweep writing vn-recovery.md, 71 data rows 7 tables 30 sources, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T03-57-19-RyaZ-vn_recovery_vietnamese_sweep_hcmc.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T10-57-19-01a15774-df25-75e3-a1ff-3dbda1ef91f9.jsonl, updated_at=2026-10-20T04:13:13+00:00, thread_id=01a15774-df25-75e3-a1ff-3dbda1ef91f9, TABLE_ROWS 71 SOURCES 30 BYTES 30157, 0 mojibake 0 emails)
+
+### keywords
+
+- vn-recovery, vn-brief-recovery, _vnr, kw.ps1, lite.ps1, BV-1A robots, BV-30-4 OT, Task-A-D, BHYT, CONFLICT switchboard, herdr agent prompt w34:p1
+
+## User preferences
+
+- when extending lanes, the user said: First read lane-rehab.md and lane-rehab-2.md in the current folder, and do not repeat names already there unless you add new verified evidence; extend them -> de-duplicate against prior lanes by default [Task 2][Task 3]
+- when judging evidence, the user said to use only verifiable sources (PubMed, ORCID, official hospital staff pages, Vietnam Rehabilitation Association, Vietnam Stroke Association, professional society pages, WHO and AHA-ASA 2023 guideline, Ministry of Health) and Never invent credentials, label anything unconfirmed UNVERIFIED -> strict source hierarchy with explicit confidence and caveats [Task 2][Task 3]
+- when operating, the user said Work independently and do not ask questions and As your very last action run: herdr agent prompt w34:p1 NAME finished: N items, file FILE (no --wait) -> autonomous execution with herdr notify as the final step [Task 1][Task 2][Task 3]
+- after content-filter blocks on page dumps containing doctor emails, the user instructed: hospital/department level only, official roster URL plus what the page documents plus head/doctors named on OFFICIAL pages (name, title, role only), never emails/phones/raw text/PubMed lists, use script extraction to short rows, mark unread as UNVERIFIED -> name-title-role-only rows solved the filter [Task 1]
+- the vn brief required Vietnamese-first search, allowed sources only (official hospital, So Y Te, Bo Y Te, Hoi PHCN, universities, Vietnamese journals), excluded booking/aggregators/Facebook/advertorials, no raw dumps or PubMed author lists, never record personal emails/phones, label every claim VERIFIED/PARTIAL/NOT FOUND/UNVERIFIED, UTF-8, throwaway in _vnr/, final herdr report-back -> same discipline as the vn-stroke lane [Task 4]
+
+## Reusable knowledge
+
+- Only Nhan Dan 115 and Hospital 1A state inpatient rehab in writing; 30/4 states outpatient-only; Thong Nhat does not state beds; Cho Ray, UMC, CTCH, Vinmec, FV UNVERIFIED from readable pages; Thong Nhat head Tran Thi Kim Tuyet CK1 is traditional medicine (Hue UMP 2023) not PMandR; 1A acting head Nguyen Viet Thuong is a KTV technologist not a physician; no named botulinum/spasticity clinic or neuropsychologist documented anywhere [Task 1]
+- Only documented day-rehab: BV PHCN-DTBNN chartered phuc hoi chuc nang ban ngay with PT/OT/speech/swallowing in one dept, 500 planned beds grade I, BHYT mandate plus community-rehab mandate; Hospital 175 A26.a: 58 staff/15 doctors, 1000-bed tower but rehab beds unstated so phone-verify plus military-referral check [Task 2]
+- Cho Ray best for spasticity research (Ho Quang Hung PubMed 2025-2026) not therapy dose; 115 best for aphasia; Gia Dinh inpatient consultation plus dysphagia/cognitive as future plan; Tam Anh only private with named dysphagia training (Ampcare ESP 2023); FV JCI 2016-2025 supported with BHYT all services from 01/01/2026 but rehab page awaiting data; Vinmec 2xJCI group claim leaves Central Park inclusion UNVERIFIED; no CARF in Vietnam sources; no private home-nursing co. met the governance bar so use hospital community-rehab plus caregiver shifts plus written home program [Task 2]
+- Red-flags list: guaranteed recovery, stem cells, miracle devices, testimonial videos, unnamed clinician, prepayment, BHYT bait, stopping secondary prevention, no swallow screen [Task 2]
+- BV 1A (1 Ly Thuong Kiet) is the closest match: stroke unit plus inpatient rehab floor 6 plus separate OT area plus named Am ngu Tri lieu unit (head Le Thi Thanh Xuan) plus nutrition dept (head Tran Van Sy) in one building; rehab head Tran Thai Hoc, senior tech Nguyen Viet Thuong, Lao khoa-Dot quy stroke unit; UMP rehab faculty: Le Thanh Van head, Nguyen Thanh Duy deputy, 12 staff, BSc physio/OT and MSc rehab with SLP track since 2019 [Task 3]
+- Dual credential ladders: physician (BS/CK1/CK2) vs therapist (KTV/KTY/CN/ThS ky thuat); ThS ky thuat PHCN is the masters-therapist target cadre; current standard to cite is the 2026 AHA/ASA Adult Stroke Rehabilitation Guideline (PMID 42657476) not the 2023 reference in the prompt; association domains guessed (hoivattlytrilieu.vn, vnpta.vn, ngonngutrilieu.vn) do not resolve [Task 3]
+- vn-recovery validated: 71 data rows over 7 tables (T1 26, T2 11, T3 5, T4 4, T5 9, T6 3, T7 6), 30 sources, 0 mojibake, 0 emails; BV 30/4 strongest OT staffing evidence (9 staff incl 01 Cu nhan Hoat Dong Tri Lieu, outpatient-only); BV 1A upgraded C to A: inpatient floor 6, outpatient floor 2, separate OT area, 4 walking robots; Dinh Thi Thanh Nhan is Pho/Phu trach not head (24 staff, 4 doctors); To Dinh Cuong in Khoa PHCN and Y hoc the thao; UMC demo domain PARTIAL only [Task 4]
+- Gaps carried forward: no named OT person, no second SLP beyond Le Thi Thanh Xuan, no FEES/VFSS performer, no botulinum clinic, no neuropsychologist, only one day-rehab (PHCN hospital), only 1A robots VERIFIED; Task D BHYT all UNVERIFIED/NOT FOUND; 30/4 head CONFLICT (Tran Tu Phu Anh vs Do Binh An, both open same day) so ask the switchboard [Task 4]
+
+## Failures and how to do differently
+
+- tools.web_search is not a function in exec and web_search quota exhausted -> work from cached _*.html parses for giuong/BHYT/JCI/CARF/noi tru/nuot/ngon ngu/ban ngay; first apply_patch failed on a Vietnamese-quote SyntaxError (dang cap nhat du lieu inside a double-quoted string) -> retry with a backtick template literal [Task 2]
+- firecrawl_search 402, Bing search.ps1 irrelevant (Steam, Translate) on Vietnamese diacritics, DDG 202 HITS 0 when rate-limited -> go direct to hospital and university pages plus PubMed API instead of generic web search; pmfetch.ps1 broke on quoted multi-word terms and XML DTD fetch -> use -B64 encodeURIComponent terms with XmlDocument LoadXml and null resolver plus -Only/-Names filters [Task 3]
+- UMC, Cho Ray dept, FV speech-therapy, Vinmec, Thong Nhat, Tam Than domains unreachable or 404 from this network and several 1A tam-tri links serve the wrong YHCT page -> record as access failure and UNVERIFIED, do not infer; 1A title inconsistency (Nguyen Viet Thuong acting vs deputy head) preserved as a caveat [Task 3]
+- Cleanup of _r/, _f2.ps1, _cut.ps1, _text.ps1 blocked by policy (Rejected CreateProcess) -> leave and warn not to share [Task 1]
+- benhvien175.vn bot-check cookie page -> retry with -BotCheck; bvtn.org.vn refused repeatedly and benhvien1a intermittently refused then succeeded; bvchoray.vn/bac-si is a JS shell (4.6KB) -> mark UNVERIFIED not absent; kw.ps1 hits confirmed Quynh Pho khoa, Thang from 3/2026, Xuan Truong Don vi Am ngu, Hoc Truong Khoa, Sy Truong Khoa Dinh duong, UMP roster, 175 Chu nhiem Quach Long Vy [Task 4]
+
+# Task Group: HCMC acute-stroke doctors, hospitals, verification, and Vietnamese sweep (lane-acute, lane-rehab, lane-hospitals, lane-verify, lane-rehab-2, vn-stroke)
+
+scope: Build evidence-graded HCMC acute-stroke and early-rehab shortlists (lane-acute.md, lane-rehab.md, lane-hospitals.md, lane-verify.md, lane-rehab-2.md) plus the Vietnamese final sweep vn-stroke.md, each with strict source hierarchy and a mandatory herdr report-back to w34:p1.
+applies_to: cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors; reuse_rule=lane brief paths plus output filenames plus w34:p1 handoff are lane-specific; the verifiable-sources-only plus evidence-label plus no-invention plus read-lanes-first plus herdr-report-last discipline is reusable wherever an inlaw-health lane brief states it
+
+## Task 1: Ranked HCMC acute-stroke shortlist with honest gaps (lane-acute.md), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T01-06-37-kIYq-hcmc_acute_stroke_doctors_ranking.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T08-06-38-01a156d8-979d-7a52-ab96-645480e1d7d2.jsonl, updated_at=2026-10-20T01:10:00+00:00, thread_id=01a156d8-979d-7a52-ab96-645480e1d7d2, ranked acute shortlist with gaps marked)
+
+### keywords
+
+- lane-acute, acute stroke, IVT, EVT, DTN, WSO certification, verifiable sources, UNVERIFIED, herdr agent prompt w34:p1
+- Related skill: skills/inlaw-health-evidence-lanes/SKILL.md
+
+## Task 2: Partial HCMC post-stroke rehab ranking, 2 verified of 12 (lane-rehab.md), partial
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T01-06-37-VHEJ-hcmc_post_stroke_rehab_lane_rehab.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T08-06-38-01a156d8-979d-7a52-ab96-6443bff09e51.jsonl, updated_at=2026-10-20T01:09:56+00:00, thread_id=01a156d8-979d-7a52-ab96-6443bff09e51, 2 verified of 12 requested, gaps left open)
+
+### keywords
+
+- lane-rehab, rehab ranking, PMandR, neurorehab, spasticity, dysphagia, UNVERIFIED gaps, herdr agent prompt w34:p1
+
+## Task 3: Ranked HCMC stroke-hospital shortlist with BHYT and second-opinion routes (lane-hospitals.md), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T01-06-37-mlqh-hcmc_stroke_hospitals_shortlist.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T08-06-38-01a156d8-97a8-7850-ace0-75ff6ae30291.jsonl, updated_at=2026-10-20T01:11:43+00:00, thread_id=01a156d8-97a8-7850-ace0-75ff6ae30291, 8 rank rows 10 sections plus doctor-verification checklist)
+
+### keywords
+
+- lane-hospitals, dochosp, stroke hospital, BHYT transfer, giay chuyen tuyen, Law-51-2024, second opinion, caution list, herdr agent prompt w34:p1
+
+## Task 4: Verify 9 lane-acute doctors plus hemorrhagic gap closure (lane-verify.md), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T01-10-11-MTHK-hcmc_stroke_verify_lane_verify_2026_10_20.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T08-10-11-01a156db-db15-7a71-bdee-02a7c437f0d4.jsonl, updated_at=2026-10-20T01:26:58+00:00, thread_id=01a156db-db15-7a71-bdee-02a7c437f0d4, 27860 bytes 185 lines, PubMed affiliation counts plus neurosurgery ranking plus WSO status)
+
+### keywords
+
+- lane-verify, PubMed E-utilities, ORCID, Scopus, affiliation filter, ICH, SAH, neurosurgery, neurocritical-care, WSO Angels, herdr agent prompt w34:p1
+
+## Task 5: Close lane-rehab gaps with 13 new plus 1 updated doctors (lane-rehab-2.md), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T01-10-11-FpBS-hcmc_stroke_rehab_lane2_13_doctors.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T08-10-11-01a156db-db2d-7040-a38a-fbe349b08778.jsonl, updated_at=2026-10-20T01:39:00+00:00, thread_id=01a156db-db2d-7040-a38a-fbe349b08778, 25788 bytes 14 ranked rows, PHCN 721-entry scrape plus 175 plus Tam Anh plus PubMed-ORCID)
+
+### keywords
+
+- lane-rehab-2, docrehab2, PHCN directory, Hospital-175, Tam Anh, Cho Ray NEXT_DATA, Ho Quang Hung, Phan Minh Hoang, UNVERIFIED gaps, herdr agent prompt w34:p1
+
+## Task 6: Vietnamese final sweep of acute list, 59 rows 45 sources (vn-stroke.md), success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T03-57-12-tAfQ-vn_stroke_vietnamese_sweep_115.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T10-57-13-01a15774-c4ca-7ca0-bc7d-88985091442e.jsonl, updated_at=2026-10-20T04:28:25+00:00, thread_id=01a15774-c4ca-7ca0-bc7d-88985091442e, 33836 bytes 6 balanced tables 59 rows, Cong-bao-luat51 plus 26 Nhan-dan-115 queries)
+
+### keywords
+
+- vn-stroke, vn-brief-stroke, vnsearch, h2t, tblcheck, Cong-bao-luat51, Dieu-22-khoan-5, Nhan-dan-115, evidence-state labels, herdr agent prompt w34:p1
+
+## User preferences
+
+- when ranking doctors, the user said: use only credible, verifiable sources (PubMed/ORCID/Scopus publications, hospital official staff pages, Vietnam Stroke Association, WSO/ESO/AHA-ASA, WSO stroke-unit certifications, Ministry of Health records) -> default to hospital-owned plus indexed proof, exclude paid advertorials, booking reviews, and social hype [Task 2][Task 3]
+- when evidence is missing, the user said: Never invent names, credentials or publications; mark anything unverified as UNVERIFIED, Prefer 2024-2026 information and state the date of each source -> leave gaps open with retrieval plus publication dates stated [Task 1][Task 2][Task 4][Task 5]
+- when extending lanes, the user said: First read lane-rehab.md and lane-rehab-2.md and do not repeat names already there unless you add new verified evidence; extend them -> de-duplicate against prior lanes by default [Task 5]
+- when presenting, the user required the exact table schema: rank, name, title, hospital and department, sub-specialty, evidence of expertise, source URLs, confidence (high/medium/low), caveats -> keep that 9-column schema [Task 3]
+- when finishing, the user required as the very last action herdr agent prompt w34:p1 with NAME/FILE substitution and no --wait -> run the exact handoff string and stop [Task 3][Task 4][Task 5][Task 6]
+
+## Reusable knowledge
+
+- Strongest indexed stroke author: Nguyen Huy Thang 36/12 with 12/12 stroke (NEJM 2026 PMID 42019018, Lancet 2025 PMID 40412248, Stroke 2026 PMID 41873543 and 42089412, J Stroke 2026 PMID 42237619, Int J Stroke 2024 PMID 37807200, INTERACT3 PMID 37245517); downgrades: Tran Thanh Vu 28/0, Nguyen Duc Khang 1/0, Nguyen Huynh Nhat Tuan 6/0 all zero indexed, Tran Cong Thang 10/2 dementia-only so remove from stroke framing; Le Nguyen Nhut Tin role CONFIRMED via Cho Ray structured record (Pho truong khoa, 24+yr copy) with 0 pubs [Task 4]
+- Credibility levels used: A=WSO/Joint Commission stroke cert (none verified), B=IVT/EVT volumes/DTN/DTG/neuro-ICU/rehab (not public), C=MOH network plus public tertiary unit plus 24-7 reperfusion (basis for ranking), D=JCI hospital-wide (weak for stroke), E=advertorials/social (excluded) [Task 3]
+- Rank order: 115 Peoples, Cho Ray, UMC HCMC (PRIME-JCI is IV-therapy safety not hospital JCI), Gia Dinh, Military 175, Tam Anh (continuity, confirm 24/7 EVT), Vinmec Central Park (JCI hospital not stroke), FV (JCI since 2016, confirm EVT); backups Thong Nhat, Nguyen Tri Phuong, City International, AIH; hyperacute rule: 115 or Cho Ray, disclose L3-S1 fusion and infection everywhere [Task 3]
+- WSO status verified: 115 Angels Diamond 2021-04-06, Hoan My Platinum 2026-08-29 and Gold 2024, Bach Mai Hanoi first certified Advanced Centre 2025-08-04; no HCMC certified centre [Task 4]
+- BHYT: emergency at any facility without referral, elective needs giay chuyen tuyen, private only if BHYT-contracted; Law 51/2024/QH15 effective 1 Jul 2025 with evolving rules, confirm with the BHYT desk and keep BHYT/CCCD/referral/imaging/labs/invoices together; Cong bao luat51.pdf verified verbatim Dieu 22 khoan 5 (100pct anywhere in emergency) plus Dieu 28 khoan 1 (card before end of episode) [Task 3][Task 6]
+- Phone script of 8 questions: 24/7 stroke unit, who gives IVT at 2am, in-house 24/7 EVT vs transfer time, 2025 IVT/EVT plus median DTN/DTG, neuro-ICU/neurosurgery, 24-48h rehab, L3-S1/infection co-management, who arranges transfer; second opinion via Phong Ke hoach Tong hop in-house, external clinic with DICOM disc, teleconsult hoi chan tu xa, joint spine review, never delay the hyperacute window [Task 3]
+- Caution list: do not present JCI as stroke cert; distinguish WSO member vs WSO-certified; distrust cure/reverse-paralysis, HBOT/stem-cell/detox as reperfusion substitute, unnamed international standard, booking-platform top-10, unverified testimonials [Task 3]
+- PHCN hospital charter (17/03/2026) plus rehab dept page explicitly state inpatient/outpatient/day rehab with language/swallowing intervention, the only confirmed inpatient unit in the HCMC set; Hospital 175 rehab: 58 staff, 15 doctors, stroke plus neuro plus speech/swallowing as key techniques, chief Quach Long Vy, deputy Luong Vu Dung; Tam Anh rehab leadership: Vo Duong Huong Quynh deputy (dysphagia Ampcare ESP 2023, language therapy 2019), Nguyen Xuan Thang moved to treating role Mar 2026 after heading 115 (2014-2021) and Tam Anh (2021-2024) [Task 5]
+- PubMed plus ORCID hits: Ho Quang Hung PMID 41302184 plus 422760 and ORCID 0009-0006-0266-024X, Phan Minh Hoang PMID 40314041/41261710/41419519; Cho Ray has 4524 doctors over 377 Next.js pages but API 401, so individual doctor JSON plus PubMed/ORCID was the viable path [Task 5]
+- vn-stroke tooling that worked: tools/vnsearch.ps1 (Bing RSS), tools/h2t.ps1, tools/g.ps1, tools/tblcheck.ps1 with throwaway _vn/ files deleted after extraction; 26 individual Name plus Nhan dan 115 queries upgraded 11 rows from NOT FOUND to PARTIAL (teaching lists, VMJ papers, UMP thesis, PNT 2025 report, Con Dao rotation decision) [Task 6]
+
+## Failures and how to do differently
+
+- tools.web_search via exec threw TypeError: tools.web_search is not a function -> use the native web_search tool directly [Task 3]
+- Initial wording overstated 115 stroke-team claims and absolutes -> patched to UNVERIFIED with no primary page retrieved and an absence-of-evidence disclaimer; keep that humility for hospital capability claims; Vietnamese diacritics risk mojibake -> verify UTF-8 bytes plus content head and grep heading/rank-row counts [Task 3]
+- PowerShell inline E-utilities quoting failed and Unicode cp1252 crashed on Vietnamese titles -> Python urllib plus ET with utf-8 reconfigure and utf-8-sig JSON IO; ORCID name search collides heavily so only paper-linked ORCID plus employment record is reliable; trap: ORCID 0000-0003-1091-9320 belongs to Trung Nguyen not Nguyen Huy Thang; Scopus needs an institutional API key so document it as not checked rather than implying a check [Task 4]
+- UMC (umc.edu.vn) resolved but refused connections, Vinmec blocked /vie/bac-si paths, Thong Nhat official domains NXDOMAIN/502, FV rehab page is a placeholder -> mark Not documented rather than filling from memory; initial PHCN DeptID POST filter returned only support staff so a full 721-entry pagination scrape was needed; Cho Ray API endpoints returned 401 even with source header [Task 5]
+- Bing HTML parser returned Gmail and Remove.bg junk and split failures -> switch to format=rss with (?s)<item> parsing; repeated PowerShell quoting errors (btoa undefined, $ interpolation, regex angle brackets in double quotes, Join-Path with absolute _vn path, null array) fixed with single-quote regex, [char]9, explicit casts, IsPathRooted checks; Cho Ray/UMC-list/Vinmec JS pages unreadable (8KB empty), bv175 needed D1N cookie plus WebSession, bvtn.org.vn refused, bvthongnhat and 30-4 unresolvable -> mark UNVERIFIED not guessed; early method sentence claimed all 26 names searched when only 2 were sampled -> run all queries before claiming; early D2 mis-cited khoan 3 -> corrected to khoan 5 after reading Cong bao p18 [Task 6]
+
+# Task Group: leap-rs blobs round, 29-table survey, 550-block heap sweep, record-to-memo join (leapblob)
+
+scope: Survey the 29 blob-carrying tables, sweep all 550 heap blocks against stated counts, and join records to memos with kind-aware text in leap-rs; use when touching src/blobs.rs, heap record_bytes, or blob goldens.
+applies_to: cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs; reuse_rule=checkout-specific (leap-rs crate plus Freedonia bytes); the per-agent target-dir plus red-then-green plus no-commit plus herdr-report discipline is reusable wherever those brief rules are stated
+
+## Task 1: Blob survey plus area-wide heap sweep plus record join, 10 tests green, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T05-48-29-tghn-leapblob_blobs_550_heap_blocks_join.md (cwd=C:\Users\tukum\Downloads\rom-hack, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T12-48-30-01a152b4-4a65-7b83-aa6b-63e93fd42f0d.jsonl, updated_at=2026-10-19T23:42:38+00:00, thread_id=01a152b4-4a65-7b83-aa6b-63e93fd42f0d, 550 blocks 5505 memos, 10/10 blobs tests plus full suite 109/16 green)
+
+### keywords
+
+- leapblob, blobs.rs, NXHD heap, round_up_to_four, Memo kinds, blob reference u64, record-to-memo join, Freedonia.zip, target-leapblob, no-commit, herdr notify once
+- Related skill: skills/leap-rs-verify/SKILL.md
+
+## User preferences
+
+- when working in a parallel shared tree, the common-rules required own CARGO_TARGET_DIR, read-only use of others files, small local shared-file edits, and checkboxes in activeContext.md -> future agents must isolate builds with CARGO_TARGET_DIR=target-<agent> and avoid foreign fixes [Task 1]
+
+## Reusable knowledge
+
+- 29 tables carry blob fields: 8 with no data blocks, 8 more with all-zero refs, 13 files carry heap; heap census area-wide is 550 blocks and 5505 memos (areadata 1/2, constants 6/49, diagnostics 1/2, fuels 72/241, masterstructure 2/6, refs 6/79, scenariodata 7/1015, scenarioeffects 187/425, scenarios 6/30, scenariotemplate 1/3, tedeffects 187/425, tedenvdata 11/2067, tedtechdata 63/1161) [Task 1]
+- Blob ref is u64: low word is 1-based memo position, high word is heap page number in the same file, zero means no blob; heap pages identified by NXHD magic in page-size states; 8 KiB pages for refs and uservardata, rest 4 KiB; round_up_to_four(allocation+2) holds for all 550 heap blocks area-wide so no framing fix was needed [Task 1]
+- Implemented src/blobs.rs plus heap::record_bytes with heap_pages, split, join, resolve, resolve_at, expression_text and Memo text content-sniff (wide if units ASCII else narrow); joins proved: scenario rows 1-7 to 0.2,5,1000,5,0,1,2040 parsed via expr, tedenvdata (1,5)=68607 parsed, 177 tedtechdata InfoPageURL paths, Load Shapes %3Chtml%3E, Freedonia RTF, scenarioeffects byte-identical to tedeffects [Task 1]
+- Kind bytes: 3 short text (2607), 4 long text (2446), 5 binary LE u32 triples plus NUL (449), 0 empty (3x 12 zeros); inflate and magic attempts on kind-5 negative, stopped per brief; two scenario Expression rows point at binary and must return None not wrong text [Task 1]
+- Docs updated: README (109 tests/16 suites, blobs bullet, not-done list), PORTING dated blobs note, model and heap docs, activeContext dated section, docs/goal-report-2026-10-19-leapblob.md with all six required sections; deleted target-leapblob after retry-on-lock, full suite green, herdr notify exactly once [Task 1]
+
+## Failures and how to do differently
+
+- Shell quoting failures with python -c regex -> pivoted to base64 file writes which worked throughout; test syntax errors (let-else tuple, semicolon vs comma separators, mut closure) fixed via fix scripts [Task 1]
+- heap::memos wide-only misread narrow RTF -> fixed by raw record_bytes plus content sniff in blobs [Task 1]
+
+# Task Group: Gap Stage1 workbook audit cluster b Heat Pathways critic (critic-b)
+
+scope: Independently reproduce all 14 cluster-b findings (Heat, Pathways, Site_Pathways, Pathway_Charts) read-only per CRITIC-BRIEF.md and write b-critic.jsonl plus summary plus .done, then notify once via herdr; use for Gap Stage1 critic lanes.
+applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=review\audit paths plus w2Y:p1 handoff are lane-specific; the never-modify-xlsx plus dump-CSVs plus utf-8 plus notify-last discipline is reusable wherever a critic brief states it
+
+## Task 1: Critic verification of cluster-b findings, 7 CONFIRMED 7 PARTIAL 0 REJECTED 3 NEW, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T08-39-06-uTW2-cluster_b_critic_audit_verification.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T15-39-07-01a15350-7ec2-7940-b979-c500ee3d01da.jsonl, updated_at=2026-10-19T10:08:08+00:00, thread_id=01a15350-7ec2-7940-b979-c500ee3d01da, 17-line b-critic.jsonl plus 197-word summary, xlsx hashes unchanged)
+
+### keywords
+
+- critic-b, CRITIC-BRIEF.md, b-findings.jsonl, b-critic.jsonl, b-critic.done, Heat U-BB, Pathways AF, FDM coal, Criteria rank, MACC, Pathway_Charts, w2Y:p1
+
+## User preferences
+
+- when auditing, the user required exact brief compliance: Read CRITIC-BRIEF.md in full and follow it exactly, Never modify any xlsx, create empty b-critic.done as the very last step -> for similar critic lanes default to read-only audit-source plus dump CSVs plus python -I plus utf-8, writing only inside review\audit [Task 1]
+- when finishing, the user required as final shell action herdr agent prompt w2Y:p1 critic-b finished: <counts> without --wait then stop -> treat notification as the terminal step after .done [Task 1]
+
+## Reusable knowledge
+
+- Verdicts: B-002,003,004,006,010,011,012 CONFIRMED; B-001,005,007,008,009,013,014 PARTIAL; 0 REJECTED; NEW B-C001 (Pathways AF omits grid charge, D<C at 21/21), B-C002 (sizing on total not fossil heat, +79pct C capex), B-C003 (uncertified biomass priced as certified) [Task 1]
+- B-001 correction: 6 ranks move (Gistex 16->14, De Licacy 14->13, Yi Da 11->15) not 2; B-005 only Sun Duck is a true gate error; B-008 is 9 sites not 6; B-009 absolute-row refs are workbook-wide (40+ cols) [Task 1]
+- Recomputed all Heat U-BB from raw Baseline and Inputs with 0.0pct error and verified Pathways formulas, FDM coal months for De Licacy and Gistex, Criteria rank model, and MACC plus chart sources; charts verified: Pathway_Charts B6:B9 match SUMPRODUCT, 4 bar charts plus 21 Site_Pathways charts plus MACC scatter P5:P172/Q5:Q172 all correct [Task 1]
+- Portfolio J sum 795011t with Kahatex 61.2pct not >80pct; steam sites E abatement 95678t (26361+39229+30088); Heat U25=606.649 vs Baseline AF25=21.237326kt (36x); final files b-critic.jsonl 18609B, b-critic-summary.md 1210B, b-critic.done 0B, hashes 5bd2255a...3912 unchanged [Task 1]
+- Harness that worked: work-b-critic workdir with wb.py books loader (openpyxl data_only False and True) plus ~20 verification scripts c01-c48; read AUDIT-BRIEF.md plus b-findings.jsonl plus README/Data_Sources/Data_Issues/Inputs dumps first [Task 1]
+
+## Failures and how to do differently
+
+- Exec and sys.path flakiness caused empty outputs -> pin the workdir and use yield_time_ms plus file-redirect pattern [Task 1]
+- Early rank-sensitivity script had a tie-break bug overstating shifts -> corrected to AI/AJ plus AA/1e9 plus row/1e12 and validated stored AL/AP match [Task 1]
+- apply_patch key-name mismatches -> fix via Select-String lookup [Task 1]
+
 # Task Group: leap-rs evaluator and resolver port, round-3 entry point, base-year override, and share pin
 scope: Port the LEAP expression evaluator and resolver in leap-rs (series grammar, resolve.rs, eval.rs growth family plus round-3 entry point, Interp/Step base-year override, Million/Billion/BaselineValue, 861/1009 share pin); use when touching src/expr.rs, src/resolve.rs, src/eval.rs, or evaluator goldens.
 applies_to: cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs; reuse_rule=checkout-specific (leap-rs crate plus Freedonia vendor bytes at C:/Program Files/LEAP/Freedonia.zip); the red-then-green plus no-commit plus herdr-report discipline is reusable wherever those brief rules are stated
@@ -49,6 +489,58 @@ applies_to: cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doc
 - PowerShell quoting broke python -c one-liners -> use files in _rc/ called via python -X utf8 [Task 2]
 - Vinmec PHCN URL 404, Phap Viet/Mekong/Cuu Long NXDOMAIN, Binh My cert fail, FV/Vinmec JS-only pages -> record UNVERIFIED/NOT FOUND with check method, keep in table so family knows they were checked [Task 2]
 - Self-published facility pages do not earn VERIFIED -> use CLAIMED when only the facility page was seen; no So Y Te list means no VERIFIED licences [Task 2]
+
+# Task Group: HCMC caregiver firms plus platforms with evidence labels
+scope: Build Vietnamese-first HCMC caregiver research lanes (cg-firms.md 38 rows, cg-platforms.md 34 rows) with 0-35 scoring, Top 25/Top 20, evidence labels on every claim, and a mandatory herdr report-back; use for inlaw-health caregiver lanes covering sitter firms plus apps/platforms/NGO/training/hospital channels.
+applies_to: cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors; reuse_rule=lane brief paths plus output filenames are lane-specific; the Vietnamese-first plus evidence-label plus no-invention plus herdr-report-last discipline is reusable wherever a cg brief states it
+
+## Task 1: Caregiver firms ranking 38 rows per cg-brief-firms, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T06-36-07-ZJER-cg_firms_hcmc_caregiver_companies_report.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T13-36-08-01a15806-436e-73a0-ac68-54e9d8a86a01.jsonl, updated_at=2026-10-20T06:53:33+00:00, thread_id=01a15806-436e-73a0-ac68-54e9d8a86a01, 38 rows with 0-35 scoring plus Top 25 plus 19 sources)
+
+### keywords
+
+- cg-firms, cg-brief-firms, cg-firms.md, caregiver, nuoi-benh, HCMC, BV-115, scoring, evidence-labels, herdr agent prompt w34:p1
+
+## Task 2: Caregiver platforms report 34 rows per cg-brief-platforms, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T06-36-15-6jTA-cgplat_platforms_carer_report_34_rows.md (cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\20\rollout-2026-10-20T13-36-16-01a15806-6280-72f3-a44d-da8c2d01e7c2.jsonl, updated_at=2026-10-20T06:44:10+00:00, thread_id=01a15806-6280-72f3-a44d-da8c2d01e7c2, 34 candidates with 0-5x7 scoring plus Top 20 plus 22 sources)
+
+### keywords
+
+- cgplat, cg-brief-platforms, cg-platforms.md, Bluecare, WeCare247, JioHealth, bTaskee, evidence-labels, PowerShell-encoding, base64-fetch, herdr agent prompt w34:p1
+
+## User preferences
+
+- when executing brief, the brief (user-provided objective) required: "Search and read Vietnamese pages first. Write findings in Vietnamese" -> for similar cg briefs default to Vietnamese search first and Vietnamese findings with English headers [Task 2]
+- when executing brief, the brief required labels VERIFIED/PARTIAL/CLAIMED/NOT FOUND/UNVERIFIED on every claim and "Never invent prices, ratings or licence numbers" -> for similar research briefs default to labeled claims and NOT FOUND over guessing [Task 2]
+- when executing brief, the brief required mandatory last action: herdr agent prompt w34:p1 without --wait -> always run the exact handoff even if partial [Task 2]
+
+## Reusable knowledge
+
+- Output shape that satisfied both briefs: method/limits plus candidate table (firms A-E groups, platforms A-F groups) plus 0-35 scoring (firms a-g, platforms a-g 0-5 each with tie-break a then f and cap f<=3 without independent evidence) plus ranked Top list plus red-flags plus 5 consensus bullets plus thin-evidence notes plus numbered sources [Task 1][Task 2]
+- Top firms: 1 FV 19pts, 2 Nhan Ai LongTermCare 18pts (only post-stroke special-care ward, Japan standard), 3 CIH/Gia An 115 17pts, 5 Bluecare 16pts (only public medical hourly price 25k VND/h), 6 Giup Viec Tot 16pts; best pure sitter Thien Phuc 15pts with contract but price via hotline only [Task 1]
+- Top platforms: 1 Jio Health 26/35, 2 FV 25, 3 BV 115 25; systemic finding: no platform published 24h sitter price online, 115 sitter rules NOT FOUND online and must ask ward/CTXH directly, NGO/training mostly UNVERIFIED [Task 2]
+- Consensus across both lanes: no sitter firm publishes per-day/night nuoi-benh price or names BV115; no firm publishes MST/GPKD/employment-service licence; no mainstream press caregiver price/fraud article found so no firm accused; medical home-care requires licensed MD/nurse vs sitter firms use internal training [Task 1][Task 2]
+- Evidence labels enforced: VERIFIED (seen official/independent URL plus date), PARTIAL, CLAIMED (company site only), NOT FOUND, UNVERIFIED; never invent price/address/licence/review; prices are CLAIMED year-stamped [Task 1][Task 2]
+- Only numeric caregiver prices found: Bluecare from 25k VND/h, GiupViecTot 2026 hourly 79k-150k VND/h (but nuoi-benh page 404), Thien Phuc address 52/363C Quang Trung Go Vap; platforms: aggregator prices PARTIAL, app ratings not read this round and left for cgrules/next round [Task 1][Task 2]
+- Status-only red flags VERIFIED 2026-10-20: vinahealthcare.com for sale on HugeDomains, chamsocbenhnhan.com/chamsoctamduc.com/vienduonglaonguphuc.vn DNS fail, giupviec.vn 403, careme.vn is outbound medical travel not caregiver; GiupViecTot impersonation scam warning (Nguoi Dua Tin) plus Tet job-scam warning (Tuoi Tre video) are the only press-backed red flags [Task 1][Task 2]
+
+## Failures and how to do differently
+
+- Bing RSS plus DuckDuckGo failed for Vietnamese queries (Bing returned livestock/noise, DDG 202 HITS 0) -> pivot to direct Python requests extraction over ~70 fetches in 3 rounds plus sitemap digging instead of more queries [Task 1]
+- Site blocks (giupviec.vn 403, Cloudflare TamAnh/Nutrihome/Columbia, JS-required Docosan/FMP/CarePlus, BV115/Choray DNS fail, Maps unreadable) -> record as VERIFIED fetch failures and cap scores (especially f<=3) instead of retrying endlessly [Task 1]
+- PowerShell heredoc/cat << and single-call WriteAllText with embedded Python failed quoting -> write .py files with Set-Content/Add-Content one line at a time, or reuse tools/fetch.ps1 plus tools/h2t.ps1 plus tools/vnsearch.ps1 [Task 1]
+- PowerShell mangles [ ] and $ in inline python, so python -c with regex fails with Missing type name after [ -> write file-based python via base64 ([Convert]::FromBase64String plus [IO.File]::WriteAllText UTF8) and run with $env:PYTHONUTF8=1 plus python -u, never inline regex [Task 2]
+- Foreground python fetch hung/returned empty through buffering plus 10-30s stalls plus charmap codec errors on Vietnamese -> run with -u plus PYTHONUTF8 plus ascii-safe safe() via Start-Job background job, then poll the output file [Task 2]
+- Get-Content piped to Set-Content double-encoded Vietnamese into mojibake -> reassemble report parts via MemoryStream plus ReadAllBytes/WriteAllBytes and verify with an IndexOf substring check [Task 2]
+- apply_patch with @@ hunks failed validation in this harness -> use minimal single-line Add-File patches and probe with a tiny patch first [Task 2]
+- Shared _cg/ folder is written by parallel agents (cgplat/cgrules) so urls.txt was overwritten -> use distinct filenames (e.g. urls-firms.txt, rf2.txt, gvt_bg.html) and re-check Get-ChildItem/Get-Content before assuming contents [Task 1]
+- Guessed deep URLs 404/403 (bluecare care slug, vinmec tai-nha, bookingcare nhan-vien-y-te) -> do not use guessed URLs as evidence; record NOT FOUND [Task 2]
 
 ## Task 1: Resolver round with series grammar, resolve.rs, and growth family, 112 tests green, success
 
@@ -1604,15 +2096,16 @@ applies_to: cwd=C:\Users\tukum and cwd=C:\Users\tukum\Downloads\freecad-blender;
 
  - rollout_summaries/2026-10-06T22-02-44-S5V5-herdr_spaces_claude_codex_launch.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\07\rollout-2026-10-07T05-02-44-01a1133d-9248-7f42-92dd-3038cc380fa7.jsonl, updated_at=2026-10-19T12:16:31+00:00, thread_id=01a1133d-9248-7f42-92dd-3038cc380fa7, pane side-by-side moves with --new-workspace restore plus Hermes gateway --replace repair success; rewritten file superseding the deleted launch_and_repair version)
 
-## Task 10: Nine-request Herdr launch marathon with trust-prompt and resume-last plus exec escaping lesson, success
+## Task 10: Twelve-request Herdr launch marathon with trust-prompt and resume-last plus exec escaping lesson, success
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-18T21-41-36-a6uk-herdr_launch_spaces_claude_codex.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T04-41-37-01a150f6-8a67-7f00-8edf-55fd3dcb9380.jsonl, updated_at=2026-10-19T14:31:42+00:00, thread_id=01a150f6-8a67-7f00-8edf-55fd3dcb9380, 9 launches: city-ghg, ee-heat, rom-hack, remote expense, remote ceba, remote personal with Claude plus expense Codex trust-flow and 2 resume-last; herdr 0.9.3 caller w29)
+- rollout_summaries/2026-10-18T21-41-36-a6uk-herdr_space_launch_claude_codex_batch.md (cwd=C:\Users\tukum, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T04-41-37-01a150f6-8a67-7f00-8edf-55fd3dcb9380.jsonl, updated_at=2026-10-21T12:37:22+00:00, thread_id=01a150f6-8a67-7f00-8edf-55fd3dcb9380, 12 launches: city-ghg, ee-heat, rom-hack, csim-copy plus remote expense, remote ceba, remote personal with Claude plus expense Codex trust-flow and 2 resume-last plus second remote-personal and rom-hack rounds; herdr 0.9.3 caller w29; rewritten file superseding the deleted workspaces-first version of the same thread)
 
 ### keywords
 
 - herdr workspace create --no-focus, herdr agent start, remote-expense-codex, resume --last, Trust this folder, send-keys enter, agent wait, Select-Object Name, IN_HERDR, Check Trang expense files
+- Related skill: skills/herdr-workspace-launch/SKILL.md
 
 ### keywords
 

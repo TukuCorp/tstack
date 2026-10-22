@@ -422,6 +422,14 @@ Then add it to PATH for the current session:
 export PATH="$PATH:/c/Users/tukum/AppData/Local/Microsoft/WinGet/Packages/<vendor>.<package>_<source>/"
 ```
 
+### Unsigned installers from GitHub releases — SmartScreen cancels silent installs
+
+Self-signed or third-party `.exe` installers (Inno Setup etc.) are silently cancelled by SmartScreen under `/VERYSILENT` — exit code 2, no UI, no error. Do not retry the same flags. Instead take the **portable `.zip`** from the same release: download it alongside `SHA256SUMS.txt`, verify the hash (`sha256sum`), extract under `%LOCALAPPDATA%\Programs\<tool>`, then strip the Mark-of-the-Web so SmartScreen stays quiet on first launch:
+```powershell
+Get-ChildItem -Recurse . | Unblock-File
+```
+Add a Start Menu shortcut (`WScript.Shell` → `Programs\<tool>.lnk`) and verify with the binary's own version flag plus a process-list check that it actually started.
+
 ### npm global bins — Hermes node vs system Node
 
 `npm install -g` run from Hermes bash uses the Hermes-bundled Node, whose prefix bash sees but PowerShell does not — the user gets `not recognized` in a fresh PS window. Install user-facing CLIs with the system Node instead so shims land in `%APPDATA%\npm`, already on the Windows user PATH:
@@ -539,32 +547,54 @@ token = bytes.fromhex(h).decode()
 
 ## cua-driver on Windows — Calling from Hermes
 
-The cua-driver executable uses **JSON piped via stdin** for all commands — arguments passed on the command line may not parse correctly from git-bash:
+When the Hermes `computer_use` tool is not exposed in the current
+runtime (only `terminal` is), drive the pinned driver binary directly.
+Find it via `hermes computer-use status` (e.g.
+`.../hermes/tools/cua-driver-<ver>-win32-x64/cua-driver.exe`) and
+invoke tools as `cua-driver call <tool> '<json>'` — one JSON object as
+a single single-quoted argv item so MSYS passes it through intact:
 
 ```bash
-# ✅ Works — pipe JSON via stdin
-echo '{"name":"Chrome"}' | /c/Users/.../cua-driver.exe launch_app
-
-# ❌ May fail — argument parsing issues from MSYS
-/c/Users/.../cua-driver.exe launch_app --name Chrome
+DRV='C:/Users/<user>/AppData/Local/hermes/tools/cua-driver-<ver>-win32-x64/cua-driver.exe'
+"$DRV" call list_windows          # every top-level window: pid, title, window_id
+"$DRV" call hotkey '{"pid": 6680, "keys": ["ctrl", "shift", "w"]}'
+"$DRV" describe hotkey             # input schema for any tool
+"$DRV" list-tools                  # full tool catalogue
 ```
 
-For multi-step automation, write a Python script that calls cua-driver with `subprocess.run`:
+Start the daemon with bare `cua-driver serve` (background) before any
+`call` — do NOT pass `--socket` with a backslash pipe path through
+git-bash, MSYS mangles it and the daemon dies with os error 123. A
+stale daemon that answers `call` with `incompatible daemon: contract
+version X does not match SDK Y` is fixed with `cua-driver stop`, then
+`serve` again.
+
+`kill_app` terminates ONLY processes that cua runtime launched — any
+other pid is refused with `foreign_process_termination_denied` (by
+design, not a bug). Sanctioned close sequence for a foreign app:
+1) close its windows via cua (`hotkey` close-tab/close-window combo
+for that pid, or click its Close button); 2) Chromium/Electron
+surfaces reject background input with `background_unavailable` — that
+verdict IS the authorization to retry once with
+`"delivery_mode": "foreground"`; 3) finish stragglers
+(tray/background processes the window-close leaves behind) with a
+system kill (`Stop-Process` / `taskkill`), then verify zero via
+`list_windows` plus the process list. Never report the refusal as the
+driver being broken.
+
+For multi-step automation, call the same `call` form via `subprocess.run` with argv — never stdin piping, which breaks on MSYS/Python quoting differences in git-bash:
 
 ```python
 import subprocess, json
-driver = r'C:\Users\tukum\AppData\Local\Programs\Cua\cua-driver\bin\cua-driver.exe'
-result = subprocess.run(
-    [driver, 'get_window_state'],
-    input=json.dumps({'pid': 43940, 'window_id': 394984}),
-    capture_output=True, text=True
-)
-data = json.loads(result.stdout)
-```
+driver = r'C:\Users\<user>\AppData\Local\hermes\tools\cua-driver-<ver>-win32-x64\cua-driver.exe'
 
-To find the right PID and window_id:
-1. `echo '{"name":"Chrome"}' | cua-driver.exe launch_app` → returns `pid` and `windows[].window_id`
-2. Pass those to `get_window_state` for the full element tree
+def call(tool, args=None):
+    r = subprocess.run([driver, 'call', tool, json.dumps(args or {})],
+                       capture_output=True, text=True)
+    return json.loads(r.stdout)
+
+wins = call('list_windows')  # pid, title, window_id for every window
+```
 
 ### Quitting apps and blocked shortcuts via computer_use
 

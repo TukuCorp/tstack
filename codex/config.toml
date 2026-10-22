@@ -1,5 +1,5 @@
-model = "opencode-go/deepseek-v4.1-flash"
-model_reasoning_effort = "high"
+model = "opencode-go/minimax-m3.1-flash-free"
+model_reasoning_effort = "medium"
 approval_policy = "never"
 approvals_reviewer = "user"
 sandbox_mode = "danger-full-access"
@@ -160,6 +160,12 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects.'C:\Users\tukum\Downloads\remote\personal\inlaw-health']
+trust_level = "trusted"
+
+[projects.'C:\Users\tukum\Downloads\ee-heat\gap\stage1-update-2026-10-22']
+trust_level = "trusted"
+
+[projects.'C:\Users\tukum\AppData\Local\Temp\claude\C--Users-tukum\13fb9441-c83f-44fe-acd3-09ef4d85ca82\scratchpad']
 trust_level = "trusted"
 
 [plugins."documents@openai-primary-runtime"]
