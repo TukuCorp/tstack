@@ -72,7 +72,7 @@ The "Recovered 1 background process(es) from previous run" line was the tell. Th
 Three independent sources were spawning gateways:
 
 ```bash
-ls "/c/Users/tukum/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/"
+ls "/c/Users/<USER>/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/"
 # Chrome_Beta.cmd
 # desktop.ini
 # Hermes.lnk                                              ← source 1
@@ -81,7 +81,7 @@ schtasks /query /tn "\Hermes Gateway" 2>&1 | grep TaskName
 # TaskName: \Hermes Gateway                                ← source 2
 # Action: Hermes_Gateway.cmd (which has its own restart loop)
 
-ls /c/Users/tukum/AppData/Local/hermes/gateway-service/
+ls /c/Users/<USER>/AppData/Local/hermes/gateway-service/
 # Hermes_Gateway.cmd                                       ← source 3
 # hermes_gateway.sh                                        ← source 4
 ```
@@ -103,15 +103,15 @@ The chosen single source: a new Scheduled Task that runs `hermes gateway run` di
 schtasks /Delete /TN "\Hermes Gateway" /F
 
 # 2. Remove Hermes.lnk from Startup folder
-Remove-Item "C:\Users\tukum\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\Hermes.lnk"
+Remove-Item "C:\Users\<USER>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\Hermes.lnk"
 
 # 3. Disable the .cmd restart script
-Rename-Item "C:\Users\tukum\AppData\Local\hermes\gateway-service\Hermes_Gateway.cmd" `
-            "C:\Users\tukum\AppData\Local\hermes\gateway-service\Hermes_Gateway.cmd.disabled"
+Rename-Item "C:\Users\<USER>\AppData\Local\hermes\gateway-service\Hermes_Gateway.cmd" `
+            "C:\Users\<USER>\AppData\Local\hermes\gateway-service\Hermes_Gateway.cmd.disabled"
 
 # 4. Create the single clean Scheduled Task
 schtasks /Create /TN "Hermes Gateway Single" `
-         /TR "C:\Users\tukum\AppData\Local\hermes\hermes-agent\venv\Scripts\hermes.exe gateway run" `
+         /TR "C:\Users\<USER>\AppData\Local\hermes\hermes-agent\venv\Scripts\hermes.exe gateway run" `
          /SC ONLOGON /RL HIGHEST /F
 ```
 
@@ -128,7 +128,7 @@ while true; do
         fi
     fi
     echo "[$(date)] Starting Hermes Gateway..."
-    /c/Users/tukum/AppData/Local/hermes/hermes-agent/venv/Scripts/hermes.exe gateway run
+    /c/Users/<USER>/AppData/Local/hermes/hermes-agent/venv/Scripts/hermes.exe gateway run
     sleep 10
 done
 ```

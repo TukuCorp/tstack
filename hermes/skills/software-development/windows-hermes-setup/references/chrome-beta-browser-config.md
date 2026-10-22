@@ -12,7 +12,7 @@ npm install --global @opencode-ai/browser-control
 # 1. Open chrome://extensions
 # 2. Enable Developer mode
 # 3. Load unpacked from:
-#    C:\Users\tukum\AppData\Roaming\npm\node_modules\@opencode-ai\browser-control\extension\dist
+#    C:\Users\<USER>\AppData\Roaming\npm\node_modules\@opencode-ai\browser-control\extension\dist
 # 4. Pin the Browser Control toolbar button
 ```
 
@@ -44,7 +44,7 @@ browser-control execute --session <id> 'await page.goto("https://example.com"); 
 ## Extension path
 
 ```
-C:\Users\tukum\AppData\Roaming\npm\node_modules\@opencode-ai\browser-control\extension\dist
+C:\Users\<USER>\AppData\Roaming\npm\node_modules\@opencode-ai\browser-control\extension\dist
 ```
 
 Key files: `manifest.json`, `background.js`, `content-script.js`, `offscreen.html`, `offscreen.js`

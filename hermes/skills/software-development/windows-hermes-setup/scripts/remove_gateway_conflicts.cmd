@@ -30,7 +30,7 @@ if exist "!HERMES_LNK!" (
 
 echo.
 echo === Step 3: Disable Hermes_Gateway.cmd restart script ===
-set CMD_SCRIPT=C:\Users\tukum\AppData\Local\hermes\gateway-service\Hermes_Gateway.cmd
+set CMD_SCRIPT=C:\Users\<USER>\AppData\Local\hermes\gateway-service\Hermes_Gateway.cmd
 if exist "!CMD_SCRIPT!" (
     ren "!CMD_SCRIPT!" "!CMD_SCRIPT!.disabled" 2>&1
     echo   - Renamed to .disabled
@@ -40,7 +40,7 @@ if exist "!CMD_SCRIPT!" (
 
 echo.
 echo === Step 4: Create single Scheduled Task for the bash restart script ===
-schtasks /Create /TN "Hermes Gateway Single" /TR "C:\Users\tukum\AppData\Local\hermes\hermes-agent\venv\Scripts\hermes.exe gateway run" /SC ONLOGON /RL HIGHEST /F 2>&1
+schtasks /Create /TN "Hermes Gateway Single" /TR "C:\Users\<USER>\AppData\Local\hermes\hermes-agent\venv\Scripts\hermes.exe gateway run" /SC ONLOGON /RL HIGHEST /F 2>&1
 
 echo.
 echo === Step 5: Verify ===

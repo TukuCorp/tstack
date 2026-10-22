@@ -13,7 +13,7 @@ The `--session` flag accepts either the Browser Control session id you use with
 `execute` or the lower-level CDP `bc-tab-*` session id from `status --json`.
 
 ```bash
-browser-control recording start C:/Users/tukum/project/tmp/demo.mp4 --session my-session --mode cdp
+browser-control recording start C:/Users/<USER>/project/tmp/demo.mp4 --session my-session --mode cdp
 browser-control recording status --session my-session
 browser-control recording stop --session my-session
 browser-control recording cancel --session my-session   # discard without writing

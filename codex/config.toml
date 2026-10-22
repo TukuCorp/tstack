@@ -1,13 +1,13 @@
-model = "opencode-go/minimax-m3.1-flash-free"
+model = "opencode-go/minimax-m3.1-flash"
 model_reasoning_effort = "medium"
 approval_policy = "never"
 approvals_reviewer = "user"
 sandbox_mode = "danger-full-access"
 notify = [
-    'C:\Users\tukum\AppData\Local\OpenAI\Codex\runtimes\cua_node\b63ee7ee40c23b77\bin\node_modules\@oai\sky\bin\windows\codex-computer-use.exe',
+    'C:\Users\<USER>\AppData\Local\OpenAI\Codex\runtimes\cua_node\b63ee7ee40c23b77\bin\node_modules\@oai\sky\bin\windows\codex-computer-use.exe',
     "turn-ended",
 ]
-model_catalog_json = "C:\\Users\\tukum\\.codex\\opencodex-catalog.json"
+model_catalog_json = "C:\\Users\\<USER>\\.codex\\opencodex-catalog.json"
 # Auto-injected by opencodex (undo: ocx restore)
 openai_base_url = "http://127.0.0.1:10100/v1"
 # Auto-injected by opencodex (undo: ocx restore)
@@ -20,17 +20,17 @@ env_key = "<REDACTED>"
 wire_api = "responses"
 # Disabled 2026-09-28: points to a cua_node runtime (fb8898c05a62885e) that no longer exists
 # notify = [
-#     'C:\Users\tukum\AppData\Local\OpenAI\Codex\runtimes\cua_node\fb8898c05a62885e\bin\node_modules\@oai\sky\bin\windows\codex-computer-use.exe',
+#     'C:\Users\<USER>\AppData\Local\OpenAI\Codex\runtimes\cua_node\fb8898c05a62885e\bin\node_modules\@oai\sky\bin\windows\codex-computer-use.exe',
 #     "turn-ended",
 # ]
 
 [marketplaces.openai-bundled]
 source_type = "local"
-source = '\\?\C:\Users\tukum\.codex\.tmp\bundled-marketplaces\openai-bundled'
+source = '\\?\C:\Users\<USER>\.codex\.tmp\bundled-marketplaces\openai-bundled'
 
 [marketplaces.openai-primary-runtime]
 source_type = "local"
-source = '\\?\C:\Users\tukum\.cache\codex-runtimes\codex-primary-runtime\plugins\openai-primary-runtime'
+source = '\\?\C:\Users\<USER>\.cache\codex-runtimes\codex-primary-runtime\plugins\openai-primary-runtime'
 
 [marketplaces.typesafe-ai]
 source_type = "git"
@@ -39,133 +39,133 @@ source = "https://github.com/typesafe-ai/skills.git"
 [windows]
 sandbox = "unelevated"
 
-[projects.'c:\users\tukum\downloads\remote']
+[projects.'c:\users\<USER>\downloads\remote']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\reopt-pysam']
+[projects.'c:\users\<USER>\downloads\reopt-pysam']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\.config\opencode\skills']
+[projects.'c:\users\<USER>\.config\opencode\skills']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\baby-context']
+[projects.'c:\users\<USER>\downloads\baby-context']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\documents\codex\2026-05-16\https-docs-google-com-spreadsheets-d']
+[projects.'c:\users\<USER>\documents\codex\2026-05-16\https-docs-google-com-spreadsheets-d']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\remote\gtb']
+[projects.'c:\users\<USER>\downloads\remote\gtb']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\dppa-case']
+[projects.'c:\users\<USER>\downloads\dppa-case']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\remote\gtb2']
+[projects.'c:\users\<USER>\downloads\remote\gtb2']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\documents\codex\2026-06-17\review-files-and-summarize-for-me']
+[projects.'c:\users\<USER>\documents\codex\2026-06-17\review-files-and-summarize-for-me']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\remote\cpi']
+[projects.'c:\users\<USER>\downloads\remote\cpi']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\appdata\local\temp\tmp.zxqktzv9se']
+[projects.'c:\users\<USER>\appdata\local\temp\tmp.zxqktzv9se']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\documents\codex\2026-06-30\lis']
+[projects.'c:\users\<USER>\documents\codex\2026-06-30\lis']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\appdata\local\temp\tmp.qjfnyykl6a']
+[projects.'c:\users\<USER>\appdata\local\temp\tmp.qjfnyykl6a']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\appdata\local\temp\tmp.mtp9sghylt']
+[projects.'c:\users\<USER>\appdata\local\temp\tmp.mtp9sghylt']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\appdata\local\temp\tmp.u19gqp8wq5']
+[projects.'c:\users\<USER>\appdata\local\temp\tmp.u19gqp8wq5']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\appdata\local\temp\tmp.su2chtxs1p']
+[projects.'c:\users\<USER>\appdata\local\temp\tmp.su2chtxs1p']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\appdata\local\temp\tmp.hasrf4yppn']
+[projects.'c:\users\<USER>\appdata\local\temp\tmp.hasrf4yppn']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum']
+[projects.'c:\users\<USER>']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\pdd-auto']
+[projects.'c:\users\<USER>\downloads\pdd-auto']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\documents\codex\2026-07-04\chec']
+[projects.'c:\users\<USER>\documents\codex\2026-07-04\chec']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\dss-grid']
+[projects.'c:\users\<USER>\downloads\dss-grid']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\freecad-blender']
+[projects.'c:\users\<USER>\downloads\freecad-blender']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\remote\nlmppt']
+[projects.'c:\users\<USER>\downloads\remote\nlmppt']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\tmp']
+[projects.'c:\users\<USER>\tmp']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\documents\codex\2026-09-16\go']
+[projects.'c:\users\<USER>\documents\codex\2026-09-16\go']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\documents\codex\2026-09-16\hel']
+[projects.'c:\users\<USER>\documents\codex\2026-09-16\hel']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\city-ghg']
+[projects.'c:\users\<USER>\downloads\city-ghg']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\documents\codex\2026-09-16\mon']
+[projects.'c:\users\<USER>\documents\codex\2026-09-16\mon']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\documents\codex\2026-09-17\check-the-price-on-official-website']
+[projects.'c:\users\<USER>\documents\codex\2026-09-17\check-the-price-on-official-website']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\appdata\local\temp\ocx-smoke']
+[projects.'c:\users\<USER>\appdata\local\temp\ocx-smoke']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\ee-heat']
+[projects.'c:\users\<USER>\downloads\ee-heat']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\rom-hack']
+[projects.'c:\users\<USER>\downloads\rom-hack']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\pacta-trisk']
+[projects.'c:\users\<USER>\downloads\pacta-trisk']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\csim-copy']
+[projects.'c:\users\<USER>\downloads\csim-copy']
 trust_level = "trusted"
 
-[projects.'C:\Users\tukum\AppData\Local\Temp\claude\C--Users-tukum-Downloads-workflow-bench\6c6bc708-784a-4317-b128-b637343f35d1\scratchpad']
+[projects.'C:\Users\<USER>\AppData\Local\Temp\claude\C--Users-<USER>-Downloads-workflow-bench\6c6bc708-784a-4317-b128-b637343f35d1\scratchpad']
 trust_level = "trusted"
 
-[projects.'c:\users\tukum\downloads\workflow-bench']
+[projects.'c:\users\<USER>\downloads\workflow-bench']
 trust_level = "trusted"
 
-[projects.'C:\Users\tukum\Downloads\remote\ceba']
+[projects.'C:\Users\<USER>\Downloads\remote\ceba']
 trust_level = "trusted"
 
-[projects.'C:\Users\tukum\Downloads\remote\personal']
+[projects.'C:\Users\<USER>\Downloads\remote\personal']
 trust_level = "trusted"
 
-[projects.'C:\Users\tukum\Downloads\remote\expense']
+[projects.'C:\Users\<USER>\Downloads\remote\expense']
 trust_level = "trusted"
 
-[projects.'C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doctors']
+[projects.'C:\Users\<USER>\Downloads\remote\personal\inlaw-health\stroke-doctors']
 trust_level = "trusted"
 
-[projects.'C:\Users\tukum\Downloads\remote\personal\inlaw-health']
+[projects.'C:\Users\<USER>\Downloads\remote\personal\inlaw-health']
 trust_level = "trusted"
 
-[projects.'C:\Users\tukum\Downloads\ee-heat\gap\stage1-update-2026-10-22']
+[projects.'C:\Users\<USER>\Downloads\ee-heat\gap\stage1-update-2026-10-22']
 trust_level = "trusted"
 
-[projects.'C:\Users\tukum\AppData\Local\Temp\claude\C--Users-tukum\13fb9441-c83f-44fe-acd3-09ef4d85ca82\scratchpad']
+[projects.'C:\Users\<USER>\AppData\Local\Temp\claude\C--Users-<USER>\13fb9441-c83f-44fe-acd3-09ef4d85ca82\scratchpad']
 trust_level = "trusted"
 
 [plugins."documents@openai-primary-runtime"]
@@ -250,7 +250,7 @@ diffRemoved = "#ef5350"
 skill = "#c792ea"
 
 [mcp_servers.node_repl]
-command = 'C:\Users\tukum\AppData\Local\OpenAI\Codex\runtimes\cua_node\b63ee7ee40c23b77\bin\node_repl.exe'
+command = 'C:\Users\<USER>\AppData\Local\OpenAI\Codex\runtimes\cua_node\b63ee7ee40c23b77\bin\node_repl.exe'
 env_vars = ["CODEX_WINDOWS_REGISTERED_CORE"]
 startup_timeout_sec = 120.0
 
@@ -274,18 +274,18 @@ SKY_CUA_NATIVE_PIPE_DIRECTORY = "<REDACTED>"
 
 [mcp_servers.firecrawl]
 command = "node"
-args = ['C:\Users\tukum\AppData\Roaming\npm\node_modules\firecrawl-mcp\dist\index.js']
+args = ['C:\Users\<USER>\AppData\Roaming\npm\node_modules\firecrawl-mcp\dist\index.js']
 
 [mcp_servers.firecrawl.env]
 FIRECRAWL_API_KEY = "<REDACTED>"
 
 [mcp_servers.officecli]
-command = 'C:\Users\tukum\AppData\Roaming\npm\node_modules\@officecli\officecli\vendor\officecli.exe'
+command = 'C:\Users\<USER>\AppData\Roaming\npm\node_modules\@officecli\officecli\vendor\officecli.exe'
 args = ["mcp"]
 
 [mcp_servers.ghidra_mcp]
-command = 'C:\Users\tukum\AppData\Local\hermes\bin\uv.EXE'
-args = ["run", "--directory", 'C:\Users\tukum\Downloads\rom-hack\ghidra-mcp', "bridge-mcp-ghidra", "--transport", "stdio"]
+command = 'C:\Users\<USER>\AppData\Local\hermes\bin\uv.EXE'
+args = ["run", "--directory", 'C:\Users\<USER>\Downloads\rom-hack\ghidra-mcp', "bridge-mcp-ghidra", "--transport", "stdio"]
 startup_timeout_sec = 120.0
 
 [mcp_servers.ghidra_mcp.env]
@@ -293,7 +293,7 @@ GHIDRA_MCP_URL = "<REDACTED>"
 PYTHONIOENCODING = "<REDACTED>"
 
 [mcp_servers.powerpoint]
-command = 'C:\Users\tukum\.local\bin\ppt-mcp.exe'
+command = 'C:\Users\<USER>\.local\bin\ppt-mcp.exe'
 
 [tui]
 screen_reader_detection_done = true
@@ -305,19 +305,19 @@ theme = "coldark-dark"
 [shell_environment_policy.set]
 NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "<REDACTED>"
 
-[hooks.state.'C:\Users\tukum\.codex\hooks.json:session_start:0:0']
+[hooks.state.'C:\Users\<USER>\.codex\hooks.json:session_start:0:0']
 trusted_hash = "sha256:3bb1d74f2a7f3e60cb6d457e700ebd7bf5932650037e1017d80a11b0468c09ae"
 
-[hooks.state.'C:\Users\tukum\.codex\hooks.json:subagent_start:0:0']
+[hooks.state.'C:\Users\<USER>\.codex\hooks.json:subagent_start:0:0']
 trusted_hash = "sha256:69b7575ddb3a5eb98372c5b1f60942323bfaa3e034c65235cd7b2e2160efdc4a"
 
-[hooks.state.'C:\Users\tukum\.codex\hooks.json:session_start:1:0']
+[hooks.state.'C:\Users\<USER>\.codex\hooks.json:session_start:1:0']
 trusted_hash = "sha256:42ad5843ba79bdd68be42269ac7b513889a767e052dda6c6c28079a53af982ee"
 
-[hooks.state.'C:\Users\tukum\.codex\hooks.json:session_start:2:0']
+[hooks.state.'C:\Users\<USER>\.codex\hooks.json:session_start:2:0']
 trusted_hash = "sha256:93fbfa14717a31d18c62d1ba6141b6d7dd89551c24972ca793fadfd6f74baa7f"
 
-[hooks.state.'C:\Users\tukum\.codex\hooks.json:session_start:3:0']
+[hooks.state.'C:\Users\<USER>\.codex\hooks.json:session_start:3:0']
 trusted_hash = "sha256:2035963d8116b7f9c8418a165ee1d22cc62fa076e6536be410a8534452869541"
 
 [notice]

@@ -66,7 +66,7 @@ saved instead.
 
 ```js
 // Absolute path written literally: the relay's working directory is not your shell's.
-const screenshotPath = "C:/Users/tukum/project/tmp/home-labels.png"
+const screenshotPath = "C:/Users/<USER>/project/tmp/home-labels.png"
 return await screenshotWithLabels({ page, path: screenshotPath })
 ```
 

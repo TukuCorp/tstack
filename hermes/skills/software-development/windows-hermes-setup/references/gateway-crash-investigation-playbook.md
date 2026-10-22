@@ -109,7 +109,7 @@ After the fix:
 hermes gateway status 2>&1
 
 # Discord connected?
-grep 'discord connected' /c/Users/tukum/AppData/Local/hermes/logs/gateway.log | tail -1
+grep 'discord connected' /c/Users/<USER>/AppData/Local/hermes/logs/gateway.log | tail -1
 
 # Only ONE gateway process
 ps aux | grep -E "hermes.*gateway" | grep -v grep | wc -l   # should be 1

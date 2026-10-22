@@ -1,4 +1,4 @@
-"""Mirror my agent setup (Claude Code, Codex, Opencode, Hermes, omp) into this repo.
+"""Mirror my agent setup (Claude Code, Codex, Opencode, Hermes, omp, noctty, herdr) into this repo.
 
 Every run rebuilds each tool folder from the live files, strips secrets from
 configs, applies the private redaction map, and secret-scans the result.
@@ -15,6 +15,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tomllib
 from datetime import date
 from pathlib import Path
 
@@ -39,7 +40,7 @@ SOURCES = [
     (".codex/hooks.json", "codex/hooks.json", "json"),
     (".codex/config.toml", "codex/config.toml", "config"),
     (".codex/herdr-agent-state.ps1", "codex/herdr-agent-state.ps1", "file"),
-    (".codex/memories/MEMORY.md", "codex/memories/MEMORY.md", "file"),
+    # .codex/memories/MEMORY.md is not mirrored: it holds client project notes and this repo is public
     (".config/opencode/AGENTS.md", "opencode/AGENTS.md", "file"),
     (".config/opencode/agents", "opencode/agents", "tree"),
     (".config/opencode/command", "opencode/command", "tree"),
@@ -61,8 +62,17 @@ SOURCES = [
     (".omp/agent/skills", "omp/skills", "tree"),
     (".agents/skills", "shared/agents-skills", "tree"),
     ("AGENTS.md", "shared/AGENTS.md", "file"),
+    ("AppData/Local/noctty/config.ghostty", "noctty/config.ghostty", "file"),
+    (".config/noctty", "noctty/dotconfig", "tree"),  # shaders, background images
+    ("AppData/Roaming/herdr/config.toml", "herdr/config.toml", "config"),
+    ("AppData/Roaming/herdr/plugins.json", "herdr/plugins.json", "herdr-plugins"),
 ]
-TOOL_DIRS = ["claude", "codex", "opencode", "hermes", "omp", "shared"]
+TOOL_DIRS = ["claude", "codex", "opencode", "hermes", "omp", "shared", "noctty", "herdr", "machine"]
+
+# Global CLI packages, recorded in machine/packages.json for bootstrap.ps1 to reinstall.
+NPM_GLOBAL = "AppData/Roaming/npm/node_modules"
+BUN_GLOBAL = ".bun/install/global/package.json"
+UV_TOOLS = "AppData/Roaming/uv/tools"
 
 # Hermes reads skills from %LOCALAPPDATA%/hermes/skills. Only these workflow categories are
 # published; personal ones (baby, personal, climate-finance, ...) stay private.
@@ -84,6 +94,7 @@ EXCLUDE_GLOBS = ["*.sqlite", "*.sqlite-*", "*.db", "*.db-shm", "*.db-wal", "*.ba
 SENSITIVE_WORDS = {"key", "apikey", "token", "secret", "password", "passwd", "auth",
                    "authorization", "cookie", "credential", "credentials", "bearer", "pat"}
 SENSITIVE_BLOCKS = {"env", "headers", "http_headers", "environment", "env_http_headers", "set"}
+KEYBIND_TABLES = {"keys", "keybinds", "keybindings"}  # `key` in these is a key chord, not a secret
 
 SECRET_PATTERNS = [
     r"sk-[A-Za-z0-9_\-]{20,}", r"gh[pousr]_[A-Za-z0-9]{30,}", r"github_pat_[A-Za-z0-9_]{40,}",
@@ -145,11 +156,13 @@ _ASSIGN = re.compile(r"^(\s*)([\"']?[\w.\-]+[\"']?)(\s*[=:]\s*)(.*?)(,?)\s*$")
 
 def sanitize_text_config(text):
     """Line-based sanitizer for TOML / YAML / JSONC."""
-    out, toml_block, yaml_block_indent = [], False, None
+    out, toml_block, keybinds, yaml_block_indent = [], False, False, None
     for line in text.splitlines():
         header = _TOML_HEADER.match(line)
         if header:
-            toml_block = header.group(1).split(".")[-1].strip().lower() in SENSITIVE_BLOCKS
+            path = [p.strip().lower() for p in header.group(1).split(".")]
+            toml_block = path[-1] in SENSITIVE_BLOCKS
+            keybinds = path[0] in KEYBIND_TABLES  # herdr's [[keys.command]] key = "prefix+f"
             yaml_block_indent = None
             out.append(line)
             continue
@@ -173,7 +186,8 @@ def sanitize_text_config(text):
         if block:  # inline table / flow mapping, e.g. env = { FOO = "x" }
             out.append(f'{lead}{key}{sep}"{R}"{comma}')
             continue
-        if toml_block or yaml_block_indent is not None or _is_sensitive_key(bare):
+        chord = keybinds and bare.lower() == "key"
+        if toml_block or yaml_block_indent is not None or (_is_sensitive_key(bare) and not chord):
             quoted = value.strip()[:1] in ("'", '"')
             out.append(f'{lead}{key}{sep}{chr(34) + R + chr(34) if quoted else R}{comma}')
         else:
@@ -188,6 +202,41 @@ def redact(text, mapping):
         else:  # IDs and keys: anywhere, even glued to escapes like \x27
             text = text.replace(needle, mapping[needle])
     return EMAIL_RE.sub(lambda m: m.group(0) if EMAIL_KEEP.search(m.group(0)) else "<EMAIL>", text)
+
+
+# C:\\Users\\, C:\Users\, C:/Users/, C--Users- (Claude slugs); any case, since Codex lowercases paths
+_USER_PREFIX = r"((?i:Users)(?:\\\\|\\|/|-))"
+
+
+def mask_home(text, user):
+    """C:\\Users\\<name> -> C:\\Users\\<USER>, so paths restore onto any username."""
+    return re.sub(rf"{_USER_PREFIX}(?i:{re.escape(user)})(?!\w)", lambda m: m.group(1) + "<USER>", text)
+
+
+def unmask_home(text, user):
+    # case-sensitive token: docs that literally say C:\Users\<user>\ stay as written
+    return re.sub(rf"{_USER_PREFIX}<USER>", lambda m: m.group(1) + user, text)
+
+
+def herdr_plugins(entries):
+    """Reduce herdr's plugins.json to what `herdr plugin install` needs; drops machine paths."""
+    return [{"repo": f"{s['owner']}/{s['repo']}", "ref": s.get("resolved_commit"), "enabled": p.get("enabled", True)}
+            for p in entries if (s := p.get("source", {})).get("kind") == "github"]
+
+
+def global_packages(home):
+    npm = []
+    for d in sorted((home / NPM_GLOBAL).glob("*")):
+        if d.name.startswith("@"):
+            npm += [f"{d.name}/{s.name}" for s in sorted(d.iterdir()) if s.is_dir()]
+        elif d.is_dir() and not d.name.startswith("."):
+            npm.append(d.name)
+    bun_manifest = home / BUN_GLOBAL
+    bun = sorted(json.loads(bun_manifest.read_text(encoding="utf-8")).get("dependencies", {})) \
+        if bun_manifest.exists() else []
+    uv = sorted(tomllib.loads(r.read_text(encoding="utf-8"))["tool"]["requirements"][0]["name"]
+                for r in (home / UV_TOOLS).glob("*/uv-receipt.toml"))
+    return {"npm": npm, "bun": bun, "uv": uv}
 
 
 def scan_secrets(text):
@@ -206,7 +255,7 @@ def _write(dest, data, mapping):
     if isinstance(data, bytes):
         dest.write_bytes(data)
     else:
-        dest.write_text(redact(data, mapping), encoding="utf-8", newline="")
+        dest.write_text(mask_home(redact(data, mapping), HOME.name), encoding="utf-8", newline="")
 
 
 def _copy_file(src, dest, mapping):
@@ -270,6 +319,10 @@ def build(mapping):
         elif kind == "mcp":
             servers = json.loads(src.read_text(encoding="utf-8")).get("mcpServers", {})
             _write(dest, json.dumps({"mcpServers": sanitize_json(servers)}, indent=2) + "\n", mapping)
+        elif kind == "herdr-plugins":
+            entries = json.loads(src.read_text(encoding="utf-8"))
+            _write(dest, json.dumps(herdr_plugins(entries), indent=2) + "\n", mapping)
+    _write(ROOT / "machine" / "packages.json", json.dumps(global_packages(HOME), indent=2) + "\n", mapping)
     if (HOME / HERMES_SKILLS).exists():
         _copy_hermes_skills(HOME / HERMES_SKILLS, ROOT / "hermes" / "skills", mapping, HERMES_CATEGORIES,
                             HERMES_THIRD_PARTY)

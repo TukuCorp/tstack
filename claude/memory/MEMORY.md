@@ -11,3 +11,4 @@
 - [ppt-mcp setup](ppt-mcp-setup.md) — live PowerPoint MCP (uv tool) registered in all five harnesses; per-tool config paths and the Hermes stdin gotcha
 - [Global agent rules locations](global-agent-rules-locations.md) — CLAUDE.md/AGENTS.md paths for Claude Code, Opencode, Codex, omp, Hermes; mirror shared rules to all
 - [Hermes Nous web routing](hermes-nous-web-routing.md) — live config is %LOCALAPPDATA%/hermes/config.yaml; web.backend=nous → Perplexity search via Nous free pool (2026-10-21), undo steps
+- [tstack new-machine bootstrap](tstack-new-machine-bootstrap.md) — bootstrap.ps1 + restore.py rebuild the setup; noctty/herdr mirrored; same-machine restore dry-run must be 0 writes

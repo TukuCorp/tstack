@@ -12,7 +12,7 @@ deploy would serve them and keeps asset resolution stable.
 ## Server command
 
 ```bash
-python -m http.server 8011 --directory "C:/Users/tukum/Downloads/<PRIVATE_REPO>/teach-workspace"
+python -m http.server 8011 --directory "C:/Users/<USER>/Downloads/<PRIVATE_REPO>/teach-workspace"
 # background (Hermes): terminal(background=true, notify_on_complete=true)
 # verify:
 curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8011/gap-ee/lessons/0001-thermo-and-heat-transfer-primer.html  # 200
@@ -44,7 +44,7 @@ Artifacts (self-contained HTML, primer set): `gap-ee/artifacts/0001` through `00
 mirror lessons 0001-0003 (quiz, Carnot explorer, steam checklist).
 
 Local file paths mirror URLs:
-`C:/Users/tukum/Downloads/<PRIVATE_REPO>/teach-workspace/gap-ee/lessons/0001-*.html` etc.
+`C:/Users/<USER>/Downloads/<PRIVATE_REPO>/teach-workspace/gap-ee/lessons/0001-*.html` etc.
 
 ## Browser-control multi-tab recipe (localhost)
 

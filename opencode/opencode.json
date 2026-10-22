@@ -6,7 +6,7 @@
   ],
   "skills": {
     "paths": [
-      "C:\\Users\\tukum\\.config\\opencode\\skills"
+      "C:\\Users\\<USER>\\.config\\opencode\\skills"
     ]
   },
   "mcp": {
@@ -36,7 +36,7 @@
         "npx",
         "-y",
         "tsx",
-        "C:/Users/tukum/figma-mcp-server/index.ts"
+        "C:/Users/<USER>/figma-mcp-server/index.ts"
       ],
       "environment": {
         "FIGMA_API_KEY": "<REDACTED>"
@@ -94,7 +94,7 @@
     "powerpoint": {
       "type": "local",
       "command": [
-        "C:\\Users\\tukum\\.local\\bin\\ppt-mcp.exe"
+        "C:\\Users\\<USER>\\.local\\bin\\ppt-mcp.exe"
       ],
       "enabled": true
     }

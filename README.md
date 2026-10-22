@@ -1,7 +1,8 @@
 # tstack
 
 My agent setup — skills, agents, commands, hooks, instruction files and (sanitized) configs —
-for the coding agents I run on Windows:
+for the coding agents I run on Windows, plus the terminal (noctty) and multiplexer (herdr) they
+run in. `bootstrap.ps1` rebuilds the whole setup on a new machine.
 
 | Folder | Tool | Live location |
 |---|---|---|
@@ -11,6 +12,9 @@ for the coding agents I run on Windows:
 | `hermes/` | Hermes | `~/.hermes` + workflow skills from `%LOCALAPPDATA%/hermes/skills` (software-development, opencode, research, engineering, gloop, unslop) |
 | `omp/` | omp | `~/.omp/agent` |
 | `shared/` | cross-tool | `~/.agents/skills`, `~/AGENTS.md` |
+| `noctty/` | noctty terminal | `%LOCALAPPDATA%/noctty/config.ghostty` + `~/.config/noctty` (`dotconfig/`: shaders, backgrounds) |
+| `herdr/` | herdr multiplexer | `%APPDATA%/herdr/config.toml`; `plugins.json` = GitHub plugins to reinstall |
+| `machine/` | global CLIs | `packages.json`: npm / bun / uv tools installed globally |
 
 This repo is a **mirror**, not the source of truth: `sync.py` rebuilds each folder from the
 live files, so edit skills where the tool reads them and let the sync pick them up.
@@ -21,6 +25,7 @@ live files, so edit skills where the tool reads them and let the sync pick them 
 - Values under secret-looking keys (`*key*`, `*token*`, `*secret*`, `auth`, `password`, …) and whole
   `env` / `headers` / `environment` blocks in configs → `<REDACTED>`.
 - Email addresses → `<EMAIL>`; names and IDs listed in a private, gitignored redaction map → placeholders.
+- The Windows username in paths → `C:\Users\<USER>` (restored to the new machine's username).
 - Anthropic-authored skills synced from claude.ai (not mine to redistribute).
 
 Before anything is committed, every file is scanned for secret shapes (API keys, GitHub/Slack/AWS/Google
@@ -31,13 +36,35 @@ tokens, JWTs, private keys). Any hit aborts the run.
 ```sh
 python sync.py           # rebuild + scan (no git)
 python sync.py --push    # rebuild + scan + commit + push
+python restore.py --dry-run   # what restoring onto this machine would change
 python -m unittest discover -s tests
 ```
 
 A Windows scheduled task (`tstack-sync`, Sundays 09:00) runs `run-sync.cmd`, which calls
 `sync.py --push` and appends to `.private/sync.log`.
 
-## Restoring on a new machine
+## New machine
 
-Copy a folder back to its live location (table above), then refill the `<REDACTED>` values and
-`<PLACEHOLDER>`s with your own keys and IDs. Paths assume `C:\Users\<you>`.
+```powershell
+winget install --id Git.Git -e
+git clone https://github.com/TukuCorp/tstack; cd tstack
+powershell -ExecutionPolicy Bypass -File bootstrap.ps1 -DryRun   # see what it would do
+powershell -ExecutionPolicy Bypass -File bootstrap.ps1
+```
+
+`bootstrap.ps1` skips anything already installed, so it is safe to re-run:
+
+1. **winget**: Git, GitHub CLI, Node LTS, Python, uv, Bun, noctty, JetBrainsMono Nerd Font.
+2. **Agent CLIs** via each project's official installer: Claude Code, Codex, herdr, Hermes.
+3. **Global packages** from `machine/packages.json` (npm, bun → omp, uv tools).
+4. **Configs** via `restore.py` (below).
+5. **herdr plugins** from `herdr/plugins.json`, pinned to the mirrored commit.
+
+Then sign in to each tool and fill the values `restore.py` listed.
+
+`restore.py` (`--dry-run` to preview) is the reverse of `sync.py`: every file goes back to the path
+it came from, `<USER>` becomes the current username, and a live file it changes is backed up as
+`*.bak-tstack-<timestamp>`. Files that still hold placeholders it can't reverse (`<REDACTED>`,
+`<EMAIL>`) only fill gaps: an existing live copy always wins, and newly written ones are listed for
+you to fill in. Copy `.private/redactions.json` over from the old machine first and its
+placeholders are reversed too. Run on the machine it came from, `restore.py` changes nothing.

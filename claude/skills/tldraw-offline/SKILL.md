@@ -10,7 +10,7 @@ Use this skill for tasks involving open tldraw Desktop files. The desktop app ex
 
 ## Server
 
-The default server is `http://localhost:7236`. If that port is not active, read the `port` from `C:\Users\tukum\AppData\Roaming\tldraw\server.json`.
+The default server is `http://localhost:7236`. If that port is not active, read the `port` from `C:\Users\<USER>\AppData\Roaming\tldraw\server.json`.
 
 A clean quit removes `server.json`; the next launch rewrites it. It also records `pid` and `startedAt`, so if the file is present but requests to its `port` fail, treat it as stale (the app quit uncleanly) — the app is not running.
 
@@ -35,7 +35,7 @@ Run it from Git Bash. From PowerShell, `sh` is not on PATH: use `& 'C:\Program F
 Raw `curl` fallback (only if `tq` is missing). Each shell tool call is a fresh shell, so exported variables do not persist; re-read port and token in the same call that uses them:
 
 ```bash
-PORT=$(jq -r .port 'C:/Users/tukum/AppData/Roaming/tldraw/server.json'); TOKEN=$(jq -r .token 'C:/Users/tukum/AppData/Roaming/tldraw/server.json')
+PORT=$(jq -r .port 'C:/Users/<USER>/AppData/Roaming/tldraw/server.json'); TOKEN=$(jq -r .token 'C:/Users/<USER>/AppData/Roaming/tldraw/server.json')
 curl -s -X POST "http://localhost:$PORT/api/search" -H "authorization: Bearer $TOKEN" -H 'content-type: text/plain' --data-binary 'return await api.getDocs()'
 ```
 

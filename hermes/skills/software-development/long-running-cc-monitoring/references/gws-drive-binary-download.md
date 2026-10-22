@@ -28,7 +28,7 @@ gws drive files get \
 
 **Real example (SHP agreement download):**
 ```bash
-cd C:\Users\tukum\AppData\Local\Temp && \
+cd C:\Users\<USER>\AppData\Local\Temp && \
 env -u GOOGLE_WORKSPACE_CLI_TOKEN gws drive files get \
   --params '{"fileId":"1rYZ2LQdvehfOPHl-1NFNDfbpKfLtS_OQ","alt":"media"}' \
   -o "agreement.docx"

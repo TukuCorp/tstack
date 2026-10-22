@@ -20,7 +20,7 @@ Download `addon.py` from the blender-mcp repo into Blender's addons directory:
 
 ```bash
 BLENDER_VERSION="4.1"
-BLENDER_PATH="/c/Users/tukum/Blender/blender-4.1.1-windows-x64"
+BLENDER_PATH="/c/Users/<USER>/Blender/blender-4.1.1-windows-x64"
 ADDONS="$BLENDER_PATH/$BLENDER_VERSION/scripts/addons"
 curl -sL -o "$ADDONS/blender_mcp_addon.py" \
   "https://raw.githubusercontent.com/ahujasid/blender-mcp/main/addon.py"

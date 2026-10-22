@@ -8,7 +8,7 @@ User prompt: "Act as a setup doctor for the agent CLI you are running inside. Di
 Run these **read-only** from HOME (not project dir, to avoid attacker registry redirect):
 
 ```bash
-pwd; ls -la  # CWD = C:\Users\tukum, no AGENTS.md/CLAUDE.md here — per-project AGENTS.md lives in Downloads/<repo>
+pwd; ls -la  # CWD = C:\Users\<USER>, no AGENTS.md/CLAUDE.md here — per-project AGENTS.md lives in Downloads/<repo>
 ls -la "$HOME/.hermes" / "$HOME/AppData/Local/hermes" / "$HOME/AppData/Local/hermes/hermes-agent"
 cat "$HOME/.hermes/config.yaml" | head -n 30   # user MCP + preload
 cat "$HOME/AppData/Local/hermes/config.yaml" | head -n 30  # main config

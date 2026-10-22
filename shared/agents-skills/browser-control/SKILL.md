@@ -123,7 +123,7 @@ colliding with those aliases.
 **File paths inside execute code must be absolute.** Code runs in the detached
 relay, whose working directory is wherever the relay was first started, not
 your shell's current directory. Build the full path in your shell (for example
-`C:/Users/tukum/project/tmp/shot.png`) and write it literally into the script.
+`C:/Users/<USER>/project/tmp/shot.png`) and write it literally into the script.
 
 MCP `execute` extracts returned screenshot buffers, including buffers nested in
 objects and arrays, into ordered native image attachments without temporary

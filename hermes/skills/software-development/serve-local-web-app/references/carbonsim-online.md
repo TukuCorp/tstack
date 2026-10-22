@@ -1,6 +1,6 @@
 # CarbonSim Online — serve & deploy state
 
-Repo: C:\Users\tukum\Downloads\carbonsim-online (branch master)
+Repo: C:\Users\<USER>\Downloads\carbonsim-online (branch master)
 
 ## Local serve
 

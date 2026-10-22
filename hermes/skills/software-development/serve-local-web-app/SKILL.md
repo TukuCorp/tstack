@@ -34,7 +34,7 @@ For plain HTML lessons (e.g. `<PRIVATE_REPO>/teach-workspace/gap-ee/lessons/*.ht
 uvicorn/Node needed — serve the workspace root with the stdlib server:
 
 ```
-python -m http.server 8011 --directory "C:/Users/tukum/Downloads/<PRIVATE_REPO>/teach-workspace"
+python -m http.server 8011 --directory "C:/Users/<USER>/Downloads/<PRIVATE_REPO>/teach-workspace"
 # verify: curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8011/gap-ee/lessons/0001-thermo-and-heat-transfer-primer.html  # -> 200
 ```
 

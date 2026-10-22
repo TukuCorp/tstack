@@ -7,9 +7,9 @@ metadata:
   originSessionId: 2abae44b-89ce-43cd-8c29-d4d810eacea0
 ---
 
-The personal Firecrawl API key (`<REDACTED_KEY>`, free/hobby tier ~1000 credits/mo) originates from Hermes (`C:\Users\tukum\AppData\Local\hermes\.env`). As of 2026-07-09 it is also configured in:
+The personal Firecrawl API key (`<REDACTED_KEY>`, free/hobby tier ~1000 credits/mo) originates from Hermes (`C:\Users\<USER>\AppData\Local\hermes\.env`). As of 2026-07-09 it is also configured in:
 - Claude Code user scope (`claude mcp add --scope user firecrawl ... -- cmd /c firecrawl-mcp`)
-- Opencode global config (`C:\Users\tukum\.config\opencode\opencode.json`, `mcp.firecrawl`)
+- Opencode global config (`C:\Users\<USER>\.config\opencode\opencode.json`, `mcp.firecrawl`)
 
 Both use the globally installed `firecrawl-mcp` binary (`npm install -g firecrawl-mcp`), NOT `npx`: npm 11.6.2 on this machine hits the `ECOMPROMISED: Lock compromised` libnpmexec bug when MCP hosts spawn `npx -y <pkg>`. Prefer global installs (or bun) for any new stdio MCP server here.
 

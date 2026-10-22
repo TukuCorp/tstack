@@ -38,3 +38,9 @@
 
 ## Core Behavior
 - **Batch your work.** Complete the entire task in one response. Do not break work into steps that require approval.
+
+## Browser Use
+- chrome-devtools-axi attaches to my own everyday Chrome (`CHROME_DEVTOOLS_AXI_AUTO_CONNECT=1`), which I am using at the same time. Never disturb my tabs:
+  - Open every page with `chrome-devtools-axi newpage <url> --background`. Never use `open` or `selectpage` on a tab you didn't create, and never navigate, click, type or close in my tabs.
+  - Work only in tabs you opened; close them with `closepage` when done.
+  - For Google files, add `authuser=<EMAIL>` (the work account is not the default).

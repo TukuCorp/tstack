@@ -34,11 +34,11 @@ Read `references/workflow.md` for the detailed checklist and validation rules.
 - Default output is a `.pptx`, not PDF.
 - Keep the deck editable.
 - Save the deck in the workspace unless the user specifies another location.
-- When asked for a desktop path on this machine, prefer `C:\Users\tukum\OneDrive\Desktop`.
+- When asked for a desktop path on this machine, prefer `C:\Users\<USER>\OneDrive\Desktop`.
 
 ## Repo-Specific Notes
 
-For `C:\Users\tukum\Downloads\reopt-pysam`:
+For `C:\Users\<USER>\Downloads\reopt-pysam`:
 
 - template source used so far: `reports/decks/conformance/template/allotrope-template.pptx`
 - finished deck pattern: `reports/decks/*.pptx`

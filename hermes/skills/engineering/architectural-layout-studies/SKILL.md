@@ -15,7 +15,7 @@ an existing contract drawing or compiled model ("divide this bedroom into a
 bedroom + workspace", "re-plan this floor"). The user is the client here; the
 architect is not in the loop.
 
-The project for this on this machine: `C:/Users/tukum/Downloads/freecad-blender`,
+The project for this on this machine: `C:/Users/<USER>/Downloads/freecad-blender`,
 house specs in `designs/`, contractor sheets in `contractor/`, deliverables in
 `reports/`.
 

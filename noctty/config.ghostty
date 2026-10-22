@@ -1,0 +1,101 @@
+# This is the configuration file for noctty.
+#
+# This template file has been automatically created at the following
+# path since noctty couldn't find any existing config files on your system:
+#
+#   C:\Users\<USER>\AppData\Local\noctty/config.ghostty
+#
+# The template does not set any default options, since noctty ships
+# with sensible defaults for all options.
+# Note that you should not paste the output of `noctty +show-config
+# --default` into your config: some default options actually conflict with each other
+# when explicitly set in a configuration file. Instead, only set the
+# options you actually need.
+#
+# Run `noctty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+#
+# Additionally, each config option is also explained in detail
+# in the generated config docs and CLI help shipped with this repository.
+#
+# noctty can reload the configuration while running by using the menu
+# options or the bound key (default: Control + Shift + comma). Not all config
+# options can be reloaded while running; some only apply to new windows and
+# others may require a full restart to take effect.
+
+# Config syntax crash course
+# ==========================
+# # The config file consists of simple key-value pairs,
+# # separated by equals signs.
+# font-family = Iosevka
+# window-padding-x = 2
+#
+# # Spacing around the equals sign does not matter.
+# # All of these are identical:
+# key=value
+# key= value
+# key =value
+# key = value
+#
+# # Any line beginning with a # is a comment. It's not possible to put
+# # a comment after a config option, since it would be interpreted as a
+# # part of the value. For example, this will have a value of "#123abc":
+# background = #123abc
+#
+# # Empty values are used to reset config keys to default.
+# key =
+#
+# # Some config options have unique syntaxes for their value,
+# # which is explained in the docs for that config option.
+# # Just for example:
+# resize-overlay-duration = 4s 200ms
+# --- appearance (Matrix palette, ported from Windows Terminal) ---
+background-opacity = 0.88
+background = #0D0208
+foreground = #8CEBA2
+selection-background = #0B4F1D
+selection-foreground = #D6FFDC
+cursor-style = block
+cursor-style-blink = false
+cursor-color = #00FF41
+minimum-contrast = 3
+font-thicken = true
+window-padding-x = 8
+window-padding-y = 6
+window-padding-balance = true
+mouse-hide-while-typing = false
+window-theme = ghostty
+window-titlebar-background = #0D0208
+window-titlebar-foreground = #00FF41
+palette = 0=#0D0208
+palette = 1=#E0463C
+palette = 2=#00FF41
+palette = 3=#B8E62E
+palette = 4=#4A90D9
+palette = 5=#9B6BD8
+palette = 6=#1FB5A8
+palette = 7=#8CEBA2
+palette = 8=#2E5E36
+palette = 9=#FF6B5E
+palette = 10=#66FF8C
+palette = 11=#D9FF66
+palette = 12=#6AB0F3
+palette = 13=#B894F0
+palette = 14=#4FD6CA
+palette = 15=#D6FFDC
+font-family = JetBrainsMono NF
+
+# paste (Ctrl+V) was unbound; Noctty forwards ^V to the app instead of pasting
+keybind = ctrl+v=paste_from_clipboard
+
+# --- background image (procedural dark PCB, generated to match the Matrix palette) ---
+background-image = C:/Users/<USER>/.config/noctty/backgrounds/pcb-dark.png
+background-image-fit = cover
+background-image-position = bottom-right
+background-image-opacity = 0.3
+background-image-repeat = false
+
+# --- shader: static CRT finish (vignette, faint scanlines, glow on bright text) ---
+# animation off = renders only when the terminal updates; measured ~0% idle cost. Cursor trail (cursor_tail.glsl) needs animation on, ~17% CPU idle, so it's not loaded.
+custom-shader = C:/Users/<USER>/.config/noctty/shaders/crt_finish.glsl
+custom-shader-animation = false

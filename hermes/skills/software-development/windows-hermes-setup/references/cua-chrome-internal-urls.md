@@ -24,7 +24,7 @@ trigger the same `Navigation` event as a real user's keystrokes.
 1. **Manual guidance** — Describe the steps to the user and let them do it:
    - Open `chrome://extensions`
    - Enable Developer mode
-   - Load unpacked extension from `C:\Users\tukum\AppData\...`
+   - Load unpacked extension from `C:\Users\<USER>\AppData\...`
 
 2. **Launch Chrome with URL as CLI argument** — If Chrome isn't already
    running, launch it with the URL baked in:

@@ -75,11 +75,11 @@ params = {
     "orderBy": "modifiedTime desc",
     "q": 'modifiedTime >= "2026-07-01T00:00:00" and modifiedTime < "2026-07-02T00:00:00"'
 }
-with open("C:/Users/tukum/AppData/Local/hermes/tmp/drive_query.json", "w") as f:
+with open("C:/Users/<USER>/AppData/Local/hermes/tmp/drive_query.json", "w") as f:
     json.dump(params, f)
 
 # Then reference it via shell
-r = terminal('gws drive files list --params "$(cat /c/Users/tukum/AppData/Local/hermes/tmp/drive_query.json)" --format json 2>&1', timeout=30)
+r = terminal('gws drive files list --params "$(cat /c/Users/<USER>/AppData/Local/hermes/tmp/drive_query.json)" --format json 2>&1', timeout=30)
 ```
 
 Key points:
@@ -90,7 +90,7 @@ Key points:
 
 ## Why Python subprocess Fails (and the `gws.cmd` workaround)
 
-`gws` at `/c/Users/tukum/AppData/Roaming/npm/gws` is a Node.js executable (no `.exe` extension). It's added to the MSYS/bash PATH but Python's `subprocess` inherits the **Windows** PATH, not the bash/MSYS PATH. So `subprocess.run(['gws', ...])` throws `FileNotFoundError` even though `which gws` works in terminal.
+`gws` at `/c/Users/<USER>/AppData/Roaming/npm/gws` is a Node.js executable (no `.exe` extension). It's added to the MSYS/bash PATH but Python's `subprocess` inherits the **Windows** PATH, not the bash/MSYS PATH. So `subprocess.run(['gws', ...])` throws `FileNotFoundError` even though `which gws` works in terminal.
 
 Always call `gws` from `terminal()` (bash context), not from `execute_code()` (Python context).
 
@@ -99,7 +99,7 @@ Always call `gws` from `terminal()` (bash context), not from `execute_code()` (P
 ```python
 import subprocess, json
 
-gws_path = r"C:\Users\tukum\AppData\Roaming\npm\gws.cmd"
+gws_path = r"C:\Users\<USER>\AppData\Roaming\npm\gws.cmd"
 # ✅ Works from Python subprocess
 result = subprocess.run(
     [gws_path, "drive", "files", "list", "--params", json.dumps({...})],

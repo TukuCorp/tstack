@@ -24,7 +24,7 @@ while true; do
 
     echo "[$(date)] Starting Hermes Gateway..."
     # Start in background so we can set High priority before the gateway needs memory
-    /c/Users/tukum/AppData/Local/hermes/hermes-agent/venv/Scripts/hermes.exe gateway run &
+    /c/Users/<USER>/AppData/Local/hermes/hermes-agent/venv/Scripts/hermes.exe gateway run &
     GW_PID=$!
     sleep 5
     wmic process where "processid=$GW_PID" CALL setpriority 128 > /dev/null 2>&1

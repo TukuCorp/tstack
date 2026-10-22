@@ -5,14 +5,14 @@ description: "Use when web research hits credit errors or 403 blocks, or for VN 
 
 # No-Key Web Research (fallback chain when paid search/scrape backends are unavailable)
 
-When `web_search`/`web_extract` fail with credit errors, or a target site returns 403 (Cloudflare), do NOT give up or fabricate. Work the chain below — every rung uses plain HTTP + public archives, no API keys. Fallback order: DDGS → Bing scrape → Wayback CDX discovery + snapshot fetch → official PDF extraction.
+When `web_search`/`web_extract` fail with credit errors, or a target site returns 403 (Cloudflare), do NOT give up or fabricate. Work the chain below — every rung uses plain HTTP + public archives, no API keys. Fallback order: DDGS → Bing scrape → Wayback CDX discovery + snapshot fetch → official PDF extraction. When the direct `web_search` tool itself errors with VALIDATION_ERROR / empty-query loop, retry the identical query via `execute_code` (`from hermes_tools import web_search`) — the kernel path often succeeds when the direct tool path drops parameters.
 
 ## /research --depth exhaustive integration
 When the `research` skill's `scripts/wide_pass.py` reports `firecrawl: unavailable` (no FIRECRAWL_API_KEY), fill the industry/web buckets with the `web_search` tool FIRST — it can be live even without the key (verified 2026-08) — then WebFetch seed lists, then this skill's chain. Full wide-pass ops (helper per-run cap quirk, OpenAlex noise, ledger finalization recipe incl. ledger-write safety, web_extract cache-mining, URL/DOI normalization guards, repo-signal verification) are in [references/research-exhaustive-ops.md](references/research-exhaustive-ops.md).
 
 ## Rung 1 — DDGS (DuckDuckGo) via the Hermes venv
 - CLI: `ddgs text -k "query" -m 6` (flag is `-k`/`--keywords`, NOT `-q`).
-- Python API (more control): `C:/Users/tukum/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe` with `from duckduckgo_search import DDGS` — note the import name is `duckduckgo_search` even though the CLI/package is now `ddgs`.
+- Python API (more control): `C:/Users/<USER>/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe` with `from duckduckgo_search import DDGS` — note the import name is `duckduckgo_search` even though the CLI/package is now `ddgs`.
 - Pitfalls (all hit in practice):
   - **Rate-limits fast**: after ~3-5 batches it returns EMPTY result lists. Sleep 8s+ between queries, drop to 2-3 queries per run, or use `backend="lite"`.
   - **Vietnamese-language queries return garbage** (Wikipedia "Phân" = feces, unrelated news sites). Use English queries or exact legal-document names ("Thông tư 40/2021/TT-BTC") instead of long Vietnamese phrases. The `region` param doesn't fix this.
@@ -77,6 +77,7 @@ When the ask is "find/rank flights on route X–Y for date D" (business travel, 
 - **Use flightsfrom.com instead**: `web_extract` on `https://www.flightsfrom.com/SGN-HPH` returns the full weekly timetable — per-airline (VietJet/Vietnam Airlines/others), flight numbers, departure times per weekday, flight duration — plus a monthly calendar with per-day flight counts. Mirror route `https://www.flightsfrom.com/HPH-SGN` for returns. `web_extract` succeeds where the metasearch UIs fight back.
 - Then rank same-day round-trip combos by on-ground time (arrival → next departure) and note the airline (full-service vs LCC) — e.g. for a morning kickoff + same-day return: outbound 09:00 + return 16:25 gives ~5h on ground.
 - Caveat to report honestly: timetable ≠ availability/pricing for the specific date; the schedule pages are the daily pattern, not booked inventory.
+- For 'why are flights / hotels expensive that week' asks, triangulate four demand layers before answering — overlapping expos/conferences at destination, sports/mass-participation events, public-holiday long weekends at BOTH endpoints, and government summits holding inventory — because a sell-out is usually the stack, not any single event.
 
 ## Rung 8 — Hi-res originals: WordPress media API + CDN 404-stub check
 When the ask is a larger copy of an image already found small:

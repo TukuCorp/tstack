@@ -74,7 +74,7 @@ SESSION_MAX_AGE_H = 24
 # HERDR_BIN_PATH, so default to the installed preview binary.
 HERDR_BIN = Path(os.environ.get(
     "HERDR_BIN",
-    r"C:\Users\tukum\AppData\Local\Programs\Herdr\bin\herdr.exe"))
+    r"C:\Users\<USER>\AppData\Local\Programs\Herdr\bin\herdr.exe"))
 
 # Shared timestamp for this process, used both as the log filename (known
 # immediately, before a project is even picked) and as part of the session /
@@ -97,7 +97,7 @@ PANE_ID = None                      # set by launch_session()
 # without editing the script.
 HERMES_BIN = Path(os.environ.get(
     "HERMES_BIN",
-    r"C:\Users\tukum\AppData\Local\hermes\hermes-agent\venv\Scripts\hermes.exe"))
+    r"C:\Users\<USER>\AppData\Local\hermes\hermes-agent\venv\Scripts\hermes.exe"))
 DISCORD_TARGET = os.environ.get(
     "CC_NIGHTLY_DISCORD_TARGET",
     "discord:<DISCORD_GUILD_ID>:<DISCORD_CHANNEL_ID>")

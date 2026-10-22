@@ -11,7 +11,7 @@ The gateway's last log entry is always a normal operation (e.g. `response ready`
 import re
 from datetime import datetime
 
-log = open(r'C:\Users\tukum\AppData\Local\hermes\logs\gateway.log', encoding='utf-8').read()
+log = open(r'C:\Users\<USER>\AppData\Local\hermes\logs\gateway.log', encoding='utf-8').read()
 
 # 1. Find all startup events
 starts = re.findall(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3}) INFO gateway.run: Starting Hermes Gateway', log)

@@ -1,0 +1,35 @@
+{
+  "npm": [
+    "@aisuite/chub",
+    "@bitkyc08/opencodex",
+    "@github/copilot",
+    "@google/.gemini-cli-z55unmCn",
+    "@google/clasp",
+    "@google/gemini-cli",
+    "@googleworkspace/cli",
+    "@officecli/officecli",
+    "@openai/codex",
+    "@opencode/cli",
+    "@opencode-ai/.browser-control-tkO0qzYG",
+    "@opencode-ai/browser-control",
+    "chrome-devtools-axi",
+    "firebase-tools",
+    "firecrawl-mcp",
+    "gh-axi",
+    "lavish-axi",
+    "opencode-gemini-auth",
+    "pptxgenjs",
+    "quota-axi",
+    "rea-agents",
+    "shortcutxl",
+    "tasks-axi"
+  ],
+  "bun": [
+    "@oh-my-pi/pi-coding-agent"
+  ],
+  "uv": [
+    "notebooklm-mcp-cli",
+    "ppt-mcp",
+    "trafilatura"
+  ]
+}

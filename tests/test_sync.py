@@ -100,6 +100,13 @@ class SanitizeTextConfigTests(unittest.TestCase):
         self.assertIn('bearer_token_env_var = "<REDACTED>"', out)
         self.assertIn('SHA = "<REDACTED>"', out)
 
+    def test_keybinding_tables_keep_their_key_chords(self):
+        src = ('[[keys.command]]\nkey = "prefix+f"\ncommand = "x"\n'
+               '[provider]\nkey = "sk-1"\n')
+        out = sync.sanitize_text_config(src)
+        self.assertIn('key = "prefix+f"', out)
+        self.assertIn('key = "<REDACTED>"', out)
+
     def test_yaml(self):
         src = "model: x\nopenrouter_api_key: abc123\nenv:\n  SLACK: xyz\n  OTHER: 2\nname: me\n"
         out = sync.sanitize_text_config(src)

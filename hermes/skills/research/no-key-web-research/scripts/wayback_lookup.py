@@ -1,7 +1,7 @@
 """Discover exact URLs on bot-blocked sites via Wayback CDX, then optionally fetch the newest snapshot.
 
 Run with the Hermes venv python (requests available):
-  C:/Users/tukum/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe wayback_lookup.py "<url-pattern>" [limit] [--fetch]
+  C:/Users/<USER>/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe wayback_lookup.py "<url-pattern>" [limit] [--fetch]
 
 Examples:
   wayback_lookup.py "thuvienphapluat.vn/van-ban/Bao-hiem/Nghi-dinh-158-2025*" 5

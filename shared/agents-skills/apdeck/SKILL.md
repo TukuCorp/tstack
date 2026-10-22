@@ -126,7 +126,7 @@ Required checks before delivery:
 - Default output is a `.pptx`, not PDF
 - Keep the deck editable
 - Save the deck in the workspace unless the user specifies another location
-- When asked for a desktop path on this machine, prefer `C:\Users\tukum\OneDrive\Desktop`
+- When asked for a desktop path on this machine, prefer `C:\Users\<USER>\OneDrive\Desktop`
 
 ## Tooling
 

@@ -48,7 +48,7 @@
    If the user wants their accounts available in `browser_*`, configure Chrome Stable's user data directory (Chrome Beta was uninstalled Aug 2026):
    ```
    hermes config set browser.chrome_beta_path "C:\Program Files\Google\Chrome\Application\chrome.exe"
-   hermes config set browser.chrome_user_data_dir "C:\Users\tukum\AppData\Local\Google\Chrome\User Data"
+   hermes config set browser.chrome_user_data_dir "C:\Users\<USER>\AppData\Local\Google\Chrome\User Data"
    ```
 
 6. **Last resort — ask the user to open Chrome Stable manually and make it the foreground window.** Once it's visible, `capture` should find it.
@@ -61,6 +61,6 @@ To switch from cloud browser to local Chrome Stable CDP:
 ```bash
 hermes config set browser.engine auto
 hermes config set browser.chrome_beta_path "C:\Program Files\Google\Chrome\Application\chrome.exe"
-hermes config set browser.chrome_user_data_dir "C:\Users\tukum\AppData\Local\Google\Chrome\User Data"
+hermes config set browser.chrome_user_data_dir "C:\Users\<USER>\AppData\Local\Google\Chrome\User Data"
 ```
 Then `browser_navigate` will launch Chrome Stable with the user's profile directory and their accounts will be signed in.

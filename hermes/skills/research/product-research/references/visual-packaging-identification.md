@@ -32,7 +32,7 @@ for m in re.findall(r'm="(\{[^"]*?\})"', h):
 **browser-control (for JS-rendered search pages, Google Images, or when curl is walled)**
 
 ```js
-// save as C:/Users/tukum/AppData/Local/Temp/bc_collect.js ; run:
+// save as C:/Users/<USER>/AppData/Local/Temp/bc_collect.js ; run:
 // browser-control execute --file ./bc_collect.js --json
 const all = {};
 for (const q of ["pukka night time tea box", "clipper sleep easy tea box"]) {
@@ -42,7 +42,7 @@ for (const q of ["pukka night time tea box", "clipper sleep easy tea box"]) {
   const raw = await page.$$eval("a.iusc", els => els.map(e => e.getAttribute("m")).filter(Boolean));
   for (const m of raw) { try { const d = JSON.parse(m); if (d.murl) all[d.murl] = { t: d.t, p: d.purl }; } catch (e) {} }
 }
-fs.writeFileSync("C:/Users/tukum/AppData/Local/Temp/tea_imgs.json", JSON.stringify(all, null, 1));
+fs.writeFileSync("C:/Users/<USER>/AppData/Local/Temp/tea_imgs.json", JSON.stringify(all, null, 1));
 return { total: Object.keys(all).length };
 ```
 
@@ -61,8 +61,8 @@ import json, os, subprocess, math
 from PIL import Image, ImageDraw
 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-OUT = "C:/Users/tukum/AppData/Local/Temp/teaimg"; os.makedirs(OUT, exist_ok=True)
-data = json.load(open("C:/Users/tukum/AppData/Local/Temp/tea_imgs.json", encoding="utf-8"))
+OUT = "C:/Users/<USER>/AppData/Local/Temp/teaimg"; os.makedirs(OUT, exist_ok=True)
+data = json.load(open("C:/Users/<USER>/AppData/Local/Temp/tea_imgs.json", encoding="utf-8"))
 
 index = []
 for i, (u, v) in enumerate(data.items()):
@@ -85,8 +85,8 @@ for s in range(math.ceil(len(index) / (COLS * ROWS))):
         sheet.paste(im, (cx + 15, cy + 30))
         d.rectangle([cx, cy, cx + CELL - 1, cy + CELL - 1], outline=(0, 0, 0))
         d.text((cx + 6, cy + 6), f"#{item['i']}", fill=(200, 0, 0))
-    sheet.save(f"C:/Users/tukum/AppData/Local/Temp/sheet_{s}.png")
-json.dump(index, open("C:/Users/tukum/AppData/Local/Temp/mosaic_index.json", "w", encoding="utf-8"), indent=1)
+    sheet.save(f"C:/Users/<USER>/AppData/Local/Temp/sheet_{s}.png")
+json.dump(index, open("C:/Users/<USER>/AppData/Local/Temp/mosaic_index.json", "w", encoding="utf-8"), indent=1)
 ```
 
 Keep `mosaic_index.json`: it maps tile `#N` → title/url, which is how a hit becomes a citation.

@@ -8,7 +8,7 @@ metadata:
   modified: 2026-10-20T20:40:15.768Z
 ---
 
-The `expense` skill (Tung's monthly Allotrope Vietnam reimbursement: Gmail label -> Drive -> Sheet -> draft, never send) now lives only at `C:\Users\tukum\Downloads\remote\expense\.claude\skills\expense\SKILL.md`. Global copies were deleted from `~/.claude/skills`, `~/.agents/skills`, `~/.config/opencode/skills` and Hermes `skills/productivity`, and tstack was synced (commit 76acbd6).
+The `expense` skill (Tung's monthly Allotrope Vietnam reimbursement: Gmail label -> Drive -> Sheet -> draft, never send) now lives only at `C:\Users\<USER>\Downloads\remote\expense\.claude\skills\expense\SKILL.md`. Global copies were deleted from `~/.claude/skills`, `~/.agents/skills`, `~/.config/opencode/skills` and Hermes `skills/productivity`, and tstack was synced (commit 76acbd6).
 
 **Why:** user asked to make it project specific. `.claude/` is gitignored in the `remote` repo (remote-data), so the skill, which holds the Drive folder ID and recipient emails, is not pushed.
 

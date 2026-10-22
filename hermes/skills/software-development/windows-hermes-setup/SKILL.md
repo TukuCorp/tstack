@@ -19,10 +19,10 @@ Hermes tools (`read_file`, `write_file`, `patch`) accept MSYS paths (`/c/Users/.
 
 ```python
 # ✅ Works in Hermes tools (read_file, write_file, patch, search_files)
-/c/Users/tukum/AppData/Local/hermes/config.yaml
+/c/Users/<USER>/AppData/Local/hermes/config.yaml
 
 # ❌ Fails in Windows Python subprocess called from terminal
-python -c "open('/c/Users/tukum/file.txt')"  # FileNotFoundError
+python -c "open('/c/Users/<USER>/file.txt')"  # FileNotFoundError
 
 # ✅ Use os.path.expanduser instead
 python -c "import os; open(os.path.expanduser('~') + '/file.txt')"
@@ -32,10 +32,10 @@ python -c "import os; open(os.path.expanduser('~') + '/file.txt')"
 
 ```python
 # ✅ write_file — use native Windows paths
-write_file(path="C:\\Users\\tukum\\file.txt", content="...")
+write_file(path="C:\\Users\\<USER>\\file.txt", content="...")
 
 # ❌ write_file — MSYS path may fail
-write_file(path="/c/Users/tukum/file.txt", content="...")  # may land at C:\c\Users\tukum\...
+write_file(path="/c/Users/<USER>/file.txt", content="...")  # may land at C:\c\Users\<USER>\...
 ```
 
 **Rule of thumb:**
@@ -49,10 +49,10 @@ write_file(path="/c/Users/tukum/file.txt", content="...")  # may land at C:\c\Us
 ```
 # In terminal — discover the real MSYS /tmp path first
 $ cmd //c "echo %TEMP%"
-C:\Users\tukum\AppData\Local\Temp
+C:\Users\<USER>\AppData\Local\Temp
 
 # Then write the file there
-write_file(path="C:\\Users\\tukum\\AppData\\Local\\Temp\\myfile.txt", content="...")
+write_file(path="C:\\Users\\<USER>\\AppData\\Local\\Temp\\myfile.txt", content="...")
 
 # Now bash /tmp/myfile.txt resolves correctly
 terminal(command="cat /tmp/myfile.txt")   # ✅ Works
@@ -69,7 +69,7 @@ Pass PowerShell scripts as files, not inline:
 powershell -Command "$action = New-ScheduledTaskAction ..."
 
 # ✅ Write script file first, then execute
-powershell -ExecutionPolicy Bypass -File "C:\Users\tukum\script.ps1"
+powershell -ExecutionPolicy Bypass -File "C:\Users\<USER>\script.ps1"
 ```
 
 ### gws CLI — JSON params with embedded quotes
@@ -119,14 +119,14 @@ When the built-in installer can't get UAC, create the task directly:
 
 ```powershell
 # PowerShell script — save and execute
-$action = New-ScheduledTaskAction -Execute "C:\Users\tukum\AppData\Local\hermes\gateway-service\Hermes_Gateway.cmd"
+$action = New-ScheduledTaskAction -Execute "C:\Users\<USER>\AppData\Local\hermes\gateway-service\Hermes_Gateway.cmd"
 $trigger = New-ScheduledTaskTrigger -AtLogon -User "$env:USERNAME"
 Register-ScheduledTask -TaskName "Hermes Gateway" -Action $action -Trigger $trigger -Force
 ```
 
 Then remove the Startup folder fallback to avoid duplicate starts:
 ```bash
-rm "/c/Users/tukum/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/Hermes_Gateway.cmd"
+rm "/c/Users/<USER>/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/Hermes_Gateway.cmd"
 ```
 
 ### Verify the task
@@ -156,7 +156,7 @@ The gateway process can silently exit (stream timeouts, API errors, resource pre
 title Hermes Gateway
 :restart
 echo [%date% %time%] Starting Hermes Gateway...
-"C:\Users\tukum\AppData\Local\hermes\hermes-agent\venv\Scripts\hermes.exe" gateway run
+"C:\Users\<USER>\AppData\Local\hermes\hermes-agent\venv\Scripts\hermes.exe" gateway run
 echo [%date% %time%] Gateway exited with code %errorlevel%. Restarting in 5s...
 timeout /t 5 /nobreak >nul
 goto restart
@@ -198,10 +198,10 @@ Pick ONE gateway manager — the Scheduled Task is most reliable — and remove 
 
 ```bash
 # 1. Check what's in the Startup folder
-ls "/c/Users/tukum/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/"
+ls "/c/Users/<USER>/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/"
 
 # 2. Remove Hermes.lnk (Desktop GUI auto-launch) — Desktop GUI is optional
-rm "/c/Users/tukum/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/Hermes.lnk"
+rm "/c/Users/<USER>/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/Hermes.lnk"
 
 # 3. Disable or delete the Hermes Gateway Scheduled Task
 schtasks /Change /TN "\Hermes Gateway" /Disable     # may need UAC elevation
@@ -241,7 +241,7 @@ while true; do
         fi
     fi
     echo "[$(date)] Starting Hermes Gateway..."
-    /c/Users/tukum/AppData/Local/hermes/hermes-agent/venv/Scripts/hermes.exe gateway run
+    /c/Users/<USER>/AppData/Local/hermes/hermes-agent/venv/Scripts/hermes.exe gateway run
     echo "[$(date)] Gateway exited. Restarting in 10s..."
     sleep 10
 done
@@ -413,13 +413,13 @@ choco install tmux
 
 To find where winget installed something:
 ```bash
-find /c/Users/tukum/AppData/Local/Microsoft/WinGet -name "tmux*" -type f 2>/dev/null
-ls /c/Users/tukum/AppData/Local/Microsoft/WinGet/Links/ 2>/dev/null
+find /c/Users/<USER>/AppData/Local/Microsoft/WinGet -name "tmux*" -type f 2>/dev/null
+ls /c/Users/<USER>/AppData/Local/Microsoft/WinGet/Links/ 2>/dev/null
 ```
 
 Then add it to PATH for the current session:
 ```bash
-export PATH="$PATH:/c/Users/tukum/AppData/Local/Microsoft/WinGet/Packages/<vendor>.<package>_<source>/"
+export PATH="$PATH:/c/Users/<USER>/AppData/Local/Microsoft/WinGet/Packages/<vendor>.<package>_<source>/"
 ```
 
 ### Unsigned installers from GitHub releases — SmartScreen cancels silent installs
@@ -465,7 +465,7 @@ C:/t3908/venv/Scripts/python.exe path/to/script.py
 `terminal()` calls share one persistent shell: `cd`, `export`, and venv activation carry forward into later calls. A `cd` buried inside one command silently re-anchors every subsequent relative path — a later write or redirect then lands in (or fails from) the wrong directory with no hint of the drift. Re-anchor multi-step sequences with an absolute `cd` first, and prefer absolute paths for file outputs:
 
 ```bash
-cd C:/Users/tukum/Downloads/<project> && <command>   # re-anchor, then run
+cd C:/Users/<USER>/Downloads/<project> && <command>   # re-anchor, then run
 ```
 
 ## Credential Store
@@ -480,9 +480,9 @@ C:\Users\<user>\AppData\Local\hermes\.env
 **⚠️ Deprecated `.env` settings to clean up.** On each gateway start, a warning may appear:
 ```
 ⚠ Deprecated .env settings detected:
-  ⚠ TERMINAL_CWD=C:\Users\tukum found in .env — this is deprecated.
+  ⚠ TERMINAL_CWD=C:\Users\<USER> found in .env — this is deprecated.
   Move to config.yaml instead:  terminal:\n    cwd: /your/project/path
-  Then remove the old entries from C:\Users\tukum\AppData\Local\hermes/.env
+  Then remove the old entries from C:\Users\<USER>\AppData\Local\hermes/.env
 ```
 
 To fix:
@@ -497,7 +497,7 @@ with open(p, 'w') as f:
 "
 
 # 2. Move the setting to config.yaml (optional — only if you need a custom cwd)
-hermes config set terminal.cwd "C:/Users/tukum"
+hermes config set terminal.cwd "C:/Users/<USER>"
 
 # 3. Restart the gateway entirely (not just Ctrl+C) — the .env is cached at process start
 # Note: the deprecation warning is harmless — it doesn't block startup
@@ -820,7 +820,7 @@ powershell.exe -Command "Get-Process | Where-Object { \$_.ProcessName -match 'cl
 **Important:** The `\$` before `_` is required when calling PowerShell from git-bash — without it, bash interprets `$_` as its own variable (last argument of the previous command) and replaces it before PowerShell sees it. The error looks like:
 
 ```
-The term '/c/Users/tukum/Downloads/remote/cc-sessions.ProcessName' is not recognized...
+The term '/c/Users/<USER>/Downloads/remote/cc-sessions.ProcessName' is not recognized...
 ```
 
 This happens because `$_` resolves to a directory path in bash. Always escape `$_` with `\$`.
@@ -836,7 +836,7 @@ The PowerShell version is preferred over `wmic` because it shows `StartTime` (so
 | Install auto-start | `hermes gateway install` |
 | Computer-use driver install | `hermes computer-use install` |
 | Kill gateway process | `taskkill /F /PID <pid>` or `kill -9 <pid>` |
-| View gateway log | `tail -f /c/Users/tukum/AppData/Local/hermes/logs/gateway.log` |
+| View gateway log | `tail -f /c/Users/<USER>/AppData/Local/hermes/logs/gateway.log` |
 
 **`$APPDATA` ≠ `$LOCALAPPDATA` in git-bash (verified 2026-09-03):** `$APPDATA` resolves to `...\Roaming`, so `$APPDATA/Local/hermes/logs/gateway.log` does not exist — the gateway log lives at `$LOCALAPPDATA/hermes/logs/gateway.log` (`...\Local\hermes\logs\gateway.log`). This session burned a turn on exactly that wrong path before the tail worked. Always use `$LOCALAPPDATA` (or the absolute `/c/Users/<user>/AppData/Local/...` path) for Hermes logs.
 
@@ -1138,7 +1138,7 @@ This only lasts for the current process lifetime. Persist it by adding to the re
 
 ```bash
 # In the bash restart loop (hermes_gateway.sh), before the 'wait' line:
-/c/Users/tukum/AppData/Local/hermes/hermes-agent/venv/Scripts/hermes.exe gateway run &
+/c/Users/<USER>/AppData/Local/hermes/hermes-agent/venv/Scripts/hermes.exe gateway run &
 GW_PID=$!
 sleep 5
 wmic process where "processid=$GW_PID" CALL setpriority 128 > /dev/null 2>&1

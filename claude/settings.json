@@ -68,7 +68,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\tukum\\.claude\\hooks\\herdr-agent-state.ps1\" session",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\<USER>\\.claude\\hooks\\herdr-agent-state.ps1\" session",
             "timeout": 10
           }
         ]
@@ -126,8 +126,8 @@
   "autoMode": {
     "allow": [
       "$defaults",
-      "Bash(uv run:*) in C:\\Users\\tukum\\Downloads\\baby-context",
-      "Bash(uv:*) in C:\\Users\\tukum\\Downloads\\baby-context \u2014 declared-dependency toolchain use"
+      "Bash(uv run:*) in C:\\Users\\<USER>\\Downloads\\baby-context",
+      "Bash(uv:*) in C:\\Users\\<USER>\\Downloads\\baby-context \u2014 declared-dependency toolchain use"
     ],
     "soft_deny": [
       "$defaults",

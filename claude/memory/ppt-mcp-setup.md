@@ -8,7 +8,7 @@ metadata:
   modified: 2026-10-20T14:11:00.707Z
 ---
 
-`ppt-mcp` v2.3.0 (github.com/ykuwai/ppt-mcp, 156 tools, live PowerPoint over COM) is installed with `uv tool install ppt-mcp`, binary `C:\Users\tukum\.local\bin\ppt-mcp.exe`. Update with `uv tool upgrade ppt-mcp`.
+`ppt-mcp` v2.3.0 (github.com/ykuwai/ppt-mcp, 156 tools, live PowerPoint over COM) is installed with `uv tool install ppt-mcp`, binary `C:\Users\<USER>\.local\bin\ppt-mcp.exe`. Update with `uv tool upgrade ppt-mcp`.
 
 Registered as `powerpoint` in all five harnesses on 2026-10-20:
 - Claude Code: `claude mcp add --scope user powerpoint -- <exe>` (stored in `~/.claude.json`)

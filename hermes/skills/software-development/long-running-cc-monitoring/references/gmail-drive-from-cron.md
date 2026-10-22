@@ -33,7 +33,7 @@ The `resultSizeEstimate` field gives the total count (may exceed `maxResults`).
 
 ```python
 import subprocess, json
-gws = r"C:\Users\tukum\AppData\Roaming\npm\gws.cmd"
+gws = r"C:\Users\<USER>\AppData\Roaming\npm\gws.cmd"
 result = subprocess.run(
     [gws, "gmail", "users", "messages", "get", "--params",
      json.dumps({"userId": "me", "id": mid, "format": "full"})],
@@ -199,7 +199,7 @@ gws auth export
 ```python
 import subprocess, json, os
 
-gws = r"C:\Users\tukum\AppData\Roaming\npm\gws.cmd"
+gws = r"C:\Users\<USER>\AppData\Roaming\npm\gws.cmd"
 env = os.environ.copy()
 env.pop("GOOGLE_WORKSPACE_CLI_TOKEN", None)
 
