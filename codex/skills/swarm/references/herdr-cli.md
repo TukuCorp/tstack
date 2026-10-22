@@ -71,9 +71,19 @@ Gotchas:
 - Under `--remote unix://` the agent lives in a shared Codex daemon, so closing its tab does not stop it or unload its thread. Wait for its report and its idle status before closing the tab, then unload the thread (below).
 - Keep the first prompt free of the dollar sign when it passes through PowerShell.
 
+## Available RAM
+
+```bash
+powershell -NoProfile -c "(Get-CimInstance Win32_PerfFormattedData_PerfOS_Memory).AvailableMBytes"
+```
+
+```powershell
+(Get-CimInstance Win32_PerfFormattedData_PerfOS_Memory).AvailableMBytes
+```
+
 ## Unloading finished threads
 
-Closing a tab ends the Codex client process, but the thread stays loaded in the daemon (tested 2026-10-22: still loaded 30 s after the close). `codex archive` unloads it. The thread id is the UUID at the end of the rollout file that holds the lane's goal prompt:
+Closing a tab ends the Codex client process, but the thread stays loaded in the daemon with its MCP servers and tool processes (tested 2026-10-22: still loaded 30 s after the close; the daemon may unload it on its own much later). `codex archive` unloads it at once. The thread id is the UUID at the end of the rollout file that holds the lane's goal prompt:
 
 ```bash
 id=$(grep -rl --include='rollout-*.jsonl' "Read the brief <prefix>-brief-<lane>.md" ~/.codex/sessions \

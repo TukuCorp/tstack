@@ -14,6 +14,169 @@ applies_to: cwd=C:\Users\tukum; reuse_rule=machine-specific; live model IDs, ins
 
 ## User preferences
 
+- when the brief assigned cluster d but the user note mentioned cluster f with no clarification available, the auditor proceeded with cluster d as the brief specified and recorded the f work separately without overwriting
+ - when the brief assigned cluster d but the user note mentioned cluster f with no clarification available, the auditor proceeded with cluster d as the brief specified and recorded the f work separately without overwriting
+- when parallel auditors share the findings folder, the auditor checked LastWriteTime ordering before writing and used a distinct scratch dir on collision
+ - when parallel auditors share the findings folder, the auditor checked LastWriteTime ordering before writing and used a distinct scratch dir on collision
+
+## Reusable knowledge
+
+- Projects holds 8 tech x 28 sites in rows 5-228, MACC holds 84 measure rows 5-88 plus 168 staircase points in P/Q, Next_Phase K maps the max open stage in F/H/J to lab values 0 None 1 Idea 2 Planned 3 Proposals 4 Committed 5 Operating; all 4648 formula cells recomputed clean at default Inputs B6 Whole-site as reported
+ - Projects holds 8 tech x 28 sites in rows 5-228, MACC holds 84 measure rows 5-88 plus 168 staircase points in P/Q, Next_Phase K maps the max open stage in F/H/J to lab values 0 None 1 Idea 2 Planned 3 Proposals 4 Committed 5 Operating; all 4648 formula cells recomputed clean at default Inputs B6 Whole-site as reported
+- Top defects: D-001 only 12 Priority vs TopN 15 because 3 Indonesian DPPA rows hold top-15 ranks but fail the LEFT(F,4) Pass gate; D-002 MACC E electrifies purchased steam at 3 park-steam sites (95,678 t per yr, 31pct of curve); D-003 fuel-switch Pathways Q runs about 50pct above Projects Heat AN (PT Indo Pacific 66k vs 37k)
+ - Top defects: D-001 only 12 Priority vs TopN 15 because 3 Indonesian DPPA rows hold top-15 ranks but fail the LEFT(F,4) Pass gate; D-002 MACC E electrifies purchased steam at 3 park-steam sites (95,678 t per yr, 31pct of curve); D-003 fuel-switch Pathways Q runs about 50pct above Projects Heat AN (PT Indo Pacific 66k vs 37k)
+- Critic verdicts: D-001, D-003, D-006, D-007, D-008 CONFIRMED; D-002, D-004, D-005, D-010, D-011 PARTIAL; D-009 REJECTED; NEW D-C001 Hantex 70pct share outdated (DPPA rank 5 to 11, biomass 8 to 21), D-C002 Inputs F73 over-80pct claim is 61.2pct fossil heat, D-C003 MACC B ungated 4,320.7t at 11 n-a-no-coal sites, D-C004 Yi Da off-list but still Ranked 16
+ - Critic verdicts: D-001, D-003, D-006, D-007, D-008 CONFIRMED; D-002, D-004, D-005, D-010, D-011 PARTIAL; D-009 REJECTED; NEW D-C001 Hantex 70pct share outdated (DPPA rank 5 to 11, biomass 8 to 21), D-C002 Inputs F73 over-80pct claim is 61.2pct fossil heat, D-C003 MACC B ungated 4,320.7t at 11 n-a-no-coal sites, D-C004 Yi Da off-list but still Ranked 16
+
+## Failures and how to do differently
+
+- Loading the workbook with openpyxl twice per script is slow (10-30s per call); build a work-d cache.json (formula plus value for all sheets) once and reuse it via a peek script; do this first on similar audits
+ - Loading the workbook with openpyxl twice per script is slow (10-30s per call); build a work-d cache.json (formula plus value for all sheets) once and reuse it via a peek script; do this first on similar audits
+- Raw R1C1 grouping produced 1044 groups and truncated output; switch to per-column maps plus targeted TSV dumps for usable review
+- apply_patch with escaped quotes broke Python syntax in make_outputs.py; rewrite the file using triple-quoted strings via Delete plus Add instead of Update
+- PowerShell inline python output is flaky; run via cmd redirect to .txt then Get-Content
+ - PowerShell inline python output is flaky; run via cmd redirect to .txt then Get-Content
+
+# Task Group: Gap Stage1 workbook audit cluster e Criteria Rankings plus critic
+
+scope: Audit and critic-audit the v0.8 Gap Stage1 workbook cluster e (Criteria, Readiness, Rankings, Site_Summary, plus Site_Visits) read-only with full recompute plus counterfactuals, writing findings/coverage/summary plus critic verdicts plus .done; use for Gap Stage1 cluster-e lanes.
+applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=workbook version plus sheet ownership plus output paths are audit-run-specific; the never-modify-xlsx plus cache-first plus peer-preservation discipline is reusable wherever an audit brief states it
+applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=workbook version plus sheet ownership plus output paths are audit-run-specific; the never-modify-xlsx plus cache-first plus peer-preservation discipline is reusable wherever an audit brief states it
+
+## Task 1: Cluster-e criteria and rankings auditor run with 14 findings, success
+
+- Related skill: skills/gap-stage1-workbook-audit/SKILL.md
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-55-54-ewpy-gap_stage1_audit_clusters_e_f.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T14-55-56-01a15328-f2ce-71c1-9106-b37e6ac68fd0.jsonl, updated_at=2026-10-19T08:34:32+00:00, thread_id=01a15328-f2ce-71c1-9106-b37e6ac68fd0, e-findings.jsonl E-001 to E-014 plus e-coverage.csv 3160 cells plus e-summary.md)
+
+### keywords
+
+- gap, stage1-workbook-v0.8, cluster-e-audit, Criteria, Readiness, Rankings, Site_Summary, R1C1-norm, e-findings.jsonl
+ - gap, stage1-workbook-v0.8, cluster-e-audit, Criteria, Readiness, Rankings, Site_Summary, R1C1-norm, e-findings.jsonl
+
+## Task 2: Cluster-e auditor run with 15 findings and 4081-cell recompute, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-59-17-idbK-gap_stage1_cluster_e_audit.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T14-59-19-01a1532c-0a1d-7de3-a0b1-1c934dc380fc.jsonl, updated_at=2026-10-19T08:45:35+00:00, thread_id=01a1532c-0a1d-7de3-a0b1-1c934dc380fc, e-findings.jsonl 2 critical 3 high 3 medium 7 low, 4081 plus verified cells, peer outputs preserved in work-e peer dir)
+
+### keywords
+
+- cluster-e-audit, e_recompute, counterfactuals, peer-preservation, work-e-peer, e-findings.jsonl
+
+## Task 3: Cluster-e critic audit with 11 CONFIRMED 4 PARTIAL 2 NEW, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T09-04-43-bBZE-cluster_e_critic_audit_rankings_v08.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T16-04-45-01a15367-f3cb-70d1-aeb4-d6e919b4d4fa.jsonl, updated_at=2026-10-19T09:42:33+00:00, thread_id=01a15367-f3cb-70d1-aeb4-d6e919b4d4fa, 17-line e-critic.jsonl plus 200-word summary plus done markers)
+
+### keywords
+
+- critic-e, e-critic.jsonl, rank-pipeline, cache-json, BOM-strip, w2Y-p1
+ - critic-e, e-critic.jsonl, rank-pipeline, cache-json, BOM-strip, w2Y-p1
+
+## User preferences
+
+- when auditing, the user said to follow the brief exactly with read-only workbook and constrained write locations; default to audit-source plus dump CSVs, findings dir for outputs, work-e dir for scratch
+- on parallel-agent collision over e files, the auditor snapshotted prior files to work-e peer dir before overwriting; preserve peer outputs in a peer dir rather than clobbering on shared-folder collisions
+
+## Reusable knowledge
+
+- Ranking pipeline that reproduces stored values with 0 mismatches: W and I points sums, Y equals W over 18, AK, AM, AO equals AM over 27, sort keys plus O over 1e9 plus row over 1e12, rank via COUNTIF greater; validated against Criteria Y, Z, AK, AL, AO, AP, AQ
+ - Ranking pipeline that reproduces stored values with 0 mismatches: W and I points sums, Y equals W over 18, AK, AM, AO equals AM over 27, sort keys plus O over 1e9 plus row over 1e12, rank via COUNTIF greater; validated against Criteria Y, Z, AK, AL, AO, AP, AQ
+- Confirmed defects: E-001 Change column (19 of 21 F, 12 of 21 R wrong, 0 of 21 AD), E-002 Yi Da still ranked, E-003 Hantex 70 vs 30-40, E-005 De Licacy and Gistex coal baseline vs Heat zeroing; sort-key formula is score plus tCO2 over 1e9 plus row over 1e12 and the Basis switch only scales impact by Gap share
+ - Confirmed defects: E-001 Change column (19 of 21 F, 12 of 21 R wrong, 0 of 21 AD), E-002 Yi Da still ranked, E-003 Hantex 70 vs 30-40, E-005 De Licacy and Gistex coal baseline vs Heat zeroing; sort-key formula is score plus tCO2 over 1e9 plus row over 1e12 and the Basis switch only scales impact by Gap share
+- Critic corrections to auditor claims: E-005 defect is baseline vintage vs heat screen (coal-stop Yes is the documented Log-9 fallback); E-006 blanks are 18 of 28 with 12 ranked (not 11), Sun Duck moves 20 to 12 (not 17); E-007 combined ranks are 16, 17, 20, 21 (not 17, 18, 19, 20); NEW E-C001 GHG-only comparator (Criteria AQ follows Basis switch), E-C002 two 0.2 thresholds hard-coded in Criteria AH and Readiness O5
+ - Critic corrections to auditor claims: E-005 defect is baseline vintage vs heat screen (coal-stop Yes is the documented Log-9 fallback); E-006 blanks are 18 of 28 with 12 ranked (not 11), Sun Duck moves 20 to 12 (not 17); E-007 combined ranks are 16, 17, 20, 21 (not 17, 18, 19, 20); NEW E-C001 GHG-only comparator (Criteria AQ follows Basis switch), E-C002 two 0.2 thresholds hard-coded in Criteria AH and Readiness O5
+- Totals: 2225.7kt covers 21 ranked sites only; Yakjin Intertex vs Yakjin Vietnam are distinct (Higg 14674 vs 566)
+
+## Failures and how to do differently
+
+- inventory.py with read_only True plus Translator stalled after SHEETSTART; use non-read_only loads with a custom norm grouper, or dump CSVs plus a custom grouper instead of Translator
+ - inventory.py with read_only True plus Translator stalled after SHEETSTART; use non-read_only loads with a custom norm grouper, or dump CSVs plus a custom grouper instead of Translator
+- Large grid dumps truncate or return empty and cp1252 breaks on arrow chars; reconfigure stdout to utf-8 with replace, redirect to files, then Get-Content with longer yield; a one-time cache.json dump then fast cached reads beats repeated 30s openpyxl loads
+- PowerShell Set-Content writes a UTF-8 BOM which breaks JSONL loads; rewrite outputs via utf-8-sig read plus utf-8 write and check first bytes; strip BOM for .jsonl and .md outputs
+- diff_log.py on full log workbooks needs 60s yield plus write_stdin polling or output appears empty
+- Wrong relative work-e-critic path and the dollar-c literal filename confusion; use absolute -LiteralPath and handle both e-critic.done and findings dollar-c.done
+- Wrong relative work-e-critic path and the $c literal filename confusion; use absolute -LiteralPath and handle both e-critic.done and findings$c.done
+ - Wrong relative work-e-critic path and the $c literal filename confusion; use absolute -LiteralPath and handle both e-critic.done and findings$c.done
+
+# Task Group: Gap Stage1 workbook cluster f prior-work reconciliation audit plus critic
+
+scope: Reconcile the v0.8 Gap Stage1 workbook against prior work (Oct 5 deck, Cong criteria deck, clarification log, financing report) read-only, siding each mismatch, writing f-findings/coverage/summary plus critic verdicts plus .done; use for Gap Stage1 cluster-f lanes.
+applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=workbook version plus prior-work source set plus output paths are audit-run-specific; the never-modify-xlsx plus sided-verdicts plus DONE-severity-count discipline is reusable wherever a reconciliation brief states it
+applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=workbook version plus prior-work source set plus output paths are audit-run-specific; the never-modify-xlsx plus sided-verdicts plus DONE-severity-count discipline is reusable wherever a reconciliation brief states it
+
+## Task 1: Cluster-f prior-work reconciliation auditor run with 15 findings, success
+
+- Related skill: skills/gap-stage1-workbook-audit/SKILL.md
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-55-53-z2GJ-gap_stage1_cluster_f_prior_work_audit.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T14-55-54-01a15328-ed85-7c92-a9b5-5971ed6a9919.jsonl, updated_at=2026-10-19T08:37:49+00:00, thread_id=01a15328-ed85-7c92-a9b5-5971ed6a9919, f-findings.jsonl 1 critical 3 high 6 medium 5 low plus f-coverage.csv 89 rows plus f-summary.md 386 words)
+
+### keywords
+
+- gap, stage1-workbook-v0.8, cluster-f-audit, prior-work-reconciliation, Hantex-share, Yi-Da, DPPA-200k, capex, f-findings.jsonl
+ - gap, stage1-workbook-v0.8, cluster-f-audit, prior-work-reconciliation, Hantex-share, Yi-Da, DPPA-200k, capex, f-findings.jsonl
+
+## Task 2: Cluster-f reconciliation auditor run with 16 findings, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-55-54-ewpy-gap_stage1_audit_clusters_e_f.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T14-55-56-01a15328-f2ce-71c1-9106-b37e6ac68fd0.jsonl, updated_at=2026-10-19T08:34:32+00:00, thread_id=01a15328-f2ce-71c1-9106-b37e6ac68fd0, f-findings.jsonl F-001 to F-016 plus f-coverage.csv 67 points plus f-summary.md 365 words)
+
+### keywords
+
+- cluster-f-reconciliation, sided-verdicts, log-1896, deck-2194, v08-2225, financing-typo
+
+## Task 3: Cluster-f partial auditor run, findings not yet written, partial
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T08-02-33-WuzB-gap_stage1_cluster_f_prior_work_reconciliation.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T15-02-34-01a1532f-07e0-7af1-aba9-2c5a797df7d7.jsonl, updated_at=2026-10-19T08:38:02+00:00, thread_id=01a1532f-07e0-7af1-aba9-2c5a797df7d7, extraction plus reconciliation scripts done, findings files plus findings marker still to write, do not claim completion)
+
+### keywords
+
+- cluster-f-partial, extraction-scripts, recon_log, dppa-count, no-claim-without-findings
+ - cluster-f-partial, extraction-scripts, recon_log, dppa-count, no-claim-without-findings
+
+## Task 4: Cluster-f critic audit with 7 CONFIRMED 8 PARTIAL 1 NEW, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T08-40-37-Y1yV-f_critic_prior_work_reconciliation.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T15-40-38-01a15351-e0e5-7321-84df-cd03da652109.jsonl, updated_at=2026-10-19T09:48:57+00:00, thread_id=01a15351-e0e5-7321-84df-cd03da652109, 16-line f-critic.jsonl plus 198-word summary plus f-critic.done)
+
+### keywords
+
+- critic-f, f-critic.jsonl, Hantex-sensitivity, DPPA-count, capex-flows, C-C001
+
+## User preferences
+
+- when auditing v0.8, the user said to follow the brief hard rules without deviation and reply DONE plus severity counts; default to read-only v0.8-audit-source plus dump CSVs with sha256 verify on similar runs
+ - when auditing v0.8, the user said to follow the brief hard rules without deviation and reply DONE plus severity counts; default to read-only v0.8-audit-source plus dump CSVs with sha256 verify on similar runs
+- a concurrent second cluster-f writer overwrote the same findings paths mid-run, so the auditor rewrote a consistent set and warned in the final message; on shared-folder collision rewrite plus re-validate and note the conflict, consider locking or a separate work dir
+
+## Reusable knowledge
+
+- Portfolio bridge: v0.8 Baseline AB33 2225.7447 vs 12 Oct log total 1896.4912 reconciles as plus 124.82 part-year annualisation (Hantex, Far Eastern, Vinatex) plus 14.60 unit fixes plus 189.65 new 2026 sites (Indo Pacific 101.21, Win Textile 88.44); minus Yi Da 31.389 equals 2194.36 deck figure; biogenic 708.02kt (31.81pct) vs deck 658 vs log 573.4
+ - Portfolio bridge: v0.8 Baseline AB33 2225.7447 vs 12 Oct log total 1896.4912 reconciles as plus 124.82 part-year annualisation (Hantex, Far Eastern, Vinatex) plus 14.60 unit fixes plus 189.65 new 2026 sites (Indo Pacific 101.21, Win Textile 88.44); minus Yi Da 31.389 equals 2194.36 deck figure; biogenic 708.02kt (31.81pct) vs deck 658 vs log 573.4
+- Binding Gap decisions confirmed: Hantex 30-40pct (not 70), Yi Da off list, DPPA 200k per month, Yakjin Intertex vs Yakjin Vietnam distinct (Higg 14674 vs 566, no numeric double-count)
+- DPPA gate: 14 of 15 Pass in v0.8 (only Sun Duck Vina fails at 162657 kWh per mo) vs 13 of 15 in deck; financial capacity is scored in v0.8 though the deck says not scored
+ - DPPA gate: 14 of 15 Pass in v0.8 (only Sun Duck Vina fails at 162657 kWh per mo) vs 13 of 15 in deck; financial capacity is scored in v0.8 though the deck says not scored
+- Capex mismatches: heat-pump 750 central vs 1500-4000 floor, BESS 280 vs 117, electric boiler 100, 250, 600 vs EUR 100-200; heat-capex-benchmarks.md is missing repo-wide, so cite the financing report instead and flag the absent source
+- Critic verdicts: 7 CONFIRMED, 8 PARTIAL, 1 NEW (F-C001); deck 658kt equals 0.30 times 2194 vs true 687.27kt; combined AM and AN already subtracts fin, readiness, group so combined is fin-neutral while electricity and heat scores still include fin; BESS capex reaches no scored cell (all G equals 0, no MACC rows, Criteria uses PV capex col R); log H18 and H19 hardcoded 0.0 vs FDM 12.7258 and 14.1140kt
+ - Critic verdicts: 7 CONFIRMED, 8 PARTIAL, 1 NEW (F-C001); deck 658kt equals 0.30 times 2194 vs true 687.27kt; combined AM and AN already subtracts fin, readiness, group so combined is fin-neutral while electricity and heat scores still include fin; BESS capex reaches no scored cell (all G equals 0, no MACC rows, Criteria uses PV capex col R); log H18 and H19 hardcoded 0.0 vs FDM 12.7258 and 14.1140kt
+
+## Failures and how to do differently
+
+- pptx extraction hits cp1252 UnicodeEncodeError on subscript-2 and arrow chars; write UTF-8 files, set PYTHONIOENCODING or stdout reconfigure with errors replace, run python -I
+- Large CSV selections time out; use narrow scripts with yield_time_ms and DictReader row ranges
+- Column-letter slips (AN vs AO, Ha Phong row9 vs row21) give wrong-site cites; dump header row4 plus a ci() column-index map first
+- Never claim completion when findings files are not yet written
+
 - when asked to fix stale lists, the user said: "just make sure model list up to date" -> refresh caches directly with backup plus verify, defer binary upgrades without approval [Task 1]
 - when the fix did not show, the user said: "not seeing the updated model list" and "still seeing space bunny dude" and "right here man codex cli using opencodex to have opncode go models" -> disambiguate which surface is stale (opencode TUI picker vs opencode models vs shortcut list-models vs Codex-via-opencodex :10100) before assuming which cache to fix [Task 1]
 - inferred standing rule referenced in rollout: confirm scope and rollback before installing or upgrading system software (opencodex and @opencode/cli upgrades deferred for user approval) [Task 1]
@@ -404,9 +567,49 @@ applies_to: cwd=C:\Users\tukum\Downloads\rom-hack\leap-rs; reuse_rule=checkout-s
 - Shell quoting failures with python -c regex -> pivoted to base64 file writes which worked throughout; test syntax errors (let-else tuple, semicolon vs comma separators, mut closure) fixed via fix scripts [Task 1]
 - heap::memos wide-only misread narrow RTF -> fixed by raw record_bytes plus content sniff in blobs [Task 1]
 
+# Task Group: Gap Stage1 workbook audit cluster d Projects MACC Next_Phase plus critic
+
+scope: Audit and critic-audit the v0.8 Gap Stage1 workbook cluster d (Projects, MACC, Next_Phase) read-only with full recompute, writing findings/coverage/summary plus critic verdicts plus .done; use for Gap Stage1 cluster-d lanes.
+applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=workbook version plus sheet ownership plus output paths are audit-run-specific; the never-modify-xlsx plus cache-first plus DONE-severity-count discipline is reusable wherever an audit brief states it
+
+## Task 1: Cluster-d Projects MACC Next_Phase auditor run with 11 findings, success
+
+- Related skill: skills/gap-stage1-workbook-audit/SKILL.md
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-55-01-OFOa-gap_stage1_cluster_d_audit.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T14-55-04-01a15328-21c8-7f23-8051-01d38be0621a.jsonl, updated_at=2026-10-19T08:38:02+00:00, thread_id=01a15328-21c8-7f23-8051-01d38be0621a, 11 findings: 1 critical 2 high 3 medium 5 low, 4648 formula cells recomputed clean)
+
+### keywords
+
+- gap, stage1-workbook-v0.8, cluster-d-audit, Projects, MACC, Next_Phase, openpyxl, cache-json, d-findings.jsonl, DONE-severity-count
+
+## Task 2: Independent cluster-f reconciliation check without overwriting peer files, partial
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-55-01-OFOa-gap_stage1_cluster_d_audit.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T14-55-04-01a15328-21c8-7f23-8051-01d38be0621a.jsonl, updated_at=2026-10-19T08:38:02+00:00, thread_id=01a15328-21c8-7f23-8051-01d38be0621a, work-d/f-reconciliation-notes.md plus work-d/f-recon scratch copy, no f-findings overwrite)
+
+### keywords
+
+- cluster-f-reconciliation, concurrent-auditor, LastWriteTime, f-recon, no-overwrite
+
+## Task 3: Cluster-d critic audit with 5 CONFIRMED 5 PARTIAL 1 REJECTED 4 NEW, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T08-41-14-BHnL-gap_stage1_cluster_d_critic.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T15-41-15-01a15352-725e-7460-8972-073073081165.jsonl, updated_at=2026-10-19T09:55:22+00:00, thread_id=01a15352-725e-7460-8972-073073081165, 15-line d-critic.jsonl plus 181-word summary plus d-critic.done)
+
+### keywords
+
+- critic-d, d-findings.jsonl, d-critic.jsonl, Projects-tier, MACC-staircase, Next_Phase-K, w2Y-p1
+
+## User preferences
+
+scope: Audit and critic-audit the v0.8 Gap Stage1 workbook cluster b (Heat, Pathways, Site_Pathways, Pathway_Charts) read-only with full recompute, writing findings/coverage/summary plus critic verdicts plus .done, then notify once via herdr; use for Gap Stage1 cluster-b lanes.
 # Task Group: Gap Stage1 workbook audit cluster b Heat Pathways critic (critic-b)
 
-scope: Independently reproduce all 14 cluster-b findings (Heat, Pathways, Site_Pathways, Pathway_Charts) read-only per CRITIC-BRIEF.md and write b-critic.jsonl plus summary plus .done, then notify once via herdr; use for Gap Stage1 critic lanes.
+scope: Audit and critic-audit the v0.8 Gap Stage1 workbook cluster b (Heat, Pathways, Site_Pathways, Pathway_Charts) read-only with full recompute, writing findings/coverage/summary plus critic verdicts plus .done, then notify once via herdr; use for Gap Stage1 cluster-b lanes.
 applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=review\audit paths plus w2Y:p1 handoff are lane-specific; the never-modify-xlsx plus dump-CSVs plus utf-8 plus notify-last discipline is reusable wherever a critic brief states it
 
 ## Task 1: Critic verification of cluster-b findings, 7 CONFIRMED 7 PARTIAL 0 REJECTED 3 NEW, success
@@ -417,12 +620,25 @@ applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=review\audit paths 
 
 ### keywords
 
-- critic-b, CRITIC-BRIEF.md, b-findings.jsonl, b-critic.jsonl, b-critic.done, Heat U-BB, Pathways AF, FDM coal, Criteria rank, MACC, Pathway_Charts, w2Y:p1
+ - critic-b, CRITIC-BRIEF.md, b-findings.jsonl, b-critic.jsonl, b-critic.done, Heat U-BB, Pathways AF, FDM coal, Criteria rank, MACC, Pathway_Charts, w2Y:p1
+
+## Task 2: Cluster-b Heat Pathways auditor run with 14 findings, success
+
+- Related skill: skills/gap-stage1-workbook-audit/SKILL.md
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-54-19-EUYx-cluster_b_heat_pathways_audit_v08.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T14-54-20-01a15327-7ec5-7851-84c5-6dfbe592be89.jsonl, updated_at=2026-10-19T08:35:30+00:00, thread_id=01a15327-7ec5-7851-84c5-6dfbe592be89, 14 findings: 1 high 7 medium 6 low, 3272 cells recomputed with 0 Heat diffs)
+
+### keywords
+
+- gap, stage1-workbook-v0.8, cluster-b-audit, Heat, Pathways, Site_Pathways, Pathway_Charts, openpyxl, BoilerEff, b-findings.jsonl, DONE-severity-count
 
 ## User preferences
 
 - when auditing, the user required exact brief compliance: Read CRITIC-BRIEF.md in full and follow it exactly, Never modify any xlsx, create empty b-critic.done as the very last step -> for similar critic lanes default to read-only audit-source plus dump CSVs plus python -I plus utf-8, writing only inside review\audit [Task 1]
-- when finishing, the user required as final shell action herdr agent prompt w2Y:p1 critic-b finished: <counts> without --wait then stop -> treat notification as the terminal step after .done [Task 1]
+ - when finishing, the user required as final shell action herdr agent prompt w2Y:p1 critic-b finished: <counts> without --wait then stop -> treat notification as the terminal step after .done [Task 1]
+- when finishing an auditor run, the user said: reply DONE plus a one-line count of findings by severity -> end auditor runs with DONE plus the critical/high/medium/low counts and no extra prose [Task 2]
 
 ## Reusable knowledge
 
@@ -431,12 +647,14 @@ applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=review\audit paths 
 - Recomputed all Heat U-BB from raw Baseline and Inputs with 0.0pct error and verified Pathways formulas, FDM coal months for De Licacy and Gistex, Criteria rank model, and MACC plus chart sources; charts verified: Pathway_Charts B6:B9 match SUMPRODUCT, 4 bar charts plus 21 Site_Pathways charts plus MACC scatter P5:P172/Q5:Q172 all correct [Task 1]
 - Portfolio J sum 795011t with Kahatex 61.2pct not >80pct; steam sites E abatement 95678t (26361+39229+30088); Heat U25=606.649 vs Baseline AF25=21.237326kt (36x); final files b-critic.jsonl 18609B, b-critic-summary.md 1210B, b-critic.done 0B, hashes 5bd2255a...3912 unchanged [Task 1]
 - Harness that worked: work-b-critic workdir with wb.py books loader (openpyxl data_only False and True) plus ~20 verification scripts c01-c48; read AUDIT-BRIEF.md plus b-findings.jsonl plus README/Data_Sources/Data_Issues/Inputs dumps first [Task 1]
+- Cluster-b auditor inputs that drive the outputs [Task 2]: Inputs constants BoilerEff 0.8, OpHours 6000, TPH_per_MW 1.42857, LT_Share 0.3, HP_COP 3, EB_Eff 0.99, Eff_Save 0.1, SteamGate 0.9, CoalThr 0.2, OFThr 0.2, BioThr 0.5, OF_BoilerShare 0.5, PV_ShareHeat 0.2, DiscRate 0.1 with grid factors VN 0.508 ID 0.777; top auditor findings B-001 coal-stop zeroing in Heat U, B-002 purchased steam through BoilerEff, B-003 C/D electrifying non-site steam, B-004 AN vs Q scope gap
 
 ## Failures and how to do differently
 
 - Exec and sys.path flakiness caused empty outputs -> pin the workdir and use yield_time_ms plus file-redirect pattern [Task 1]
 - Early rank-sensitivity script had a tie-break bug overstating shifts -> corrected to AI/AJ plus AA/1e9 plus row/1e12 and validated stored AL/AP match [Task 1]
 - apply_patch key-name mismatches -> fix via Select-String lookup [Task 1]
+- Auditor-run shields [Task 2]: shell redirection writes UTF-16 with BOM so have Python write output files with encoding=utf-8 directly; treat Pathways AU negatives as presentation (formula returns stored negative when AQ negative) not recompute errors; rerun single-file dumps sequentially on missing-file races
 
 # Task Group: leap-rs evaluator and resolver port, round-3 entry point, base-year override, and share pin
 scope: Port the LEAP expression evaluator and resolver in leap-rs (series grammar, resolve.rs, eval.rs growth family plus round-3 entry point, Interp/Step base-year override, Million/Billion/BaselineValue, 861/1009 share pin); use when touching src/expr.rs, src/resolve.rs, src/eval.rs, or evaluator goldens.
@@ -596,7 +814,7 @@ applies_to: cwd=C:\Users\tukum\Downloads\remote\personal\inlaw-health\stroke-doc
 - Stale round-2 goldens had to be corrected to override values (48 at 2027 28->27.1, 244 at 2027 400->970/3) [Task 2]
 
 # Task Group: Gap Stage1 workbook audit cluster a data plus baseline critic
-scope: Critic-audit the v0.8 Gap Stage1 workbook cluster-a data/baseline findings read-only with full Baseline recompute plus rank validation plus scenario sensitivity; use when critic-auditing Stage1 clusters or writing a-critic outputs.
+scope: Audit and critic-audit the v0.8 Gap Stage1 workbook cluster-a data/baseline findings read-only with full Baseline recompute plus rank validation plus scenario sensitivity; use when auditing or critic-auditing Stage1 clusters or writing a-findings/a-critic outputs.
 applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=workbook version plus cluster ownership plus output paths are audit-run-specific; the never-modify-xlsx plus recompute-every-cell plus herdr-notify-last discipline is reusable wherever a critic brief states it
 
 ## Task 1: Critic-a audit of 14 cluster-a findings with 7 CONFIRMED 7 PARTIAL 1 NEW, success
@@ -609,10 +827,24 @@ applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=workbook version pl
 
 - critic-a, a-findings.jsonl, a-critic.jsonl, Baseline recompute, FDM_Monthly, AO AP AQ AR ranks, Yi Da exclusion, Far Eastern, national-grid factor, steam EF, Higg, openpyxl, data_only, utf-8 stdout
 
+## Task 2: Cluster-a data and baseline auditor run with 14 findings, success
+
+- Related skill: skills/gap-stage1-workbook-audit/SKILL.md
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-52-27-nzXf-gap_stage1_cluster_a_baseline_audit.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T14-52-28-01a15325-c9c2-7601-b357-3ce903dba06d.jsonl, updated_at=2026-10-19T08:59:49+00:00, thread_id=01a15325-c9c2-7601-b357-3ce903dba06d, 14 findings: 2 critical 4 high 4 medium 4 low, all 1283 Baseline cells recomputed with 0 mismatches)
+
+### keywords
+
+- gap, stage1-workbook-v0.8, cluster-a-audit, FDM_Monthly, Supplier_Master, Baseline, annualisation, Hantex, Yi-Da, a-findings.jsonl, openpyxl
+
 ## User preferences
 
 - when the brief path has a mangled placeholder (findings$c-findings.jsonl) -> list the findings dir to resolve the real cluster file rather than stopping [Task 1]
 - when commissioned as critic, the brief required never modifying the xlsx and notifying via herdr without --wait as the very last action -> write a-critic.jsonl plus summary plus .done, validate JSONL, then notify [Task 1]
+ - when commissioned as critic, the brief required never modifying the xlsx and notifying via herdr without --wait as the very last action -> write a-critic.jsonl plus summary plus .done, validate JSONL, then notify [Task 1]
+- when finishing an auditor run, the user said: reply DONE plus a one-line count of findings by severity -> end auditor runs with DONE plus the critical/high/medium/low counts and no extra prose [Task 2]
 
 ## Reusable knowledge
 
@@ -621,14 +853,16 @@ applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=workbook version pl
 - Far Eastern: 2025x12=74.075 kt rank5, 2026 raw=30.309 kt rank16 vs stored 90.928 rank4; national factor AB33 2276.196 (+50.45) with 6 rank moves as claimed [Task 1]
 - Beijiang D12 256k vs median 9.585M (~1/37); steam EF Beijiang 0.0953 identical to coal 95.3 t/TJ; Vinatex K316/K317 steam 0 on 58.76 TJ (~6.69 kt at 0.1139); Gistex coal months 1-5, De Licacy 1-9 in 2025; Yakjin Intertex Higg14674 vs Yakjin Vietnam Higg566 distinct; Q32 has 2 unlabelled fuels summing 100.01% [Task 1]
 - New A-C001: Top Sports H23 0.211568 vs site 30%, at 0.30 AI 8.175->11.592 AQ 12->10 [Task 1]
+- Auditor-run totals bridge [Task 2]: 1897.00 kt (19 sites 2025 as-filed) plus 14.46 x1000 fixes plus 124.81 annualisation (Far Eastern 84.75, Vinatex 31.94, Hantex 8.12) plus 189.65 newly ranked 2026 sites (Indo Pacific 101.21, Win Textile 88.44) equals 2225.745 AB33; minus Yi Da 31.389 equals 2194.36 deck figure; binding departures are Hantex 0.7 vs agreed 30-40 percent and Yi Da still Ranked
 
 ## Failures and how to do differently
 
 - Empty stdout from verify scripts under default timeout/encoding -> force utf-8 stdout and 30s yield; read openpyxl with data_only False plus True [Task 1]
 - apply_patch hunk error on verify3 -> wrote the file via PowerShell here-string plus Set-Content [Task 1]
+- Auditor-run shields [Task 2]: the R1C1 converter mangles defined names like MinM25, so protect defined names longest-first before CELL regex; PowerShell plus python -I output breaks on Unicode subscripts, so set PYTHONIOENCODING=utf-8 and redirect to .out files then Get-Content
 
 # Task Group: Gap Stage1 workbook audit cluster c Rooftop plus Electricity
-scope: Audit the v0.8 Gap Stage1 prioritisation workbook cluster c (Rooftop plus Electricity sheets) read-only from audit-source dumps with full recompute plus scenario sensitivity; use when auditing Stage1 clusters or writing findings/coverage/summary outputs.
+scope: Audit and critic-audit the v0.8 Gap Stage1 prioritisation workbook cluster c (Rooftop plus Electricity sheets) read-only from audit-source dumps with full recompute plus scenario sensitivity; use when auditing or critic-auditing Stage1 clusters or writing findings/coverage/summary plus critic outputs.
 applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=workbook version plus sheet ownership plus output paths are audit-run-specific; the never-modify-xlsx plus recompute-every-cell plus DONE-severity-count discipline is reusable wherever an audit brief states it
 
 ## Task 1: Cluster c Rooftop and Electricity audit with 9 findings, success
@@ -641,10 +875,24 @@ applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=workbook version pl
 
 - gap, stage1-workbook, v0.8-audit-source, Rooftop, Electricity, openpyxl, DPPA, Yi-Da, existing-PV, audit-findings, c-findings.jsonl, recompute
 
+## Task 2: Cluster-c critic verification with 6 CONFIRMED 3 PARTIAL 1 NEW, success
+
+- Related skill: skills/gap-stage1-workbook-audit/SKILL.md
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T08-21-30-hWzM-gap_stage1_critic_cluster_c_rooftop_electricity.md (cwd=C:\Users\tukum\Downloads\ee-heat, rollout_path=C:\Users\tukum\.codex\sessions\2026\10\19\rollout-2026-10-19T15-21-31-01a15340-6020-7d63-b9dc-9a611b8ecbfa.jsonl, updated_at=2026-10-19T09:59:07+00:00, thread_id=01a15340-6020-7d63-b9dc-9a611b8ecbfa, 10-line c-critic.jsonl plus 178-word summary plus c-critic.done, xlsx hash unchanged)
+
+### keywords
+
+- critic-c, c-findings.jsonl, c-critic.jsonl, recompute_c, Rooftop-scenarios, Electricity-ranks, w2Y-p1
+
 ## User preferences
 
 - when the brief path had a typo (AUDITw-BRIEF.md), the user expected exact brief compliance -> fuzzy-find the brief on miss (Get-ChildItem *BRIEF*) rather than stopping [Task 1]
 - when commissioning an audit, the user required three output files in findings/ plus scratch in work-c/ and a final DONE plus one-line severity count -> deliver c-findings.jsonl plus c-coverage.csv plus c-summary.md and reply DONE with the critical/high/medium/low counts [Task 1]
+ - when commissioning an audit, the user required three output files in findings/ plus scratch in work-c/ and a final DONE plus one-line severity count -> deliver c-findings.jsonl plus c-coverage.csv plus c-summary.md and reply DONE with the critical/high/medium/low counts [Task 1]
+- when working as critic, the user required exact brief adherence plus read-only xlsx plus an empty .done file as the very last step plus a herdr agent prompt to w2Y:p1 with actual verdict counts without --wait then stop -> verify the hash, create c-critic.done last, and notify with true counts [Task 2]
 
 ## Reusable knowledge
 
@@ -654,11 +902,13 @@ applies_to: cwd=C:\Users\tukum\Downloads\ee-heat; reuse_rule=workbook version pl
 - Binding decisions checked: Yi Da off-list (violated), DPPA 200k kWh/mo, Yakjin double-count check; PV/BESS capex are placeholders (Inputs B26-28) [Task 1]
 - Do not verify without GIS: roof areas/coords, site yields, C&T 2026 boundary, Hantex/Top Sports plan commitment [Task 1]
 - R1C1 grouping split Rooftop M/Q/R/S into per-row groups through absolute refs and was not useful -> rely on recompute plus manual formula review instead [Task 1]
+- Critic verdicts [Task 2]: 6 CONFIRMED (C-001, C-004, C-005, C-006, C-007, C-008), 3 PARTIAL (C-002 Jasan AA 8536.6 to 6820.7 with rank 2 to 4, C-003 Indonesia tranche handling, C-009 placeholders), 0 REJECTED, 1 NEW (C-C001 duplicate 35000m2 eye-estimate Daehan/Win; Win 340x110 is 37400, plus 9.8pct PV); all Rooftop plus Electricity formulas recomputed from Baseline L/M and Supplier_Master N with 644 checks and 0 mismatches
 
 ## Failures and how to do differently
 
 - Initial Get-Content on AUDITw-BRIEF.md failed (ObjectNotFound) -> use Get-ChildItem *BRIEF* to locate AUDIT-BRIEF.md [Task 1]
 - First roof-cap scenario mixed MWh/MW units -> use volume Y with MIN(D,O+Y)*EF [Task 1]
+- Critic-run shields [Task 2]: console encoding failures (cp1252 subscript, UTF-16 Out-File) need python stdout utf-8 replace plus file redirect; a full cost-chain reimplementation diverges, so recompute only O to P to W/Y/rank from stored values; verify each cell formula plus value with a show script before scenario use after a column-index slip (Electricity D vs L)
 
 # Task Group: leap-rs NX1 records engine rule, 8KiB pages, blob framing, eval subset, and stride-rule verdict
 scope: Implement the NX1 record-size engine rule with measured strides, 8KiB page tiling, memo framing, and a tested eval subset in leap-rs, then test whether a universal stride rule replaces the measured values; use when touching records.rs, the capture tool, oracle regeneration, or NX1 sweep tests.
