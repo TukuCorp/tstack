@@ -1,4 +1,4 @@
-model = "opencode-go/minimax-m3.1-flash"
+model = "opencode-go/beam-free"
 model_reasoning_effort = "medium"
 approval_policy = "never"
 approvals_reviewer = "user"
@@ -282,15 +282,6 @@ FIRECRAWL_API_KEY = "<REDACTED>"
 [mcp_servers.officecli]
 command = 'C:\Users\<USER>\AppData\Roaming\npm\node_modules\@officecli\officecli\vendor\officecli.exe'
 args = ["mcp"]
-
-[mcp_servers.ghidra_mcp]
-command = 'C:\Users\<USER>\AppData\Local\hermes\bin\uv.EXE'
-args = ["run", "--directory", 'C:\Users\<USER>\Downloads\rom-hack\ghidra-mcp', "bridge-mcp-ghidra", "--transport", "stdio"]
-startup_timeout_sec = 120.0
-
-[mcp_servers.ghidra_mcp.env]
-GHIDRA_MCP_URL = "<REDACTED>"
-PYTHONIOENCODING = "<REDACTED>"
 
 [mcp_servers.powerpoint]
 command = 'C:\Users\<USER>\.local\bin\ppt-mcp.exe'

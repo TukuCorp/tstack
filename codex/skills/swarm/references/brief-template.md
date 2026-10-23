@@ -24,7 +24,7 @@ Context: <who the work is for, in two or three sentences>. Another agent (`<othe
 2. No personal contact details of private individuals. A business hotline or domain is allowed as an identifier.
 3. Search and read sources in <language> first. Write findings in <language> (headers may be English).
 4. UTF-8 for all files; in Python pass encoding="utf-8" and reconfigure stdout. Avoid the dollar sign in shell text.
-5. Be economical with memory: no dozens of browser tabs; fetch with scripts and keep only the fields you need.
+5. No dozens of browser tabs; fetch with scripts and keep only the fields you need.
 
 ## Output
 `<prefix>-<lane>.md`: Method and evidence limits; Candidate table (fields, labels, URL, date); Scores and ranking; <extra sections>; What the sources agree on (5 bullets); Where sources conflict or are thin; Sources (numbered).

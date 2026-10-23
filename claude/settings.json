@@ -120,7 +120,7 @@
   "autoUpdatesChannel": "latest",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "autoContinueAtUsageLimit": true,
+  "autoContinueAtUsageLimit": false,
   "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
   "autoMode": {
