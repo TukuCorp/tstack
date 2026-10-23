@@ -88,6 +88,21 @@ if (Have herdr) {
     }
 } else { Write-Host '    herdr missing; skipped' -ForegroundColor Red }
 
+Step 'wiki (private TukuCorp/wiki -> ~/wiki)'
+# Agent memory lives there, not here: tstack is public
+$WikiDir = "$HOME\wiki"
+$ghAuthed = (Have gh) -and (& { $ErrorActionPreference = 'Continue'; gh auth status *> $null; $LASTEXITCODE -eq 0 })
+if (Test-Path "$WikiDir\.git") { Write-Host '    ok: clone' }
+elseif ($ghAuthed) { Run 'gh repo clone TukuCorp/wiki ~/wiki' { gh repo clone TukuCorp/wiki $WikiDir } }
+else { Write-Host '    gh not signed in; after gh auth login, re-run bootstrap' -ForegroundColor Yellow }
+if ((Test-Path "$WikiDir\.git") -and (Have python)) {
+    $collectArgs = @("$WikiDir\scripts\collect.py", '--restore')
+    if ($DryRun) { $collectArgs += '--dry-run' }
+    python @collectArgs  # fills empty Claude/Codex/Hermes memory stores only
+    if (Get-ScheduledTask -TaskName 'wiki-sync' -ErrorAction SilentlyContinue) { Write-Host '    ok: wiki-sync task' }
+    else { Run 'register wiki-sync task' { & "$WikiDir\scripts\install-task.ps1" } }
+}
+
 Step 'user environment'
 # chrome-devtools-axi attaches to my everyday (signed-in) Chrome instead of launching its own
 $UserEnv = @{ CHROME_DEVTOOLS_AXI_AUTO_CONNECT = '1' }

@@ -33,7 +33,7 @@ SOURCES = [
     (".claude/skills", "claude/skills", "tree"),
     (".claude/settings.json", "claude/settings.json", "json"),
     (".claude.json", "claude/mcp-servers.json", "mcp"),
-    (".claude/projects/C--Users-tukum/memory", "claude/memory", "tree"),
+    # Claude memory is not mirrored: it names clients and accounts; the private wiki repo keeps it (raw/claude-memory)
     (".codex/AGENTS.md", "codex/AGENTS.md", "file"),
     (".codex/agents", "codex/agents", "tree"),
     (".codex/skills", "codex/skills", "tree"),
@@ -57,6 +57,7 @@ SOURCES = [
     (".hermes/skills", "hermes/skills", "tree"),
     (".hermes/scripts", "hermes/scripts", "tree"),
     (".hermes/cron", "hermes/cron", "tree"),
+    (".omp/agent/AGENTS.md", "omp/AGENTS.md", "file"),
     (".omp/agent/config.yml", "omp/config.yml", "config"),
     (".omp/agent/extensions", "omp/extensions", "tree"),
     (".omp/agent/skills", "omp/skills", "tree"),
@@ -77,7 +78,7 @@ UV_TOOLS = "AppData/Roaming/uv/tools"
 # Hermes reads skills from %LOCALAPPDATA%/hermes/skills. Only these workflow categories are
 # published; personal ones (baby, personal, climate-finance, ...) stay private.
 HERMES_SKILLS = "AppData/Local/hermes/skills"
-HERMES_CATEGORIES = ["software-development", "opencode", "research", "engineering", "gloop", "unslop"]
+HERMES_CATEGORIES = ["software-development", "opencode", "research", "engineering", "gloop", "unslop", "personal-wiki"]
 HERMES_THIRD_PARTY = {"blogwatcher", "polymarket", "research-paper-writing", "rss-feeds"}
 
 # claude.ai-synced skills live under skills/synced/<org>/; only my own are mirrored.

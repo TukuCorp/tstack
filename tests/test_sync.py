@@ -149,3 +149,9 @@ class ScanTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PrivacyTests(unittest.TestCase):
+    def test_claude_memory_is_not_published(self):
+        # Memory moved to the private wiki repo (raw/claude-memory); this repo is public
+        self.assertFalse([s for s, _, _ in sync.SOURCES if "/memory" in s])

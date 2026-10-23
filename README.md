@@ -27,6 +27,7 @@ live files, so edit skills where the tool reads them and let the sync pick them 
 - Email addresses → `<EMAIL>`; names and IDs listed in a private, gitignored redaction map → placeholders.
 - The Windows username in paths → `C:\Users\<USER>` (restored to the new machine's username).
 - Anthropic-authored skills synced from claude.ai (not mine to redistribute).
+- Agent memory (Claude, Codex, Hermes): it names clients and accounts, so it lives in the private wiki repo.
 
 Before anything is committed, every file is scanned for secret shapes (API keys, GitHub/Slack/AWS/Google
 tokens, JWTs, private keys). Any hit aborts the run.
@@ -59,6 +60,8 @@ powershell -ExecutionPolicy Bypass -File bootstrap.ps1
 3. **Global packages** from `machine/packages.json` (npm, bun → omp, uv tools).
 4. **Configs** via `restore.py` (below).
 5. **herdr plugins** from `herdr/plugins.json`, pinned to the mirrored commit.
+6. **Wiki**: clones the private `TukuCorp/wiki` to `~/wiki` once `gh` is signed in, restores the
+   Claude/Codex/Hermes memory stores from it when they are empty, and registers its daily `wiki-sync` task.
 
 Then sign in to each tool and fill the values `restore.py` listed.
 

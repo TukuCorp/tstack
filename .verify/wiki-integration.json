@@ -1,0 +1,103 @@
+{
+  "task": "Move agent memory out of public tstack into private TukuCorp/wiki (collect.py mirror/restore), mirror omp AGENTS.md and the Hermes personal-wiki skill, add a bootstrap wiki step and Personal Wiki rules in every harness",
+  "claims": [
+    {
+      "id": "privacy-test-guards-memory",
+      "claim": "tests/test_sync.py PrivacyTests guards that sync.py does not mirror Claude memory, and fails on base",
+      "run": "python -m unittest discover -s tests -p test_sync.py -k PrivacyTests -v",
+      "expect_exit": 0,
+      "expect_output": "test_claude_memory_is_not_published.*ok",
+      "timeout": 300,
+      "fails_on_base": true,
+      "base_fail_pattern": "FAIL: test_claude_memory_is_not_published"
+    },
+    {
+      "id": "sync-removes-claude-memory",
+      "claim": "sync.py no longer mirrors ~/.claude/projects/C--Users-tukum/memory; running sync removes claude/memory",
+      "run": "python sync.py >/dev/null 2>&1 || { echo 'sync failed'; exit 1; }; if grep -nE '^[^#]*C--Users-tukum/memory|^[^#]*projects/[^\"]*/memory' sync.py; then echo 'MEMORY SOURCE IN sync.py'; exit 1; fi; if [ -e claude/memory ]; then echo 'claude/memory still present'; ls claude/memory; exit 1; fi; echo 'claude memory not mirrored; claude/memory absent'",
+      "expect_exit": 0,
+      "expect_output": "claude memory not mirrored; claude/memory absent",
+      "timeout": 600
+    },
+    {
+      "id": "sync-omp-agents-and-personal-wiki-skill",
+      "claim": "sync.py mirrors ~/.omp/agent/AGENTS.md to omp/AGENTS.md and publishes hermes/skills/personal-wiki/SKILL.md",
+      "run": "python sync.py >/dev/null 2>&1 || { echo 'sync failed'; exit 1; }; cmp ~/.omp/agent/AGENTS.md omp/AGENTS.md || exit 1; cmp ~/AppData/Local/hermes/skills/personal-wiki/SKILL.md hermes/skills/personal-wiki/SKILL.md || exit 1; grep -n 'omp/agent/AGENTS.md' sync.py && grep -n 'personal-wiki' sync.py && echo 'omp AGENTS.md and personal-wiki skill mirrored'",
+      "expect_exit": 0,
+      "expect_output": "omp AGENTS.md and personal-wiki skill mirrored",
+      "timeout": 600
+    },
+    {
+      "id": "unit-tests-pass",
+      "claim": "All tstack tests pass (python -m unittest discover -s tests)",
+      "run": "python -m unittest discover -s tests",
+      "expect_exit": 0,
+      "expect_output": "(?m)^OK",
+      "timeout": 600
+    },
+    {
+      "id": "sync-scan-clean",
+      "claim": "python sync.py (no --push) reports 'scan clean'",
+      "run": "python sync.py",
+      "expect_exit": 0,
+      "expect_output": "scan clean\\s*$",
+      "timeout": 600
+    },
+    {
+      "id": "restore-dry-run-zero",
+      "claim": "python restore.py --dry-run reports it would write 0 files",
+      "run": "python restore.py --dry-run",
+      "expect_exit": 0,
+      "expect_output": "would write 0 file\\(s\\)",
+      "timeout": 300
+    },
+    {
+      "id": "bootstrap-wiki-step-dryrun",
+      "claim": "bootstrap.ps1 -DryRun -SkipInstall wiki step detects ~/wiki clone, runs collect.py --restore dry-run reporting 0 restored, prints 'would: register wiki-sync task', and registers nothing",
+      "run": "st() { powershell -NoProfile -Command \"if (Get-ScheduledTask -TaskName 'wiki-sync' -ErrorAction SilentlyContinue) {'registered'} else {'absent'}\" | tr -d '\\r'; }; before=$(st); echo \"task before: $before\"; powershell -NoProfile -ExecutionPolicy Bypass -File bootstrap.ps1 -DryRun -SkipInstall || exit 1; after=$(st); echo \"task after: $after\"; [ \"$before\" = absent ] && [ \"$after\" = absent ] || { echo 'TASK STATE NOT ABSENT/UNCHANGED'; exit 1; }; echo 'wiki-sync task not registered'",
+      "expect_exit": 0,
+      "expect_output": "(?s)==> wiki \\(private TukuCorp/wiki -> ~/wiki\\)\\s+ok: clone\\s+0 file\\(s\\) restored\\s+would: register wiki-sync task\\s+==> .*wiki-sync task not registered",
+      "timeout": 600
+    },
+    {
+      "id": "wiki-collect-mirror-redact-idempotent",
+      "claim": "~/wiki/scripts/collect.py mirrors Claude memory, Codex MEMORY.md/memory_summary.md/rollout_summaries/*.md (not raw_memories.md) and Hermes memories/*.md into ~/wiki/raw/<tool>-memory with secrets redacted; a (second) run reports 0 changed; --restore --dry-run reports 0; no fc- key under ~/wiki/raw; no raw/codex-memory/raw_memories.md",
+      "run": "python -I .verify/checks/wiki_collect.py",
+      "expect_exit": 0,
+      "expect_output": "collect final changed=0[\\s\\S]*wiki collect verified: mirrored, redacted, idempotent, restore no-op",
+      "timeout": 300
+    },
+    {
+      "id": "wiki-tests-pass",
+      "claim": "~/wiki tests pass (cd ~/wiki && python -m unittest discover -s tests)",
+      "run": "cd ~/wiki && python -m unittest discover -s tests -v",
+      "expect_exit": 0,
+      "expect_output": "(?m)^OK",
+      "timeout": 300
+    },
+    {
+      "id": "wiki-no-fc-key",
+      "claim": "No string matching fc-[0-9a-f]{24,} exists anywhere under ~/wiki/raw, and ~/wiki/raw/codex-memory has no raw_memories.md",
+      "run": "if grep -rlE 'fc-[0-9a-f]{24,}' ~/wiki/raw; then echo 'FC KEY FOUND'; exit 1; fi; if [ -e ~/wiki/raw/codex-memory/raw_memories.md ]; then echo 'raw_memories.md present'; exit 1; fi; echo 'wiki raw clean'",
+      "expect_exit": 0,
+      "expect_output": "wiki raw clean",
+      "timeout": 120
+    },
+    {
+      "id": "github-wiki-private",
+      "claim": "GitHub repo TukuCorp/wiki exists and is PRIVATE",
+      "run": "gh repo view TukuCorp/wiki --json visibility,nameWithOwner",
+      "expect_exit": 0,
+      "expect_output": "\"visibility\":\\s*\"PRIVATE\"",
+      "timeout": 120
+    },
+    {
+      "id": "personal-wiki-rules",
+      "claim": "'## Personal Wiki' section mentioning ~/wiki/index.md in ~/.claude/CLAUDE.md, ~/.config/opencode/AGENTS.md, ~/.codex/AGENTS.md, ~/.omp/agent/AGENTS.md; Hermes personal-wiki SKILL.md with name: personal-wiki",
+      "run": "python -I .verify/checks/personal_wiki_rules.py",
+      "expect_exit": 0,
+      "expect_output": "personal wiki rules present in all harnesses",
+      "timeout": 60
+    }
+  ]
+}

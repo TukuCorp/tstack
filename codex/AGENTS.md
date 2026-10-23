@@ -8,3 +8,7 @@
   - Open every page with `chrome-devtools-axi newpage <url> --background`. Never use `open` or `selectpage` on a tab you didn't create, and never navigate, click, type or close in my tabs.
   - Work only in tabs you opened; close them with `closepage` when done.
   - For Google files, add `authuser=<EMAIL>` (the work account is not the default).
+
+## Personal Wiki
+- `~/wiki` (private) holds durable context about me, my projects and past decisions, gathered from every agent. When a task needs that background, read `~/wiki/index.md`, then the pages it points to.
+- Save durable facts to your own memory store if you have one (a daily sync folds it into the wiki); otherwise write them into the wiki following `~/wiki/AGENTS.md` (Ingest).
