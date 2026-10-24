@@ -43,6 +43,18 @@ The runner is `scripts/verify_run.py` next to this skill
   committing agent-driven changes.
 - Treat `$ARGUMENTS` as the claims/task description to verify.
 
+## Modes
+
+- **Full** (default, and whenever `/verify` is invoked or asked for directly): every
+  step below.
+- **Pre-commit** (run automatically right before a commit, with no arguments): the same
+  checks file and runner, made cheaper. The claims are what the staged change and the
+  commit message you are about to write say it does. Skip step 2 and do steps 3–4
+  yourself with `--independence inline`. Reuse checks from existing `.verify/*.json`
+  where they fit, and set `fails_on_base` only when the commit claims a bug fix. Switch
+  to full mode when the change is large or risky (auth, data migrations, payments,
+  deletes).
+
 ## Procedure
 
 ### 1. Identify the claims to check
@@ -130,6 +142,14 @@ Write each check so it could actually fail:
   diff-presence check only fits a claim that is literally about the diff.
 - **Artifact claimed created/updated:** a check that opens the file and asserts the
   claimed content, not just that it exists.
+- **Behavior in the running app** (a page renders, a CLI prints, an endpoint
+  responds): drive the real app, not its tests. Find how the project launches from a
+  recorded run recipe (a `run-*` skill in the repo's skills folder), or else the
+  README, `package.json` scripts or `Makefile`. Write a `.verify/checks/` script that
+  starts the app, exercises the claimed behavior with fixed input (run the CLI, send
+  the HTTP request, or load the page in a headless browser and assert on the DOM or a
+  screenshot diff), asserts what a user would see, and stops the app. Use `"run": null`
+  only when the claim needs human visual judgment.
 - **No existing command can falsify the claim:** write the smallest check script that
   can, under `.verify/checks/`, and point `run` at it. Keep it deterministic: fixed
   inputs, no network unless the claim is about the network, an assertion message that
