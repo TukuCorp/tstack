@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# herdr-html <file.html|url>: show a local HTML file or URL in a herdr browser pane
+# (StructuPath/herdr-browser renderer) split to the right of the calling pane.
+# Reuses that pane on later calls from the same caller pane.
+set -euo pipefail
+
+[ "${HERDR_ENV:-}" = 1 ] || { echo "herdr-html: not running inside herdr" >&2; exit 1; }
+[ $# -eq 1 ] || { echo "usage: herdr-html <file.html|url>" >&2; exit 2; }
+
+AB="$APPDATA/npm/node_modules/agent-browser/bin/agent-browser-win32-x64.exe"
+
+case "$1" in
+http://* | https://* | file://*) url="$1" ;;
+*)
+	[ -f "$1" ] || { echo "herdr-html: no such file: $1" >&2; exit 2; }
+	url="file:///$(cygpath -m "$(realpath "$1")")"
+	url="${url// /%20}"
+	;;
+esac
+
+caller="$(printf '%s' "$HERDR_PANE_ID" | tr -cd 'a-zA-Z0-9_-')"
+session="herdr-html-$caller"
+state="$HOME/.local/state/herdr-browser"
+mkdir -p "$state"
+pane_file="$state/html-pane-$caller"
+
+# Navigate first so the pane attaches straight to the page. The first call starts the
+# agent-browser daemon, which inherits stdio; without these redirects the caller hangs.
+"$AB" --session "$session" open "$url" </dev/null >/dev/null 2>&1
+
+pane=""
+[ -f "$pane_file" ] && pane="$(cat "$pane_file")"
+if [ -z "$pane" ] || [[ "$(herdr pane get "$pane" 2>&1)" == *'"error"'* ]]; then
+	out="$(herdr plugin pane open --plugin structupath.browser --entrypoint view \
+		--placement split --target-pane "$HERDR_PANE_ID" --direction right --no-focus \
+		--env "HERDR_BROWSER_SESSION=$session")"
+	pane="$(printf '%s' "$out" | sed -n 's/.*"pane_id":"\([^"]*\)".*/\1/p' | head -1)"
+	printf '%s\n' "$pane" >"$pane_file"
+fi
+
+echo "herdr-html: $url -> pane $pane (session $session)"

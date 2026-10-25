@@ -67,8 +67,13 @@ SOURCES = [
     (".config/noctty", "noctty/dotconfig", "tree"),  # shaders, background images
     ("AppData/Roaming/herdr/config.toml", "herdr/config.toml", "config"),
     ("AppData/Roaming/herdr/plugins.json", "herdr/plugins.json", "herdr-plugins"),
+    (".local/bin/herdr-html", "herdr/bin/herdr-html", "file"),  # HTML file/URL -> herdr browser pane
+    (".local/bin/herdr-html.cmd", "herdr/bin/herdr-html.cmd", "file"),
 ]
 TOOL_DIRS = ["claude", "codex", "opencode", "hermes", "omp", "shared", "noctty", "herdr", "machine"]
+
+# herdr plugins I run as patched local clones (`herdr plugin link`), mirrored as upstream + patch.
+HERDR_LOCAL_PLUGINS = ".herdr/local-plugins"
 
 # Global CLI packages, recorded in machine/packages.json for bootstrap.ps1 to reinstall.
 NPM_GLOBAL = "AppData/Roaming/npm/node_modules"
@@ -225,6 +230,18 @@ def herdr_plugins(entries):
             for p in entries if (s := p.get("source", {})).get("kind") == "github"]
 
 
+def local_plugins(base):
+    """Yield (metadata, patch text) for each git clone under base: upstream repo, base commit, local diff."""
+    for clone in sorted(d for d in base.glob("*") if (d / ".git").exists()):
+        git = lambda *a: subprocess.run(["git", "-C", str(clone), *a], check=True, capture_output=True,
+                                        encoding="utf-8").stdout
+        origin = git("remote", "get-url", "origin").strip()
+        repo = re.sub(r"^.*github\.com[/:]|\.git$", "", origin)
+        meta = {"dir": clone.name, "repo": repo, "ref": git("rev-parse", "HEAD").strip(),
+                "patch": f"herdr/local-plugins/{clone.name}.patch"}
+        yield meta, git("diff", "HEAD")
+
+
 def global_packages(home):
     npm = []
     for d in sorted((home / NPM_GLOBAL).glob("*")):
@@ -324,6 +341,12 @@ def build(mapping):
             entries = json.loads(src.read_text(encoding="utf-8"))
             _write(dest, json.dumps(herdr_plugins(entries), indent=2) + "\n", mapping)
     _write(ROOT / "machine" / "packages.json", json.dumps(global_packages(HOME), indent=2) + "\n", mapping)
+    if (HOME / HERDR_LOCAL_PLUGINS).is_dir():
+        metas = []
+        for meta, patch in local_plugins(HOME / HERDR_LOCAL_PLUGINS):
+            _write(ROOT / meta["patch"], patch, mapping)
+            metas.append(meta)
+        _write(ROOT / "herdr" / "local-plugins.json", json.dumps(metas, indent=2) + "\n", mapping)
     if (HOME / HERMES_SKILLS).exists():
         _copy_hermes_skills(HOME / HERMES_SKILLS, ROOT / "hermes" / "skills", mapping, HERMES_CATEGORIES,
                             HERMES_THIRD_PARTY)

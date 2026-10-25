@@ -155,3 +155,31 @@ class PrivacyTests(unittest.TestCase):
     def test_claude_memory_is_not_published(self):
         # Memory moved to the private wiki repo (raw/claude-memory); this repo is public
         self.assertFalse([s for s, _, _ in sync.SOURCES if "/memory" in s])
+
+
+class LocalPluginTests(unittest.TestCase):
+    """A locally patched herdr plugin is mirrored as upstream repo + base commit + patch."""
+
+    def test_records_upstream_commit_and_patch(self):
+        import subprocess
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            clone = Path(tmp, "plugins", "demo")
+            clone.mkdir(parents=True)
+            git = lambda *a: subprocess.run(["git", "-C", str(clone), *a], check=True, capture_output=True, text=True).stdout
+            git("init", "-q")
+            git("remote", "add", "origin", "https://github.com/acme/demo.git")
+            (clone / "herdr-plugin.toml").write_text('platforms = ["linux"]\n', encoding="utf-8")
+            git("add", ".")
+            git("-c", "user.name=t", "-c", "user.email=t@example.com", "commit", "-qm", "base")
+            (clone / "herdr-plugin.toml").write_text('platforms = ["linux", "windows"]\n', encoding="utf-8")
+            plugins = list(sync.local_plugins(Path(tmp, "plugins")))
+            self.assertEqual(len(plugins), 1)
+            meta, patch = plugins[0]
+            self.assertEqual(meta, {"dir": "demo", "repo": "acme/demo", "ref": git("rev-parse", "HEAD").strip(),
+                                    "patch": "herdr/local-plugins/demo.patch"})
+            self.assertIn('+platforms = ["linux", "windows"]', patch)
+
+    def test_herdr_html_helper_is_mirrored(self):
+        self.assertIn(".local/bin/herdr-html", [s for s, _, _ in sync.SOURCES])
+        self.assertIn(".local/bin/herdr-html.cmd", [s for s, _, _ in sync.SOURCES])

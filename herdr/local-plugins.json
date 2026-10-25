@@ -1,0 +1,8 @@
+[
+  {
+    "dir": "herdr-browser",
+    "repo": "StructuPath/herdr-browser",
+    "ref": "7cee8e981706a157b9b0a9f180ff981c9c04e790",
+    "patch": "herdr/local-plugins/herdr-browser.patch"
+  }
+]

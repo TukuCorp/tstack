@@ -199,6 +199,21 @@ Use `--format ansi` when colors and terminal styling are evidence. Otherwise use
 
 After that failed read, ask the agent to write its complete response as Markdown in a temporary directory and reply only with the file path, then read the file directly. Use this only as a fallback; do not request file output in the initial prompt.
 
+## Show HTML in a browser pane
+
+When the user asks to view, open, preview or show an HTML file or web page in Herdr (rather than in Chrome), run:
+
+```bash
+herdr-html <path/to/file.html | http(s) URL | file:// URL>
+```
+
+It opens a browser pane split to the right of the calling pane without moving focus, and reuses that pane on later calls from the same pane. Pages render as real pixels through Kitty graphics, using a headless Chrome with a fresh profile, so pages that need a login (claude.ai and similar) will not load. From PowerShell the same command runs through `herdr-html.cmd`. It needs `HERDR_ENV=1`.
+
+- The user can Ctrl+click `localhost`, `127.0.0.1` or Lavish (`<TAILNET_MACHINE>.<TAILNET_NAME>.ts.net`) links in any pane to open them in a browser pane. In the pane: `u` URL, `r` reload, `j`/`k` or wheel scroll, click to interact, `q` close. `prefix+b` opens an empty pane.
+- To close what you opened, run `herdr pane close <pane id printed by herdr-html>`.
+- After editing a file you already showed, run `herdr-html` again with the same path to reload it.
+- Renderer: StructuPath/herdr-browser, as a Windows-patched local clone at `~/.herdr/local-plugins/herdr-browser`. `herdr plugin update` does not touch it.
+
 ## Safety and coordination rules
 
 - Use `--no-focus` for background work unless the user asked to switch context.

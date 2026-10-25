@@ -1,0 +1,104 @@
+diff --git a/bin/renderer.mjs b/bin/renderer.mjs
+index fb91fec..20045aa 100644
+--- a/bin/renderer.mjs
++++ b/bin/renderer.mjs
+@@ -616,7 +616,11 @@ export class Renderer {
+ 			this.stateDir,
+ 			`shot-${safeWsId(env.HERDR_WORKSPACE_ID)}.png`,
+ 		);
+-		this.bin = "agent-browser";
++		// Windows patch: execFile cannot run npm's .cmd shim; use the native exe.
++		this.bin =
++			process.platform === "win32" && env.APPDATA
++				? `${env.APPDATA}\\npm\\node_modules\\agent-browser\\bin\\agent-browser-win32-x64.exe`
++				: "agent-browser";
+ 		// Backend arbitration: an explicitly configured CDP endpoint is the more
+ 		// deliberate act than an ambient agent-browser session, so it wins — and
+ 		// it wins deterministically at start, never by racing discovery.
+@@ -636,7 +640,7 @@ export class Renderer {
+ 		this.ownershipEnabled = this.backend !== "attach";
+ 		this.backendName = this.backend === "attach" ? "browser endpoint" : "agent-browser";
+ 		const onPath = (cmd) =>
+-			spawnSync("sh", ["-c", `command -v ${cmd}`], { timeout: 5000 }).status ===
++			spawnSync("sh", ["-c", `command -v '${cmd}'`], { timeout: 5000 }).status ===
+ 			0;
+ 		this.agentBrowser = onPath(this.bin);
+ 		this.chafa = onPath("chafa");
+diff --git a/herdr-plugin.toml b/herdr-plugin.toml
+index 9affdd2..e748687 100644
+--- a/herdr-plugin.toml
++++ b/herdr-plugin.toml
+@@ -3,50 +3,50 @@ name = "Browser"
+ version = "0.8.0"
+ min_herdr_version = "0.7.0"
+ description = "Driveable browser pane: live screenshots, console output, localhost links; drives agent-browser sessions, attaches to any CDP browser, or launches its own Chromium"
+-platforms = ["macos", "linux"]
++platforms = ["macos", "linux", "windows"]
+ 
+ [[actions]]
+ id = "open"
+ title = "Open browser pane"
+ description = "Navigate the workspace browser session (or attach view-only with no URL)"
+-command = ["bash", "scripts/open.sh"]
++command = ["C:/Program Files/Git/bin/bash.exe", "scripts/open.sh"]
+ 
+ [[actions]]
+ id = "close"
+ title = "Close browser session and pane"
+-command = ["bash", "scripts/close.sh"]
++command = ["C:/Program Files/Git/bin/bash.exe", "scripts/close.sh"]
+ 
+ [[actions]]
+ id = "browse"
+ title = "Browse (interactive)"
+ description = "Open an interactive carbonyl browser pane — prompts for a URL"
+-command = ["bash", "scripts/browse.sh"]
++command = ["C:/Program Files/Git/bin/bash.exe", "scripts/browse.sh"]
+ 
+ [[actions]]
+ id = "record-start"
+ title = "Start session recording"
+ description = "Record the workspace browser session to WebM (starts a fresh context: page reloads, cookies kept)"
+-command = ["bash", "scripts/record.sh", "start"]
++command = ["C:/Program Files/Git/bin/bash.exe", "scripts/record.sh", "start"]
+ 
+ [[actions]]
+ id = "record-stop"
+ title = "Stop session recording"
+-command = ["bash", "scripts/record.sh", "stop"]
++command = ["C:/Program Files/Git/bin/bash.exe", "scripts/record.sh", "stop"]
+ 
+ [[panes]]
+ id = "view"
+ title = "Browser"
+ placement = "split"
+-command = ["bash", "scripts/pane.sh"]
++command = ["C:/Program Files/Git/bin/bash.exe", "scripts/pane.sh"]
+ 
+ [[panes]]
+ id = "browse"
+ title = "Browse"
+ placement = "zoomed"
+-command = ["bash", "scripts/browse-pane.sh"]
++command = ["C:/Program Files/Git/bin/bash.exe", "scripts/browse-pane.sh"]
+ 
+ [[link_handlers]]
+ id = "localhost"
+ title = "Open localhost URL in browser pane"
+-pattern = "^https?://(localhost|127\\.0\\.0\\.1|\\[::1\\])(:[0-9]+)?([/?#].*)?$"
++pattern = "^https?://(localhost|127\\.0\\.0\\.1|\\[::1\\]|<TAILNET_MACHINE>\\.<TAILNET_NAME>\\.ts\\.net)(:[0-9]+)?([/?#].*)?$"
+ action = "open"
+diff --git a/scripts/open.sh b/scripts/open.sh
+index 369e2b4..aa79178 100755
+--- a/scripts/open.sh
++++ b/scripts/open.sh
+@@ -57,7 +57,8 @@ elif [ -n "$url" ]; then
+ 	fi
+ 	# Preserve the caller's daemon configuration. An injected timeout can
+ 	# restart an existing agent-owned daemon and discard its browser state.
+-	if ! with_timeout 15 agent-browser --session "$session" open "$url" >/dev/null; then
++	# Windows patch: the daemon inherits stdio and holds the pipe; detach all three.
++	if ! with_timeout 15 agent-browser --session "$session" open "$url" </dev/null >/dev/null 2>&1; then
+ 		echo "herdr-browser: agent-browser failed to open $url" >&2
+ 		exit 3
+ 	fi

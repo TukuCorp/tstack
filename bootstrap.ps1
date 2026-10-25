@@ -88,6 +88,24 @@ if (Have herdr) {
     }
 } else { Write-Host '    herdr missing; skipped' -ForegroundColor Red }
 
+Step 'herdr local plugins (patched clones, herdr/local-plugins.json)'
+# Upstream repo at the mirrored commit + my Windows patch, then `herdr plugin link`
+if ((Have herdr) -and (Have git)) {
+    foreach ($p in (Get-Content "$Root\herdr\local-plugins.json" -Raw | ConvertFrom-Json)) {
+        $dir = "$HOME\.herdr\local-plugins\$($p.dir)"
+        if (Test-Path "$dir\.git") { Write-Host "    ok: $($p.dir)"; continue }
+        Run "clone $($p.repo)@$($p.ref.Substring(0,7)) + patch + link" {
+            git clone -q "https://github.com/$($p.repo)" $dir
+            git -C $dir checkout -q $p.ref
+            git -C $dir apply "$Root\$($p.patch)"
+            herdr plugin link $dir
+        }
+    }
+    # herdr-browser renders through agent-browser's own Chrome-for-testing
+    if (Test-Path "$HOME\.agent-browser\browsers\*") { Write-Host '    ok: agent-browser Chrome' }
+    elseif (Have agent-browser) { Run 'agent-browser install' { agent-browser install } }
+} else { Write-Host '    herdr or git missing; skipped' -ForegroundColor Red }
+
 Step 'wiki (private TukuCorp/wiki -> ~/wiki)'
 # Agent memory lives there, not here: tstack is public
 $WikiDir = "$HOME\wiki"
@@ -116,5 +134,6 @@ Write-Host @'
     - Sign in: claude, codex login, gh auth login, hermes setup, opencode auth login, gws auth login
     - Fill the <REDACTED> values restore.py listed above (API keys, MCP env blocks)
     - Restart noctty (Ctrl+Shift+, reloads config) and herdr so they pick up the restored configs
+    - herdr-browser link handler: replace <TAILNET_MACHINE>.<TAILNET_NAME> in ~/.herdr/local-plugins/herdr-browser/herdr-plugin.toml with this machine's tailnet host
     - Chrome: sign in to the work account, then turn on chrome://inspect/#remote-debugging (for chrome-devtools-axi)
 '@

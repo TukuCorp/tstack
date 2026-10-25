@@ -23,3 +23,9 @@ description = "open file viewer in its own tab"
 
 [update]
 channel = "stable"
+
+[[keys.command]]
+key = "prefix+b"
+type = "plugin_action"
+command = "structupath.browser.open"
+description = "browser pane"

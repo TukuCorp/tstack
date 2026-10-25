@@ -12,6 +12,7 @@
     "@opencode/cli",
     "@opencode-ai/.browser-control-tkO0qzYG",
     "@opencode-ai/browser-control",
+    "agent-browser",
     "chrome-devtools-axi",
     "firebase-tools",
     "firecrawl-mcp",
