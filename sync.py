@@ -67,8 +67,6 @@ SOURCES = [
     (".config/noctty", "noctty/dotconfig", "tree"),  # shaders, background images
     ("AppData/Roaming/herdr/config.toml", "herdr/config.toml", "config"),
     ("AppData/Roaming/herdr/plugins.json", "herdr/plugins.json", "herdr-plugins"),
-    (".local/bin/herdr-html", "herdr/bin/herdr-html", "file"),  # HTML file/URL -> herdr browser pane
-    (".local/bin/herdr-html.cmd", "herdr/bin/herdr-html.cmd", "file"),
 ]
 TOOL_DIRS = ["claude", "codex", "opencode", "hermes", "omp", "shared", "noctty", "herdr", "machine"]
 

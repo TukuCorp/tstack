@@ -1,6 +1,6 @@
 ---
 name: browser-control
-description: Drive the user's own logged-in Chrome tabs with scripted Playwright through the Browser Control extension and local relay. Use when the user names Browser Control, or a task needs deterministic Playwright against their existing authenticated tabs (session adopt, human handoff for 2FA/CAPTCHA, session journal, tab recording). Not for general browsing, page screenshots or DevTools inspection; use the chrome-devtools-axi CLI for those.
+description: Drive the user's own logged-in Chrome tabs with scripted Playwright through the Browser Control extension and local relay. Use when the user names Browser Control, or a task needs deterministic Playwright against their existing authenticated tabs (session adopt, human handoff for 2FA/CAPTCHA, session journal, tab recording). Not for headless or throwaway browsing; use agent-browser for that.
 ---
 
 # Browser Control
@@ -352,6 +352,32 @@ await ghostCursor.hide()
 `showGhostCursor()` / `ghostCursor.show()` enters persistent mode.
 `hideGhostCursor()` / `ghostCursor.hide()` disables the cursor until the page's
 next document.
+
+## New In 0.8 (ported 2026-10-31)
+
+- Snapshots: `ref("e12")` resolves a control from the latest snapshot and fails
+  closed after navigation or DOM drift. `snapshot({ delta: true })` returns a
+  baseline, then compact deltas; `snapshot({ find: "checkout", context: 2 })`
+  searches the snapshot and returns matching lines with refs.
+- Visual checks: `screenshotWithLabels({ page?, path? })` labels `e1..eN` for
+  `ref()`; `screenshotDiff({ baseline, path?, threshold?, fullPage? })` compares
+  a saved PNG with the page and returns `matches`, `changedPixels`,
+  `changedRatio`. Output paths must be fresh absolute `.png` files.
+- Handoff: if the action is already done and only the human step remains, call
+  `handoff(message)` without `start`. Always verify the URL or element after.
+- Network capture to HAR: `browser-control network start|status|stop --session
+  <id>`; `stop --output <file>.har --secrets <name>` redacts credentials to
+  `${BC_SECRET_N}` and keeps real values in a mode-0600 Secret Profile. Run
+  generated clients with `browser-control secrets run <name> -- <cmd>`; never
+  print or log profile values.
+- Relay: ordinary calls never replace a running relay. On a build mismatch run
+  `browser-control relay restart` (keeps tabs and durable sessions, resets
+  JavaScript `state` and refs). `BROWSER_CONTROL_AUTOSTART=false` makes calls
+  fail instead of starting a relay. Restart history:
+  `~/.browser-control/relays/<port>/lifecycle.jsonl`.
+- Upgrades: "extension protocol N is incompatible" means the unpacked extension
+  is older than the npm package. Reload it on `chrome://extensions` (Browser
+  Control card, Reload), then check `browser-control status` shows protocol 2.
 
 ## More References
 

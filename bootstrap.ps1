@@ -95,7 +95,8 @@ if (Have herdr) {
 
 Step 'herdr local plugins (patched clones, herdr/local-plugins.json)'
 # Upstream repo at the mirrored commit + my Windows patch, then `herdr plugin link`
-if ((Have herdr) -and (Have git)) {
+if (-not (Test-Path "$Root\herdr\local-plugins.json")) { Write-Host '    none' }
+elseif ((Have herdr) -and (Have git)) {
     foreach ($p in (Get-Content "$Root\herdr\local-plugins.json" -Raw | ConvertFrom-Json)) {
         $dir = "$HOME\.herdr\local-plugins\$($p.dir)"
         if (Test-Path "$dir\.git") { Write-Host "    ok: $($p.dir)"; continue }
@@ -106,10 +107,11 @@ if ((Have herdr) -and (Have git)) {
             herdr plugin link $dir
         }
     }
-    # herdr-browser renders through agent-browser's own Chrome-for-testing
-    if (Test-Path "$HOME\.agent-browser\browsers\*") { Write-Host '    ok: agent-browser Chrome' }
-    elseif (Have agent-browser) { Run 'agent-browser install' { agent-browser install } }
 } else { Write-Host '    herdr or git missing; skipped' -ForegroundColor Red }
+
+Step 'agent-browser Chrome (headless browsing)'
+if (Test-Path "$HOME\.agent-browser\browsers\*") { Write-Host '    ok: agent-browser Chrome' }
+elseif (Have agent-browser) { Run 'agent-browser install' { agent-browser install } }
 
 Step 'wiki (private TukuCorp/wiki -> ~/wiki)'
 # Agent memory lives there, not here: tstack is public
@@ -126,19 +128,11 @@ if ((Test-Path "$WikiDir\.git") -and (Have python)) {
     else { Run 'register wiki-sync task' { & "$WikiDir\scripts\install-task.ps1" } }
 }
 
-Step 'user environment'
-# chrome-devtools-axi attaches to my everyday (signed-in) Chrome instead of launching its own
-$UserEnv = @{ CHROME_DEVTOOLS_AXI_AUTO_CONNECT = '1' }
-foreach ($k in $UserEnv.Keys) {
-    if ([Environment]::GetEnvironmentVariable($k, 'User') -eq $UserEnv[$k]) { Write-Host "    ok: $k"; continue }
-    Run "set $k=$($UserEnv[$k])" { [Environment]::SetEnvironmentVariable($k, $UserEnv[$k], 'User') }
-}
-
 Step 'left for you'
 Write-Host @'
     - Sign in: claude, codex login, gh auth login, hermes setup, opencode auth login, gws auth login
     - Fill the <REDACTED> values restore.py listed above (API keys, MCP env blocks)
     - Restart noctty (Ctrl+Shift+, reloads config) and herdr so they pick up the restored configs
-    - herdr-browser link handler: replace <TAILNET_MACHINE>.<TAILNET_NAME> in ~/.herdr/local-plugins/herdr-browser/herdr-plugin.toml with this machine's tailnet host
-    - Chrome: sign in to the work account, then turn on chrome://inspect/#remote-debugging (for chrome-devtools-axi)
+    - Chrome: sign in to the work account; on chrome://extensions turn on Developer mode, Load unpacked
+      %APPDATA%\npm\node_modules\@opencode-ai\browser-control\extension\dist, pin it, then run browser-control status
 '@

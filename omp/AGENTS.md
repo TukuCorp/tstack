@@ -3,6 +3,11 @@
 - Red/green: write the failing test first, at that level, and confirm it fails before implementing.
 - No coverage-padding or mock-assertion tests. Project rules override these.
 
+## Browser Use
+- Logged-in Chrome (my real profile, which I am using at the same time): use `browser-control`, and load the browser-control skill first. Work only in sessions and tabs you created; never navigate, click, type or close in my tabs. Leave the `gdrive-daily` session alone: a scheduled job uses it.
+- Headless or throwaway browsing (public pages, localhost testing, scraping, screenshots): use `agent-browser`. Run `agent-browser skills get core` before the first use in a session, and `agent-browser close` when done.
+- For Google files, add `authuser=<EMAIL>` (the work account is not the default).
+
 ## Desktop Apps
 - Use `agent-desktop` to see and operate native desktop apps through the OS accessibility tree. Before the first use in a session, run `agent-desktop skills get desktop` and `agent-desktop skills get platform`, and follow them.
 - Stay headless (the default): never pass `--headed` unless I allow physical input for that task, because it moves my cursor and takes focus while I am using the machine.

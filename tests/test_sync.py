@@ -179,7 +179,3 @@ class LocalPluginTests(unittest.TestCase):
             self.assertEqual(meta, {"dir": "demo", "repo": "acme/demo", "ref": git("rev-parse", "HEAD").strip(),
                                     "patch": "herdr/local-plugins/demo.patch"})
             self.assertIn('+platforms = ["linux", "windows"]', patch)
-
-    def test_herdr_html_helper_is_mirrored(self):
-        self.assertIn(".local/bin/herdr-html", [s for s, _, _ in sync.SOURCES])
-        self.assertIn(".local/bin/herdr-html.cmd", [s for s, _, _ in sync.SOURCES])

@@ -40,11 +40,10 @@
 - Review `lessons.md` at session start for project-relevant rules.
 
 ## Browser Use
-- Use Claude in Chrome (`mcp__claude-in-chrome__*`) first for any browser task. It works in its own tab group and does not trigger Chrome's remote-debugging prompt. Fall back to other browser tools only when it can't do the job (e.g. DevTools-level inspection, performance traces) or it fails after 2-3 attempts, and say why.
-- chrome-devtools-axi attaches to my own everyday Chrome (`CHROME_DEVTOOLS_AXI_AUTO_CONNECT=1`), which I am using at the same time. Never disturb my tabs:
-  - Open every page with `chrome-devtools-axi newpage <url> --background`. Never use `open` or `selectpage` on a tab you didn't create, and never navigate, click, type or close in my tabs.
-  - Work only in tabs you opened; close them with `closepage` when done.
-  - For Google files, add `authuser=<EMAIL>` (the work account is not the default).
+- Use Claude in Chrome (`mcp__claude-in-chrome__*`) first for interactive tasks in my logged-in Chrome. It works in its own tab group. Use browser-control for scripted or repeatable Playwright work, and when Claude in Chrome fails after 2-3 attempts, say why.
+- Logged-in Chrome (my real profile, which I am using at the same time): use `browser-control`, and load the browser-control skill first. Work only in sessions and tabs you created; never navigate, click, type or close in my tabs. Leave the `gdrive-daily` session alone: a scheduled job uses it.
+- Headless or throwaway browsing (public pages, localhost testing, scraping, screenshots): use `agent-browser`. Run `agent-browser skills get core` before the first use in a session, and `agent-browser close` when done.
+- For Google files, add `authuser=<EMAIL>` (the work account is not the default).
 
 ## Desktop Apps
 - Use `agent-desktop` to see and operate native desktop apps through the OS accessibility tree. Before the first use in a session, run `agent-desktop skills get desktop` and `agent-desktop skills get platform`, and follow them.
