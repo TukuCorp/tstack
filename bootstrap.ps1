@@ -63,6 +63,11 @@ if (-not $SkipInstall) {
     $pk = Get-Content "$Root\machine\packages.json" -Raw | ConvertFrom-Json
     $npmMissing = @($pk.npm | Where-Object { -not (Test-Path "$env:APPDATA\npm\node_modules\$_") })
     if ($npmMissing) { Run "npm install -g $($npmMissing -join ' ')" { npm install -g @npmMissing } } else { Write-Host '    ok: npm' }
+    # npm 11 skips agent-desktop's postinstall, which swaps the Node launcher for the native binary
+    $ad = "$env:APPDATA\npm\node_modules\agent-desktop"
+    if ((Test-Path $ad) -and -not (Select-String -Quiet 'agent-desktop-win32' "$env:APPDATA\npm\agent-desktop.cmd")) {
+        Run 'agent-desktop: link native binary' { node "$ad\scripts\postinstall.js" }
+    }
     foreach ($p in $pk.bun) {
         if (Test-Path "$HOME\.bun\install\global\node_modules\$p") { Write-Host "    ok: $p"; continue }
         Run "bun add -g $p" { bun add -g $p }

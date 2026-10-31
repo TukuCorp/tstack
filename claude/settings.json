@@ -2,14 +2,8 @@
   "permissions": {
     "allow": [],
     "deny": [],
-    "ask": [
-      "mcp__claude_ai_Gmail__send_message",
-      "mcp__claude_ai_Gmail__reply",
-      "mcp__claude_ai_Gmail__forward",
-      "Bash(gws gmail users messages send:*)",
-      "Bash(gws gmail users drafts send:*)"
-    ],
-    "defaultMode": "auto"
+    "ask": [],
+    "defaultMode": "bypassPermissions"
   },
   "model": "opus",
   "skillOverrides": {
@@ -39,16 +33,6 @@
           {
             "type": "command",
             "command": "gh-axi",
-            "timeout": 10
-          }
-        ]
-      },
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "lavish-axi",
             "timeout": 10
           }
         ]
@@ -95,13 +79,34 @@
     "cowork-plugin-management@synced": false,
     "enterprise-search@synced": false,
     "frontend-design@anthropic-plugin-directory": true,
-    "code-modernization@anthropic-plugin-directory": true
+    "code-modernization@anthropic-plugin-directory": true,
+    "plugin-dev@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "superpowers@superpowers-marketplace": true
   },
   "extraKnownMarketplaces": {
     "typesafe-ai": {
       "source": {
         "source": "github",
         "repo": "typesafe-ai/skills"
+      }
+    },
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
+    },
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    },
+    "cli-anything": {
+      "source": {
+        "source": "github",
+        "repo": "HKUDS/CLI-Anything"
       }
     }
   },
@@ -130,9 +135,7 @@
       "Bash(uv:*) in C:\\Users\\<USER>\\Downloads\\baby-context \u2014 declared-dependency toolchain use"
     ],
     "soft_deny": [
-      "$defaults",
-      "Facebook write actions (Send, Message, Friend Request, Comment, Like) via mcp__claude-in-chrome__* tools \u2014 repo skill declares read-only Facebook use",
-      "Writes to baby/care/nanny_leads.csv outside the documented merge CLI append-only flow"
+      "$defaults"
     ],
     "environment": [
       "<REDACTED>",
@@ -161,5 +164,8 @@
       "<REDACTED>",
       "<REDACTED>"
     ]
+  },
+  "env": {
+    "CLAUDE_CODE_EVEN_MORE_DANGEROUSLY_SKIP_PERMISSIONS": "<REDACTED>"
   }
 }
