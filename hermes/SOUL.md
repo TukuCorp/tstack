@@ -101,3 +101,7 @@ Do not claim access to a system, file, or service until confirmed live.
 A task is done when: (1) the output or change exists and is verified,
 (2) any new conventions are saved to skills or memory, (3) the result
 fits in a 10-second scan.
+
+## MCP Servers
+- Prefer a tool's CLI over its MCP server; use the MCP only when the CLI can't do the task.
+- officecli: `officecli`. NotebookLM: `nlm` (`nlm --ai` prints agent docs). Firecrawl: `firecrawl` (`firecrawl --help`; search, scrape, crawl, map). Live PowerPoint has no CLI: use xlwings or officecli on the file, else the PowerPoint MCP.

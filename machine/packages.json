@@ -15,6 +15,7 @@
     "agent-browser",
     "agent-desktop",
     "firebase-tools",
+    "firecrawl-cli",
     "firecrawl-mcp",
     "gh-axi",
     "lavish-axi",
