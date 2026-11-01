@@ -52,6 +52,42 @@ User may narrow scope (e.g. "only sling/wrap with sideways position"). When they
 - Cross-reference the narrowed feature with each product's specifications
 - Re-rank and re-present immediately
 
+## Vietnam hospitality / accommodation research
+
+Use when the user asks for hotels, flights, or accommodation in Vietnam (especially Hanoi/HCMC),
+including "why is it expensive that week" asks.
+
+### Hotel search procedure (Hanoi worked example, Nov 2026)
+1. TripAdvisor top-rated cheap/budget hotels for the city + dates → note TA rating + review count.
+2. Cross-check prices on Agoda and Kayak for the exact dates (lowest rates there).
+3. Filter by the user's ceiling (~2.5M VND/night) and central location (Old Quarter / Hoan Kiem).
+4. Return ~5 with: name, area, TA rating (reviews), price/night (VND), booking link.
+
+### Hanoi Old Quarter hotels clustering ~2.5M VND/night (high TA, Nov 2026 data)
+- Bespoke Trendy Hotel Hanoi (12-14 Nguyen Quang Bich) — TA 5.0 (6,074) — ~1.1-2.6M VND
+- AIRA Boutique Hanoi Hotel & Spa — TA 5.0 (4,049) — ~1.5-2.3M VND
+- Hanoi La Selva Hotel (57 Lo Su) — TA 5.0 (2,203) — ~0.7-2.0M VND (cheapest)
+- Bendecir Hotel & Spa (27 Lo Su) — TA 4.8 (1,062) — ~1.0-1.8M VND
+- Hanoi La Palm Premier Hotel & Spa (35 Hang Quat) — TA 4.9 (2,807) — ~0.9-1.8M VND
+- Meritel Hanoi (151-153 Hang Bong) — TA 5.0 (3,593) — ~1.9-4.0M VND (mid-tier ~2.5M)
+- La Siesta Premium Hang Be — TA 5.0 (4,315) — ~2.4M VND
+- Hanoi Splendid Premium Hotel (36 Lo Su) — TA 5.0 (1,004) — ~2.4M VND
+- Step-up: The Oriental Jade Hotel (92-94 Hang Trong) — TA 5.0 (6,218) — ~3.2-4.2M VND (rooftop pool + spa)
+
+### Booking-site quirks
+- Agoda and Kayak consistently show the lowest rates; Trip.com/TripAdvisor for reviews.
+- Prices firm up as dates approach; Nov overlaps expos/marathon/summits → lock refundable early.
+- Breakfast included on most Old Quarter boutique hotels.
+
+### User rules (durable)
+- Ceiling ~2.5M VND/night, central/Old Quarter (Hoan Kiem) in Hanoi.
+- Nov 3-7 demand stacking (aviation expo Nov 4-6, Vietfood Nov 4-7, IEAE Nov 5-7,
+  Standard Chartered Hanoi Marathon Nov 6-8, CLMV 12 + ACMECS 11 summits Nov 2026) —
+  see `no-key-web-research` Rung 7 for the four-layer triangulation.
+
+### Reference
+- `references/vietnam-hospitality-accommodation.md` — booking-site matrix + hotel table + demand-layer detail.
+
 ## Pitfalls
 
 - **E-commerce bot blocks**: Lazada and Tiki sometimes return empty pages to automated browsers. Use `browser_console` JS extraction instead of relying on snapshot element refs, which may not have href values. If a platform consistently blocks, try another platform. **Shopee.vn is fully login-walled (search AND product pages, verified Aug 2026)** — do not burn time on API bypasses; harvest URLs via the search-engine ladder and benchmark prices from VN specialist retailers instead (see "Shopee.vn harvesting" below).

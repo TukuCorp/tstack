@@ -1,0 +1,2355 @@
+1
+00:00:00,000 --> 00:00:04,040
+Since the models and tooling around them
+2
+00:00:01,639 --> 00:00:06,080
+has gotten really good, the way I work
+3
+00:00:04,040 --> 00:00:08,000
+and just use my computer in general has
+4
+00:00:06,080 --> 00:00:09,519
+fundamentally changed. I've mentioned
+5
+00:00:08,000 --> 00:00:12,480
+this before in the past, but I wanted to
+6
+00:00:09,519 --> 00:00:14,399
+do a dedicated breakdown on the ways I
+7
+00:00:12,480 --> 00:00:16,719
+actually get things done. Obviously for
+8
+00:00:14,400 --> 00:00:19,160
+dev work, but also for day-to-day
+9
+00:00:16,719 --> 00:00:20,559
+business operations, personal stuff.
+10
+00:00:19,160 --> 00:00:23,000
+I've gotten to the point where the Codex
+11
+00:00:20,559 --> 00:00:25,359
+desktop app is effectively my interface
+12
+00:00:23,000 --> 00:00:28,000
+for my computer, and that's email,
+13
+00:00:25,359 --> 00:00:29,960
+that's Slack, that's Notion. Whenever I
+14
+00:00:28,000 --> 00:00:31,960
+need to do a first pass on things, it
+15
+00:00:29,960 --> 00:00:33,719
+generally speaking goes through Codex.
+16
+00:00:31,960 --> 00:00:35,960
+It's kind of funny as a side note,
+17
+00:00:33,719 --> 00:00:37,560
+Cursor, I love the stuff they do and
+18
+00:00:35,960 --> 00:00:38,560
+full disclosure, I've run some ads with
+19
+00:00:37,560 --> 00:00:40,000
+Cursor, I'm going to run other ones in
+20
+00:00:38,560 --> 00:00:42,679
+the future, but they have nothing to do
+21
+00:00:40,000 --> 00:00:44,439
+with this video. Cursor has excellent,
+22
+00:00:42,679 --> 00:00:46,719
+like really, really good product
+23
+00:00:44,439 --> 00:00:48,359
+services. Grok bot is excellent, Cursor
+24
+00:00:46,719 --> 00:00:50,159
+Cloud is excellent, their desktop app
+25
+00:00:48,359 --> 00:00:52,079
+has actually gotten good, but the
+26
+00:00:50,159 --> 00:00:54,359
+models, especially now that they're part
+27
+00:00:52,079 --> 00:00:56,359
+of SpaceX, they're really dependent on
+28
+00:00:54,359 --> 00:00:59,119
+the Grok series of models, and until
+29
+00:00:56,359 --> 00:01:02,119
+those get really, really good, it kind
+30
+00:00:59,119 --> 00:01:04,000
+of sucks to have to use only those. I
+31
+00:01:02,119 --> 00:01:06,200
+want to use Astra for my stuff, and as
+32
+00:01:04,000 --> 00:01:08,879
+such, I've built most of my workflows
+33
+00:01:06,200 --> 00:01:10,600
+entirely into the Codex desktop app.
+34
+00:01:08,879 --> 00:01:12,560
+When you look at my setup here, there's
+35
+00:01:10,599 --> 00:01:14,319
+a couple things that are a little off
+36
+00:01:12,560 --> 00:01:16,079
+and strange. Like the first one is I'm
+37
+00:01:14,319 --> 00:01:18,000
+not signed in with a profile, I'm signed
+38
+00:01:16,079 --> 00:01:20,480
+in with this router down here. And the
+39
+00:01:18,000 --> 00:01:22,239
+reason for that is I have multiple Codex
+40
+00:01:20,480 --> 00:01:24,079
+subs. I do a lot of work with this
+41
+00:01:22,239 --> 00:01:25,399
+thing, obviously coding, but also some
+42
+00:01:24,079 --> 00:01:27,280
+of the workflows I'll show you later
+43
+00:01:25,400 --> 00:01:29,359
+with, you know, like when this video
+44
+00:01:27,280 --> 00:01:31,840
+gets edited and put up on YouTube, the
+45
+00:01:29,359 --> 00:01:33,400
+processing that I do to prep the project
+46
+00:01:31,840 --> 00:01:35,040
+and get it ready to be edited is going
+47
+00:01:33,400 --> 00:01:36,719
+to be done by Codex. A lot of
+48
+00:01:35,040 --> 00:01:38,320
+automations that go off every day to
+49
+00:01:36,719 --> 00:01:40,640
+handle things like triage and make sure
+50
+00:01:38,319 --> 00:01:42,479
+that I'm semi on top of things happens
+51
+00:01:40,640 --> 00:01:44,359
+with Codex, and even just basic
+52
+00:01:42,480 --> 00:01:46,960
+searching and machine configuration
+53
+00:01:44,359 --> 00:01:48,840
+stuff happens through Codex. So, I use
+54
+00:01:46,959 --> 00:01:51,639
+this model very heavily. I have three
+55
+00:01:48,840 --> 00:01:53,400
+accounts. I'm currently down to not very
+56
+00:01:51,640 --> 00:01:55,320
+much of my limits. I
+57
+00:01:53,400 --> 00:01:57,400
+I love Astra, but it really burns your
+58
+00:01:55,319 --> 00:01:59,879
+limits badly. But since I have what is
+59
+00:01:57,400 --> 00:02:01,920
+effectively an internal AI gateway that
+60
+00:01:59,879 --> 00:02:04,280
+is running on one of my Linux boxes in
+61
+00:02:01,920 --> 00:02:05,478
+my home server, that is then connected
+62
+00:02:04,280 --> 00:02:07,239
+to all my different devices over
+63
+00:02:05,478 --> 00:02:10,080
+Tailscale, I can then authenticate
+64
+00:02:07,239 --> 00:02:12,519
+Codex, Claude Code, and Grok with that
+65
+00:02:10,080 --> 00:02:14,640
+API endpoint instead of the normal OAuth
+66
+00:02:12,520 --> 00:02:17,080
+sign-in. The OAuth sign-in happens
+67
+00:02:14,639 --> 00:02:18,919
+directly in the gateway itself. The
+68
+00:02:17,080 --> 00:02:20,760
+interface here is custom because I don't
+69
+00:02:18,919 --> 00:02:22,958
+love the default interface from CLI
+70
+00:02:20,759 --> 00:02:25,560
+proxy API, which is what this is a fork
+71
+00:02:22,959 --> 00:02:26,879
+of. The core of this is really, really
+72
+00:02:25,560 --> 00:02:28,800
+good. I love what they put together
+73
+00:02:26,879 --> 00:02:30,840
+here. You authenticate your subs, and
+74
+00:02:28,800 --> 00:02:32,680
+then you just serve requests to Codex or
+75
+00:02:30,840 --> 00:02:35,599
+Claude Code directly using their normal
+76
+00:02:32,680 --> 00:02:37,120
+API. I am not using this to stick my sub
+77
+00:02:35,599 --> 00:02:39,680
+into things it's not supposed to go
+78
+00:02:37,120 --> 00:02:41,719
+into. Uh that's mostly a note for the
+79
+00:02:39,680 --> 00:02:43,159
+Claude sub. I am using Claude entirely
+80
+00:02:41,719 --> 00:02:45,199
+through Claude Code cuz they don't like
+81
+00:02:43,159 --> 00:02:46,680
+it when you use it through Pi or Open
+82
+00:02:45,199 --> 00:02:48,159
+Code or whatever. They will ban you for
+83
+00:02:46,680 --> 00:02:50,080
+that. I would not recommend doing it.
+84
+00:02:48,159 --> 00:02:51,319
+Both Codex and Grok are really chill
+85
+00:02:50,080 --> 00:02:53,320
+about that. So actually some of my
+86
+00:02:51,319 --> 00:02:55,079
+Hermes agents are running just through
+87
+00:02:53,319 --> 00:02:57,239
+this normal gateway load balancing on my
+88
+00:02:55,080 --> 00:02:58,959
+subs. Uh same thing with Grok. I have a
+89
+00:02:57,240 --> 00:03:00,719
+bunch of random things offed on this.
+90
+00:02:58,959 --> 00:03:02,200
+It's really convenient. You get absurd
+91
+00:03:00,719 --> 00:03:04,120
+amounts of usage. It just kind of works.
+92
+00:03:02,199 --> 00:03:05,679
+Just God, I need a better model. I don't
+93
+00:03:04,120 --> 00:03:07,159
+want to spend time on like how to get
+94
+00:03:05,680 --> 00:03:08,439
+this set up or whatever, and that's
+95
+00:03:07,159 --> 00:03:10,159
+going to go for everything I talk about
+96
+00:03:08,439 --> 00:03:11,599
+in this video. The way you should set
+97
+00:03:10,159 --> 00:03:12,840
+these things up if they would be useful
+98
+00:03:11,599 --> 00:03:14,599
+for your workflow, like if you're
+99
+00:03:12,840 --> 00:03:16,719
+burning through all your subs constantly
+100
+00:03:14,599 --> 00:03:18,439
+and you really need more usage, load
+101
+00:03:16,719 --> 00:03:20,080
+balancing subs is a great way to do it.
+102
+00:03:18,439 --> 00:03:21,919
+Having an API is great for that. If you
+103
+00:03:20,080 --> 00:03:23,760
+need to set this up, send this link to
+104
+00:03:21,919 --> 00:03:25,559
+Codex and tell it, "Hey, I want to set
+105
+00:03:23,759 --> 00:03:26,959
+this up. What is the best way to do it?"
+106
+00:03:25,560 --> 00:03:28,800
+Even better if you have like other
+107
+00:03:26,959 --> 00:03:30,439
+little old devices on your network. And
+108
+00:03:28,800 --> 00:03:32,519
+these Linux devices don't need to be
+109
+00:03:30,439 --> 00:03:35,719
+super high-end. Like the box that is
+110
+00:03:32,519 --> 00:03:37,759
+running my CLI proxy API fork is a
+111
+00:03:35,719 --> 00:03:39,599
+pretty small Linux box that I think was
+112
+00:03:37,759 --> 00:03:43,159
+like five or six hundred bucks when I
+113
+00:03:39,599 --> 00:03:45,680
+got it a while ago. It's a old Ryzen CPU
+114
+00:03:43,159 --> 00:03:47,799
+and like 32 gigs of RAM, which to be
+115
+00:03:45,680 --> 00:03:49,239
+fair in today's prices is horrible. But
+116
+00:03:47,800 --> 00:03:50,920
+if you have like an old laptop or
+117
+00:03:49,239 --> 00:03:52,680
+something like that, this is a great use
+118
+00:03:50,919 --> 00:03:55,039
+case to just hook that up, get it
+119
+00:03:52,680 --> 00:03:57,680
+running 24/7 and use it as a background
+120
+00:03:55,039 --> 00:03:59,479
+server and internal API thing. I love
+121
+00:03:57,680 --> 00:04:01,159
+having these internal APIs, and the best
+122
+00:03:59,479 --> 00:04:02,639
+way to set them up is to ask your agents
+123
+00:04:01,159 --> 00:04:04,319
+and work with them, and they will do it
+124
+00:04:02,639 --> 00:04:06,439
+very, very well. I also mentioned that I
+125
+00:04:04,319 --> 00:04:08,159
+do a ton of work here that isn't normal
+126
+00:04:06,439 --> 00:04:09,479
+dev stuff, and I want to go through a
+127
+00:04:08,159 --> 00:04:11,240
+couple examples of that and how it
+128
+00:04:09,479 --> 00:04:13,359
+works. Unfortunately, the reality of
+129
+00:04:11,240 --> 00:04:16,000
+that is so many of the good examples
+130
+00:04:13,360 --> 00:04:17,480
+require sensitive data that I can't post
+131
+00:04:16,000 --> 00:04:20,079
+publicly. I spend most of my time
+132
+00:04:17,480 --> 00:04:22,840
+building internal tools that are for the
+133
+00:04:20,079 --> 00:04:24,800
+agency 10XN that manage the ad spots and
+134
+00:04:22,839 --> 00:04:26,479
+stuff for my channel and many others. I
+135
+00:04:24,800 --> 00:04:28,319
+also use it for, you know, personal
+136
+00:04:26,480 --> 00:04:30,360
+one-off tools, a lot of admin work, a
+137
+00:04:28,319 --> 00:04:32,199
+lot of research, a lot of just like
+138
+00:04:30,360 --> 00:04:34,000
+managing and making videos. It's not
+139
+00:04:32,199 --> 00:04:35,918
+stuff that I can really show nearly as
+140
+00:04:34,000 --> 00:04:37,560
+much, but I do have a few things that I
+141
+00:04:35,918 --> 00:04:39,519
+want to show right after the sponsor
+142
+00:04:37,560 --> 00:04:41,680
+break. Today's sponsor is Greptile, the
+143
+00:04:39,519 --> 00:04:43,879
+most powerful AI code reviewer. And I
+144
+00:04:41,680 --> 00:04:47,040
+call it the most powerful because, well,
+145
+00:04:43,879 --> 00:04:48,560
+two reasons. One, their agent is second
+146
+00:04:47,040 --> 00:04:51,160
+to none. The way this thing works is
+147
+00:04:48,560 --> 00:04:53,120
+really impressive. It fully indexes your
+148
+00:04:51,160 --> 00:04:55,480
+code base, then it sends off a swarm of
+149
+00:04:53,120 --> 00:04:57,120
+agents in parallel to review all the
+150
+00:04:55,480 --> 00:05:00,000
+changes and everything that needs to be
+151
+00:04:57,120 --> 00:05:01,918
+seen to get you useful actionable code
+152
+00:05:00,000 --> 00:05:04,959
+reviews. The confidence scores are a
+153
+00:05:01,918 --> 00:05:07,359
+very high-signal way to just know how
+154
+00:05:04,959 --> 00:05:09,399
+good or bad a PR is and how much work is
+155
+00:05:07,360 --> 00:05:12,040
+left to do. You can chat directly with
+156
+00:05:09,399 --> 00:05:13,799
+Greptile right in the PR, and also it
+157
+00:05:12,040 --> 00:05:16,439
+will automatically generate unit tests
+158
+00:05:13,800 --> 00:05:18,800
+for new code in every single PR. And
+159
+00:05:16,439 --> 00:05:20,918
+this is amplified by their T-Rex system.
+160
+00:05:18,800 --> 00:05:23,360
+It is a full sandbox environment that
+161
+00:05:20,918 --> 00:05:25,279
+gets spun up to not just look at your
+162
+00:05:23,360 --> 00:05:27,280
+changes or run some unit tests, but run
+163
+00:05:25,279 --> 00:05:28,959
+the actual code changes to make sure
+164
+00:05:27,279 --> 00:05:31,239
+they work. A great example of this is a
+165
+00:05:28,959 --> 00:05:32,680
+PR I merged yesterday, which was fixing
+166
+00:05:31,240 --> 00:05:35,400
+some download behavior on one of my
+167
+00:05:32,680 --> 00:05:37,120
+projects, TX9. And you can see down here
+168
+00:05:35,399 --> 00:05:38,918
+the confidence score, the important
+169
+00:05:37,120 --> 00:05:40,280
+files changed. You can see it says it's
+170
+00:05:38,918 --> 00:05:42,079
+safe to merge cuz it's already gone
+171
+00:05:40,279 --> 00:05:43,719
+through the review loop of my agent
+172
+00:05:42,079 --> 00:05:45,800
+makes a change, Greptile reviews it,
+173
+00:05:43,720 --> 00:05:48,120
+agent fixes the reviews until it's up to
+174
+00:05:45,800 --> 00:05:49,639
+a five out of five. Love that workflow.
+175
+00:05:48,120 --> 00:05:51,680
+but you can really see the magic here on
+176
+00:05:49,639 --> 00:05:53,839
+one of the reviews it left where it
+177
+00:05:51,680 --> 00:05:56,000
+found this issue with bounding the asset
+178
+00:05:53,839 --> 00:05:57,599
+downloads and then it left these three
+179
+00:05:56,000 --> 00:05:59,759
+artifacts which were actual
+180
+00:05:57,600 --> 00:06:01,640
+reproductions it made within their
+181
+00:05:59,759 --> 00:06:03,319
+sandboxing system. When I click that
+182
+00:06:01,639 --> 00:06:05,159
+link it takes me directly to the
+183
+00:06:03,319 --> 00:06:07,000
+artifact to see what all happened in
+184
+00:06:05,160 --> 00:06:08,960
+here, the code it wrote, the steps it
+185
+00:06:07,000 --> 00:06:11,600
+took. Companies like WorkOS, Nvidia, and
+186
+00:06:08,959 --> 00:06:13,159
+Brex all use Reptile and having had it
+187
+00:06:11,600 --> 00:06:14,800
+on my repos for quite a while, I can
+188
+00:06:13,160 --> 00:06:16,080
+tell you I wouldn't want to live without
+189
+00:06:14,800 --> 00:06:19,600
+it. And you should really add it to your
+190
+00:06:16,079 --> 00:06:20,959
+projects at david 7.link/reptile.
+191
+00:06:19,600 --> 00:06:22,200
+This first one is weird, but it uses a
+192
+00:06:20,959 --> 00:06:24,199
+lot of the pieces that I think
+193
+00:06:22,199 --> 00:06:26,240
+illustrates the point. I had this weird
+194
+00:06:24,199 --> 00:06:28,240
+issue that I ran into where Axiom, one
+195
+00:06:26,240 --> 00:06:30,800
+of the things that I use for logging on
+196
+00:06:28,240 --> 00:06:32,720
+all the services I work with, I have a
+197
+00:06:30,800 --> 00:06:34,400
+pro account on one of my accounts, but
+198
+00:06:32,720 --> 00:06:36,880
+something weird somewhere happened and I
+199
+00:06:34,399 --> 00:06:38,159
+forget which login I used. I was like,
+200
+00:06:36,879 --> 00:06:39,480
+okay, I don't know what to do. I sent
+201
+00:06:38,160 --> 00:06:40,520
+Codex off to figure it out, tried a
+202
+00:06:39,480 --> 00:06:42,840
+bunch of different things, it didn't
+203
+00:06:40,519 --> 00:06:45,000
+work, and ultimately what ended up
+204
+00:06:42,839 --> 00:06:46,679
+happening is I had it send off an email
+205
+00:06:45,000 --> 00:06:48,519
+to support like, "Hey, what is going on
+206
+00:06:46,680 --> 00:06:50,120
+here? How do we fix this?" and then got
+207
+00:06:48,519 --> 00:06:52,439
+a reply from support and then drafted
+208
+00:06:50,120 --> 00:06:54,079
+the reply back to support with this. Was
+209
+00:06:52,439 --> 00:06:55,959
+really cool and it uses a lot of the
+210
+00:06:54,079 --> 00:06:57,399
+different pieces that are required for
+211
+00:06:55,959 --> 00:06:59,839
+day-to-day work. The first of which is
+212
+00:06:57,399 --> 00:07:01,560
+the in-app browser within Codex. I found
+213
+00:06:59,839 --> 00:07:03,839
+myself using this more and more as a
+214
+00:07:01,560 --> 00:07:05,879
+normal browser. At first it was just the
+215
+00:07:03,839 --> 00:07:07,679
+localhost preview for things, but now
+216
+00:07:05,879 --> 00:07:09,680
+I've got Google signed in here, GitHub
+217
+00:07:07,680 --> 00:07:11,280
+signed in here, and I'll often just open
+218
+00:07:09,680 --> 00:07:13,199
+something like, you know, in physical
+219
+00:07:11,279 --> 00:07:14,959
+I'll open up Axiom and then if I need to
+220
+00:07:13,199 --> 00:07:16,599
+make some change that requires these
+221
+00:07:14,959 --> 00:07:18,918
+within a project, all of that is being
+222
+00:07:16,600 --> 00:07:20,439
+handled through another like central
+223
+00:07:18,918 --> 00:07:22,639
+gateway that I have hosted on my Linux
+224
+00:07:20,439 --> 00:07:25,160
+machines. It is Executor, which is
+225
+00:07:22,639 --> 00:07:27,279
+basically MCP gateway that you can
+226
+00:07:25,160 --> 00:07:29,080
+self-host or use their cloud version,
+227
+00:07:27,279 --> 00:07:30,519
+which is pretty good. Full disclosure, I
+228
+00:07:29,079 --> 00:07:32,759
+am invested in Reese's company, he's a
+229
+00:07:30,519 --> 00:07:34,079
+good friend, but I invested cuz I really
+230
+00:07:32,759 --> 00:07:35,680
+like it and I think it's dope and I use
+231
+00:07:34,079 --> 00:07:37,000
+it for everything. Since it's set up and
+232
+00:07:35,680 --> 00:07:38,560
+running on one of the Linux machines,
+233
+00:07:37,000 --> 00:07:41,079
+you can see with this like connect to an
+234
+00:07:38,560 --> 00:07:43,720
+agent command, this is a Tailscale URL
+235
+00:07:41,079 --> 00:07:46,479
+and I am using that Tailscale URL to add
+236
+00:07:43,720 --> 00:07:47,920
+that MCP into my Codex instance. It's
+237
+00:07:46,480 --> 00:07:49,720
+also in some of my Hermes agents and
+238
+00:07:47,920 --> 00:07:52,840
+actually even in my Grok Bot instance.
+239
+00:07:49,720 --> 00:07:55,400
+So, this has my Firecrawl, my Google
+240
+00:07:52,839 --> 00:07:57,759
+Calendar, my Google Drive, my Gmail, my
+241
+00:07:55,399 --> 00:07:59,399
+Notion, my Slack, my Todoist, and some
+242
+00:07:57,759 --> 00:08:00,839
+read-only YouTube Analytics. Most of
+243
+00:07:59,399 --> 00:08:02,560
+these have multiple accounts on them cuz
+244
+00:08:00,839 --> 00:08:04,039
+like I have five Gmail accounts that I
+245
+00:08:02,560 --> 00:08:06,000
+have to keep track of. All of those go
+246
+00:08:04,040 --> 00:08:07,920
+through here. Multiple Notions, multiple
+247
+00:08:06,000 --> 00:08:10,120
+Slacks, you get the idea. Since all of
+248
+00:08:07,920 --> 00:08:12,199
+these are in one place and the agent can
+249
+00:08:10,120 --> 00:08:14,319
+interact with them via code mode type
+250
+00:08:12,199 --> 00:08:16,279
+stuff, I'm able to do things like, "Hey,
+251
+00:08:14,319 --> 00:08:18,120
+can you just send an email using my
+252
+00:08:16,279 --> 00:08:20,079
+personal email to support asking what's
+253
+00:08:18,120 --> 00:08:21,360
+going on?" It'll give me a draft. I'll
+254
+00:08:20,079 --> 00:08:23,159
+review it. I'll be like, "Yep, that
+255
+00:08:21,360 --> 00:08:25,240
+looks good." Tell it to send. It'll do
+256
+00:08:23,160 --> 00:08:27,280
+the send for me. And things like this
+257
+00:08:25,240 --> 00:08:29,160
+where I needed to troubleshoot this
+258
+00:08:27,279 --> 00:08:30,719
+Axiom issue, now it just kind of happens
+259
+00:08:29,160 --> 00:08:32,840
+automatically through Codex. It's a
+260
+00:08:30,720 --> 00:08:34,639
+really powerful workflow. This side of
+261
+00:08:32,840 --> 00:08:36,399
+it, the browser side, can be done in
+262
+00:08:34,639 --> 00:08:39,000
+something like Helium. Like my main
+263
+00:08:36,399 --> 00:08:41,598
+browser that I use day-to-day is Helium.
+264
+00:08:39,000 --> 00:08:43,038
+But, the issue of just letting the agent
+265
+00:08:41,599 --> 00:08:44,879
+go on computer using the Helium is
+266
+00:08:43,038 --> 00:08:47,720
+mostly just that it will start clogging
+267
+00:08:44,879 --> 00:08:49,799
+up my computer and using up not even my
+268
+00:08:47,720 --> 00:08:51,399
+resources, but just my screen. If it's
+269
+00:08:49,799 --> 00:08:53,399
+doing something in Helium, I only have
+270
+00:08:51,399 --> 00:08:54,319
+one Helium, so I can't do something as
+271
+00:08:53,399 --> 00:08:56,679
+well. I have to go to a different
+272
+00:08:54,320 --> 00:08:57,960
+browser. If I have it in the in-app
+273
+00:08:56,679 --> 00:08:59,599
+browser, I can have as many threads
+274
+00:08:57,960 --> 00:09:01,519
+going as I want and each of them can
+275
+00:08:59,600 --> 00:09:03,320
+have their own dedicated browser to do
+276
+00:09:01,519 --> 00:09:04,799
+whatever miscellaneous thing they want.
+277
+00:09:03,320 --> 00:09:06,520
+I think the best way I can explain this
+278
+00:09:04,799 --> 00:09:08,319
+side of the workflow and the whole like
+279
+00:09:06,519 --> 00:09:10,559
+using Codex as an interface for my
+280
+00:09:08,320 --> 00:09:13,280
+computer thing is that the apps I use
+281
+00:09:10,559 --> 00:09:15,239
+day-to-day, like Notion for example, I
+282
+00:09:13,279 --> 00:09:17,559
+still go into Notion a lot, but I'll
+283
+00:09:15,240 --> 00:09:19,039
+often start within Codex. So, for
+284
+00:09:17,559 --> 00:09:22,000
+example, the video that I'm recording
+285
+00:09:19,039 --> 00:09:25,159
+right now, I have a Notion entry for it.
+286
+00:09:22,000 --> 00:09:27,279
+So, uh use executor, go into my Notion,
+287
+00:09:25,159 --> 00:09:30,279
+uh or sorry, it's the 10xN Notion, find
+288
+00:09:27,279 --> 00:09:32,079
+the video page for my current setup and
+289
+00:09:30,279 --> 00:09:34,838
+the way I'm working for things. Uh it
+290
+00:09:32,080 --> 00:09:36,120
+should be under currently filming or to
+291
+00:09:34,839 --> 00:09:36,960
+film, whatever. I don't remember how
+292
+00:09:36,120 --> 00:09:39,159
+it's was
+293
+00:09:36,960 --> 00:09:40,560
+But, go find that one and get me a list
+294
+00:09:39,159 --> 00:09:41,959
+of the points that I wanted to make in
+295
+00:09:40,559 --> 00:09:44,159
+that video. So, it's going to go off,
+296
+00:09:41,960 --> 00:09:46,360
+it's going to call the Notion MCP, get
+297
+00:09:44,159 --> 00:09:47,759
+all of that data for me, present it to
+298
+00:09:46,360 --> 00:09:49,399
+me in chat, and then I can start taking
+299
+00:09:47,759 --> 00:09:51,000
+actions from there. If I want to
+300
+00:09:49,399 --> 00:09:52,600
+directly edit something, I'll just have
+301
+00:09:51,000 --> 00:09:54,799
+it send me a link that'll deep link in,
+302
+00:09:52,600 --> 00:09:56,680
+and I can go and do that thing. I just
+303
+00:09:54,799 --> 00:09:58,240
+start here. Same thing with like an
+304
+00:09:56,679 --> 00:09:59,679
+email type thing. If I'm like, "Oh, I
+305
+00:09:58,240 --> 00:10:01,279
+need to go deal with this specific
+306
+00:09:59,679 --> 00:10:03,120
+company." I will just have it pull up
+307
+00:10:01,279 --> 00:10:05,480
+all of the context and info that I need
+308
+00:10:03,120 --> 00:10:07,480
+for that one. And then, I can work off
+309
+00:10:05,480 --> 00:10:09,240
+of it from there. I need back and forth,
+310
+00:10:07,480 --> 00:10:11,759
+pull in more resources, do more search.
+311
+00:10:09,240 --> 00:10:14,600
+Just having a very powerful, capable
+312
+00:10:11,759 --> 00:10:16,480
+agent that can go off and both pull the
+313
+00:10:14,600 --> 00:10:19,200
+things for me, take actions for me, and
+314
+00:10:16,480 --> 00:10:21,360
+do little random things on the side. I
+315
+00:10:19,200 --> 00:10:23,960
+set up earlier, I was considering doing
+316
+00:10:21,360 --> 00:10:25,680
+a video on Fable 5.1. I'm not going to
+317
+00:10:23,960 --> 00:10:28,160
+do a video on Fable 5.1. This is
+318
+00:10:25,679 --> 00:10:29,599
+actually what that video was. It'll make
+319
+00:10:28,159 --> 00:10:31,679
+sense later, I promise. But, you can see
+320
+00:10:29,600 --> 00:10:33,920
+in here, I started with a voice-to-text
+321
+00:10:31,679 --> 00:10:35,559
+vomit prompt that included a link to the
+322
+00:10:33,919 --> 00:10:36,599
+video template that I put together.
+323
+00:10:35,559 --> 00:10:38,319
+That's the way I like structuring
+324
+00:10:36,600 --> 00:10:40,720
+videos. I wanted to start that for the
+325
+00:10:38,320 --> 00:10:42,240
+Fable 5.1 video. Then, I did some more
+326
+00:10:40,720 --> 00:10:43,759
+voice-to-text vomit to have it go pull
+327
+00:10:42,240 --> 00:10:45,000
+some sources that I knew of off the top
+328
+00:10:43,759 --> 00:10:46,600
+of my head, but I didn't want to go find
+329
+00:10:45,000 --> 00:10:47,480
+the specific links for. Then, after a
+330
+00:10:46,600 --> 00:10:48,920
+couple minutes, I was like, "Oh, wait,
+331
+00:10:47,480 --> 00:10:50,560
+there's another thing. I want to make a
+332
+00:10:48,919 --> 00:10:52,838
+skill so that in the future, when I want
+333
+00:10:50,559 --> 00:10:54,239
+to start ideating on a new video, it
+334
+00:10:52,839 --> 00:10:56,280
+will always pull directly from that
+335
+00:10:54,240 --> 00:10:58,680
+template." So, I just put in that same
+336
+00:10:56,279 --> 00:11:00,439
+thread, "Go send off a sub-agent to make
+337
+00:10:58,679 --> 00:11:02,319
+this new skill." Put out that all
+338
+00:11:00,440 --> 00:11:04,480
+together. It ended up doing all that, as
+339
+00:11:02,320 --> 00:11:06,440
+well as putting in the links that I was
+340
+00:11:04,480 --> 00:11:07,960
+asking for the anti-distillation stuff.
+341
+00:11:06,440 --> 00:11:09,680
+Then, I had another video that I wanted
+342
+00:11:07,960 --> 00:11:11,240
+to reorganize, the stuff I'm working on
+343
+00:11:09,679 --> 00:11:13,199
+with local models. I was like, "Okay,
+344
+00:11:11,240 --> 00:11:15,039
+put it in the new format that I have for
+345
+00:11:13,200 --> 00:11:16,280
+these videos." It did that for me. And
+346
+00:11:15,039 --> 00:11:17,319
+then, after that, I did a completely
+347
+00:11:16,279 --> 00:11:19,159
+different thing, and I was like, "Okay,
+348
+00:11:17,320 --> 00:11:21,080
+go find the Claude code sessions." Oh,
+349
+00:11:19,159 --> 00:11:23,639
+wait, voice-to-text said Claude code.
+350
+00:11:21,080 --> 00:11:24,839
+That's fun. But, the machine's smart
+351
+00:11:23,639 --> 00:11:26,319
+enough, it knows what that means. It
+352
+00:11:24,839 --> 00:11:27,920
+doesn't really matter. You can just kind
+353
+00:11:26,320 --> 00:11:29,760
+of say things to it, it'll redirect
+354
+00:11:27,919 --> 00:11:31,439
+automatically. It's just The models are
+355
+00:11:29,759 --> 00:11:32,919
+so smart and capable that as long as
+356
+00:11:31,440 --> 00:11:34,560
+they have the tools, you can kind of
+357
+00:11:32,919 --> 00:11:36,559
+just keep throwing random stuff at them
+358
+00:11:34,559 --> 00:11:38,159
+and just slowly orchestrate all these
+359
+00:11:36,559 --> 00:11:40,039
+pieces together in one place in a way
+360
+00:11:38,159 --> 00:11:41,240
+that just feels really, really good.
+361
+00:11:40,039 --> 00:11:43,000
+What I love about all of this is it
+362
+00:11:41,240 --> 00:11:44,799
+unlocks so many weird new novel
+363
+00:11:43,000 --> 00:11:47,279
+workflows that at this point you're kind
+364
+00:11:44,799 --> 00:11:49,120
+of only bounded by how creative you can
+365
+00:11:47,279 --> 00:11:50,839
+and want to be with these things. If you
+366
+00:11:49,120 --> 00:11:52,600
+have a good foundational understanding
+367
+00:11:50,840 --> 00:11:54,200
+of how all this stuff works, you know,
+368
+00:11:52,600 --> 00:11:55,759
+how the agent works, where it lives,
+369
+00:11:54,200 --> 00:11:57,680
+what it can connect to, what
+370
+00:11:55,759 --> 00:11:59,080
+capabilities it does and doesn't have,
+371
+00:11:57,679 --> 00:12:01,719
+you can start chaining these together in
+372
+00:11:59,080 --> 00:12:04,120
+very insane ways. I had this one earlier
+373
+00:12:01,720 --> 00:12:06,279
+today where this is a giant hell thread
+374
+00:12:04,120 --> 00:12:08,480
+that E- Ethan Eiser, another good friend
+375
+00:12:06,279 --> 00:12:10,639
+of mine, was over earlier today and he
+376
+00:12:08,480 --> 00:12:11,800
+was recording his video on effects just
+377
+00:12:10,639 --> 00:12:14,319
+like why it's really good and why it's
+378
+00:12:11,799 --> 00:12:15,159
+taking over. And for fun, on that even
+379
+00:12:14,320 --> 00:12:17,440
+for fun, this is how I'm going to do
+380
+00:12:15,159 --> 00:12:19,439
+this video, too. I used the skill I put
+381
+00:12:17,440 --> 00:12:21,760
+together for prepping a Final Cut Pro
+382
+00:12:19,440 --> 00:12:23,560
+project for editing. It doesn't do the
+383
+00:12:21,759 --> 00:12:25,200
+full edits cuz it's not quite there yet.
+384
+00:12:23,559 --> 00:12:27,199
+I don't trust it for the cutting. That's
+385
+00:12:25,200 --> 00:12:29,440
+still actually done by an editor, but a
+386
+00:12:27,200 --> 00:12:31,720
+lot of the miscellaneous tedium of go
+387
+00:12:29,440 --> 00:12:33,240
+set up this clip, go make the multicam,
+388
+00:12:31,720 --> 00:12:35,440
+do the syncing, add in the color
+389
+00:12:33,240 --> 00:12:36,680
+grading, do some corrections, get it all
+390
+00:12:35,440 --> 00:12:38,560
+prepped and ready to go, make sure the
+391
+00:12:36,679 --> 00:12:40,399
+audio is good, then give me the project
+392
+00:12:38,559 --> 00:12:43,359
+that's ready to edit instead of just a
+393
+00:12:40,399 --> 00:12:45,519
+pile of raw assets. Now, when my editor
+394
+00:12:43,360 --> 00:12:47,399
+gets these videos, he gets the actual
+395
+00:12:45,519 --> 00:12:49,079
+Final Cut project that's ready to go to
+396
+00:12:47,399 --> 00:12:50,720
+edit and it's much quicker and nicer to
+397
+00:12:49,080 --> 00:12:53,360
+deal with. That I did that same thing
+398
+00:12:50,720 --> 00:12:54,639
+for this video and as it was going, it
+399
+00:12:53,360 --> 00:12:56,480
+sent off this stuff, it did all this
+400
+00:12:54,639 --> 00:12:58,480
+work with computer use cuz computer use
+401
+00:12:56,480 --> 00:13:00,920
+on Astra is just unbelievable. What's
+402
+00:12:58,480 --> 00:13:03,720
+really cool is it didn't actually do
+403
+00:13:00,919 --> 00:13:05,120
+this work on this laptop. It did all of
+404
+00:13:03,720 --> 00:13:06,600
+it on my
+405
+00:13:05,120 --> 00:13:08,120
+It's hard to see here, but it's like
+406
+00:13:06,600 --> 00:13:10,000
+down back behind me. I have one of my
+407
+00:13:08,120 --> 00:13:12,360
+old MacBooks plugged in set to never
+408
+00:13:10,000 --> 00:13:14,399
+sleep. It has an Ethernet cable on it
+409
+00:13:12,360 --> 00:13:17,200
+and that guy is effectively now a
+410
+00:13:14,399 --> 00:13:20,240
+background agent that's any of my normal
+411
+00:13:17,200 --> 00:13:21,920
+Codex instances can call as a sub agent.
+412
+00:13:20,240 --> 00:13:24,560
+So, it sent off what is effectively a
+413
+00:13:21,919 --> 00:13:26,039
+sub agent prompt from here to grab these
+414
+00:13:24,559 --> 00:13:28,119
+assets, prep the thing, follow the
+415
+00:13:26,039 --> 00:13:30,159
+workflow, and it did a really good job.
+416
+00:13:28,120 --> 00:13:31,679
+There were some kinks. It did not go
+417
+00:13:30,159 --> 00:13:33,120
+perfectly, and it also took way longer
+418
+00:13:31,679 --> 00:13:35,239
+than it should have. So, you can even
+419
+00:13:33,120 --> 00:13:37,320
+see like down here like Ethan was just
+420
+00:13:35,240 --> 00:13:39,680
+balding at it cuz it was being annoying,
+421
+00:13:37,320 --> 00:13:41,480
+understandably so. But after all of that
+422
+00:13:39,679 --> 00:13:42,719
+happened and it was staged and set up, I
+423
+00:13:41,480 --> 00:13:43,600
+just had to go through this thread and
+424
+00:13:42,720 --> 00:13:45,360
+be like, all right, go through
+425
+00:13:43,600 --> 00:13:46,639
+everything, see how well it went, how
+426
+00:13:45,360 --> 00:13:47,919
+can we improve this, what should be
+427
+00:13:46,639 --> 00:13:50,080
+changed? You can see it worked for a
+428
+00:13:47,919 --> 00:13:52,439
+little while, gave me some info on this.
+429
+00:13:50,080 --> 00:13:54,600
+Then afterwards, I responded to each of
+430
+00:13:52,440 --> 00:13:56,320
+its points, told it to make the changes
+431
+00:13:54,600 --> 00:13:58,360
+to the scale, make the little tool for
+432
+00:13:56,320 --> 00:14:00,280
+helping send stuff up and down, work for
+433
+00:13:58,360 --> 00:14:01,960
+20 minutes, gave me this really nice
+434
+00:14:00,279 --> 00:14:03,439
+visual breakdown within the actual
+435
+00:14:01,960 --> 00:14:05,560
+editor. This is one of the reasons why I
+436
+00:14:03,440 --> 00:14:07,320
+still lean on Codex heavily, despite the
+437
+00:14:05,559 --> 00:14:09,159
+fact that I do have a lot of problems
+438
+00:14:07,320 --> 00:14:11,640
+with this desktop app. Their priority
+439
+00:14:09,159 --> 00:14:14,679
+view sucks. Like it's very similar to
+440
+00:14:11,639 --> 00:14:16,159
+the T3 code sidebar. Well, it's kind of
+441
+00:14:14,679 --> 00:14:18,599
+inspired by it, and we'll talk about T3
+442
+00:14:16,159 --> 00:14:20,799
+code later, but like it sucks. It is
+443
+00:14:18,600 --> 00:14:22,399
+weird. It's not what I really want, but
+444
+00:14:20,799 --> 00:14:24,519
+it's good enough to where I can live
+445
+00:14:22,399 --> 00:14:26,759
+with it. The place where Codex is good
+446
+00:14:24,519 --> 00:14:28,279
+is right here in the main chat view for
+447
+00:14:26,759 --> 00:14:29,639
+stuff like this, and also the in-app
+448
+00:14:28,279 --> 00:14:31,279
+browser is really good. I like their
+449
+00:14:29,639 --> 00:14:33,279
+artifacts view where, you know, if I
+450
+00:14:31,279 --> 00:14:35,480
+open up an agent's MD, this is a nice
+451
+00:14:33,279 --> 00:14:37,199
+real editor where I can make changes and
+452
+00:14:35,480 --> 00:14:39,039
+easily read what it did. All these
+453
+00:14:37,200 --> 00:14:41,040
+little things work super well, computer
+454
+00:14:39,039 --> 00:14:43,000
+uses first class, all that stuff. Having
+455
+00:14:41,039 --> 00:14:45,279
+this visualization, which is just some
+456
+00:14:43,000 --> 00:14:47,519
+custom HTML that it made and injected
+457
+00:14:45,279 --> 00:14:48,720
+into the page, looks really good, gave
+458
+00:14:47,519 --> 00:14:50,639
+me a good idea of, okay, here are all
+459
+00:14:48,720 --> 00:14:52,960
+the steps, the preparation, delivery,
+460
+00:14:50,639 --> 00:14:55,039
+and receiving. Gave it another giant
+461
+00:14:52,960 --> 00:14:56,480
+Voice to Text vomit prompt telling it to
+462
+00:14:55,039 --> 00:14:58,719
+like, all right, cool, this works. Let's
+463
+00:14:56,480 --> 00:15:00,680
+do a V2 of this and test out how the
+464
+00:14:58,720 --> 00:15:01,960
+workflow would work with the changes we
+465
+00:15:00,679 --> 00:15:03,000
+made. But obviously I didn't have a
+466
+00:15:01,960 --> 00:15:05,120
+video at that point, so I was like,
+467
+00:15:03,000 --> 00:15:06,720
+okay, let's just use the same one and
+468
+00:15:05,120 --> 00:15:08,039
+test it there. But this thread is
+469
+00:15:06,720 --> 00:15:10,279
+poison. This thread already knows too
+470
+00:15:08,039 --> 00:15:11,838
+much. What I had to do is since Astor is
+471
+00:15:10,279 --> 00:15:13,360
+incredible at swarming, I've talked
+472
+00:15:11,839 --> 00:15:15,600
+about this in my dedicated Astor video,
+473
+00:15:13,360 --> 00:15:17,360
+but like this thing is really good at
+474
+00:15:15,600 --> 00:15:19,440
+working with itself. You can have 20
+475
+00:15:17,360 --> 00:15:21,240
+Astors communicating via message board
+476
+00:15:19,440 --> 00:15:24,560
+or direct message or whatever, they will
+477
+00:15:21,240 --> 00:15:26,639
+get good work done. So, this main Astra
+478
+00:15:24,559 --> 00:15:28,799
+instance spawned up another Astra
+479
+00:15:26,639 --> 00:15:30,399
+instance, which was just a new Codex
+480
+00:15:28,799 --> 00:15:32,159
+thread, and it was basically pretending
+481
+00:15:30,399 --> 00:15:33,279
+to be me. How I would interact with it,
+482
+00:15:32,159 --> 00:15:34,719
+the prompts I would send it, it sent the
+483
+00:15:33,279 --> 00:15:36,879
+same prompts that I did at the very
+484
+00:15:34,720 --> 00:15:38,920
+start of this thread, and watched as the
+485
+00:15:36,879 --> 00:15:40,399
+workflow went. It baby-sat it, it saw
+486
+00:15:38,919 --> 00:15:42,120
+what it was doing on that machine, it
+487
+00:15:40,399 --> 00:15:43,480
+was just keeping a tabs on all these
+488
+00:15:42,120 --> 00:15:45,039
+agents. It actually even sent some
+489
+00:15:43,480 --> 00:15:46,759
+steering messages to it to be like,
+490
+00:15:45,039 --> 00:15:48,639
+"Hey, don't do it that way. Change this,
+491
+00:15:46,759 --> 00:15:50,319
+change that." Worked for about an hour,
+492
+00:15:48,639 --> 00:15:51,960
+gave me V2. I looked through it, was
+493
+00:15:50,320 --> 00:15:54,080
+much better. And then at the very end, I
+494
+00:15:51,960 --> 00:15:55,400
+made sure everything was persisted, and
+495
+00:15:54,080 --> 00:15:57,200
+when I'm done recording this one, I'm
+496
+00:15:55,399 --> 00:15:59,439
+going to fire off this workflow again,
+497
+00:15:57,200 --> 00:16:01,400
+and just have it go prep and chop the
+498
+00:15:59,440 --> 00:16:02,960
+assets on that other video, get it on
+499
+00:16:01,399 --> 00:16:05,519
+the NAS, and it's all set and ready to
+500
+00:16:02,960 --> 00:16:07,720
+go. These workflows are insane. There's
+501
+00:16:05,519 --> 00:16:09,319
+nothing like it. Be creative, find weird
+502
+00:16:07,720 --> 00:16:10,920
+ways to hook these things together. I
+503
+00:16:09,320 --> 00:16:13,400
+don't know if this exact shape is the
+504
+00:16:10,919 --> 00:16:15,360
+future, but this kind of thing where
+505
+00:16:13,399 --> 00:16:17,959
+you're working back and forth with an
+506
+00:16:15,360 --> 00:16:19,800
+agent almost at a co-worker level, or
+507
+00:16:17,960 --> 00:16:21,280
+really an assistant level, it hasn't
+508
+00:16:19,799 --> 00:16:23,399
+been there before. And I think the
+509
+00:16:21,279 --> 00:16:25,240
+biggest problem we have right now is
+510
+00:16:23,399 --> 00:16:27,159
+that there are not enough models that
+511
+00:16:25,240 --> 00:16:28,360
+are really capable of doing this well.
+512
+00:16:27,159 --> 00:16:29,600
+There are other ones that can handle
+513
+00:16:28,360 --> 00:16:30,919
+single-threaded stuff. There are other
+514
+00:16:29,600 --> 00:16:32,519
+ones that can handle sub-agents. That
+515
+00:16:30,919 --> 00:16:34,399
+was very much what the last generation
+516
+00:16:32,519 --> 00:16:36,879
+was good at. The open models caught up,
+517
+00:16:34,399 --> 00:16:39,519
+the American labs that aren't OpenAI and
+518
+00:16:36,879 --> 00:16:41,519
+Anthropic mostly caught up. It's just
+519
+00:16:39,519 --> 00:16:43,519
+Now OpenAI and Anthropic have delivered
+520
+00:16:41,519 --> 00:16:45,639
+their new next generation in Astra and
+521
+00:16:43,519 --> 00:16:47,720
+Fable 5.1, and we now have this new
+522
+00:16:45,639 --> 00:16:50,000
+fundamental capability unlocked, which
+523
+00:16:47,720 --> 00:16:52,200
+is that swarming behavior. And also with
+524
+00:16:50,000 --> 00:16:54,639
+Astra, the computer use stuff, nothing
+525
+00:16:52,200 --> 00:16:56,640
+else quite has it. Also, the writing of
+526
+00:16:54,639 --> 00:16:58,319
+Astra is so much better than any other
+527
+00:16:56,639 --> 00:17:00,279
+model I've ever interacted with. For
+528
+00:16:58,320 --> 00:17:01,960
+knowledge work stuff, it makes it so
+529
+00:17:00,279 --> 00:17:03,639
+much better. So, for now, it's just
+530
+00:17:01,960 --> 00:17:05,439
+Astra, but give it 6 months, and this
+531
+00:17:03,639 --> 00:17:06,920
+will be everywhere, and the ways we
+532
+00:17:05,439 --> 00:17:08,680
+interact with this will also probably be
+533
+00:17:06,920 --> 00:17:10,279
+pretty different. But if you are using
+534
+00:17:08,680 --> 00:17:12,880
+this stuff right now, I do recommend
+535
+00:17:10,279 --> 00:17:14,759
+setting something like this up. Which
+536
+00:17:12,880 --> 00:17:16,640
+does then kind of lead me into, okay,
+537
+00:17:14,759 --> 00:17:19,759
+cool, this is all neat, but how does the
+538
+00:17:16,640 --> 00:17:21,880
+dev stuff work now? I do a lot of my dev
+539
+00:17:19,759 --> 00:17:23,439
+work still just in Codex on this
+540
+00:17:21,880 --> 00:17:25,280
+machine. A good example of a thing that
+541
+00:17:23,439 --> 00:17:26,800
+I built recently is this little
+542
+00:17:25,279 --> 00:17:28,960
+WhisperFlow alternative. It's just a
+543
+00:17:26,799 --> 00:17:30,639
+local voice to text thing. I believe
+544
+00:17:28,960 --> 00:17:32,720
+it's open source. I'll go double-check.
+545
+00:17:30,640 --> 00:17:35,400
+I honestly don't even know cuz I just
+546
+00:17:32,720 --> 00:17:37,240
+had a bunch of Astra instances go off,
+547
+00:17:35,400 --> 00:17:38,800
+build the thing, test it a bunch. And
+548
+00:17:37,240 --> 00:17:41,160
+what was really neat about that is it
+549
+00:17:38,799 --> 00:17:43,039
+would use computer use to make sure that
+550
+00:17:41,160 --> 00:17:44,720
+the thing actually worked. And I did a
+551
+00:17:43,039 --> 00:17:47,000
+ton of iterations on it. And now at this
+552
+00:17:44,720 --> 00:17:49,079
+point it's using a local model on my
+553
+00:17:47,000 --> 00:17:51,319
+computer. I believe it's the Whisper
+554
+00:17:49,079 --> 00:17:52,839
+Turbo model. Fully open source, nothing
+555
+00:17:51,319 --> 00:17:53,960
+leaves my device. I have all my voice
+556
+00:17:52,839 --> 00:17:55,519
+transcripts. That was really the
+557
+00:17:53,960 --> 00:17:58,880
+motivation behind this is I wanted to
+558
+00:17:55,519 --> 00:18:00,759
+keep the transcripts just for myself as
+559
+00:17:58,880 --> 00:18:02,280
+well as the raw audio recordings for
+560
+00:18:00,759 --> 00:18:04,160
+myself so I can use those in the future
+561
+00:18:02,279 --> 00:18:05,440
+if I feel like it. I like hoarding data
+562
+00:18:04,160 --> 00:18:07,279
+at this point now that models have
+563
+00:18:05,440 --> 00:18:10,000
+gotten so good. Part of the reason why I
+564
+00:18:07,279 --> 00:18:12,119
+have my router gateway thing here is
+565
+00:18:10,000 --> 00:18:14,039
+that I am using this to hoard all of the
+566
+00:18:12,119 --> 00:18:15,879
+logs and tool calls and traces that all
+567
+00:18:14,039 --> 00:18:17,159
+my agents do. So that in the future if I
+568
+00:18:15,880 --> 00:18:19,720
+ever want to do anything with this, I
+569
+00:18:17,160 --> 00:18:21,560
+can do it. Hoard data. It's very good to
+570
+00:18:19,720 --> 00:18:23,559
+hoard data right now. But again, as I
+571
+00:18:21,559 --> 00:18:25,799
+was saying, all of this work was done in
+572
+00:18:23,559 --> 00:18:27,319
+Codex. A lot of computer use on this
+573
+00:18:25,799 --> 00:18:28,960
+machine. And it works really, really
+574
+00:18:27,319 --> 00:18:31,359
+well. But there are certain projects
+575
+00:18:28,960 --> 00:18:33,000
+that either one require much longer
+576
+00:18:31,359 --> 00:18:34,679
+running background stuff or also I just
+577
+00:18:33,000 --> 00:18:36,039
+don't want to have my computer on all
+578
+00:18:34,680 --> 00:18:37,720
+the time. This was very much an
+579
+00:18:36,039 --> 00:18:39,240
+in-the-loop project where the core of it
+580
+00:18:37,720 --> 00:18:41,319
+isn't all that complicated. Most of the
+581
+00:18:39,240 --> 00:18:43,120
+time was just spent on UX stuff,
+582
+00:18:41,319 --> 00:18:45,200
+improving how it looks and feels and
+583
+00:18:43,119 --> 00:18:47,639
+behaviors. This menu I spent a lot of
+584
+00:18:45,200 --> 00:18:49,160
+time smacking it to stop putting stuff
+585
+00:18:47,640 --> 00:18:51,560
+in there. When it first made this, this
+586
+00:18:49,160 --> 00:18:54,279
+was about twice as long and had five x
+587
+00:18:51,559 --> 00:18:56,480
+as much text. Most of my work with UI on
+588
+00:18:54,279 --> 00:18:58,079
+models these days is telling them to do
+589
+00:18:56,480 --> 00:19:00,559
+less, make less. And then within the
+590
+00:18:58,079 --> 00:19:02,279
+management UI, again, a lot of polishing
+591
+00:19:00,559 --> 00:19:04,079
+on how I want this to work. Spent some
+592
+00:19:02,279 --> 00:19:06,000
+time, like I really wanted this input
+593
+00:19:04,079 --> 00:19:07,799
+priority list. So like if I have this
+594
+00:19:06,000 --> 00:19:09,279
+mic, I want to make sure that that's the
+595
+00:19:07,799 --> 00:19:11,079
+default. Then if I don't have that, use
+596
+00:19:09,279 --> 00:19:13,079
+my Rodecaster. If I don't have that, use
+597
+00:19:11,079 --> 00:19:15,000
+my Studio Display. If I don't have that,
+598
+00:19:13,079 --> 00:19:16,919
+use the built-in mic. That priority list
+599
+00:19:15,000 --> 00:19:18,920
+works really well. I have a dictionary,
+600
+00:19:16,920 --> 00:19:20,640
+which I've actually haven't been using.
+601
+00:19:18,920 --> 00:19:22,039
+Uh you can test dictation, see the
+602
+00:19:20,640 --> 00:19:24,400
+history of all the different things I've
+603
+00:19:22,039 --> 00:19:26,000
+been voice-to-texting, see what models
+604
+00:19:24,400 --> 00:19:27,600
+are being used. Again, I had to do a lot
+605
+00:19:26,000 --> 00:19:29,000
+of polishing to get this where I wanted
+606
+00:19:27,599 --> 00:19:31,119
+it. But, at this point, I'm like really
+607
+00:19:29,000 --> 00:19:33,359
+happy with where this app is. It works
+608
+00:19:31,119 --> 00:19:34,919
+great for me personally, and you know,
+609
+00:19:33,359 --> 00:19:36,479
+it was a side project I did with Astra
+610
+00:19:34,920 --> 00:19:37,960
+over the course of probably 5 to 10
+611
+00:19:36,480 --> 00:19:39,480
+hours. It was good. It works really
+612
+00:19:37,960 --> 00:19:42,400
+well. Then, for a lot of my other work,
+613
+00:19:39,480 --> 00:19:44,559
+there is T3 Code. This is where I do all
+614
+00:19:42,400 --> 00:19:45,800
+of my Claude Code stuff. I don't really
+615
+00:19:44,559 --> 00:19:48,159
+interact with Claude Code through the
+616
+00:19:45,799 --> 00:19:49,599
+CLI, even though its CLI has gotten
+617
+00:19:48,160 --> 00:19:51,160
+quite good. I've been very impressed
+618
+00:19:49,599 --> 00:19:53,359
+with how much that has improved over the
+619
+00:19:51,160 --> 00:19:55,400
+last 6 to 12 months. Actually, not 12
+620
+00:19:53,359 --> 00:19:57,359
+months, like 6 months. It was really
+621
+00:19:55,400 --> 00:19:59,240
+rough in January of this year, but now
+622
+00:19:57,359 --> 00:20:01,279
+every time I open it, I'm very happy
+623
+00:19:59,240 --> 00:20:03,720
+with it. It feels good. It works well. I
+624
+00:20:01,279 --> 00:20:05,879
+just don't like working in CLIs all that
+625
+00:20:03,720 --> 00:20:08,279
+much anymore. I find myself losing work
+626
+00:20:05,880 --> 00:20:10,400
+more, and it's really just not where I
+627
+00:20:08,279 --> 00:20:12,639
+want to be. It's much easier to have a
+628
+00:20:10,400 --> 00:20:15,640
+desktop app for this stuff, especially
+629
+00:20:12,640 --> 00:20:17,400
+since I parallelize work a lot. And for
+630
+00:20:15,640 --> 00:20:19,560
+more normal projects, which would be
+631
+00:20:17,400 --> 00:20:21,360
+like a web app type thing or a custom
+632
+00:20:19,559 --> 00:20:23,279
+server or whatever random thing I need
+633
+00:20:21,359 --> 00:20:24,559
+to do, T3 Code works quite well for
+634
+00:20:23,279 --> 00:20:25,559
+that. You probably heard about it if
+635
+00:20:24,559 --> 00:20:27,079
+you're watching this video. I'm not
+636
+00:20:25,559 --> 00:20:28,720
+going to spend too much time here. It's
+637
+00:20:27,079 --> 00:20:30,480
+great. The remote stuff's great. I
+638
+00:20:28,720 --> 00:20:32,039
+really like their sidebar. I I don't
+639
+00:20:30,480 --> 00:20:33,880
+know. I honestly don't have too much to
+640
+00:20:32,039 --> 00:20:35,599
+say other than it's good. If you're
+641
+00:20:33,880 --> 00:20:37,600
+doing coding work, offloading it from
+642
+00:20:35,599 --> 00:20:39,000
+your laptop is a very good thing to do.
+643
+00:20:37,599 --> 00:20:40,559
+If you want more details on that, go
+644
+00:20:39,000 --> 00:20:41,920
+watch my Linux video that I just put
+645
+00:20:40,559 --> 00:20:43,359
+out. Uh yeah, I'm not going to spend
+646
+00:20:41,920 --> 00:20:44,920
+more time on that. So, last thing I just
+647
+00:20:43,359 --> 00:20:46,919
+want to quickly cover before I wrap this
+648
+00:20:44,920 --> 00:20:48,480
+up is a quick comparison between the
+649
+00:20:46,920 --> 00:20:50,720
+models. I've touched on this briefly
+650
+00:20:48,480 --> 00:20:53,240
+earlier, but as I said, the main models
+651
+00:20:50,720 --> 00:20:56,480
+I'm using these days are Astra, Fable
+652
+00:20:53,240 --> 00:20:58,440
+5.1, and sometimes Grok-4-6. I actually
+653
+00:20:56,480 --> 00:21:00,160
+do use Grok-4-6 more than I'd expect
+654
+00:20:58,440 --> 00:21:01,720
+through the Grok build CLI, but one of
+655
+00:21:00,160 --> 00:21:04,759
+the biggest reasons for that is that it
+656
+00:21:01,720 --> 00:21:06,279
+has direct access to the XAPI without
+657
+00:21:04,759 --> 00:21:08,759
+having to pay their API prices, which
+658
+00:21:06,279 --> 00:21:10,599
+are obscene. So, it's very useful for
+659
+00:21:08,759 --> 00:21:13,480
+when I need to go grab some post or I
+660
+00:21:10,599 --> 00:21:15,119
+need to go fill in some data set on this
+661
+00:21:13,480 --> 00:21:17,200
+is the post for this video or whatever.
+662
+00:21:15,119 --> 00:21:18,519
+It was great. I really like it. I'm very
+663
+00:21:17,200 --> 00:21:20,240
+hopeful that they get better models in
+664
+00:21:18,519 --> 00:21:21,960
+the future, but at least for right now,
+665
+00:21:20,240 --> 00:21:23,880
+the big two models are obviously Astra
+666
+00:21:21,960 --> 00:21:26,440
+and Fable. I found myself using Fable a
+667
+00:21:23,880 --> 00:21:27,960
+lot more than I expected to cuz whenever
+668
+00:21:26,440 --> 00:21:30,360
+I'm doing, you know, normal dev work
+669
+00:21:27,960 --> 00:21:32,480
+type stuff, most of my main interaction
+670
+00:21:30,359 --> 00:21:34,199
+is with Astra. I still adore the model.
+671
+00:21:32,480 --> 00:21:36,120
+I know it has its quirks, but the quirks
+672
+00:21:34,200 --> 00:21:38,400
+work for me and it's great. Great. Fable
+673
+00:21:36,119 --> 00:21:40,759
+is very good though for cleaning things
+674
+00:21:38,400 --> 00:21:42,440
+up. I'll often have Astra go make some
+675
+00:21:40,759 --> 00:21:44,519
+change or add some feature or whatever.
+676
+00:21:42,440 --> 00:21:47,240
+I'll look at the PR, I'll see plus 5,000
+677
+00:21:44,519 --> 00:21:49,359
+minus a hundred for what should be a
+678
+00:21:47,240 --> 00:21:50,480
+very simple thing. I'll just be I'll
+679
+00:21:49,359 --> 00:21:52,159
+throw it over to Fable and be like, all
+680
+00:21:50,480 --> 00:21:53,720
+right, what are we actually doing here?
+681
+00:21:52,160 --> 00:21:55,800
+How do we simplify the hell out of this?
+682
+00:21:53,720 --> 00:21:57,839
+And it can generally speaking get that
+683
+00:21:55,799 --> 00:22:00,559
+way trimmed down. I kind of just use it
+684
+00:21:57,839 --> 00:22:03,319
+as cleanup crew for the open AI stuff.
+685
+00:22:00,559 --> 00:22:05,440
+The code Fable 5.1 writes is admittedly
+686
+00:22:03,319 --> 00:22:07,879
+very beautiful. I It's just hard to push
+687
+00:22:05,440 --> 00:22:10,240
+it super hard because the limits are so
+688
+00:22:07,880 --> 00:22:11,480
+brutal and bad. Astras are not great
+689
+00:22:10,240 --> 00:22:13,440
+either, but they're still better than
+690
+00:22:11,480 --> 00:22:14,880
+Fables, and the tooling in places where
+691
+00:22:13,440 --> 00:22:16,200
+I can use it is just so much more
+692
+00:22:14,880 --> 00:22:17,720
+limited. I don't want to use the Claude
+693
+00:22:16,200 --> 00:22:19,440
+desktop app. They don't have the same
+694
+00:22:17,720 --> 00:22:21,160
+computer use level stuff, so it's just
+695
+00:22:19,440 --> 00:22:23,920
+much harder to push the model, and the
+696
+00:22:21,160 --> 00:22:25,240
+really crazy top-of-the-line stuff you
+697
+00:22:23,920 --> 00:22:26,840
+can get from both these models, like the
+698
+00:22:25,240 --> 00:22:28,880
+swarming stuff, requires you to
+699
+00:22:26,839 --> 00:22:31,119
+effectively incinerate an entire week of
+700
+00:22:28,880 --> 00:22:32,840
+usage just to do it. On Claude, you
+701
+00:22:31,119 --> 00:22:34,919
+borderline can't. Like I I had a thing
+702
+00:22:32,839 --> 00:22:36,959
+that I did a little while ago where I
+703
+00:22:34,920 --> 00:22:39,680
+was looking at taking my A drive, which
+704
+00:22:36,960 --> 00:22:41,319
+is just my self-hosted custom Agents
+705
+00:22:39,680 --> 00:22:42,960
+Google Drive that I use for everything
+706
+00:22:41,319 --> 00:22:44,759
+so that I can be like, all right, this
+707
+00:22:42,960 --> 00:22:46,160
+is a good plan or this is a good
+708
+00:22:44,759 --> 00:22:48,400
+breakdown of something. Can you just
+709
+00:22:46,160 --> 00:22:49,840
+host this quickly, give me a URL for it,
+710
+00:22:48,400 --> 00:22:51,720
+and then I can send that to people? It
+711
+00:22:49,839 --> 00:22:53,399
+was incredibly useful for day-to-day
+712
+00:22:51,720 --> 00:22:54,680
+work with the team, and also when we
+713
+00:22:53,400 --> 00:22:56,400
+were doing like Def Con and puzzle
+714
+00:22:54,680 --> 00:22:58,080
+solving. It was a great way to just send
+715
+00:22:56,400 --> 00:22:59,280
+artifacts over to people. I wanted to
+716
+00:22:58,079 --> 00:23:00,919
+see, okay, what would it look like to
+717
+00:22:59,279 --> 00:23:03,319
+host this and make it a thing that other
+718
+00:23:00,920 --> 00:23:04,600
+people can use. I went to bed, but
+719
+00:23:03,319 --> 00:23:06,720
+before I went to bed I was like, "Okay,
+720
+00:23:04,599 --> 00:23:07,839
+you can work all night, have fun, go try
+721
+00:23:06,720 --> 00:23:10,759
+and implement this plan we've been
+722
+00:23:07,839 --> 00:23:12,519
+working on." It ran for almost 8 hours,
+723
+00:23:10,759 --> 00:23:15,119
+and when I woke up, my usage had gone
+724
+00:23:12,519 --> 00:23:17,400
+from 80% down to 20%. It's just not
+725
+00:23:15,119 --> 00:23:19,559
+viable. Unless you are burning five to
+726
+00:23:17,400 --> 00:23:21,040
+10 of these subs, you just can't do it,
+727
+00:23:19,559 --> 00:23:23,519
+unfortunately. It really sucks, but
+728
+00:23:21,039 --> 00:23:25,639
+until the tokens get cheaper and we get
+729
+00:23:23,519 --> 00:23:27,359
+these same capabilities in other models,
+730
+00:23:25,640 --> 00:23:29,240
+it your workflows are inherently
+731
+00:23:27,359 --> 00:23:31,079
+limited. I do think that sucks. It's a
+732
+00:23:29,240 --> 00:23:32,799
+provisioning issue. Hopefully, if the
+733
+00:23:31,079 --> 00:23:34,799
+curve continues, we'll get 10x better
+734
+00:23:32,799 --> 00:23:37,000
+models at 10x cheaper prices in the
+735
+00:23:34,799 --> 00:23:39,519
+future. We'll see. But for now, Phind
+736
+00:23:37,000 --> 00:23:41,200
+5.1 is a good model. I like interacting
+737
+00:23:39,519 --> 00:23:42,720
+with it. For the first time, I generally
+738
+00:23:41,200 --> 00:23:45,080
+speaking hate Claude models, but I do
+739
+00:23:42,720 --> 00:23:47,079
+like this one, and it does the job. I
+740
+00:23:45,079 --> 00:23:48,359
+just can't use enough of it. Astra, I
+741
+00:23:47,079 --> 00:23:49,919
+have already talked about Astra a ton.
+742
+00:23:48,359 --> 00:23:51,919
+You know how much I love this model. So,
+743
+00:23:49,920 --> 00:23:53,840
+yeah, that's uh that's kind of how I
+744
+00:23:51,920 --> 00:23:55,960
+work. I I know this is kind of chaotic
+745
+00:23:53,839 --> 00:23:57,639
+and a mess, but that's really what it
+746
+00:23:55,960 --> 00:23:59,160
+is. I'm figuring out these workflows as
+747
+00:23:57,640 --> 00:24:01,120
+I go, and I'm sure within a month or two
+748
+00:23:59,160 --> 00:24:02,360
+this will be completely
+749
+00:24:01,119 --> 00:24:03,959
+the future is definitely trending in the
+750
+00:24:02,359 --> 00:24:06,119
+direction where you spend more and more
+751
+00:24:03,960 --> 00:24:08,200
+time interacting directly with the agent
+752
+00:24:06,119 --> 00:24:10,639
+as a proxy to other things, and then
+753
+00:24:08,200 --> 00:24:12,240
+once it's done some work, you go into
+754
+00:24:10,640 --> 00:24:13,800
+that other app and finish the work. The
+755
+00:24:12,240 --> 00:24:16,120
+analogy I've been thinking about a lot
+756
+00:24:13,799 --> 00:24:18,200
+is, you know, how we were using Cursor a
+757
+00:24:16,119 --> 00:24:20,119
+year ago, where we were mostly just
+758
+00:24:18,200 --> 00:24:22,120
+using the sidebar and then had the code
+759
+00:24:20,119 --> 00:24:24,559
+open, so it was in-editor type thing,
+760
+00:24:22,119 --> 00:24:25,919
+very much a Copilot type experience. And
+761
+00:24:24,559 --> 00:24:27,519
+now we're at the point where I'm mostly
+762
+00:24:25,920 --> 00:24:29,759
+using something like the Codex desktop
+763
+00:24:27,519 --> 00:24:31,160
+app, which is completely abstracted away
+764
+00:24:29,759 --> 00:24:32,920
+from the code. I can still read it when
+765
+00:24:31,160 --> 00:24:34,560
+I need to, but it's not right in my
+766
+00:24:32,920 --> 00:24:36,560
+face. This isn't an editor. But they've
+767
+00:24:34,559 --> 00:24:39,039
+gotten so good that that's fine. It's
+768
+00:24:36,559 --> 00:24:40,879
+fine for me to be abstracted away more
+769
+00:24:39,039 --> 00:24:42,319
+and just more interact with the agent
+770
+00:24:40,880 --> 00:24:44,200
+than the code. I don't trust that at the
+771
+00:24:42,319 --> 00:24:46,519
+level for anything like video editing or
+772
+00:24:44,200 --> 00:24:48,279
+thumbnails or even just a lot of like
+773
+00:24:46,519 --> 00:24:49,720
+general admin management work. Like I
+774
+00:24:48,279 --> 00:24:51,519
+still want to be able to go in Notion
+775
+00:24:49,720 --> 00:24:53,120
+and edit the Notion document. But it's
+776
+00:24:51,519 --> 00:24:54,599
+still quite nice to have it do some
+777
+00:24:53,119 --> 00:24:55,959
+passes, do some research, and dump
+778
+00:24:54,599 --> 00:24:57,759
+artifacts in there. You're now kind of
+779
+00:24:55,960 --> 00:24:59,920
+just pulling back and forth in a
+780
+00:24:57,759 --> 00:25:01,480
+co-piloty type experience. Go experiment
+781
+00:24:59,920 --> 00:25:03,759
+with this stuff, see what you think. Let
+782
+00:25:01,480 --> 00:25:05,000
+me know how you're using this stuff down
+783
+00:25:03,759 --> 00:25:06,400
+below. If you enjoyed, make sure you
+784
+00:25:05,000 --> 00:25:08,880
+like and subscribe, and I'll talk to you
+785
+00:25:06,400 --> 00:25:08,880
+again soon.

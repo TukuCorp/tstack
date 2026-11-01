@@ -1,0 +1,2337 @@
+1
+00:00:00,760 --> 00:00:04,919
+Hi everyone. I hope that you can hear
+2
+00:00:03,160 --> 00:00:07,320
+me. I'm not sure. Uh any team here at
+3
+00:00:04,919 --> 00:00:09,280
+Anthropic and today I want to talk about
+4
+00:00:07,320 --> 00:00:11,240
+how you can get the most value out of
+5
+00:00:09,279 --> 00:00:13,399
+your Claude code sessions. And just a
+6
+00:00:11,240 --> 00:00:15,120
+quick bit of housekeeping first cuz I
+7
+00:00:13,400 --> 00:00:17,399
+know there are so many of you here today
+8
+00:00:15,119 --> 00:00:19,320
+which is great, but it also means we
+9
+00:00:17,399 --> 00:00:20,359
+won't be able to get to every question
+10
+00:00:19,320 --> 00:00:22,679
+live.
+11
+00:00:20,359 --> 00:00:24,640
+So drop your questions in the Q&A as we
+12
+00:00:22,679 --> 00:00:26,480
+go and we'll, you know, answer as many
+13
+00:00:24,640 --> 00:00:27,880
+as we can at the end. And the ones we
+14
+00:00:26,480 --> 00:00:29,839
+don't get to we'll follow up on
+15
+00:00:27,879 --> 00:00:31,559
+afterwards together with the recording
+16
+00:00:29,839 --> 00:00:33,679
+and the links. But just so you know what
+17
+00:00:31,559 --> 00:00:35,879
+this is about, this session is about how
+18
+00:00:33,679 --> 00:00:37,840
+Claude code actually spends tokens when
+19
+00:00:35,880 --> 00:00:39,679
+you work with it, what you control about
+20
+00:00:37,840 --> 00:00:42,040
+that, so your own habits and set
+21
+00:00:39,679 --> 00:00:43,920
+settings in the session, um and at the
+22
+00:00:42,039 --> 00:00:45,960
+end also just the levers that you have
+23
+00:00:43,920 --> 00:00:48,160
+if you set it up for a team. I want you
+24
+00:00:45,960 --> 00:00:50,359
+to walk out of this session here feeling
+25
+00:00:48,159 --> 00:00:52,279
+in control of how efficiently you work
+26
+00:00:50,359 --> 00:00:54,960
+in Claude code and also with a good
+27
+00:00:52,280 --> 00:00:57,320
+mental model of what a task ends up
+28
+00:00:54,960 --> 00:00:58,640
+costing and and why.
+29
+00:00:57,320 --> 00:01:00,719
+And again, if you're the person who sets
+30
+00:00:58,640 --> 00:01:02,000
+up Claude code for your whole team,
+31
+00:01:00,719 --> 00:01:03,479
+I hope you stay till the end cuz I'll
+32
+00:01:02,000 --> 00:01:05,439
+also go through some of the levers that
+33
+00:01:03,479 --> 00:01:07,000
+you have in our dashboard.
+34
+00:01:05,439 --> 00:01:09,200
+And I kind of want to show the mental
+35
+00:01:07,000 --> 00:01:11,000
+model on purpose cuz I feel like we
+36
+00:01:09,200 --> 00:01:12,960
+often just give you a checklist like,
+37
+00:01:11,000 --> 00:01:14,719
+"Hey, do do these things." But that
+38
+00:01:12,959 --> 00:01:17,239
+tends to go stale the moment we ship
+39
+00:01:14,719 --> 00:01:18,959
+something new and personally I think if
+40
+00:01:17,239 --> 00:01:20,679
+you understand the mechanism behind
+41
+00:01:18,959 --> 00:01:22,839
+something, you can just work out the
+42
+00:01:20,680 --> 00:01:24,200
+right move yourself for your environment
+43
+00:01:22,840 --> 00:01:25,280
+and your context, all that kind of
+44
+00:01:24,200 --> 00:01:26,880
+stuff.
+45
+00:01:25,280 --> 00:01:28,519
+And honestly, I think this is a new
+46
+00:01:26,879 --> 00:01:30,439
+skill for engineers. You know, software
+47
+00:01:28,519 --> 00:01:32,479
+used to be a flat fee. We used to pay
+48
+00:01:30,439 --> 00:01:34,719
+for the tool or for the seats, but in
+49
+00:01:32,480 --> 00:01:37,079
+the era of agentic coding, we're paying
+50
+00:01:34,719 --> 00:01:39,159
+for the work itself, right? Task by
+51
+00:01:37,079 --> 00:01:40,879
+task. You're paying per prompt. So
+52
+00:01:39,159 --> 00:01:44,119
+understanding how to be efficient with
+53
+00:01:40,879 --> 00:01:45,560
+that is just part of the job now.
+54
+00:01:44,120 --> 00:01:48,280
+And the unit we're going to talk about
+55
+00:01:45,560 --> 00:01:51,040
+most or pretty much the whole time is
+56
+00:01:48,280 --> 00:01:52,640
+tokens. If your company runs Claude code
+57
+00:01:51,040 --> 00:01:54,920
+on API billing or through cloud
+58
+00:01:52,640 --> 00:01:56,280
+provider, you're paying per token. So
+59
+00:01:54,920 --> 00:01:58,079
+this table, I'm sure you're familiar
+60
+00:01:56,280 --> 00:02:00,400
+with this table. You know tokens
+61
+00:01:58,079 --> 00:02:02,000
+already. But if you are on Pro or Max or
+62
+00:02:00,400 --> 00:02:03,960
+Team or Enterprise, you have these
+63
+00:02:02,000 --> 00:02:06,680
+5-hour windows or a weekly window
+64
+00:02:03,959 --> 00:02:09,079
+instead, but also those windows are
+65
+00:02:06,680 --> 00:02:11,520
+measured in tokens. So, whichever way
+66
+00:02:09,080 --> 00:02:14,480
+you're set up, tokens are the unit, and
+67
+00:02:11,520 --> 00:02:16,439
+how many tokens go into a task is what
+68
+00:02:14,479 --> 00:02:17,919
+we're going to get better at today.
+69
+00:02:16,439 --> 00:02:19,959
+And this isn't about sending fewer of
+70
+00:02:17,919 --> 00:02:22,280
+them or using Claude less. We just want
+71
+00:02:19,959 --> 00:02:24,439
+to make sure that the tokens that do go
+72
+00:02:22,280 --> 00:02:27,360
+into a session actually go toward a
+73
+00:02:24,439 --> 00:02:28,879
+thing you, you know, ask Claude to do.
+74
+00:02:27,360 --> 00:02:30,400
+So, let's take a step back real quick
+75
+00:02:28,879 --> 00:02:32,479
+and look at what actually happens behind
+76
+00:02:30,400 --> 00:02:33,480
+the scenes when we send a prompt to
+77
+00:02:32,479 --> 00:02:35,599
+Claude.
+78
+00:02:33,479 --> 00:02:37,239
+So, say that I have a failing test and I
+79
+00:02:35,599 --> 00:02:39,959
+type fix the failing test in
+80
+00:02:37,240 --> 00:02:42,280
+utils.test.ts. Yes, I press enter. Now,
+81
+00:02:39,959 --> 00:02:44,439
+Claude code doesn't just send that one
+82
+00:02:42,280 --> 00:02:46,640
+prompt to the model. When I started this
+83
+00:02:44,439 --> 00:02:48,199
+session, it already loaded a bunch of
+84
+00:02:46,639 --> 00:02:50,239
+things for me. Claude's own
+85
+00:02:48,199 --> 00:02:52,119
+instructions, the system prompt, uh the
+86
+00:02:50,240 --> 00:02:54,120
+definitions of the built-in tools, so
+87
+00:02:52,120 --> 00:02:56,039
+read, edit, bash, and so on, my
+88
+00:02:54,120 --> 00:02:58,080
+environment, current working directory,
+89
+00:02:56,039 --> 00:03:00,679
+get, everything. We also have my
+90
+00:02:58,080 --> 00:03:03,519
+claude.md file, and I have some skills
+91
+00:03:00,680 --> 00:03:05,360
+in here, and MCP server setup. Um and it
+92
+00:03:03,519 --> 00:03:06,959
+will also include a short like name and
+93
+00:03:05,360 --> 00:03:08,040
+description for all these things as
+94
+00:03:06,959 --> 00:03:09,959
+well.
+95
+00:03:08,039 --> 00:03:12,439
+So, all the way at the end is our
+96
+00:03:09,959 --> 00:03:14,159
+message. So, all of this, this entire
+97
+00:03:12,439 --> 00:03:15,959
+bundle, goes to the model as one
+98
+00:03:14,159 --> 00:03:17,479
+request. So, that's already the first
+99
+00:03:15,959 --> 00:03:18,640
+thing to understand. It's never just a
+100
+00:03:17,479 --> 00:03:20,199
+prompt.
+101
+00:03:18,639 --> 00:03:21,919
+And this bar down here, as we're walking
+102
+00:03:20,199 --> 00:03:24,039
+through this, this is the context
+103
+00:03:21,919 --> 00:03:26,000
+window. So, everything the model gets to
+104
+00:03:24,039 --> 00:03:27,799
+see in this request, and I'll keep this
+105
+00:03:26,000 --> 00:03:29,840
+on the screen here, cuz honestly this
+106
+00:03:27,800 --> 00:03:31,600
+bar is what this talk is about. So, our
+107
+00:03:29,840 --> 00:03:33,840
+request arrives at the model, but the
+108
+00:03:31,599 --> 00:03:35,879
+model doesn't just read this as text. It
+109
+00:03:33,840 --> 00:03:37,840
+first goes through a tokenizer. So, this
+110
+00:03:35,879 --> 00:03:40,000
+splits everything we send, including the
+111
+00:03:37,840 --> 00:03:41,800
+system prompt, claude.md, everything, uh
+112
+00:03:40,000 --> 00:03:44,120
+into tokens, which are just small
+113
+00:03:41,800 --> 00:03:46,360
+chunks, roughly word-sized, and the
+114
+00:03:44,120 --> 00:03:48,280
+model processes those. I won't go too
+115
+00:03:46,360 --> 00:03:49,880
+deep into that today, but it's important
+116
+00:03:48,280 --> 00:03:52,120
+to understand that the input into the
+117
+00:03:49,879 --> 00:03:54,280
+model is tokens, and also whatever the
+118
+00:03:52,120 --> 00:03:56,560
+model generates afterwards is also
+119
+00:03:54,280 --> 00:03:58,439
+tokens. So, from here on, everything in
+120
+00:03:56,560 --> 00:03:59,599
+this bar, everything that comes back is
+121
+00:03:58,439 --> 00:04:01,439
+token.
+122
+00:03:59,599 --> 00:04:03,120
+So, the request arrives at the model.
+123
+00:04:01,439 --> 00:04:04,639
+The model reads all of it, gets to my
+124
+00:04:03,120 --> 00:04:06,599
+message, and goes, "Okay, you want me to
+125
+00:04:04,639 --> 00:04:08,599
+fix something, but I only have a file
+126
+00:04:06,599 --> 00:04:10,799
+name. You didn't send the actual file."
+127
+00:04:08,599 --> 00:04:12,879
+So, what it comes back is not a fix,
+128
+00:04:10,800 --> 00:04:14,760
+it's just a tool call, like, "Hey, read
+129
+00:04:12,879 --> 00:04:16,600
+utils.test.ts."
+130
+00:04:14,759 --> 00:04:18,480
+Claude code or the harness then performs
+131
+00:04:16,600 --> 00:04:20,280
+that. It reads the file and sends this
+132
+00:04:18,480 --> 00:04:21,600
+back to the model, and so on. Now, I'm
+133
+00:04:20,279 --> 00:04:23,679
+not going to walk through every step
+134
+00:04:21,600 --> 00:04:25,960
+here. That's not the point. The point is
+135
+00:04:23,680 --> 00:04:27,720
+the loop here. The model decides that it
+136
+00:04:25,959 --> 00:04:29,719
+needs to do something. It sends a tool
+137
+00:04:27,720 --> 00:04:31,240
+call back. Claude code performs it and
+138
+00:04:29,720 --> 00:04:33,760
+then sends this result back to the
+139
+00:04:31,240 --> 00:04:35,759
+model. But, notice that I didn't do
+140
+00:04:33,759 --> 00:04:38,000
+anything here in the CLI. It's the model
+141
+00:04:35,759 --> 00:04:40,639
+choosing these tool calls. And on every
+142
+00:04:38,000 --> 00:04:42,160
+one of those round trip, the bar grows.
+143
+00:04:40,639 --> 00:04:44,240
+So, as we keep watching this, you'll see
+144
+00:04:42,160 --> 00:04:46,400
+a few things in the bar. So, there's a
+145
+00:04:44,240 --> 00:04:47,960
+couple colors, but two of these um
+146
+00:04:46,399 --> 00:04:50,319
+Whatever we send to the model, I've
+147
+00:04:47,959 --> 00:04:53,599
+marked blue, and whatever or whatever
+148
+00:04:50,319 --> 00:04:55,399
+the model sends back is orange.
+149
+00:04:53,600 --> 00:04:56,760
+Uh there's also this container around
+150
+00:04:55,399 --> 00:04:58,359
+the beginning of the request that just
+151
+00:04:56,759 --> 00:05:00,439
+keeps getting longer. I'll get to that
+152
+00:04:58,360 --> 00:05:02,919
+in a second. But, the the most important
+153
+00:05:00,439 --> 00:05:05,399
+thing here is what we're looking at is
+154
+00:05:02,918 --> 00:05:07,079
+three kinds of tokens.
+155
+00:05:05,399 --> 00:05:09,079
+So, first, we have the input tokens,
+156
+00:05:07,079 --> 00:05:11,240
+which is everything we send to the
+157
+00:05:09,079 --> 00:05:13,079
+models, everything in the bar here.
+158
+00:05:11,240 --> 00:05:15,120
+We have output tokens, which is
+159
+00:05:13,079 --> 00:05:17,359
+everything the model sends back. And
+160
+00:05:15,120 --> 00:05:19,319
+that's not just the summary at the end.
+161
+00:05:17,360 --> 00:05:22,280
+It's also the tool calls, the edit, the
+162
+00:05:19,319 --> 00:05:24,120
+thinking, everything the model did.
+163
+00:05:22,279 --> 00:05:26,599
+And everything inside this container,
+164
+00:05:24,120 --> 00:05:28,480
+these are cached tokens.
+165
+00:05:26,600 --> 00:05:30,280
+So, we have three types. We have input,
+166
+00:05:28,480 --> 00:05:32,400
+output, and cached. And you might
+167
+00:05:30,279 --> 00:05:34,039
+recognize this from the pricing page,
+168
+00:05:32,399 --> 00:05:35,479
+cuz that's exactly how it's laid out,
+169
+00:05:34,040 --> 00:05:37,760
+right? Like, we have a price per token,
+170
+00:05:35,480 --> 00:05:40,240
+per model, and then separate columns for
+171
+00:05:37,759 --> 00:05:41,560
+the input, cached input, and output.
+172
+00:05:40,240 --> 00:05:43,199
+Now, I just want to quick take a quick
+173
+00:05:41,560 --> 00:05:46,000
+look at why these are priced so
+174
+00:05:43,199 --> 00:05:47,560
+differently. First, input. So, whenever
+175
+00:05:46,000 --> 00:05:49,759
+we send something to the model, the
+176
+00:05:47,560 --> 00:05:51,680
+model still has to process every input
+177
+00:05:49,759 --> 00:05:53,680
+token. But, it can do all of them
+178
+00:05:51,680 --> 00:05:55,720
+together like in one pass.
+179
+00:05:53,680 --> 00:05:58,280
+So, GPUs are extremely good at that. So,
+180
+00:05:55,720 --> 00:06:00,240
+per token, the input is pretty cheap.
+181
+00:05:58,279 --> 00:06:02,559
+But, output is different. So, the model
+182
+00:06:00,240 --> 00:06:04,879
+writes one token at a time. So, to write
+183
+00:06:02,560 --> 00:06:07,920
+something seemingly simple like const x
+184
+00:06:04,879 --> 00:06:10,240
+= 1, it does a full pass over everything
+185
+00:06:07,920 --> 00:06:12,520
+in the context just to produce const,
+186
+00:06:10,240 --> 00:06:14,160
+appends it, does another full pass just
+187
+00:06:12,519 --> 00:06:16,759
+to produce x, and another one for
+188
+00:06:14,160 --> 00:06:19,480
+equals, and everything else. So, so
+189
+00:06:16,759 --> 00:06:21,959
+there's a lot more compute behind every
+190
+00:06:19,480 --> 00:06:24,600
+output token, and that's also why output
+191
+00:06:21,959 --> 00:06:26,918
+is priced the highest of the token
+192
+00:06:24,600 --> 00:06:29,240
+types. And then there's cache tokens,
+193
+00:06:26,918 --> 00:06:31,199
+which is the cheapest one. So, a big
+194
+00:06:29,240 --> 00:06:33,079
+part of the request is the same every
+195
+00:06:31,199 --> 00:06:35,240
+time, right? Like on every round trip,
+196
+00:06:33,079 --> 00:06:36,879
+we're only appending to the end. But,
+197
+00:06:35,240 --> 00:06:38,400
+everything before that the model has
+198
+00:06:36,879 --> 00:06:40,439
+already processed on the previous
+199
+00:06:38,399 --> 00:06:43,120
+request. So, the server doesn't treat
+200
+00:06:40,439 --> 00:06:45,040
+that part as as brand new. It just keeps
+201
+00:06:43,120 --> 00:06:47,000
+the internal state that it built up last
+202
+00:06:45,040 --> 00:06:49,360
+time, and only does all the
+203
+00:06:47,000 --> 00:06:51,160
+re-computation or the computation on the
+204
+00:06:49,360 --> 00:06:53,280
+point where this request starts to
+205
+00:06:51,160 --> 00:06:55,320
+differ from the previous one.
+206
+00:06:53,279 --> 00:06:57,039
+And that's the prompt cache. So, the
+207
+00:06:55,319 --> 00:06:59,120
+identical part at the front is called
+208
+00:06:57,040 --> 00:07:01,160
+the prefix, and that's the container
+209
+00:06:59,120 --> 00:07:03,439
+that you saw growing. And this is read
+210
+00:07:01,160 --> 00:07:05,640
+back for just a small fraction of the
+211
+00:07:03,439 --> 00:07:07,719
+normal input price. So, the new part
+212
+00:07:05,639 --> 00:07:09,839
+pays the full price once, and then from
+213
+00:07:07,720 --> 00:07:11,000
+the next request on, it's inside the
+214
+00:07:09,839 --> 00:07:12,679
+container.
+215
+00:07:11,000 --> 00:07:14,680
+Now, Claude Code sets this all up for
+216
+00:07:12,680 --> 00:07:16,480
+you automatically, but cache here,
+217
+00:07:14,680 --> 00:07:19,040
+honestly, I think is your biggest lever
+218
+00:07:16,480 --> 00:07:21,520
+because look at the bar again, like a
+219
+00:07:19,040 --> 00:07:23,760
+lot goes in and a very little comes out.
+220
+00:07:21,519 --> 00:07:25,879
+And nearly everything that goes in is
+221
+00:07:23,759 --> 00:07:29,079
+inside that container. So, in a healthy
+222
+00:07:25,879 --> 00:07:30,879
+session, most of your input is the cheap
+223
+00:07:29,079 --> 00:07:33,279
+cached kind.
+224
+00:07:30,879 --> 00:07:36,519
+And you can check for that on your own
+225
+00:07:33,279 --> 00:07:37,918
+session with usage. So, there's a line
+226
+00:07:36,519 --> 00:07:40,039
+here for the prompt cache, and that
+227
+00:07:37,918 --> 00:07:41,680
+shows you exactly how much of your input
+228
+00:07:40,040 --> 00:07:43,960
+came from cache. In a healthy session,
+229
+00:07:41,680 --> 00:07:45,280
+that number should be high.
+230
+00:07:43,959 --> 00:07:47,799
+But, there are a few things to keep in
+231
+00:07:45,279 --> 00:07:49,239
+mind here, cuz what we just saw is, you
+232
+00:07:47,800 --> 00:07:51,520
+know, a list of things that we get to
+233
+00:07:49,240 --> 00:07:53,560
+optimize. So, how many tokens go in, how
+234
+00:07:51,519 --> 00:07:55,000
+many come out, and how many of those are
+235
+00:07:53,560 --> 00:07:57,360
+cached.
+236
+00:07:55,000 --> 00:07:59,160
+There's also one more thing is whether
+237
+00:07:57,360 --> 00:08:01,360
+the model that's running all of this is
+238
+00:07:59,160 --> 00:08:02,840
+actually the right model for the task.
+239
+00:08:01,360 --> 00:08:04,800
+Because we saw that the model has to
+240
+00:08:02,839 --> 00:08:07,359
+process every single one of these
+241
+00:08:04,800 --> 00:08:10,480
+tokens. And a larger model like Opus or
+242
+00:08:07,360 --> 00:08:12,520
+Fable is more expensive simply because
+243
+00:08:10,480 --> 00:08:14,840
+per token it does a lot more
+244
+00:08:12,519 --> 00:08:17,120
+computation. And that's great for a lot
+245
+00:08:14,839 --> 00:08:19,119
+of tasks, but you might not need it for
+246
+00:08:17,120 --> 00:08:22,160
+yours. And because it applies to every
+247
+00:08:19,120 --> 00:08:23,879
+token both in and out, it directly
+248
+00:08:22,160 --> 00:08:25,760
+multiplies everything else we're about
+249
+00:08:23,879 --> 00:08:28,079
+to look at. So, that's the first thing
+250
+00:08:25,759 --> 00:08:30,560
+to get right. Don't run the biggest
+251
+00:08:28,079 --> 00:08:33,240
+model on a task that that just doesn't
+252
+00:08:30,560 --> 00:08:35,080
+need it. And also to be clear, a smaller
+253
+00:08:33,240 --> 00:08:37,038
+model is not a worse model. The way I
+254
+00:08:35,080 --> 00:08:39,038
+like to think about it is Sonnet is a
+255
+00:08:37,038 --> 00:08:41,199
+really good generalist, Opus is the
+256
+00:08:39,038 --> 00:08:43,759
+expert, and Fable is the specialist
+257
+00:08:41,200 --> 00:08:45,600
+who's seen the problems no one else has.
+258
+00:08:43,759 --> 00:08:47,200
+And Haiku is just like quick assistant.
+259
+00:08:45,600 --> 00:08:49,159
+Like an edit that you can describe
+260
+00:08:47,200 --> 00:08:51,000
+precisely or a mechanical change or a
+261
+00:08:49,159 --> 00:08:52,639
+question about the code that's already
+262
+00:08:51,000 --> 00:08:54,279
+in the context, that's great for
+263
+00:08:52,639 --> 00:08:56,679
+generalist work and Sonnet gets you
+264
+00:08:54,279 --> 00:08:58,039
+there perfectly paying way less per
+265
+00:08:56,679 --> 00:08:59,519
+token.
+266
+00:08:58,039 --> 00:09:01,919
+But, if there's like a subtle bug or
+267
+00:08:59,519 --> 00:09:03,838
+just unfamiliar territory, something you
+268
+00:09:01,919 --> 00:09:06,639
+don't really know what's going on, then
+269
+00:09:03,839 --> 00:09:07,960
+Opus is a great expert and it's worth
+270
+00:09:06,639 --> 00:09:10,120
+paying a bit more for that. But, that's
+271
+00:09:07,960 --> 00:09:11,560
+not for every task, right? The next
+272
+00:09:10,120 --> 00:09:14,200
+thing is to give Claude the right
+273
+00:09:11,559 --> 00:09:15,959
+context. So, it needs fewer tool calls
+274
+00:09:14,200 --> 00:09:18,080
+and fewer of these round trips to figure
+275
+00:09:15,960 --> 00:09:20,120
+out what you're actually trying to do.
+276
+00:09:18,080 --> 00:09:21,400
+And some of that is in your prompt and
+277
+00:09:20,120 --> 00:09:23,360
+some of this is having the right
+278
+00:09:21,399 --> 00:09:26,000
+environment, the right Claude 3 skills
+279
+00:09:23,360 --> 00:09:27,759
+set up. And a really small one is you
+280
+00:09:26,000 --> 00:09:30,159
+can actually add the file to the prompt.
+281
+00:09:27,759 --> 00:09:33,838
+So, in this case, we could have said fix
+282
+00:09:30,159 --> 00:09:35,759
+the failing test in at utils.test.ts.
+283
+00:09:33,839 --> 00:09:37,960
+So, then before the request even goes to
+284
+00:09:35,759 --> 00:09:40,799
+the model, Claude code already puts the
+285
+00:09:37,960 --> 00:09:43,080
+contents of that file in. So that first
+286
+00:09:40,799 --> 00:09:46,079
+retool call just never happens cuz the
+287
+00:09:43,080 --> 00:09:47,840
+model already has all the context.
+288
+00:09:46,080 --> 00:09:50,080
+Small one of course over large session,
+289
+00:09:47,840 --> 00:09:52,080
+but I I still like it.
+290
+00:09:50,080 --> 00:09:54,200
+Then it's also it's also important to
+291
+00:09:52,080 --> 00:09:56,080
+make sure that there's not a bunch of
+292
+00:09:54,200 --> 00:09:58,320
+stuff in your context that you don't
+293
+00:09:56,080 --> 00:10:00,080
+need for this specific task.
+294
+00:09:58,320 --> 00:10:02,879
+And you can see what's in your context
+295
+00:10:00,080 --> 00:10:04,639
+by typing context in a fresh session and
+296
+00:10:02,879 --> 00:10:06,399
+you see exactly that. So you see the
+297
+00:10:04,639 --> 00:10:07,919
+system prompt, you see the tools that
+298
+00:10:06,399 --> 00:10:10,159
+are loaded, your Claude MD, how many
+299
+00:10:07,919 --> 00:10:13,719
+tokens everything is using as well, your
+300
+00:10:10,159 --> 00:10:15,600
+skills, your MCPs. So this is always
+301
+00:10:13,720 --> 00:10:18,519
+worth doing before you start a new
+302
+00:10:15,600 --> 00:10:21,240
+session just to make sure like, "Okay,
+303
+00:10:18,519 --> 00:10:24,319
+am I adding stuff that is unnecessary?
+304
+00:10:21,240 --> 00:10:26,000
+Can I make my prompt more more lean?"
+305
+00:10:24,320 --> 00:10:27,520
+Now after seeing those insights, there's
+306
+00:10:26,000 --> 00:10:30,399
+a couple of things you can do. The first
+307
+00:10:27,519 --> 00:10:32,720
+one is Claude MD. Generally just don't
+308
+00:10:30,399 --> 00:10:35,039
+keep anything in here that doesn't serve
+309
+00:10:32,720 --> 00:10:36,720
+every task. You might look at yours and
+310
+00:10:35,039 --> 00:10:38,519
+find something like, "For database
+311
+00:10:36,720 --> 00:10:40,240
+migrations, do this, do this, and do
+312
+00:10:38,519 --> 00:10:42,319
+that." But that doesn't apply to every
+313
+00:10:40,240 --> 00:10:44,519
+task. But we are still sending it on
+314
+00:10:42,320 --> 00:10:46,440
+every prompt.
+315
+00:10:44,519 --> 00:10:48,919
+Those things usually you want to move to
+316
+00:10:46,440 --> 00:10:50,839
+skills. The nice thing about a skill is
+317
+00:10:48,919 --> 00:10:52,399
+that they only load
+318
+00:10:50,839 --> 00:10:55,240
+whenever the model decides that it
+319
+00:10:52,399 --> 00:10:56,919
+actually needs them for this task. Um it
+320
+00:10:55,240 --> 00:10:58,720
+only sends by default the name and the
+321
+00:10:56,919 --> 00:11:00,559
+description and based on the description
+322
+00:10:58,720 --> 00:11:02,360
+the model can pick like, "Okay, this
+323
+00:11:00,559 --> 00:11:04,879
+skill makes sense to load now because
+324
+00:11:02,360 --> 00:11:06,279
+we're asking for a database migration."
+325
+00:11:04,879 --> 00:11:08,080
+But by default you don't want to add
+326
+00:11:06,279 --> 00:11:10,639
+this to every single task if you're just
+327
+00:11:08,080 --> 00:11:12,280
+asking for, I don't know, a a file
+328
+00:11:10,639 --> 00:11:14,480
+rewrite or something, something that has
+329
+00:11:12,279 --> 00:11:16,480
+nothing to do with a database migration.
+330
+00:11:14,480 --> 00:11:18,720
+So a Claude MD generally is just what
+331
+00:11:16,480 --> 00:11:20,920
+applies for every task. And then second,
+332
+00:11:18,720 --> 00:11:23,600
+and still in your Claude MD, is check if
+333
+00:11:20,919 --> 00:11:25,919
+you still need all of this information.
+334
+00:11:23,600 --> 00:11:27,960
+Models have gotten really really good
+335
+00:11:25,919 --> 00:11:30,039
+and instructions that you had to give
+336
+00:11:27,960 --> 00:11:32,800
+the model maybe 3 months ago just might
+337
+00:11:30,039 --> 00:11:35,319
+not apply anymore. We have a skill for
+338
+00:11:32,799 --> 00:11:36,439
+this now called Claude API prompt audit,
+339
+00:11:35,320 --> 00:11:38,320
+and this goes through all your
+340
+00:11:36,440 --> 00:11:40,640
+instructions or your Claude D, your
+341
+00:11:38,320 --> 00:11:42,960
+skills, and checks whether this is still
+342
+00:11:40,639 --> 00:11:45,039
+relevant also for newer models. And if
+343
+00:11:42,960 --> 00:11:48,160
+not, it proposes a diff with what you
+344
+00:11:45,039 --> 00:11:50,919
+can remove or refine for this model. So,
+345
+00:11:48,159 --> 00:11:53,279
+that alone already takes a good chunk
+346
+00:11:50,919 --> 00:11:56,199
+out of your input tokens. And the same
+347
+00:11:53,279 --> 00:11:57,879
+idea here for MCP servers. So, you might
+348
+00:11:56,200 --> 00:12:00,320
+have a lot of MCPs connected to your
+349
+00:11:57,879 --> 00:12:02,519
+session, and their full tool definitions
+350
+00:12:00,320 --> 00:12:04,200
+load on demand these days. So, an idle
+351
+00:12:02,519 --> 00:12:07,480
+server is pretty cheap, but it's still
+352
+00:12:04,200 --> 00:12:08,720
+not nothing. So, run MCP, switch off
+353
+00:12:07,480 --> 00:12:11,639
+whatever you're not using in that
+354
+00:12:08,720 --> 00:12:14,040
+session, maybe use a CLI instead like
+355
+00:12:11,639 --> 00:12:15,759
+the GitHub CLI, AWS CLI, all that stuff.
+356
+00:12:14,039 --> 00:12:17,759
+Claude can just run it, and nothing, you
+357
+00:12:15,759 --> 00:12:19,879
+know, loads up front at all. And then
+358
+00:12:17,759 --> 00:12:22,679
+one other thing that also fills this bar
+359
+00:12:19,879 --> 00:12:24,480
+is command output. So, whenever a
+360
+00:12:22,679 --> 00:12:27,120
+command prints goes into this
+361
+00:12:24,480 --> 00:12:29,279
+conversation exactly like a normal, you
+362
+00:12:27,120 --> 00:12:31,519
+know, file that Claude read. And it
+363
+00:12:29,279 --> 00:12:33,480
+stays there for the rest of the session.
+364
+00:12:31,519 --> 00:12:35,199
+Now, a really big output is already
+365
+00:12:33,480 --> 00:12:37,639
+handled by Claude code, but past a
+366
+00:12:35,200 --> 00:12:39,800
+certain size, Claude code writes it to a
+367
+00:12:37,639 --> 00:12:41,720
+file, and then only puts a short preview
+368
+00:12:39,799 --> 00:12:44,000
+of the path in the conversation. But, a
+369
+00:12:41,720 --> 00:12:45,680
+thing for to watch for is everything
+370
+00:12:44,000 --> 00:12:47,879
+under that.
+371
+00:12:45,679 --> 00:12:50,879
+So, a test runner that prints like one
+372
+00:12:47,879 --> 00:12:52,759
+line for each of your 400 passing tests
+373
+00:12:50,879 --> 00:12:55,600
+can come under that limit.
+374
+00:12:52,759 --> 00:12:58,200
+So, all 400 lines are now part of every
+375
+00:12:55,600 --> 00:13:00,480
+request after it. So, a quiet reporter
+376
+00:12:58,200 --> 00:13:02,480
+that only prints the failures is also a
+377
+00:13:00,480 --> 00:13:04,680
+tiny fraction of that. And Claude will
+378
+00:13:02,480 --> 00:13:07,240
+often add the quiet flag itself, but the
+379
+00:13:04,679 --> 00:13:08,919
+reliable way is to put the like two or
+380
+00:13:07,240 --> 00:13:11,080
+three commands that you run all day in
+381
+00:13:08,919 --> 00:13:13,120
+your Claude MD, also written exactly how
+382
+00:13:11,080 --> 00:13:15,920
+you would run them. So, like run the
+383
+00:13:13,120 --> 00:13:18,039
+single test with NPX retest run file
+384
+00:13:15,919 --> 00:13:19,759
+name, and then reporter. That's just
+385
+00:13:18,039 --> 00:13:21,959
+once it's committed, it's a team-wide
+386
+00:13:19,759 --> 00:13:23,879
+setting. Or for something super noisy,
+387
+00:13:21,960 --> 00:13:25,680
+just have it run in a sub agent, which
+388
+00:13:23,879 --> 00:13:27,360
+we'll get to in a moment.
+389
+00:13:25,679 --> 00:13:29,359
+Then in some cases, you'll also notice
+390
+00:13:27,360 --> 00:13:30,960
+the model reaches a lot further than you
+391
+00:13:29,360 --> 00:13:32,680
+expected. It does a lot more, more
+392
+00:13:30,960 --> 00:13:34,960
+thinking, more tool calls, more file
+393
+00:13:32,679 --> 00:13:37,159
+edits, all that stuff.
+394
+00:13:34,960 --> 00:13:39,040
+In some session, you'll
+395
+00:13:37,159 --> 00:13:41,279
+you you you can say, you know, "Make the
+396
+00:13:39,039 --> 00:13:43,199
+button green." And one time it just
+397
+00:13:41,279 --> 00:13:44,799
+changes the color, and another time
+398
+00:13:43,200 --> 00:13:47,200
+it'll try to understand your whole code
+399
+00:13:44,799 --> 00:13:49,439
+base and your design system, everything.
+400
+00:13:47,200 --> 00:13:51,720
+And most of that is related to effort.
+401
+00:13:49,440 --> 00:13:53,640
+So, effort goes along with your request,
+402
+00:13:51,720 --> 00:13:55,800
+and it just tells the model how thorough
+403
+00:13:53,639 --> 00:13:58,439
+it should be before it calls the job
+404
+00:13:55,799 --> 00:14:00,879
+done. And the default that we set is
+405
+00:13:58,440 --> 00:14:03,320
+usually fine. Um but I also get that
+406
+00:14:00,879 --> 00:14:05,919
+it's tempting to run on extra high or
+407
+00:14:03,320 --> 00:14:08,400
+max cuz you you care about the task, but
+408
+00:14:05,919 --> 00:14:10,959
+that's really not always necessary. And
+409
+00:14:08,399 --> 00:14:13,240
+higher effort means more output tokens,
+410
+00:14:10,960 --> 00:14:15,400
+which then also means more input tokens,
+411
+00:14:13,240 --> 00:14:18,039
+everything else. We see that with large
+412
+00:14:15,399 --> 00:14:20,959
+larger models like Fable 5.1, medium
+413
+00:14:18,039 --> 00:14:23,480
+effort is excellent. And even though the
+414
+00:14:20,960 --> 00:14:25,480
+name medium might not sound like that
+415
+00:14:23,480 --> 00:14:27,879
+that'll give you enough effort for the
+416
+00:14:25,480 --> 00:14:30,000
+task you're doing. Um
+417
+00:14:27,879 --> 00:14:32,120
+lower effort levels are sometimes just
+418
+00:14:30,000 --> 00:14:34,519
+as good as previous models on the higher
+419
+00:14:32,120 --> 00:14:36,320
+effort levels. And this also gives you
+420
+00:14:34,519 --> 00:14:38,120
+kind of a a nice rule of thumb when a
+421
+00:14:36,320 --> 00:14:40,680
+result misses is
+422
+00:14:38,120 --> 00:14:42,879
+did it not know enough or did it not try
+423
+00:14:40,679 --> 00:14:44,719
+hard enough? If it didn't know enough,
+424
+00:14:42,879 --> 00:14:46,240
+that's a model question. You might want
+425
+00:14:44,720 --> 00:14:48,440
+to up the model.
+426
+00:14:46,240 --> 00:14:50,839
+If it skipped a file or it was lazy, it
+427
+00:14:48,440 --> 00:14:52,240
+didn't run the test or stopped halfway,
+428
+00:14:50,839 --> 00:14:53,520
+that's effort. And that also goes the
+429
+00:14:52,240 --> 00:14:55,120
+other way, right? Like if you notice
+430
+00:14:53,519 --> 00:14:57,519
+it's doing too much, dial down the
+431
+00:14:55,120 --> 00:14:59,679
+effort. Now Now before we get to the
+432
+00:14:57,519 --> 00:15:02,519
+cache, one more thing about the amount
+433
+00:14:59,679 --> 00:15:04,879
+of tokens, the model only ever adds to
+434
+00:15:02,519 --> 00:15:07,439
+your context. It never removes anything.
+435
+00:15:04,879 --> 00:15:09,240
+So, in a long session, everything we've
+436
+00:15:07,440 --> 00:15:11,520
+talked about so far is still there on
+437
+00:15:09,240 --> 00:15:14,720
+every request. And even though most of
+438
+00:15:11,519 --> 00:15:16,519
+it is cached, cache is not zero.
+439
+00:15:14,720 --> 00:15:18,600
+So, the model is still processing it,
+440
+00:15:16,519 --> 00:15:19,759
+and for most of the time you don't need
+441
+00:15:18,600 --> 00:15:21,879
+it anymore.
+442
+00:15:19,759 --> 00:15:24,720
+So, here, like in the top row, I ran
+443
+00:15:21,879 --> 00:15:26,639
+clear between the tasks. So, every task
+444
+00:15:24,720 --> 00:15:29,399
+starts small again and the bottom row is
+445
+00:15:26,639 --> 00:15:31,080
+a long session where every column still
+446
+00:15:29,399 --> 00:15:33,000
+carries the task before it and then it
+447
+00:15:31,080 --> 00:15:34,960
+just keeps getting taller. Now, the
+448
+00:15:33,000 --> 00:15:37,240
+bottom session uses twice the amount of
+449
+00:15:34,960 --> 00:15:39,560
+tokens as the top session just because
+450
+00:15:37,240 --> 00:15:42,240
+task two and three were still carrying
+451
+00:15:39,559 --> 00:15:43,519
+task one around the whole time.
+452
+00:15:42,240 --> 00:15:45,519
+So, there's a couple things you can do
+453
+00:15:43,519 --> 00:15:47,799
+here. The first is compaction. So, you
+454
+00:15:45,519 --> 00:15:50,319
+can run compact, Cloud replaces the
+455
+00:15:47,799 --> 00:15:51,479
+whole conversation with a summary. Um by
+456
+00:15:50,320 --> 00:15:52,840
+the way, you can also give it hints
+457
+00:15:51,480 --> 00:15:55,519
+about what to remember and what to
+458
+00:15:52,840 --> 00:15:57,639
+prioritize. Uh you can run rewind to
+459
+00:15:55,519 --> 00:16:00,360
+drop the last few turns.
+460
+00:15:57,639 --> 00:16:01,720
+Um and run clear when you're starting
+461
+00:16:00,360 --> 00:16:03,440
+something new.
+462
+00:16:01,720 --> 00:16:05,680
+And that's the top row that I kept doing
+463
+00:16:03,440 --> 00:16:07,360
+there. So, if you think you'll want the
+464
+00:16:05,679 --> 00:16:09,239
+old conversation back later, you can
+465
+00:16:07,360 --> 00:16:11,840
+actually rename it first. So, rename the
+466
+00:16:09,240 --> 00:16:14,159
+session, uh then clear, and then resume
+467
+00:16:11,840 --> 00:16:16,000
+still resumes that old session if you
+468
+00:16:14,159 --> 00:16:18,079
+want. Now, getting back to that cached
+469
+00:16:16,000 --> 00:16:19,320
+prefix that we talked about earlier,
+470
+00:16:18,080 --> 00:16:21,680
+it's important to remember that the
+471
+00:16:19,320 --> 00:16:24,040
+server can only reuse the part of the
+472
+00:16:21,679 --> 00:16:26,039
+request that's identical to the previous
+473
+00:16:24,039 --> 00:16:27,240
+request starting from the very first
+474
+00:16:26,039 --> 00:16:28,879
+token.
+475
+00:16:27,240 --> 00:16:30,720
+And again, that identical front part is
+476
+00:16:28,879 --> 00:16:33,720
+called the prefix. But, the moment that
+477
+00:16:30,720 --> 00:16:36,360
+one token is different, everything after
+478
+00:16:33,720 --> 00:16:38,600
+that point is new to the server and gets
+479
+00:16:36,360 --> 00:16:39,839
+processed at full price.
+480
+00:16:38,600 --> 00:16:41,839
+So, that's important to remember here
+481
+00:16:39,839 --> 00:16:43,800
+with compact and clear, we change the
+482
+00:16:41,839 --> 00:16:45,520
+prefix. There's no way around that
+483
+00:16:43,799 --> 00:16:47,679
+because we just changed everything that
+484
+00:16:45,519 --> 00:16:49,879
+leads up to this point. So, it breaks
+485
+00:16:47,679 --> 00:16:51,519
+the cache. And then on the next request,
+486
+00:16:49,879 --> 00:16:53,759
+you pay the full price for whatever's in
+487
+00:16:51,519 --> 00:16:55,600
+there now. And after a compact, that's
+488
+00:16:53,759 --> 00:16:57,919
+just a small summary. So, that's usually
+489
+00:16:55,600 --> 00:16:59,440
+pretty fine. Um but, everything else
+490
+00:16:57,919 --> 00:17:01,360
+that's in this prefix is also good to
+491
+00:16:59,440 --> 00:17:03,640
+know. So, this also includes the tool
+492
+00:17:01,360 --> 00:17:05,360
+definitions and your system prompts.
+493
+00:17:03,639 --> 00:17:06,559
+Um the system prompt includes things
+494
+00:17:05,359 --> 00:17:08,438
+like your working directory and a
+495
+00:17:06,559 --> 00:17:10,639
+snapshot of your Git state when a
+496
+00:17:08,439 --> 00:17:12,920
+session started, then your Cloud and D,
+497
+00:17:10,640 --> 00:17:14,560
+and then the conversation so far. And
+498
+00:17:12,920 --> 00:17:16,360
+this is also why the same thing happens
+499
+00:17:14,559 --> 00:17:18,279
+when you change models mid-session
+500
+00:17:16,359 --> 00:17:20,318
+because the cache is at model's own
+501
+00:17:18,279 --> 00:17:22,480
+internal state. So, a different model
+502
+00:17:20,318 --> 00:17:26,438
+has nothing to reuse and it just reads
+503
+00:17:22,480 --> 00:17:28,120
+your whole conversation fresh once.
+504
+00:17:26,439 --> 00:17:30,240
+When you change the effort level on most
+505
+00:17:28,119 --> 00:17:32,599
+models, um because that also sits in the
+506
+00:17:30,240 --> 00:17:34,559
+front of your request with Fable 51B in
+507
+00:17:32,599 --> 00:17:37,279
+the exception, you'll also break prompt
+508
+00:17:34,559 --> 00:17:39,200
+cash when you change effort level. We We
+509
+00:17:37,279 --> 00:17:40,879
+do warn you a lot of the time before
+510
+00:17:39,200 --> 00:17:42,880
+this happens. So, if you run model or
+511
+00:17:40,880 --> 00:17:44,640
+effort while the cash is still warm,
+512
+00:17:42,880 --> 00:17:46,840
+Cloud Code will ask you to confirm
+513
+00:17:44,640 --> 00:17:48,920
+first. And there's also plenty that are
+514
+00:17:46,839 --> 00:17:50,639
+totally to change mid-session, by the
+515
+00:17:48,920 --> 00:17:52,600
+way, like editing files, changing
+516
+00:17:50,640 --> 00:17:54,280
+permission mode. That's all on the Cloud
+517
+00:17:52,599 --> 00:17:56,599
+Code side. This never touches your
+518
+00:17:54,279 --> 00:17:58,960
+request. And your Cloud MD is only read
+519
+00:17:56,599 --> 00:18:01,359
+once at session start. So, even if you
+520
+00:17:58,960 --> 00:18:03,640
+edit this mid-session, nothing changes.
+521
+00:18:01,359 --> 00:18:06,039
+It just shows up in your next session or
+522
+00:18:03,640 --> 00:18:08,320
+after you clear. Now, time is the next
+523
+00:18:06,039 --> 00:18:10,480
+thing because we don't cash forever. The
+524
+00:18:08,319 --> 00:18:12,359
+server just keeps this prefix around for
+525
+00:18:10,480 --> 00:18:15,000
+a limited amount of time and then every
+526
+00:18:12,359 --> 00:18:16,879
+request you send resets this timer. So,
+527
+00:18:15,000 --> 00:18:19,119
+while you're working, the cash is still
+528
+00:18:16,880 --> 00:18:21,520
+warm. Today, that window is about an
+529
+00:18:19,119 --> 00:18:24,399
+hour on the plan within your plan's
+530
+00:18:21,519 --> 00:18:26,599
+usage and about 5 minutes on API billing
+531
+00:18:24,400 --> 00:18:29,280
+or a cloud provider. Sub-agents also get
+532
+00:18:26,599 --> 00:18:30,879
+5 minutes everywhere, plan or API. But,
+533
+00:18:29,279 --> 00:18:33,160
+you can change that. So, there's a
+534
+00:18:30,880 --> 00:18:35,280
+prompt cash TTL setting for the main
+535
+00:18:33,160 --> 00:18:37,360
+conversation and also a matching one for
+536
+00:18:35,279 --> 00:18:39,519
+sub-agent. But, you don't always want to
+537
+00:18:37,359 --> 00:18:41,959
+do this because the long window also
+538
+00:18:39,519 --> 00:18:44,319
+isn't free. Writing tokens into a 1-hour
+539
+00:18:41,960 --> 00:18:47,120
+cash is billed at a higher rate than
+540
+00:18:44,319 --> 00:18:49,079
+writing them into a a 5-minute one.
+541
+00:18:47,119 --> 00:18:50,919
+So, if you work in like steady bursts
+542
+00:18:49,079 --> 00:18:53,519
+and rarely pause for more than a few
+543
+00:18:50,920 --> 00:18:55,880
+minutes, the short window is usually
+544
+00:18:53,519 --> 00:18:57,960
+cheaper because you'd be paying extra
+545
+00:18:55,880 --> 00:18:59,480
+for the time that you never use.
+546
+00:18:57,960 --> 00:19:01,279
+So, the long window pays off if you do
+547
+00:18:59,480 --> 00:19:03,240
+step away, maybe a meeting or a lunch or
+548
+00:19:01,279 --> 00:19:05,480
+a long build and you know, come back to
+549
+00:19:03,240 --> 00:19:07,640
+the same session. Okay, so practically,
+550
+00:19:05,480 --> 00:19:09,000
+TLDR, what does this mean and what can
+551
+00:19:07,640 --> 00:19:11,240
+you do? Well, first, don't break the
+552
+00:19:09,000 --> 00:19:12,839
+cash yourself or try try avoid it. Make
+553
+00:19:11,240 --> 00:19:14,759
+the model and effort choice at the start
+554
+00:19:12,839 --> 00:19:16,879
+of a session or right after you clear,
+555
+00:19:14,759 --> 00:19:18,200
+so there's nothing cached to lose. Now,
+556
+00:19:16,880 --> 00:19:20,160
+if you do want to switch model in the
+557
+00:19:18,200 --> 00:19:21,960
+middle of a task, maybe compact first
+558
+00:19:20,160 --> 00:19:24,120
+and then switch so that the new model
+559
+00:19:21,960 --> 00:19:26,039
+only has to read a short summary instead
+560
+00:19:24,119 --> 00:19:27,279
+of your entire conversation. And also
+561
+00:19:26,039 --> 00:19:29,319
+make sure that you compact while the
+562
+00:19:27,279 --> 00:19:30,639
+cache is still warm cuz compacting means
+563
+00:19:29,319 --> 00:19:32,879
+that the model reads your entire
+564
+00:19:30,640 --> 00:19:34,920
+conversation one more time to write that
+565
+00:19:32,880 --> 00:19:36,880
+summary. So, if the cache is still warm,
+566
+00:19:34,920 --> 00:19:39,200
+that read is pretty cheap. But, if you
+567
+00:19:36,880 --> 00:19:40,840
+wait until after the window,
+568
+00:19:39,200 --> 00:19:43,120
+say you come back after an hour and then
+569
+00:19:40,839 --> 00:19:45,919
+compact, uh that same read is now full
+570
+00:19:43,119 --> 00:19:47,839
+price uh full input price. So, try to
+571
+00:19:45,920 --> 00:19:49,560
+compact or change before you step away,
+572
+00:19:47,839 --> 00:19:51,359
+not when you come back. And it's the
+573
+00:19:49,559 --> 00:19:54,319
+same story when you resume an old
+574
+00:19:51,359 --> 00:19:56,559
+session. So, by then in most cases the
+575
+00:19:54,319 --> 00:19:58,359
+cache has already expired or at least
+576
+00:19:56,559 --> 00:20:01,159
+mine has. My sessions are long and I I
+577
+00:19:58,359 --> 00:20:03,559
+take breaks. So, that first session or
+578
+00:20:01,160 --> 00:20:05,480
+that first message back sends the whole
+579
+00:20:03,559 --> 00:20:07,319
+conversation to the model again and none
+580
+00:20:05,480 --> 00:20:08,480
+of it is cached, so it's all just plain
+581
+00:20:07,319 --> 00:20:09,559
+input.
+582
+00:20:08,480 --> 00:20:11,160
+And
+583
+00:20:09,559 --> 00:20:13,480
+if you need that full context, that's
+584
+00:20:11,160 --> 00:20:15,640
+fine. It's only once, but if you know
+585
+00:20:13,480 --> 00:20:17,519
+that you'll come back tomorrow, maybe
+586
+00:20:15,640 --> 00:20:20,640
+it's better to run a compact first
+587
+00:20:17,519 --> 00:20:23,480
+before you leave so that what you resume
+588
+00:20:20,640 --> 00:20:25,680
+the next day is just a shorter summary.
+589
+00:20:23,480 --> 00:20:28,519
+And one more tool for keeping what's in
+590
+00:20:25,680 --> 00:20:29,920
+your session useful is sub-agent. So,
+591
+00:20:28,519 --> 00:20:32,039
+sometimes Claude needs to kind of
+592
+00:20:29,920 --> 00:20:33,920
+research something bigger to answer your
+593
+00:20:32,039 --> 00:20:36,759
+question, maybe a long log, a whole
+594
+00:20:33,920 --> 00:20:38,840
+repo, a full test run, something. And
+595
+00:20:36,759 --> 00:20:41,079
+you really only want the conclusion, but
+596
+00:20:38,839 --> 00:20:42,919
+not all these 30 files that it read to
+597
+00:20:41,079 --> 00:20:44,639
+get there. And that's what a sub-agent
+598
+00:20:42,920 --> 00:20:47,080
+is for. So, this runs in its own
+599
+00:20:44,640 --> 00:20:48,920
+context, with its own small system
+600
+00:20:47,079 --> 00:20:50,519
+prompts, your Claude and the file and
+601
+00:20:48,920 --> 00:20:52,360
+just the task.
+602
+00:20:50,519 --> 00:20:54,400
+And it does all the reading and all the
+603
+00:20:52,359 --> 00:20:56,159
+tool calls over there, and it only sends
+604
+00:20:54,400 --> 00:20:57,920
+you the final conclusion back into the
+605
+00:20:56,160 --> 00:21:00,279
+main conversation. But, everything else
+606
+00:20:57,920 --> 00:21:03,200
+that it read dropped. Now, token-wise,
+607
+00:21:00,279 --> 00:21:04,759
+to be clear, a sub-agent isn't free. It
+608
+00:21:03,200 --> 00:21:06,880
+still has its own input and output
+609
+00:21:04,759 --> 00:21:10,039
+tokens, its own cache, and again that
+610
+00:21:06,880 --> 00:21:12,280
+cash is that 5-minute window. Um so, the
+611
+00:21:10,039 --> 00:21:14,519
+total for that one job can even be a bit
+612
+00:21:12,279 --> 00:21:16,440
+higher at some points. But, what you win
+613
+00:21:14,519 --> 00:21:18,879
+is that your main conversation stays
+614
+00:21:16,440 --> 00:21:20,120
+small and optimized for the task that
+615
+00:21:18,880 --> 00:21:22,920
+you actually want Claude to do. So,
+616
+00:21:20,119 --> 00:21:25,119
+every turn after that is cheaper, and
+617
+00:21:22,920 --> 00:21:27,360
+your context window is also not full of
+618
+00:21:25,119 --> 00:21:29,319
+all these log files.
+619
+00:21:27,359 --> 00:21:31,279
+Um and you actually have a lot of
+620
+00:21:29,319 --> 00:21:33,359
+control in sub agents. So, you can run a
+621
+00:21:31,279 --> 00:21:35,399
+different model than your session. Uh
+622
+00:21:33,359 --> 00:21:37,919
+so, a Haiku or Sonnet sub agent for
+623
+00:21:35,400 --> 00:21:39,720
+digging. You can set the effort level.
+624
+00:21:37,920 --> 00:21:41,080
+And if you have any custom sub agents,
+625
+00:21:39,720 --> 00:21:43,519
+just know that you can also set the
+626
+00:21:41,079 --> 00:21:44,559
+model and effort level for that sub
+627
+00:21:43,519 --> 00:21:46,000
+agent.
+628
+00:21:44,559 --> 00:21:47,919
+Uh so far, everything here was about
+629
+00:21:46,000 --> 00:21:49,799
+your own sessions. But, if you're the
+630
+00:21:47,920 --> 00:21:51,720
+person who sets Claude code up for a
+631
+00:21:49,799 --> 00:21:53,599
+whole team, there's also an admin side
+632
+00:21:51,720 --> 00:21:56,640
+to all of this. And it's really the same
+633
+00:21:53,599 --> 00:21:59,240
+levers set once just for everyone. And
+634
+00:21:56,640 --> 00:22:01,800
+most of this lives in one place, managed
+635
+00:21:59,240 --> 00:22:03,880
+settings. And this is a settings file
+636
+00:22:01,799 --> 00:22:05,720
+that you define in the admin console.
+637
+00:22:03,880 --> 00:22:07,600
+So, every install on your team picks it
+638
+00:22:05,720 --> 00:22:09,559
+up at startup, and users can't override
+639
+00:22:07,599 --> 00:22:11,319
+it. Um there's a couple things that you
+640
+00:22:09,559 --> 00:22:13,319
+can configure here. So, first is the
+641
+00:22:11,319 --> 00:22:15,439
+starting model, and also which models
+642
+00:22:13,319 --> 00:22:18,480
+people can pick at all. So, when a team
+643
+00:22:15,440 --> 00:22:20,720
+spend is unexpectedly high, this usually
+644
+00:22:18,480 --> 00:22:23,319
+traces back to just the biggest model
+645
+00:22:20,720 --> 00:22:25,160
+just being left on as a default. You may
+646
+00:22:23,319 --> 00:22:27,359
+not need that. So, you may just pick a
+647
+00:22:25,160 --> 00:22:29,400
+smaller model. That's just one line, and
+648
+00:22:27,359 --> 00:22:31,679
+it's the highest leverage thing here.
+649
+00:22:29,400 --> 00:22:33,720
+Second is the starting effort level, and
+650
+00:22:31,680 --> 00:22:35,400
+it's the same story as earlier. People
+651
+00:22:33,720 --> 00:22:36,799
+tend to leave it on high end because
+652
+00:22:35,400 --> 00:22:38,720
+they care, but you definitely don't
+653
+00:22:36,799 --> 00:22:40,559
+always need the highest effort level.
+654
+00:22:38,720 --> 00:22:42,360
+So, you can set the default ones and
+655
+00:22:40,559 --> 00:22:45,000
+still raise it for a task if you want
+656
+00:22:42,359 --> 00:22:47,519
+to. Uh and on enterprise, you can also
+657
+00:22:45,000 --> 00:22:49,640
+cap the maximum per model. And third is
+658
+00:22:47,519 --> 00:22:52,279
+the cash window if your team is on API
+659
+00:22:49,640 --> 00:22:53,720
+or cloud. So, that's the prompt cash TTL
+660
+00:22:52,279 --> 00:22:55,039
+from earlier. You can just set it once
+661
+00:22:53,720 --> 00:22:56,440
+for your whole team. So, if your
+662
+00:22:55,039 --> 00:22:58,599
+developers tend to work in like steady
+663
+00:22:56,440 --> 00:23:00,279
+bursts, you can leave the short window.
+664
+00:22:58,599 --> 00:23:02,319
+But, if they tend to disappear in a
+665
+00:23:00,279 --> 00:23:04,279
+meetings and come back to the same
+666
+00:23:02,319 --> 00:23:05,919
+session, you can set this to like an
+667
+00:23:04,279 --> 00:23:07,319
+hour and just accept the higher rate
+668
+00:23:05,920 --> 00:23:09,400
+price.
+669
+00:23:07,319 --> 00:23:11,079
+You can also set which MCP servers are
+670
+00:23:09,400 --> 00:23:13,240
+allowed, so there isn't just a pile of
+671
+00:23:11,079 --> 00:23:15,319
+idle ones sitting around. And there's an
+672
+00:23:13,240 --> 00:23:17,799
+organization-wide Cloud MD that you can
+673
+00:23:15,319 --> 00:23:19,919
+ship to every machine. So, every session
+674
+00:23:17,799 --> 00:23:21,359
+on the team starts with them.
+675
+00:23:19,920 --> 00:23:23,360
+Then you can also see what's happening.
+676
+00:23:21,359 --> 00:23:26,159
+So, the console has this analytics view
+677
+00:23:23,359 --> 00:23:28,319
+for adoption and a spend report per user
+678
+00:23:26,160 --> 00:23:29,880
+and per model when you've turned on
+679
+00:23:28,319 --> 00:23:31,919
+usage credits.
+680
+00:23:29,880 --> 00:23:33,240
+Um another useful one is open telemetry.
+681
+00:23:31,920 --> 00:23:35,480
+You just set it with two environment
+682
+00:23:33,240 --> 00:23:37,880
+variables in that same managed settings
+683
+00:23:35,480 --> 00:23:39,759
+file. And then every install reports
+684
+00:23:37,880 --> 00:23:41,680
+input, output, cache reads, and cache
+685
+00:23:39,759 --> 00:23:43,799
+writes per person. And you can see the
+686
+00:23:41,680 --> 00:23:46,120
+cache reads here as a share of all the
+687
+00:23:43,799 --> 00:23:47,759
+input per user. And that should be by
+688
+00:23:46,119 --> 00:23:49,159
+far the biggest chunk, because that
+689
+00:23:47,759 --> 00:23:51,359
+means that their sessions are staying
+690
+00:23:49,160 --> 00:23:53,320
+warm. If someone's share for these cache
+691
+00:23:51,359 --> 00:23:55,639
+tokens is low, that means they're
+692
+00:23:53,319 --> 00:23:57,159
+breaking the cache somewhere. And you
+693
+00:23:55,640 --> 00:23:59,600
+know, as we talked about before, maybe
+694
+00:23:57,160 --> 00:24:01,600
+it's a model switch, an effort switch.
+695
+00:23:59,599 --> 00:24:03,439
+Um and you can also see the input tokens
+696
+00:24:01,599 --> 00:24:06,240
+per session over time. And what you want
+697
+00:24:03,440 --> 00:24:08,360
+to see here is a line that climbs during
+698
+00:24:06,240 --> 00:24:10,640
+a task, but then drops back every time
+699
+00:24:08,359 --> 00:24:12,719
+they clear or start a new session. If it
+700
+00:24:10,640 --> 00:24:14,160
+only ever climbs, then someone, you
+701
+00:24:12,720 --> 00:24:16,680
+know, is just living in one endless
+702
+00:24:14,160 --> 00:24:19,920
+session, um and maybe resuming an older
+703
+00:24:16,680 --> 00:24:21,720
+session when cache had already expired.
+704
+00:24:19,920 --> 00:24:24,519
+You can also see the cost by model per
+705
+00:24:21,720 --> 00:24:26,640
+user. So, this tells you which people
+706
+00:24:24,519 --> 00:24:28,639
+have a bigger model for everything. So,
+707
+00:24:26,640 --> 00:24:31,360
+those are kind of exactly the habits
+708
+00:24:28,640 --> 00:24:33,200
+from this talk per person, and each one
+709
+00:24:31,359 --> 00:24:34,399
+is just, you know, a one-message fix.
+710
+00:24:33,200 --> 00:24:36,759
+Like, "Hey, I noticed you've been doing
+711
+00:24:34,400 --> 00:24:39,320
+that." And and last is limits. So, on
+712
+00:24:36,759 --> 00:24:41,799
+team and enterprise, the seats 5-hour
+713
+00:24:39,319 --> 00:24:44,079
+and weekly window is the ceiling. So, no
+714
+00:24:41,799 --> 00:24:45,720
+one gets past that by accident. But, if
+715
+00:24:44,079 --> 00:24:47,639
+you do want your people to keep working,
+716
+00:24:45,720 --> 00:24:49,039
+you can turn on usage credits and put a
+717
+00:24:47,640 --> 00:24:50,840
+spend limit on it, either per
+718
+00:24:49,039 --> 00:24:52,599
+organization, per group, or per person.
+719
+00:24:50,839 --> 00:24:54,679
+And one related setting here is auto
+720
+00:24:52,599 --> 00:24:56,439
+continue at usage limit. And this
+721
+00:24:54,680 --> 00:24:58,400
+defines whether a session that hit that
+722
+00:24:56,440 --> 00:25:00,480
+window just waits, but then
+723
+00:24:58,400 --> 00:25:02,880
+automatically picks the task back up
+724
+00:25:00,480 --> 00:25:04,960
+when the window resets. So, this matters
+725
+00:25:02,880 --> 00:25:07,280
+for these long unattended runs. So, one
+726
+00:25:04,960 --> 00:25:10,160
+prompt is many requests, and every
+727
+00:25:07,279 --> 00:25:12,599
+request carries the entire conversation.
+728
+00:25:10,160 --> 00:25:14,720
+And the cache makes that history cheap
+729
+00:25:12,599 --> 00:25:17,719
+as long as the front or the prefix of
+730
+00:25:14,720 --> 00:25:19,000
+the cache stays the same and you keep
+731
+00:25:17,720 --> 00:25:20,799
+moving.
+732
+00:25:19,000 --> 00:25:23,119
+So, ultimately, what you should remember
+733
+00:25:20,799 --> 00:25:25,200
+is three things. One is to pick your
+734
+00:25:23,119 --> 00:25:27,719
+model, your effort level, and your GP
+735
+00:25:25,200 --> 00:25:29,799
+servers at the start of a session and
+736
+00:25:27,720 --> 00:25:31,920
+leave them alone. You can change your
+737
+00:25:29,799 --> 00:25:33,359
+effort level if you're using Fable 5.1,
+738
+00:25:31,920 --> 00:25:36,039
+but that's the only model that doesn't
+739
+00:25:33,359 --> 00:25:37,799
+break prompt cache. But by not changing
+740
+00:25:36,039 --> 00:25:39,920
+any of these settings, the front of
+741
+00:25:37,799 --> 00:25:41,919
+every request keeps matching the one
+742
+00:25:39,920 --> 00:25:44,320
+before it. So, it doesn't break prompt
+743
+00:25:41,920 --> 00:25:46,759
+cache. So, Claude can keep reading from
+744
+00:25:44,319 --> 00:25:49,039
+the cache instead of having to reprocess
+745
+00:25:46,759 --> 00:25:50,839
+the whole conversation. And two is to be
+746
+00:25:49,039 --> 00:25:53,039
+deliberate about what you put into the
+747
+00:25:50,839 --> 00:25:55,000
+conversation, right? So, point Claude at
+748
+00:25:53,039 --> 00:25:57,240
+the files you already know about, keep
+749
+00:25:55,000 --> 00:25:58,920
+your command output quiet, and send the
+750
+00:25:57,240 --> 00:26:02,120
+really noisy
+751
+00:25:58,920 --> 00:26:03,920
+digging into a sub agent, and so that
+752
+00:26:02,119 --> 00:26:05,679
+way only the summary comes back into
+753
+00:26:03,920 --> 00:26:07,519
+your main conversation. And the third
+754
+00:26:05,680 --> 00:26:09,600
+one is to make sure your session stays
+755
+00:26:07,519 --> 00:26:11,559
+focused. So, clear whenever you start a
+756
+00:26:09,599 --> 00:26:13,679
+new task, so you're not, you know,
+757
+00:26:11,559 --> 00:26:15,799
+paying for task one during task three,
+758
+00:26:13,680 --> 00:26:17,680
+all that. And try to compact if you're
+759
+00:26:15,799 --> 00:26:19,839
+doing that before you step away while
+760
+00:26:17,680 --> 00:26:22,120
+the cache is still warm. And remember
+761
+00:26:19,839 --> 00:26:24,679
+that resuming an old session or coming
+762
+00:26:22,119 --> 00:26:27,279
+back after a long break um after the
+763
+00:26:24,680 --> 00:26:29,000
+cache expired means means full read of
+764
+00:26:27,279 --> 00:26:31,519
+everything. And the model is a
+765
+00:26:29,000 --> 00:26:33,000
+multiplier of all of this. So,
+766
+00:26:31,519 --> 00:26:35,079
+pick the model that's right for your
+767
+00:26:33,000 --> 00:26:37,480
+task. And for a team, you can make those
+768
+00:26:35,079 --> 00:26:39,240
+same choices in managed setting. So,
+769
+00:26:37,480 --> 00:26:42,120
+using Claude code efficiently doesn't
+770
+00:26:39,240 --> 00:26:44,240
+mean using fewer tokens, you just want
+771
+00:26:42,119 --> 00:26:46,479
+the ones that you do use going towards
+772
+00:26:44,240 --> 00:26:48,599
+the thing you actually asked it. Prices
+773
+00:26:46,480 --> 00:26:50,720
+and features will keep changing, but
+774
+00:26:48,599 --> 00:26:52,759
+hopefully that part won't.
+775
+00:26:50,720 --> 00:26:54,920
+I hope this helped kind of demystify
+776
+00:26:52,759 --> 00:26:56,319
+where tokens go, at least a little bit.
+777
+00:26:54,920 --> 00:26:57,960
+Uh I appreciate you coming to this
+778
+00:26:56,319 --> 00:27:00,599
+webinar. Let me know if you have any
+779
+00:26:57,960 --> 00:27:00,600
+questions.
