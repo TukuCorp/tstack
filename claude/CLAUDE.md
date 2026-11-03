@@ -39,6 +39,11 @@
 - After any user correction: record the pattern and a rule that prevents recurrence. Project-specific → `lessons.md` at project root. Applies across projects → this global file (and the other harnesses' global rule files).
 - Review `lessons.md` at session start for project-relevant rules.
 
+## Google Workspace
+- For Gmail, Drive, Docs, Sheets, Slides and Calendar, use the `gws` CLI first (`gws <service> --help`), before connectors/MCP, browser or desktop automation. When another route fails on a Google task, switch to `gws` instead of retrying it.
+- Bare `gws` is the work account (<EMAIL>). Test access with a real API call before any login flow: `gws auth login` replaces the whole scope grant, so a narrower re-login breaks other jobs.
+- Syntax, accounts and Windows quirks: `~/wiki/wiki/gws-cli.md`.
+
 ## Browser Use
 - Use Claude in Chrome (`mcp__claude-in-chrome__*`) first for interactive tasks in my logged-in Chrome. It works in its own tab group. Use browser-control for scripted or repeatable Playwright work, and when Claude in Chrome fails after 2-3 attempts, say why.
 - Logged-in Chrome (my real profile, which I am using at the same time): use `browser-control`, and load the browser-control skill first. Work only in sessions and tabs you created; never navigate, click, type or close in my tabs. Leave the `gdrive-daily` session alone: a scheduled job uses it.
@@ -59,3 +64,6 @@
 ## Personal Wiki
 - `~/wiki` (private) holds durable context about me, my projects and past decisions, gathered from every agent. When a task needs that background, read `~/wiki/index.md`, then the pages it points to.
 - Save durable facts to your own memory store if you have one (a daily sync folds it into the wiki); otherwise write them into the wiki following `~/wiki/AGENTS.md` (Ingest).
+
+## Allotrope Decks
+- "Allotrope format" means the real house template, not the apdeck navy/Calibri spec: copy `~/Downloads/ee-heat/gap/Call Notes & Meetings/2026_Allotrope-Gap Kickoff Call v7 final.pptx` (Cabin, teal banner, solar/wind cover), keep its cover, clone its banner, draw native shapes. Pattern: `ee-heat/reports/build_gap_priorities_on_template.py`.

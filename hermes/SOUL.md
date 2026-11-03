@@ -105,3 +105,8 @@ fits in a 10-second scan.
 ## MCP Servers
 - Prefer a tool's CLI over its MCP server; use the MCP only when the CLI can't do the task.
 - officecli: `officecli`. NotebookLM: `nlm` (`nlm --ai` prints agent docs). Firecrawl: `firecrawl` (`firecrawl --help`; search, scrape, crawl, map). Live PowerPoint has no CLI: use xlwings or officecli on the file, else the PowerPoint MCP.
+
+## Google Workspace
+- For Gmail, Drive, Docs, Sheets, Slides and Calendar, use the `gws` CLI first (`gws <service> --help`), before connectors/MCP, browser or desktop automation. When another route fails on a Google task, switch to `gws` instead of retrying it.
+- Bare `gws` is the work account (<EMAIL>). Test access with a real API call before any login flow: `gws auth login` replaces the whole scope grant, so a narrower re-login breaks other jobs.
+- Syntax, accounts and Windows quirks: `~/wiki/wiki/gws-cli.md`.
