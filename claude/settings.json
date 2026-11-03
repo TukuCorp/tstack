@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_CODE_EVEN_MORE_DANGEROUSLY_SKIP_PERMISSIONS": "<REDACTED>"
+  },
   "permissions": {
     "allow": [],
     "deny": [],
@@ -155,7 +158,5 @@
       "<REDACTED>"
     ]
   },
-  "env": {
-    "CLAUDE_CODE_EVEN_MORE_DANGEROUSLY_SKIP_PERMISSIONS": "<REDACTED>"
-  }
+  "switchModelsOnFlag": false
 }
