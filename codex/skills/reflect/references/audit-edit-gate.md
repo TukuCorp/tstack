@@ -1,6 +1,6 @@
 # Edit gate for audit mode
 
-Adapted from skill-doctor's `skill-improvements.md` (MIT, warpdotdev/common-skills), with the structural-mechanism check from session mode's synthesizer.
+Adapted from skill-doctor's `skill-improvements.md` (MIT, warpdotdev/common-skills), with the structural-mechanism check from session mode's synthesizer and the evidence and budget rules of backpass (kunchenguid/backpass).
 
 ## Method
 
@@ -9,6 +9,8 @@ Adapted from skill-doctor's `skill-improvements.md` (MIT, warpdotdev/common-skil
 3. Verify each finding against the current repository and the agent's configuration before proposing anything. Drop what does not verify.
 4. You are editing another agent's instructions. Keep edits small and general. State the intended behavioral rule and the owning surface in one sentence, then make the smallest change that expresses it.
 5. Prefer replacing existing guidance over appending another paragraph.
+6. Removing guidance is a first-class edit. Propose it when sessions show a rule is stale, contradicts another surface, or costs tokens on every load without changing behavior. It needs the same evidence as an addition.
+7. Keep a budget: each edited surface grows by at most 150 words net. Pay for anything larger by cutting or replacing text on the same surface.
 
 ## When to propose a change
 
@@ -19,7 +21,7 @@ File only when all of these hold:
 - The failure comes from a missing, wrong or underspecified instruction on a concrete surface: the agent's configuration, a skill, or in-repo guidance.
 - You can name that surface and the one reusable rule it should have stated.
 - Had that rule been present and followed, the scored failure would not have happened.
-- The same gap appears in more than one session, or is severe enough that a single occurrence proves a missing contract.
+- You can quote the failure verbatim from at least two distinct sessions, each cited by session id. One session is never enough, however severe: put it in Backlog as a watch item and re-check it on the next run.
 
 Do not file when:
 

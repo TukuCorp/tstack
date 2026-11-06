@@ -29,6 +29,7 @@
   - Red/green: write the failing test first, at that level, and confirm it fails before implementing.
   - No coverage-padding or mock-assertion tests. Project rules override these.
 - **When uncertain:** Use the most conventional approach, follow existing patterns, leave a single inline comment documenting the assumption.
+- **File size:** Keep each code file at 1000 lines or fewer. In a new repo, add a lint rule for it before much code exists (ESLint `max-lines`, pylint `max-module-lines`, or a test that counts lines); unwinding big files later is costly. Split a file that nears the cap by responsibility.
 - **Simplicity First:** Make every change as simple as possible. Impact minimal code.
 - **No Laziness:** Find root causes. No temporary fixes. Senior developer standards.
 

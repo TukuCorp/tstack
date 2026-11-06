@@ -52,7 +52,7 @@ Follow `references/audit-edit-gate.md`. For each suggestion that clears the gate
 3. Put `diff -u current proposed` in the suggestion's `diff` field.
 4. If `inventory.json` lists the skill at several paths (this user mirrors skills across tools), list the matching edit for each copy, adapted to its frontmatter, paths and tool names.
 
-Never modify the real skill files in this step. Cite the failed session, scorer and moment behind every suggestion.
+Never modify the real skill files in this step. Put the gate's evidence in each suggestion's `evidence` field: the verbatim quotes from at least two distinct sessions, each with its session id, scorer and moment.
 
 ## 5. Report
 
