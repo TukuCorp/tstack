@@ -53,6 +53,7 @@
 ## Desktop Apps
 - Use `agent-desktop` to see and operate native desktop apps through the OS accessibility tree. Before the first use in a session, run `agent-desktop skills get desktop` and `agent-desktop skills get platform`, and follow them.
 - Stay headless (the default): never pass `--headed` unless I allow physical input for that task, because it moves my cursor and takes focus while I am using the machine.
+- Headless still is not focus-safe on Windows: UI Automation focus calls can raise the target window and take keyboard focus (Cua Driver Bench, 2026-11). While I am using the machine, prefer an API route (xlwings, officecli, gws) and tell me before driving another app.
 - For live PowerPoint or Excel, prefer xlwings or officecli, then the PowerPoint MCP (see MCP Servers); use agent-desktop for apps without an API.
 - UWP apps hosted by ApplicationFrameHost (Calculator) expose only their title bar; report that instead of retrying.
 - In PowerShell, quote every ref (`'@s8f3k2p9:e1'`).
