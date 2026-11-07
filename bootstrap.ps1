@@ -41,6 +41,8 @@ $Installers = [ordered]@{
     'codex'  = 'irm https://chatgpt.com/codex/install.ps1 | iex'
     'herdr'  = 'irm https://herdr.dev/install.ps1 | iex'
     'hermes' = 'iex (irm https://hermes-agent.nousresearch.com/install.ps1)'
+    # Antigravity CLI: installed only as a swarm lane worker (herdr agent start --kind agy); not a general agent
+    'agy'    = 'irm https://antigravity.google/cli/install.ps1 | iex'
 }
 
 if (-not $SkipInstall) {
@@ -130,7 +132,7 @@ if ((Test-Path "$WikiDir\.git") -and (Have python)) {
 
 Step 'left for you'
 Write-Host @'
-    - Sign in: claude, codex login, gh auth login, hermes setup, opencode auth login, gws auth login
+    - Sign in: claude, codex login, gh auth login, hermes setup, opencode auth login, gws auth login, agy (work account; swarm lanes only)
     - Fill the <REDACTED> values restore.py listed above (API keys, MCP env blocks)
     - Restart noctty (Ctrl+Shift+, reloads config) and herdr so they pick up the restored configs
     - Chrome: sign in to the work account; add browse from the Chrome Web Store

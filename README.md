@@ -16,6 +16,11 @@ run in. `bootstrap.ps1` rebuilds the whole setup on a new machine.
 | `herdr/` | herdr multiplexer | `%APPDATA%/herdr/config.toml`; `plugins.json` = GitHub plugins to reinstall; `local-plugins.json` + `local-plugins/*.patch` = patched clones in `~/.herdr/local-plugins` (upstream commit + my diff), when there are any |
 | `machine/` | global CLIs | `packages.json`: npm / bun / uv tools installed globally |
 
+**agy (Antigravity CLI)** is installed by `bootstrap.ps1` for one role only: a worker lane in the `swarm`
+skill (`herdr agent start <lane> --kind agy`, see `swarm/references/herdr-cli.md`, "Starting an agy agent").
+It has no folder here, no rules file and no memory, and no other skill or rule should hand it work.
+Sign in once on a new machine; its `settings.json` is not mirrored.
+
 This repo is a **mirror**, not the source of truth: `sync.py` rebuilds each folder from the
 live files, so edit skills where the tool reads them and let the sync pick them up.
 
