@@ -32,6 +32,13 @@
       "command": "C:\\Users\\<USER>\\.local\\bin\\ppt-mcp.exe",
       "args": [],
       "env": {}
+    },
+    "browse": {
+      "type": "stdio",
+      "command": "browse",
+      "args": [
+        "mcp"
+      ]
     }
   }
 }

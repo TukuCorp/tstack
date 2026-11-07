@@ -81,6 +81,23 @@ powershell -NoProfile -c "(Get-CimInstance Win32_PerfFormattedData_PerfOS_Memory
 (Get-CimInstance Win32_PerfFormattedData_PerfOS_Memory).AvailableMBytes
 ```
 
+## Starting an agy agent
+
+`herdr agent start` supports `--kind agy` (Antigravity CLI). Native agy arguments go after `--`; pin the model with `--model <slug>`, where the slug is the first column of `agy models`:
+
+```bash
+herdr agent start lane1 --kind agy --pane <pane-id> --timeout 120000 -- --model gemini-3.8-flash-high
+```
+
+Tested 2026-11-07 (agy 1.5.3): the model took, the brief was read, a file was written, and the agent's `herdr agent prompt <caller-pane-id> "..."` report-back arrived in the caller pane.
+
+- A folder agy has not seen shows "Do you trust the contents of this project?". `agent start` then reports `agent_not_ready`; read the pane and send `enter` (the default is "Yes, I trust this folder"). That adds the folder to `trustedWorkspaces` in `~/.gemini/antigravity-cli/settings.json`; remove an entry you added for a scratch folder.
+- `/goal <text>` is accepted, so send the same goal prompt as for Codex (with `MSYS_NO_PATHCONV=1` in Git Bash). The test brief ran to completion with it, and the same prompt without `/goal` also worked. Whether `/goal` keeps agy working past an early stop on a long brief was not tested.
+- Tool permission follows `toolPermission` in that settings file (currently `always-proceed`), so lanes run unattended.
+- Never run `agy -p "/something"` to test slash commands: print mode sends it to the model as a prompt. `/usage` and `/credits` work only in the interactive screen.
+- No daemon: closing the tab ends the agent, and there is nothing to archive.
+- Check quota before a big run: `/usage` in an interactive agy shows the weekly limit left for the Gemini group and the Claude and GPT group.
+
 ## Unloading finished threads
 
 Closing a tab ends the Codex client process, but the thread stays loaded in the daemon with its MCP servers and tool processes (tested 2026-10-22: still loaded 30 s after the close; the daemon may unload it on its own much later). `codex archive` unloads it at once. The thread id is the UUID at the end of the rollout file that holds the lane's goal prompt:

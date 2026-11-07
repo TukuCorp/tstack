@@ -1,6 +1,6 @@
 ---
 name: agent-desktop
-description: "See and operate native desktop apps (click buttons, fill fields, read UI state, menus, windows, clipboard, notifications) on this Windows machine through the OS accessibility tree with the agent-desktop CLI. Use for any desktop GUI task on an app without an API. Not for web pages (use browser-control or agent-browser) or live PowerPoint/Excel (use the PowerPoint MCP, xlwings or officecli)."
+description: "See and operate native desktop apps (click buttons, fill fields, read UI state, menus, windows, clipboard, notifications) on this Windows machine through the OS accessibility tree with the agent-desktop CLI. Use for any desktop GUI task on an app without an API. Not for web pages (use browse or agent-browser) or live PowerPoint/Excel (use the PowerPoint MCP, xlwings or officecli)."
 version: 1.0.0
 author: tukum (TukuCorp)
 license: MIT

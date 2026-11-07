@@ -1,6 +1,6 @@
 ---
 name: swarm
-description: "Delegate a research, audit or bulk-analysis task to several Codex agents in separate Herdr tabs, each in /goal mode on a model the user picks for that run, which report back to the calling pane without polling, then verify and synthesize their output into one deliverable. Use for `/swarm`, \"swarm this\", \"spawn codex agents\", \"delegate to codex/deepseek agents in herdr\", \"same cadence\" after an earlier swarm, or any request to fan a task out to parallel background agents in new Herdr tabs. Requires HERDR_ENV=1. Not for a single quick lookup (do it inline) or for controlling existing panes (use the herdr skill)."
+description: "Delegate a research, audit or bulk-analysis task to several Codex agents in separate Herdr tabs, each in /goal mode on a model the user picks for that run, which report back to the calling pane without polling, then verify and synthesize their output into one deliverable. Use for `/swarm`, \"swarm this\", \"spawn codex agents\", \"delegate to codex/deepseek/agy agents in herdr\", \"same cadence\" after an earlier swarm, or any request to fan a task out to parallel background agents in new Herdr tabs. Requires HERDR_ENV=1. Not for a single quick lookup (do it inline) or for controlling existing panes (use the herdr skill)."
 version: 1.0.0
 author: tukum (TukuCorp)
 license: MIT
@@ -50,6 +50,8 @@ Choose the model first (see Model choice below). Launch the first `slots` lanes.
 3. Confirm the model name in the pane header (`herdr agent read <lane> --source visible --lines 12`).
 4. Send the goal prompt: `/goal Read the brief <file> in this folder and execute it fully. As your last action, send the report-back command it specifies.` A prompt that starts with `/` needs `MSYS_NO_PATHCONV=1` in Git Bash.
 5. After a few seconds, check `herdr agent get <lane>` shows `working`.
+
+**Agent kind.** Lanes are Codex agents unless the user names agy or Antigravity ("swarm with agy"). Then start each lane with `--kind agy` instead (syntax and gotchas in `references/herdr-cli.md`, "Starting an agy agent"). An agy lane differs from a Codex lane in three ways: its models come from `agy models`, not the Codex catalog; it runs as an ordinary process with no shared daemon, so cleanup is closing the tab and there is no thread to archive; and its quota is weekly and shared per model group, so prefer one model family per run. It takes the same `/goal ...` prompt as a Codex lane. Do not mix agy and Codex lanes in one run unless the user asks.
 
 **Model choice (ask every run).** There is no default model. Settle it with the user before the first launch:
 

@@ -316,3 +316,7 @@ trusted_hash = "sha256:2035963d8116b7f9c8418a165ee1d22cc62fa076e6536be410a853445
 
 [notice]
 hide_rate_limit_model_nudge = true
+
+[mcp_servers.browse]
+command = "node"
+args = ['C:\Users\<USER>\AppData\Roaming\npm\node_modules\@opencode\browse\dist\cli.mjs', "mcp"]

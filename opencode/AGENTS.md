@@ -46,7 +46,7 @@
 - Syntax, accounts and Windows quirks: `~/wiki/wiki/gws-cli.md`.
 
 ## Browser Use
-- Logged-in Chrome (my real profile, which I am using at the same time): use `browser-control`, and load the browser-control skill first. Work only in sessions and tabs you created; never navigate, click, type or close in my tabs. Leave the `gdrive-daily` session alone: a scheduled job uses it.
+- Logged-in Chrome (my real profile, which I am using at the same time): use `browse` (MCP server or CLI), and load the browse skill first. Work only in sessions and tabs you created or that I lent you with the toolbar button; never navigate, click, type or close in my other tabs. Leave the `gdrive-daily` session alone: a scheduled job uses it.
 - Headless or throwaway browsing (public pages, localhost testing, scraping, screenshots): use `agent-browser`. Run `agent-browser skills get core` before the first use in a session, and `agent-browser close` when done.
 - For Google files, add `authuser=<EMAIL>` (the work account is not the default).
 

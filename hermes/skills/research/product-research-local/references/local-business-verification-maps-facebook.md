@@ -19,7 +19,7 @@ Maps rating/review count and a real Facebook page.
 ## Google Maps: rating + review count
 
 Navigate `https://www.google.com/maps/search/<url-encoded query>` inside
-`browser-control`. A **specific name query** ("Tiệm hoa tươi Dear Rainy Trương
+`browse`. A **specific name query** ("Tiệm hoa tươi Dear Rainy Trương
 Định") lands on a **place page**; a **generic query** ("Alo Hoa Tươi") lands on a
 **results feed**. Handle both, via `page.evaluate`:
 
@@ -35,11 +35,11 @@ Navigate `https://www.google.com/maps/search/<url-encoded query>` inside
   per card: `Name | rating(count) | category · address | hours · phone`. The first
   card is often Sponsored.
 
-Batch every candidate into ONE `browser-control execute --file <script.js>` run: a
+Batch every candidate into ONE `browse execute --file <script.js>` run: a
 JS loop with `await page.goto(...)` → `await page.waitForTimeout(5500)` →
 `page.evaluate(...)`, accumulate into an array, then
-`fs.writeFileSync('<workspace>/out.json', JSON.stringify(arr))` and read the JSON
-afterwards. This survives terminal output truncation (a 15-query pretty-printed
+`await files.write('out.json', JSON.stringify(arr))` (saves to the temp dir and
+returns the path) and read the JSON afterwards. This survives terminal output truncation (a 15-query pretty-printed
 result gets cut by `head`/`tail`) and avoids one tool call per shop. Keep ~5.5s
 between queries.
 

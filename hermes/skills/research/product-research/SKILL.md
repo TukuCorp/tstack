@@ -176,12 +176,12 @@ illustration, a colour scheme — and text search returns only generic roundups.
    vague descriptive queries ("sleep tea purple cat box uk") make Bing silently substitute unrelated
    stock imagery (sleep-cycle infographics, real cats). A junk result set means the QUERY is wrong —
    not that the product may not exist. Always read the returned titles before drawing a conclusion.
-3. **Rendered/JS pages: drive the real browser.** `browser-control execute --file ./search.js --json`
-   (relay 127.0.0.1:19989) with `page.goto(...)` then
+3. **Rendered/JS pages: drive the real browser.** `browse execute --file ./search.js --json`
+   (relay 127.0.0.1:19988) with `page.goto(...)` then
    `page.$$eval("a.iusc", els => els.map(e => e.getAttribute("m")))` to read the same `m=` JSON.
-   Two sandbox facts: `require` is NOT defined inside execute (use the injected `fs` / `path`
-   aliases), and the CLI's `--json` stdout is prefixed by a
-   `Session: <id>. Continue with --session <id>.` line — parse from the first `{`.
+   Two sandbox facts: execute has no `require`/`fs` (write output with `files.write`, which
+   saves to the temp dir and returns the path), and `--json` prints one envelope whose
+   result is in `.value`.
 4. **Download candidates and batch-inspect as a numbered contact sheet.** `curl -sL -A "$UA" -H
    "Referer: <purl>"` each image, then a PIL montage of 25 tiles (5x5, 320px cells, `#<index>`
    drawn in each corner) so ONE vision call covers 25 images; keep an index map (tile → title/url)
@@ -224,4 +224,4 @@ disproved at full resolution and in crops.
 - `references/wearables-vn-iphone-2026.md` — verified VN availability map (official vs parallel-import: Garmin/Amazfit/Huawei/Xiaomi YES, Withings NO, Fossil dead), VND price anchors at big-box chains, per-brand iOS compatibility (notification-reply limits per brand), and credible review URLs for smart/hybrid watches — for any "watch for an iPhone user in VN" task. Aug 2026 model-level refresh (15 models, per-model VND prices, warranty terms, EOL + import-only verdicts) in `product-research-local` → `references/vn-retail-chains-smartwatch-pricing.md`.
 - `references/amazon-fr-french-baby-brands.md` — verified Amazon.fr presence map for mid-premium French baby brands (which brands have listings vs direct-sell-only, key ASINs, gigoteuse/sleep-sack landscape) + the working browser-console JS and jina-reader Python snippets for Amazon.fr extraction.
 - `references/french-baby-import-2026.md` — the complementary VN-side filter: 18-brand availability verdict table (RARE/ABSENT vs PARALLEL-only vs AVAILABLE, with Tiki/Lazada/Shopee evidence) + suitcase-import buying rules (size buy-up, hot-climate cotton, compact-only). Use with the amazon-fr reference for any France→VN baby import task.
-- `references/visual-packaging-identification.md` — the image-first kit for "find the product with X on the packaging": Bing async image-search parse, browser-control scrape snippet (fs alias + `Session:` prefix gotchas), the PIL contact-sheet script, the vision grounding checklist, and the verified UK sleep-tea packaging catalogue (which packs show cats, which do not).
+- `references/visual-packaging-identification.md` — the image-first kit for "find the product with X on the packaging": Bing async image-search parse, browse scrape snippet (fs alias + `Session:` prefix gotchas), the PIL contact-sheet script, the vision grounding checklist, and the verified UK sleep-tea packaging catalogue (which packs show cats, which do not).

@@ -1,67 +1,47 @@
-# Chrome Stable — Browser Control Setup
+# Chrome Stable — browse Setup
 
-**Browser Control (`@opencode-ai/browser-control`) is the default browser automation for this user.** The built-in `browser` toolset (Browserbase/CDP) is disabled; Browser Control's MCP server and CLI replace it. Runs on Chrome **Stable** (`C:\Program Files\Google\Chrome\Application\chrome.exe`) — Chrome Beta was uninstalled Aug 2026.
+**browse (`@opencode/browse`, anomalyco/browse) is the default browser automation for this user.** It replaced browser-control on 2026-11-07. The built-in `browser` toolset (Browserbase/CDP) is disabled; browse's MCP server and CLI replace it. Runs on Chrome **Stable** (`C:\Program Files\Google\Chrome\Application\chrome.exe`).
 
 ## One-time setup
 
 ```bash
-# Install the package
-npm install --global @opencode-ai/browser-control
-
-# Load the unpacked extension in Chrome Stable:
-# 1. Open chrome://extensions
-# 2. Enable Developer mode
-# 3. Load unpacked from:
-#    C:\Users\<USER>\AppData\Roaming\npm\node_modules\@opencode-ai\browser-control\extension\dist
-# 4. Pin the Browser Control toolbar button
+npm install --global @opencode/browse
+browse settings set autoUpdate=notify   # updates only when the user agrees: `browse update`
 ```
+
+- Extension: Chrome Web Store, id `mfnicocicmmlkpjnaffgihfjhdgjkdjg` (Developer: Anomaly). Chrome shows an Enhanced Safe Browsing "not trusted" warning for it (new publisher); the user approved installing anyway.
+- Pairing: `browse pair` prints a one-time code; enter it on the extension's setup/options page and click Pair. `browse pair --list` shows paired browsers.
+- Windows bug (0.0.13): `browse install` / `browse pair` fail with `spawnSync browse ENOENT` because they spawn `browse` without `.cmd`. Fix: set `"entry"` in `~/.config/browse/settings.json` to `C:\Users\<USER>\AppData\Roaming\npm\node_modules\@opencode\browse\dist\cli.mjs`.
 
 ## Hermes integration
 
-Set via `~/.hermes/config.yaml`:
+Live config `%LOCALAPPDATA%\hermes\config.yaml` (not `~/.hermes/config.yaml`, which `browse install --agent hermes` would write):
 
 ```yaml
 mcp_servers:
-  browser-control:
-    command: browser-control-mcp
-skills:
-  preload:
-    - browser-control
+  browse:
+    command: browse
+    args:
+    - mcp
+    enabled: true
 ```
 
-- The `browser-control-mcp` MCP server registers 10 tools (execute, status, session_new, etc.) as native Hermes tools prefixed `mcp_browser_control_*`.
-- The `browser-control` skill auto-loads on session start so the agent knows the workflow.
-- The built-in `browser` toolset is disabled to avoid confusion.
+`hermes mcp test browse` lists its tools (execute, status, session_*, network, recording, flight_recorder, secrets_*, tabs_cleanup, settings). Skill: `browse` (top-level in the skills dir).
 
 Verify:
 
 ```bash
-browser-control doctor
-browser-control execute 'return { title: await page.title(), url: page.url() }'
-browser-control execute --session <id> 'await page.goto("https://example.com"); return await snapshot()'
+browse doctor
+browse execute --rm 'await page.goto("https://example.com"); return await page.title()'
 ```
 
-## Extension path
+## Relay and files
 
-```
-C:\Users\<USER>\AppData\Roaming\npm\node_modules\@opencode-ai\browser-control\extension\dist
-```
-
-Key files: `manifest.json`, `background.js`, `content-script.js`, `offscreen.html`, `offscreen.js`
-
-## Relay
-
-Auto-starts on first `browser-control` command. Runs on `127.0.0.1:19989`. No need to start manually.
-
-## Sessions
-
-- Bare `execute` creates a fresh session. Continue with `--session <id>`.
-- `await snapshot()` for compact DOM read. `await ariaSnapshot()` for deeper AX tree.
-- `ref("e1").click()` to click by snapshot ref.
-- `await handoff("message")` for CAPTCHA/2FA.
-- Read-only: `browser-control session new <name> --read-only`
-- Session journal at `~/.browser-control/sessions/<id>/journal.jsonl`
+- Relay auto-starts on first command, `127.0.0.1:19988`. Data: `~/.config/browse`, `~/.local/share/browse`, logs in `~/.local/state/browse/logs`.
+- Agent tabs open in the background in a collapsed group; idle tabs close after 10 minutes.
+- Execute code has no `fs`/`require`: use `files.write(name, data)` / `files.read(path)` (temp dir and `OPENCODE_BROWSER_FILE_ROOTS` only, `;`-separated) and copy results into place from the shell.
+- Scheduled job: cron "Linh Daily Log 8pm Reminder" runs `scripts/linh-daily-log-export.py` in session `gdrive-daily`; leave that session alone.
 
 ## Memory note
 
-Chrome (Stable or Beta) is a major memory consumer on 8GB systems — each tab can use 200-500MB. When the gateway is also running (~200MB), Chrome + Hermes Desktop + Claude Code can easily exceed 6-7GB, triggering OOM kills. See the OOM protection section in the parent skill.
+Chrome is a major memory consumer on 8GB systems — each tab can use 200-500MB. When the gateway is also running (~200MB), Chrome + Hermes Desktop + Claude Code can easily exceed 6-7GB, triggering OOM kills. See the OOM protection section in the parent skill.

@@ -225,7 +225,7 @@ not the devices. All four chains are server-rendered: fetch with plain urllib/cu
   Venu Sq 2 was only at An Tiên after TGDĐ/CPS dropped it).
 - **Large-appliance chains: DienMayChoLon (dienmaycholon.com) / DienMayXanh (dienmayxanh.com)**
   (verified Oct 2026, aircon 1HP check): both are JS-rendered — curl/web_extract return page
-  chrome with NO price. Read prices only via browser-control DOM (`document.body.innerText`
+  chrome with NO price. Read prices only via browse DOM (`document.body.innerText`
   regex `\d{2}\.\d{3}\.\d{3}` or `.box-price/.price` selectors; DMX needs ~7s settle).
   **EOL marker is `Ngừng kinh doanh` / `Sản Phẩm Ngừng Kinh Doanh`** near the title — EOL pages
   carry no active price, so never report a price from them; check the marker BEFORE quoting.
@@ -298,9 +298,9 @@ When the ask is "find the top N <shops / restaurants / vendors> in <city>" and t
 **verify** each one, the evidence is **Google Maps** (rating + review count +
 address) and a **real Facebook page** (follower count + address) — NOT e-commerce
 listings. Typical shape: candidates from roundup blogs + `site:facebook.com <shop>`
-searches, then verify every candidate in ONE `browser-control execute --file` loop
-(`await page.goto` → `waitForTimeout(~5500)` → `page.evaluate` → `fs.writeFileSync`
-JSON), then read that JSON file. Full recipe, selectors, and the pitfalls (the
+searches, then verify every candidate in ONE `browse execute --file` loop
+(`await page.goto` → `waitForTimeout(~5500)` → `page.evaluate` → `files.write`
+JSON to the temp dir), then read that JSON file. Full recipe, selectors, and the pitfalls (the
 sponsored-first-result trap that makes different queries resolve to the same place;
 place-page vs results-feed branches; Facebook handle mismatches):
 `references/local-business-verification-maps-facebook.md`.

@@ -680,7 +680,7 @@ Hermes' `nous` provider stores an OAuth refresh token in `~/AppData/Local/hermes
 Re-auth sequence (verified 2026-08):
 
 1. Run `hermes setup --portal` **in a background terminal** — it prints a device-code URL (`https://portal.nousresearch.com/manage-subscription?user_code=XXXX-XXXX`) then polls every 1s and blocks until approved. Foreground terminal() calls just time out.
-2. Open the URL in the user's signed-in Chrome (browser-control works well — the portal shows "Allow Hermes Agent to use your FREE PLAN?" with the code and a **Connect** button).
+2. Open the URL in the user's signed-in Chrome (browse works well — the portal shows "Allow Hermes Agent to use your FREE PLAN?" with the code and a **Connect** button).
 3. Clicking Connect completes the flow; the background process finishes with "✓ Portal setup complete" and saves credentials ("No provider change. Nous credentials saved").
 4. After login, the wizard tries an interactive model picker which **crashes in non-TTY bash**: `Found xterm-256color, while expecting a Windows console. Maybe try winpty...`. Harmless — credentials are already saved. Tell the user to run `hermes model` from a real console (or cmd.exe) to pick a Nous model.
 5. Verify: `hermes auth status nous` → `logged in`; `hermes portal info` shows Auth ✓, API endpoint, and Tool Gateway routing.
@@ -1060,7 +1060,7 @@ misregistered:
 | Component | Needed by | Fix |
 |---|---|---|
 | **Microsoft Edge WebView2 Runtime** | Hermes Desktop GUI, Electron wrappers | Check registry at `HKLM\\...\\{F3017226-...}\\pv`. If installed but not registered, see `references/webview2-registry-fix.md`. |
-| **Chrome Stable** (browser-control) | Browser Control (`@opencode-ai/browser-control`) via MCP server & CLI — replaces built-in browser toolset | See `references/chrome-beta-browser-config.md` for full setup: npm global install, unpacked extension load, MCP server config, skill preload, and CLI workflow. (Chrome Beta uninstalled Aug 2026 — everything now uses Chrome Stable.) |
+| **Chrome Stable** (browse) | browse (`@opencode/browse`) via MCP server & CLI — replaces built-in browser toolset | See `references/chrome-beta-browser-config.md` for full setup: npm global install, unpacked extension load, MCP server config, skill preload, and CLI workflow. (Chrome Beta uninstalled Aug 2026 — everything now uses Chrome Stable.) |
 | **cua-driver** | Computer Use (desktop automation) | `hermes computer-use install` |
 | **Setup Doctor** | Read-only diagnosis of context/speed costs (checks 0-9) | See `references/setup-doctor-2026-08-31.md` — layout discovery, install health, unused skills, memory trim, version check, permission mode |
 | **tmux** (Windows port) | Interactive multi-turn CLI delegation | `winget install arndawg.tmux-windows` |

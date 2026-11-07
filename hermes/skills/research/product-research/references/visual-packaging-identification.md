@@ -29,11 +29,11 @@ for m in re.findall(r'm="(\{[^"]*?\})"', h):
   (sleep-cycle infographics, photos of real cats) while still echoing your query in `<title>`.
   Junk results ⇒ rewrite the query around candidate brands; they do not prove absence.
 
-**browser-control (for JS-rendered search pages, Google Images, or when curl is walled)**
+**browse (for JS-rendered search pages, Google Images, or when curl is walled)**
 
 ```js
 // save as C:/Users/<USER>/AppData/Local/Temp/bc_collect.js ; run:
-// browser-control execute --file ./bc_collect.js --json
+// browse execute --file ./bc_collect.js --json
 const all = {};
 for (const q of ["pukka night time tea box", "clipper sleep easy tea box"]) {
   await page.goto("https://www.bing.com/images/search?q=" + encodeURIComponent(q) + "&form=HDRSC2&count=35",
@@ -42,17 +42,16 @@ for (const q of ["pukka night time tea box", "clipper sleep easy tea box"]) {
   const raw = await page.$$eval("a.iusc", els => els.map(e => e.getAttribute("m")).filter(Boolean));
   for (const m of raw) { try { const d = JSON.parse(m); if (d.murl) all[d.murl] = { t: d.t, p: d.purl }; } catch (e) {} }
 }
-fs.writeFileSync("C:/Users/<USER>/AppData/Local/Temp/tea_imgs.json", JSON.stringify(all, null, 1));
-return { total: Object.keys(all).length };
+const saved = await files.write("tea_imgs.json", JSON.stringify(all, null, 1));  // temp dir
+return { total: Object.keys(all).length, saved };
 ```
 
 Gotchas that cost time:
-- `require("fs")` throws `ReferenceError: require is not defined` inside execute — the sandbox
-  injects `fs` and `path` aliases directly; use them bare.
-- CLI `--json` stdout starts with `Session: <id>. Continue with --session <id>.` before the JSON
-  body — locate the first `{` and parse from there, or the `json.load` dies at char 0.
+- browse execute has no `require`, `fs` or `path`; write output with `files.write(name, text)`, which
+  saves to the temp dir and returns the full path.
+- CLI `--json` prints one envelope `{ ok, value, logs, ... }`; read the result from `.value`.
 - `curl` on Google Images returns a ~273-byte stub; DDG's `i.js` needs a `vqd` token that the HTML
-  endpoint no longer exposes. Use `browser-control` for those, curl+Bing for everything else.
+  endpoint no longer exposes. Use `browse` for those, curl+Bing for everything else.
 
 ## 2. Download + contact sheet (one vision call per 25 images)
 

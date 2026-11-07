@@ -1,7 +1,9 @@
 _config_version: 33
 mcp_servers:
-  browser-control:
-    command: browser-control-mcp
+  browse:
+    command: browse
+    args:
+    - mcp
 platform_toolsets:
   cli:
     - clarify
@@ -25,4 +27,4 @@ known_plugin_toolsets:
     - spotify
 skills:
   preload:
-    - browser-control
+    - browse

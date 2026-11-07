@@ -133,6 +133,8 @@ Write-Host @'
     - Sign in: claude, codex login, gh auth login, hermes setup, opencode auth login, gws auth login
     - Fill the <REDACTED> values restore.py listed above (API keys, MCP env blocks)
     - Restart noctty (Ctrl+Shift+, reloads config) and herdr so they pick up the restored configs
-    - Chrome: sign in to the work account; on chrome://extensions turn on Developer mode, Load unpacked
-      %APPDATA%\npm\node_modules\@opencode-ai\browser-control\extension\dist, pin it, then run browser-control status
+    - Chrome: sign in to the work account; add browse from the Chrome Web Store
+      (chromewebstore.google.com/detail/mfnicocicmmlkpjnaffgihfjhdgjkdjg), then run browse pair and enter
+      the code on the extension's setup page. Windows: if pair fails with "spawnSync browse ENOENT", set
+      "entry" in ~/.config/browse/settings.json to %APPDATA%\npm\node_modules\@opencode\browse\dist\cli.mjs
 '@

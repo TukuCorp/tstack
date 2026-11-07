@@ -84,18 +84,23 @@
       },
       "enabled": true
     },
-    "browser-control": {
-      "type": "local",
-      "command": [
-        "browser-control-mcp"
-      ],
-      "enabled": true
-    },
     "powerpoint": {
       "type": "local",
       "command": [
         "C:\\Users\\<USER>\\.local\\bin\\ppt-mcp.exe"
       ],
+      "enabled": true
+    },
+    "browse": {
+      "type": "local",
+      "command": [
+        "node",
+        "C:\\Users\\<USER>\\AppData\\Roaming\\npm\\node_modules\\@opencode\\browse\\dist\\cli.mjs",
+        "mcp"
+      ],
+      "environment": {
+        "OPENCODE_BROWSER_RUNTIME": "<REDACTED>"
+      },
       "enabled": true
     }
   },
