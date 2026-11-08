@@ -33,6 +33,10 @@
 - **Simplicity First:** Make every change as simple as possible. Impact minimal code.
 - **No Laziness:** Find root causes. No temporary fixes. Senior developer standards.
 
+## Shell on Windows
+- Write any script longer than a few lines to a scratch file (Write tool) and run the file. Long programs inlined in `bash -c`, heredocs or PowerShell strings break on quotes.
+- Give native Windows programs (python, gws, PIL) `C:/...` paths, not Git Bash `/c/...` paths.
+
 ## Debugging Rules
 - On test failure: analyze the error output and logs before changing code.
 - If the same bug persists after two fix attempts: stop, summarize the current state and what was tried, and ask for direction.

@@ -66,6 +66,7 @@ Then confirm the model in the pane header: `herdr agent read rc1 --source visibl
 Gotchas:
 
 - A new folder may show "Trust this folder?"; `agent start` then reports not ready. Read the pane, confirm the folder, send `enter`.
+- Codex may open an "Update available" menu instead of its prompt. Send `escape` to each lane's pane to skip it (never pick "Update now" unasked), then read the pane again before sending the goal.
 - `agent start` can return while MCP servers are still starting. A prompt sent then sits in the input box and the status shows `done`. Check `agent read --source visible`; if the text is still in the input, re-send. Do not press `ctrl+c`: it exits Codex.
 - A prompt that begins with `/` (such as `/goal ...`) is rewritten into a Windows path by Git Bash. Prefix the call with `MSYS_NO_PATHCONV=1`, or send it from PowerShell.
 - Under `--remote unix://` the agent lives in a shared Codex daemon, so closing its tab does not stop it or unload its thread. Wait for its report and its idle status before closing the tab, then unload the thread (below).

@@ -6,6 +6,10 @@
 ## File Size
 - Keep each code file at 1000 lines or fewer. In a new repo, add a lint rule for it before much code exists (ESLint `max-lines`, pylint `max-module-lines`, or a test that counts lines); unwinding big files later is costly. Split a file that nears the cap by responsibility.
 
+## Shell on Windows
+- Write any script longer than a few lines to a scratch file (Write tool) and run the file. Long programs inlined in `bash -c`, heredocs or PowerShell strings break on quotes.
+- Give native Windows programs (python, gws, PIL) `C:/...` paths, not Git Bash `/c/...` paths.
+
 ## Google Workspace
 - For Gmail, Drive, Docs, Sheets, Slides and Calendar, use the `gws` CLI first (`gws <service> --help`), before connectors/MCP, browser or desktop automation. When another route fails on a Google task, switch to `gws` instead of retrying it.
 - Bare `gws` is the work account (<EMAIL>). Test access with a real API call before any login flow: `gws auth login` replaces the whole scope grant, so a narrower re-login breaks other jobs.

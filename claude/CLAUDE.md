@@ -16,6 +16,10 @@
 - **When uncertain:** Use the most conventional approach, follow existing patterns, leave a single inline comment documenting the assumption.
 - **File size:** Keep each code file at 1000 lines or fewer. In a new repo, add a lint rule for it before much code exists (ESLint `max-lines`, pylint `max-module-lines`, or a test that counts lines); unwinding big files later is costly. Split a file that nears the cap by responsibility.
 
+## Shell on Windows
+- Write any script longer than a few lines to a scratch file (Write tool) and run the file. Long programs inlined in `bash -c`, heredocs or PowerShell strings break on quotes.
+- Give native Windows programs (python, gws, PIL) `C:/...` paths, not Git Bash `/c/...` paths.
+
 ## Debugging Rules
 - On test failure: analyze the error output and logs before changing code.
 - If the same bug persists after two fix attempts: stop, summarize the current state and what was tried, and ask for direction.
