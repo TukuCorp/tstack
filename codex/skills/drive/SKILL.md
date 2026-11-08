@@ -16,12 +16,12 @@ Two CLI tools are available on this machine:
 
 ## Account Configuration
 
-| Account | Email | gws env prefix | nlm profile |
-|---------|-------|----------------|-------------|
-| Work | <EMAIL> | `GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-work` | `--profile work` |
-| Personal | <EMAIL> | `GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-personal` | `--profile personal` |
+| Account | Email | gws | nlm profile |
+|---------|-------|-----|-------------|
+| Work (default) | <EMAIL> | bare `gws` (store `~/.config/gws`; leave `GOOGLE_WORKSPACE_CLI_CONFIG_DIR` unset) | `--profile work` |
+| Personal | <EMAIL> | see `~/wiki/wiki/gws-cli.md` (Testing-mode token, expires after 7 days) | `--profile personal` |
 
-Always confirm with the user which account to use before running a command, unless context makes it obvious.
+For Allotrope work, use bare `gws` without asking. `~/.config/gws-work` and `~/.config/gws-personal` hold no credentials: never point `GOOGLE_WORKSPACE_CLI_CONFIG_DIR` at them.
 
 ---
 
@@ -48,134 +48,39 @@ When a task uses browser control via Playwright MCP extension mode, always route
 - NotebookLM and most other Google apps: add `?authuser=<index>` or `&authuser=<index>`
 - After navigation, verify the resulting page title or visible account matches the requested account and correct if needed
 
-The installed CLIs on this machine differ slightly from some older examples below:
+gws syntax and auth:
 
-- `gws` uses `gws <service> <resource> <method> --params '<json>'`
-- Prefer `gws schema <service.resource.method>` to inspect the exact parameter shape before running an unfamiliar command
-- `nlm` uses `--profile` on subcommands, for example `nlm notebook list --profile work`
-- Before CLI work, verify auth first:
-
-```powershell
-$env:GOOGLE_WORKSPACE_CLI_CONFIG_DIR = "$HOME/.config/gws-work"
-gws auth status
-
-nlm login --check --profile work
-```
-
-If auth is missing or expired, re-authenticate before continuing.
+- `gws <service> <resource> <method> --params '<json>'` (plus `--json '<body>'` for request bodies, `-o PATH` for binary downloads). There are no `--query`, `--max-results` or `--fields` flags; put `q`, `pageSize`, `fields` inside `--params`.
+- `gws schema <service.resource.method>` shows the exact parameter shape.
+- On Windows PowerShell, inline JSON quoting breaks. Build the JSON with Python `json.dumps` and call gws through `subprocess`, or run gws from Git Bash. More Windows quirks: `~/wiki/wiki/gws-cli.md`.
+- Check auth with a real call (`gws drive files list --params '{"pageSize":1}'`), not `gws auth status`. Never run `gws auth login` unasked: it replaces the whole scope grant.
+- `nlm` uses `--profile` on subcommands, for example `nlm notebook list --profile work`; check with `nlm login --check --profile work`.
 
 ---
 
 ## gws — Google Workspace CLI
 
-Every gws command must be prefixed with the account's config dir. Define helpers to keep commands readable:
+All output is JSON. Examples (bash quoting):
 
 ```bash
-alias gws-work='GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-work gws'
-alias gws-personal='GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-personal gws'
+# Drive: search, metadata (check trashed/parents before trusting a same-named file), download
+gws drive files list --params '{"q":"name contains '\''Q1'\'' and trashed=false","pageSize":20,"fields":"files(id,name,mimeType,webViewLink,parents)"}'
+gws drive files get --params '{"fileId":"FILE_ID","fields":"id,name,webViewLink,parents,trashed,modifiedTime"}'
+gws drive files get --params '{"fileId":"FILE_ID","alt":"media"}' -o ./local.pdf
+
+# Gmail: search, read, draft (raw = base64url RFC 822 message)
+gws gmail users messages list --params '{"userId":"me","q":"is:unread from:partner@example.com","maxResults":20}'
+gws gmail users messages get --params '{"userId":"me","id":"MESSAGE_ID","format":"full"}'
+gws gmail users drafts create --params '{"userId":"me"}' --json '{"message":{"raw":"BASE64URL"}}'
+
+# Calendar
+gws calendar events list --params '{"calendarId":"primary","timeMin":"2026-05-01T00:00:00Z","timeMax":"2026-05-31T23:59:59Z","singleEvents":true,"orderBy":"startTime"}'
+
+# Sheets
+gws sheets spreadsheets values get --params '{"spreadsheetId":"SHEET_ID","range":"Sheet1!A1:Z100"}'
 ```
 
-All output is JSON. Pipe to `| jq` or `| python -m json.tool` to inspect.
-
-### Drive — common operations
-
-```bash
-# Search files
-gws-work drive files list --query "name contains 'Q1'" --fields "files(id,name,mimeType,webViewLink)"
-
-# Upload
-gws-work drive +upload ./report.pdf --parent-id FOLDER_ID --name "Report.pdf"
-
-# Download
-gws-work drive files download FILE_ID --output ./local.pdf
-
-# Get metadata (incl. shareable link)
-gws-work drive files get FILE_ID --fields "id,name,webViewLink,parents,modifiedTime"
-
-# Create folder
-gws-work drive files +create-folder "Folder Name" --parent-id PARENT_ID
-
-# Copy / move
-gws-work drive files copy FILE_ID --name "Copy" --parent-id FOLDER_ID
-gws-work drive files update FILE_ID --add-parents NEW_ID --remove-parents OLD_ID
-```
-
-Drive query syntax: `name contains 'text'` | `mimeType = 'application/pdf'` | `'FOLDER_ID' in parents` | `fullText contains 'keyword'` | `modifiedTime > '2026-01-01T00:00:00'` | `trashed = false`
-
-### Gmail — common operations
-
-```bash
-# Search messages
-gws-work gmail messages list --query "is:unread from:partner@example.com" --max-results 20
-
-# Read message
-gws-work gmail messages get MESSAGE_ID --format full
-
-# Send email
-gws-work gmail +send --to "recipient@example.com" --subject "Subject" --body "Body" --attachment ./file.pdf
-
-# Create draft
-gws-work gmail drafts +create --to "r@example.com" --subject "Draft" --body "Body"
-```
-
-Gmail query syntax mirrors the Gmail search bar: `is:unread`, `from:`, `to:`, `subject:`, `has:attachment`, `after:2026/01/01`, `label:inbox`
-
-### Calendar — common operations
-
-```bash
-# Next 7 days
-gws-work calendar +agenda --days 7
-
-# List events in range
-gws-work calendar events list --calendar-id primary \
-  --time-min "2026-05-01T00:00:00Z" --time-max "2026-05-31T23:59:59Z" \
-  --single-events --order-by startTime
-
-# Create event
-gws-work calendar +create "Board Call" \
-  --start "2026-05-05T10:00:00" --end "2026-05-05T11:00:00" \
-  --attendees "a@example.com,b@example.com" \
-  --description "Agenda" --location "Zoom"
-
-# List calendars
-gws-work calendar calendar-list list
-```
-
-### Sheets — common operations
-
-```bash
-# Create
-gws-work sheets spreadsheets create --title "My Spreadsheet"
-
-# Read range
-gws-work sheets values get SHEET_ID --range "Sheet1!A1:Z100"
-
-# Write / update
-gws-work sheets values +update SHEET_ID \
-  --range "Sheet1!A1" \
-  --values '[["Header1","Header2"],["val1","val2"]]' \
-  --value-input-option USER_ENTERED
-
-# Append rows
-gws-work sheets values +append SHEET_ID \
-  --range "Sheet1!A1" \
-  --values '[["new","row"]]' \
-  --value-input-option USER_ENTERED
-```
-
-### Docs — common operations
-
-```bash
-# Create document
-gws-work docs documents +create --title "Meeting Notes"
-
-# Get document content
-gws-work docs documents get DOC_ID
-
-# Insert text
-gws-work docs documents batch-update DOC_ID \
-  --requests '[{"insertText":{"location":{"index":1},"text":"Hello World\n"}}]'
-```
+Drive query syntax: `name contains 'text'` | `mimeType = 'application/pdf'` | `'FOLDER_ID' in parents` | `fullText contains 'keyword'` | `modifiedTime > '2026-01-01T00:00:00'` | `trashed = false`. Gmail `q` mirrors the Gmail search bar.
 
 ---
 
@@ -285,31 +190,13 @@ nlm --profile work audio create NOTEBOOK_ID
 nlm --profile work audio download NOTEBOOK_ID --output ~/Desktop/overview.mp3
 ```
 
-### Find a Drive file and get its share link
-```bash
-gws-work drive files list --query "name contains 'Q1 Report' and trashed=false" \
-  --fields "files(id,name,webViewLink)"
-# → extract webViewLink from JSON output
-```
-
-### Send email with attachment
-```bash
-gws-work gmail +send \
-  --to "partner@example.com" \
-  --subject "Q1 Update" \
-  --body "Please find attached." \
-  --attachment ./Q1-Report.pdf
-```
-
 ---
 
 ## Auth Setup (first-time, run once per account)
 
-```bash
-# gws — opens browser OAuth flow
-GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-work gws auth setup
-GOOGLE_WORKSPACE_CLI_CONFIG_DIR=~/.config/gws-personal gws auth setup
+gws: ask the user first; see `~/wiki/wiki/gws-cli.md` (re-login replaces every scope).
 
+```bash
 # nlm — opens browser, authenticate as the correct Google account
 nlm login --profile work
 nlm login --profile personal
@@ -323,5 +210,5 @@ nlm login --profile personal
 
 For full flag listings and advanced options, read these files when needed:
 
-- **`references/gws-reference.md`** — complete gws reference: all Drive/Gmail/Calendar/Sheets/Docs subcommands, flags, query syntax, field selectors, pagination
+- **`references/gws-reference.md`** — older gws reference; its `--query`/config-dir syntax is stale, prefer `gws schema` and `--help`
 - **`references/nlm-reference.md`** — complete nlm reference: all notebook/source/chat/audio/slides subcommands, MCP tools table, auth details
