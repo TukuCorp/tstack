@@ -36,6 +36,7 @@
 ## Shell on Windows
 - Write any script longer than a few lines to a scratch file (Write tool) and run the file. Long programs inlined in `bash -c`, heredocs or PowerShell strings break on quotes.
 - Give native Windows programs (python, gws, PIL) `C:/...` paths, not Git Bash `/c/...` paths.
+- Run Python as `python -X utf8`, or Unicode output crashes on cp1252. Add `-I` only for scripts that read untrusted downloads: it ignores `PYTHONUTF8` and drops the script's own folder from imports (`No module named ...`).
 
 ## Debugging Rules
 - On test failure: analyze the error output and logs before changing code.

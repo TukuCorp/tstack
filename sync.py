@@ -67,6 +67,9 @@ SOURCES = [
     (".config/noctty", "noctty/dotconfig", "tree"),  # shaders, background images
     ("AppData/Roaming/herdr/config.toml", "herdr/config.toml", "config"),
     ("AppData/Roaming/herdr/plugins.json", "herdr/plugins.json", "herdr-plugins"),
+    # UTF-8 stdio even under `python -I`; path assumes winget's per-user Python 3.14 install.
+    ("AppData/Local/Programs/Python/Python314/Lib/site-packages/sitecustomize.py",
+     "machine/python/sitecustomize.py", "file"),
 ]
 TOOL_DIRS = ["claude", "codex", "opencode", "hermes", "omp", "shared", "noctty", "herdr", "machine"]
 
