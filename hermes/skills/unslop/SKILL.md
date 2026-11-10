@@ -13,19 +13,25 @@ These patterns are tells, not proof. One hit means little. A cluster of differen
 
 1. Find the house voice. If the text belongs to an organization or a series, such as a training deck, a client report or a docs site, read that organization's existing documents of the same kind first. Note how they title things, how long headings run and what register the body uses. Where the house style contradicts a rule below, the house style wins.
 2. Respect defined vocabulary. A domain glossary (such as a project's `CONTEXT.md`) or a skill's glossary overrides the rules below. If codebase-design defines "leverage" and "surface" as terms, keep them, even though rules 26 and 31 would cut them.
-3. Scan for the patterns below.
-4. Rewrite. Preserve meaning, match intended tone.
-5. Add soul (see next section), within the register the house voice allows.
-6. Self-audit: "What makes this obviously AI generated?" Fix remaining tells.
-7. Mechanical check before finishing. Grep the draft for em dashes, curly quotes, bracketed placeholders and the flagged words from rules 7, 23, 26, 31 and 36 to 38, then fix each hit unless a glossary or quoted text covers it:
+3. Check structure before words. Read `references/overcompletion.md`. Where notes, transcripts or research exist, compare the draft against them for added details, inflated certainty and false closure. On every draft, cut argument self-commentary, ration voice moves and check the ending.
+4. Scan for the patterns below.
+5. Rewrite. Preserve meaning, match intended tone.
+6. Add soul (see next section), within the register the house voice allows.
+7. Self-audit: "What makes this obviously AI generated?" Fix remaining tells.
+8. Mechanical check last. Grep the draft for em dashes, curly quotes, bracketed placeholders, self-commentary and the flagged words from rules 7, 23, 26, 31, 36 to 38, 41 and 42, then fix each hit unless a glossary or quoted text covers it:
 
 ```bash
 grep -nE '—|[“”‘’]' draft.md
-grep -niwE 'additionally|crucial|delve|enduring|enhance|fostering|garner|interplay|intricate|landscape|pivotal|showcase|tapestry|testament|underscore|vibrant|substrate|wedge|vector|locus|vantage|nexus|primitive|harness|surface|bedrock|scaffolding|modality|paradigm|gold-plating|ratchet|evacuate|endgame|north star|flywheel|utilize|leverage|facilitate|numerous|in the event that|bolstered|boasts|meticulous|meticulously|robust|multifaceted|deep dive|worth noting|important to note|associated with|plays a role|finds you well' draft.md
+grep -niwE 'additionally|crucial|delve|enduring|enhance|fostering|garner|interplay|intricate|landscape|pivotal|showcase|tapestry|testament|underscore|vibrant|substrate|wedge|vector|locus|vantage|nexus|primitive|harness|surface|bedrock|scaffolding|modality|paradigm|gold-plating|ratchet|evacuate|endgame|north star|flywheel|utilize|leverage|facilitate|numerous|in the event that|bolstered|boasts|meticulous|meticulously|robust|multifaceted|deep dive|worth noting|important to note|associated with|plays a role|finds you well|fast-paced|ever-evolving|in the realm of|at its core|when it comes to|the truth is|at the end of the day|moving forward|problem space|solution space|pain points|actionable insights|move the needle|low-hanging fruit|both sides|pros and cons|firstly|treasure trove|double-edged sword|tip of the iceberg|at a crossroads' draft.md
+grep -niE '\b(the|this) (read|picture|takeaway|open question)\b|put it best|then there.s the|stay provisional|without \w+ (is|are) just' draft.md
 grep -nE '\[(Your|Insert|Describe|Name)[^]]*\]' draft.md
 ```
 
 For text that isn't in a file, write it to a temp file first or run the same check by eye, word by word.
+
+## Output
+
+When asked to clean a text, give the cleaned copy first, then a short list of changes in document order, each with the quoted original, the revision and a reason of a few words. Skip categories and severity labels. When asked only for a diagnosis, don't rewrite: list each quoted problem with a suggested fix. When unslop runs as part of another task, such as drafting a reply, apply it silently and show only the finished text.
 
 When revising a deliverable against reviewer feedback, also follow `references/review-feedback.md`.
 
@@ -37,8 +43,9 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 - **Vary rhythm.** Short sentences. Then longer ones that take their time. Mix it up.
 - **Acknowledge complexity.** "Impressive but also kind of unsettling" beats "impressive."
 - **Use "I" when it fits.** First person isn't unprofessional.
-- **Let some mess in.** Perfect structure looks machine-made.
-- **Be specific.** Not "this is concerning" but "there's something unsettling about agents churning away at 3am."
+- **Let structure follow the material.** Sections of equal length and identical shape look machine-made. Never add disorder or errors as camouflage.
+- **Be specific, from the source.** Not "this is concerning" but the actual detail that concerns you. Every specific must come from the source or the writer. An invented vivid detail is a worse tell than a vague one.
+- **Ration voice moves.** One joke, aside, coinage or fragment per paragraph is usually plenty. A punchline closing every paragraph is performed voice.
 - **Write the way people do.** Plain "is" and "has", "wrote" and "used" over "authored" and "utilized", "one of the best" or "was the first" when true, and an occasional "perhaps" or "very".
 
 Calibrate this to the audience. Opinions, first person and deliberate mess suit essays, posts and internal notes. Institutional deliverables such as training slides, client reports and proposals get their personality from specifics and accurate framing, not from a quippy narrator. Reviewers of those read punchy one-liners and fragments as machine-made.
@@ -59,7 +66,7 @@ Calibrate this to the audience. Opinions, first person and deliberate mess suit 
 7. **AI vocabulary.** Additionally, crucial, delve, enduring, enhance, fostering, garner, interplay, intricate, landscape (abstract), pivotal, showcase, tapestry (abstract), testament, underscore, vibrant, align with, boasts, bolstered, deep dive, emphasizing, highlight (as a verb), key (as an adjective), meticulous, multifaceted, robust, valuable, and "Additionally" opening a sentence. Replace with plain words. The list drifts by model generation (delve faded in 2025, newer models lean on multifaceted, foster, prioritize, quietly), so judge by clusters: one or two may be coincidence, many together are among the strongest tells. A synonym of a flagged word is not itself a tell, and a word in its literal sense is fine ("underscore" as a punctuation mark).
 8. **Fancy ways to say "is".** "serves as", "stands as", "boasts", "features", "marks", "functions as", "represents", "holds the distinction of being", and the definition opener "X refers to...". Just say "is" or "has".
 9. **"Not just X, but Y."** Also "not only... but also", "It's not X, it's Y", "Y rather than X" and "no X, no Y, just Z". State the point directly instead.
-10. **Rule of three.** Forcing ideas into groups of three. Use the natural number. It makes a thin analysis look comprehensive, and it is a stronger tell where a person would not have bothered.
+10. **Rule of three.** Forcing ideas into groups of three. Use the natural number. It makes a thin analysis look comprehensive, and it is a stronger tell where a person would not have bothered. "Firstly... Secondly... Thirdly" and "Here are 5 things to know" are the same habit.
 11. **Synonym cycling.** Protagonist, main character, central figure, hero all in one paragraph. Pick one, repeat it. A weaker tell today, so judge it with other signs.
 12. **False ranges.** "from X to Y" where X and Y aren't on a meaningful scale ("from the bustling streets of Dhaka to the serene beaches of Cox's Bazar"). List topics directly.
 
@@ -82,8 +89,8 @@ Calibrate this to the audience. Opinions, first person and deliberate mess suit 
 ### Filler
 
 23. **Filler phrases.** "In order to" becomes "To". "Due to the fact that" becomes "Because". "It is important to note that" gets deleted. "Worth noting", "it's crucial to remember" and "may vary" go the same way: give the fact itself.
-24. **Excessive hedging.** "could potentially possibly be argued that it might" becomes "may". Cut stacked and disclaimer-style hedges, not every qualifier: a plain "perhaps", "very" or "tends to" is how people write.
-25. **Generic conclusions.** "The future looks bright." State specific plans or facts. Also "In summary", "In conclusion", "Overall", and a closing line that restates each section's point.
+24. **Excessive hedging.** "could potentially possibly be argued that it might" becomes "may". Cut stacked and disclaimer-style hedges, not every qualifier: a plain "perhaps", "very" or "tends to" is how people write. Also cut false balance that dodges a judgment the evidence supports: "Both sides present valid points", "There are pros and cons", "Reasonable people may disagree". Make the strongest claim the evidence allows.
+25. **Generic conclusions.** "The future looks bright." State specific plans or facts. Also "In summary", "In conclusion", "Overall", and a closing line that restates each section's point. Also an ending that settles what the body left open or turns one case into a universal lesson. End one step before the model wants to, on a decision, cost, consequence or specific open question.
 
 ### Jargon
 
@@ -100,7 +107,7 @@ Calibrate this to the audience. Opinions, first person and deliberate mess suit 
 ### Titles, slides and figures
 
 32. **Conversational titles.** Headings written as a spoken aside, a setup or a line addressed to the reader: "So who do you actually call", "And soon it will cost you not to", "Where the cooling money is". A managing partner reviewing a training deck called the first one a weird tone that did not match the house style. A title names the topic, usually in 2 to 7 words, and follows the convention of the surrounding documents: "Efficiency Resources and Next Steps", "Refrigeration and Cooling are Key Cost Drivers". Never open a title with "So" or "And".
-33. **Slogans in body copy.** Lines built to be quoted rather than to inform: "The cheapest kWh is the one you don't use", "That valve is where your money goes", "Catch the heat you already paid for before it leaves the site". A reviewer marked the last one awkward and replaced it with "Recover usable heat before it leaves through stacks, drains or ventilation." State the mechanism. In anything spoken, move the good line into the speaker notes instead of deleting it.
+33. **Slogans in body copy.** Lines built to be quoted rather than to inform: "The cheapest kWh is the one you don't use", "That valve is where your money goes", "Catch the heat you already paid for before it leaves the site". A reviewer marked the last one awkward and replaced it with "Recover usable heat before it leaves through stacks, drains or ventilation." Watch for the shapes "X without Y is just Z", "X is the new Y", "What gets X gets Y" and "The best X is the one that doesn't...". The portability test: if the line could move into an unrelated keynote with only the nouns changed, its shape is doing the work. State the mechanism. In anything spoken, move the good line into the speaker notes instead of deleting it.
 34. **Telegraphic fragments.** Body copy chopped into verbless pieces for punch: "Switch off what nothing is using.", "Heat. Boilers, dyeing, drying, finishing.", "Tower alone, chiller off." The first drew an "awkward" and became "Turn off idle equipment and unnecessary loads." Write full sentences. Fragments are fine in labels, table cells and chart annotations.
 35. **Figures that do not reconcile.** Numbers on the same page that disagree, like "−50 kW you no longer buy" beside "−15%" and "750 kWp less"; a bar drawn at 20% for a 15% cut; a time or session number nobody confirmed; a label that contradicts its source, like "declared peak" for a peak the utility meters. Confident specifics nobody checked are slop too. Check every figure against the others on the page and against its source. If a fact is not confirmed, use a visible placeholder such as "Session X.Y" and flag it.
 
@@ -112,4 +119,11 @@ Calibrate this to the audience. Opinions, first person and deliberate mess suit 
 39. **Section scaffolding.** Headings and blocks built from a template: "Challenges and Opportunities", "Future Outlook", "Key takeaways", "Questions to consider", a `---` rule between every section, emoji-labelled blocks, and a small table holding a handful of facts that fit in a sentence. Name each heading for its content and use prose for a few facts.
 40. **Caveats that tell the reader how to read a claim.** "should be treated as X rather than Y", "does not by itself establish". State the claim at its real strength.
 
+### Stock frames and jargon
+
+41. **Stock openers and frames.** "In today's fast-paced world", "In the ever-evolving landscape of", "In the realm of", "At its core", "When it comes to", "The truth is", "Now more than ever", "At the end of the day", "Moving forward", "One thing is clear". Delete the frame and start with the fact, date, name or action.
+42. **Business jargon.** "problem space", "solution space", "value proposition", "go-to-market motion", "operating cadence", "pain points", "actionable insights", "move the needle", "low-hanging fruit", "circle back", "frameworks for thinking about X". Name the actual problem, option, action, metric or decision. If the sentence can't be restated without the jargon, the claim underneath is vague. Keep a term that a glossary or the house documents use precisely.
+
 Rules 36 to 40 and the additions to rules 1 to 12, 19 to 25 and 27 to 30 draw on Wikipedia, "Signs of AI writing" (en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing, CC BY-SA 4.0), read 2026-10-21.
+
+`references/overcompletion.md`, rules 41 and 42, and the additions to rules 10, 24, 25 and 33 and to "Adding soul" are adapted from EveryInc/compound-writing (github.com/EveryInc/compound-writing, MIT), skill cw-ai-check at commit 8fd0ec8, read 2026-11-11.
