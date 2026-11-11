@@ -7,6 +7,7 @@ Copy this to `<prefix>-brief-<lane>.md` in the project folder and fill the angle
 
 Folder: this folder. Output file: `<prefix>-<lane>.md`. Throwaway files go in `_<prefix>/`. Today is <date> (<timezone>).
 Context: <who the work is for, in two or three sentences>. Another agent (`<other-lane>`) covers <its slice>; stay on <this slice>.
+Out of scope: <what this lane must not research, edit or write, including the other lanes' output files>.
 
 ## Task
 1. <Build the candidate list: what to include, target count, how many to keep after ranking.>
@@ -29,10 +30,14 @@ Context: <who the work is for, in two or three sentences>. Another agent (`<othe
 ## Output
 `<prefix>-<lane>.md`: Method and evidence limits; Candidate table (fields, labels, URL, date); Scores and ranking; <extra sections>; What the sources agree on (5 bullets); Where sources conflict or are thin; Sources (numbered).
 
+## Done when
+<Checks the agent can run on its own output, e.g. "every candidate row has all fields filled or labelled NOT FOUND; every VERIFIED claim has a URL and a date; the ranking uses only the rubric above".> Re-read the file against these checks before the last action.
+
 ## Last action (mandatory)
-When the file is finished, as your very last action run:
-herdr agent prompt <caller-pane-id> "<lane> finished: N rows, file <prefix>-<lane>.md"
-(replace N with the real row count; do not use --wait). If you could not finish, still run it with the true state, for example "<lane> finished: partial, file <prefix>-<lane>.md".
+When the file is finished, as your very last actions:
+1. Create the empty file `_<prefix>/<lane>.reported`.
+2. Run: herdr agent prompt <caller-pane-id> "<lane> finished: N rows, file <prefix>-<lane>.md"
+(replace N with the real row count; do not use --wait). If you could not finish, still do both with the true state, for example "<lane> finished: partial, file <prefix>-<lane>.md". If you receive a fix request later, do both again when the fixes are done.
 ```
 
 Why each part exists:
@@ -40,4 +45,5 @@ Why each part exists:
 - **Context and the other lane's slice** keep lanes from overlapping and let the agent see the purpose behind the task.
 - **Labels and "NOT FOUND is acceptable"** stop agents filling gaps with plausible inventions; a table full of honest NOT FOUND rows is more useful than a complete-looking one that is wrong.
 - **Hard rules 1-2** exist because earlier agents were stopped by content filters and by runaway output when briefs left them out.
-- **The last action** is how the caller learns the lane is done without polling.
+- **Out of scope and Done when** give the agent a boundary and a stopping test. Without them, open-ended briefs drift or stop early.
+- **The last action** is how the caller learns the lane is done without polling. The marker file tells the stall watchdog the lane reported, so it stays quiet.
