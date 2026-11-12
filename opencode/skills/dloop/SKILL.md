@@ -100,7 +100,7 @@ Write a repo-local skill that captures the actuator's judgement for this task. I
 - Include a response template (e.g. `references/response-template.md`) defining how the agent formats its final output, which becomes the PR body. Instruct the skill to read and follow it.
 - Use `references/skill-template.md` as the skeleton and `references/example-skill.md` as a concrete example. See https://agentskills.io/specification for the skill spec.
 
-**IMPORTANT:** the `name` in the skill's frontmatter must match its directory slug — a skill named `migrate-foo` lives at `.claude/skills/migrate-foo/SKILL.md` (or `.agents/skills/migrate-foo/SKILL.md`).
+The `name` in the skill's frontmatter has to match its directory slug — a skill named `migrate-foo` lives at `.claude/skills/migrate-foo/SKILL.md` (or `.agents/skills/migrate-foo/SKILL.md`).
 
 Completion criterion: the skill explains the job clearly enough that the agent can do it unattended, including how to format its final response.
 

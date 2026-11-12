@@ -31,9 +31,9 @@ Verify with `officecli --version`. If still not found after install, open a new 
 
 ---
 
-## Help System (IMPORTANT)
+## Help System
 
-**When unsure about property names, value formats, or command syntax, ALWAYS run help instead of guessing.** One help query beats guess-fail-retry loops.
+**When unsure about property names, value formats, or command syntax, run help instead of guessing.** One help query beats guess-fail-retry loops.
 
 `officecli help` ≡ `officecli --help`, and `officecli <cmd> --help` ≡ `officecli help <cmd>` — same content.
 

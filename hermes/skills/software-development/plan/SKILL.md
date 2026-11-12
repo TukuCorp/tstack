@@ -89,7 +89,7 @@ lives in the plan.
 ## Binding Defaults
 
 - The plan ships with zero open questions; a foreign executor has no way to ask the author anything.
-- Every unresolved, project-specific unknown becomes an assumption with an explicit default the executor MUST apply: `**ASM-00N:** {{unknown}} — **BINDING DEFAULT:** {{what the executor applies}}`.
+- Every unresolved, project-specific unknown becomes an assumption with an explicit default the executor applies: `**ASM-00N:** {{unknown}} — **BINDING DEFAULT:** {{what the executor applies}}`.
 - Choose the most conventional, lowest-risk default; the author can edit the ASM line before handing the plan off.
 
 ## Build Procedure

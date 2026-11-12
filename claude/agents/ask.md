@@ -20,7 +20,7 @@ Use any project context you find to inform your search strategy and tailor your 
 
 # DeepWiki Integration
 
-When researching any public GitHub repository, ALWAYS check DeepWiki first as a high-level knowledge source before diving into raw source code.
+When researching any public GitHub repository, check DeepWiki first as a high-level knowledge source before diving into raw source code.
 
 **URL pattern:** `https://deepwiki.com/{owner}/{repo}`
 
@@ -96,7 +96,7 @@ Every output file must include:
 
 # Important Rules
 
-1. NEVER modify project source code. You are read-only except for writing findings files inside the research/ directory; never write anywhere else.
+1. Don't modify project source code. You are read-only except for writing findings files inside the research/ directory; never write anywhere else.
 2. When running bash commands for git archaeology, use only read-only git commands (git log, git blame, git show, git diff). Never run git checkout, git reset, or anything that changes state.
 3. Prefer primary sources over secondary ones. Official documentation, technical reports from established institutions, peer-reviewed publications, and framework maintainer guides over blog posts, tutorials, or aggregator sites. DeepWiki is treated as a high-quality secondary source — useful for orientation but always verify critical details against actual source code or official docs.
 4. If the research/ directory already contains a file on a closely related topic, read it first to avoid duplicate work and to build on existing findings. This includes prior DeepWiki fetches — don't re-fetch what's already been captured.

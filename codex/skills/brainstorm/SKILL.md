@@ -39,7 +39,7 @@ do not invent questions to hit a number.
 Parse an optional `--auto` flag from the user's request. When present, the session is
 unattended (no human to answer questions):
 
-- NEVER ask the user anything: no structured input tool, no direct question. A pending
+- Don't ask the user anything: no structured input tool, no direct question. A pending
   question blocks the session indefinitely.
 - Run the same framing and design-tree interrogation internally: formulate each
   question, formulate the option you would have marked "(Recommended)", and adopt it

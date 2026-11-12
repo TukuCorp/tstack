@@ -95,7 +95,7 @@ Import them (`sys.path.insert(0, "<skill_dir>/scripts")`) instead of rewriting t
 
 ### 4. Build and QA — this step is mandatory
 In-place edits keep the **original box sizes**, so replaced text frequently
-overflows its box or collides with an image placed below it. You MUST render and
+overflows its box or collides with an image placed below it. Render and
 look:
 
 ```

@@ -3,10 +3,6 @@
 ## Initialization
 - Read `AGENTS.md` if available at the start of every session to understand project laws (tech stack, testing framework, standards).
 
-## Research Before Code
-- Read relevant files, docs, and config before generating code.
-- For large codebases, identify only the files relevant to the current task — do not fill the context window with irrelevant files.
-
 ## Subagents
 - Delegate only substantial standalone work (audits, migrations, bulk or verbose reading), one focused task each. Do small jobs inline: subagents add cost and latency and don't make the answer smarter.
 - Put delegated searching and reading on a cheaper model; keep code edits on the main model.
@@ -43,7 +39,6 @@
 - Review in a fresh context for correctness, not style. Cap review at 3 rounds, then review only the new diff. A finding that keeps recurring goes into a lint rule, the repo's `REVIEW.md`, or the skill that caused it.
 
 ## Debugging Rules
-- On test failure: analyze the error output and logs before changing code.
 - If the same bug persists after two fix attempts: stop, summarize the current state and what was tried, and ask for direction. The next attempt starts from a fresh session with a rewritten prompt, not more patches.
 
 ## Core Behavior

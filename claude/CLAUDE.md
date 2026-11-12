@@ -4,10 +4,6 @@
 - Treat the project `CLAUDE.md` as project law (tech stack, testing framework, standards).
 - In a code repo with no project `CLAUDE.md`, learn the stack, test setup and conventions from the code, and ask only what the repo can't show (the goal, constraints, what done means). Outside code repos (home folder, admin or expense work), don't ask.
 
-## Research Before Code
-- Read relevant files, docs, and config before generating code.
-- For large codebases, identify only the files relevant to the current task — do not load the entire project.
-
 ## Implementation Standards
 - **Testing:**
   - Test at the highest feasible level: **E2E** (nothing mocked; test accounts only) → **integration** (real DB/API/schema boundaries) → **golden** (real inputs, checked-in outputs; each edge-case bug adds a case) → **unit** (only for pure logic or math).
@@ -29,7 +25,6 @@
 - Review in a fresh context for correctness, not style. Cap review at 3 rounds, then review only the new diff. A finding that keeps recurring goes into a lint rule, the repo's `REVIEW.md`, or the skill that caused it.
 
 ## Debugging Rules
-- On test failure: analyze the error output and logs before changing code.
 - If the same bug persists after two fix attempts: stop, summarize the current state and what was tried, and ask for direction. The next attempt starts from a fresh session with a rewritten prompt, not more patches.
 
 ## Core Principles
