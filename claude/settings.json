@@ -1,12 +1,12 @@
 {
   "env": {
-    "CLAUDE_CODE_EVEN_MORE_DANGEROUSLY_SKIP_PERMISSIONS": "<REDACTED>"
+    "CLAUDE_CODE_SUBAGENT_MODEL": "<REDACTED>"
   },
   "permissions": {
     "allow": [],
     "deny": [],
     "ask": [],
-    "defaultMode": "bypassPermissions"
+    "defaultMode": "auto"
   },
   "model": "opus",
   "skillOverrides": {
@@ -75,7 +75,7 @@
     "code-modernization@anthropic-plugin-directory": true,
     "plugin-dev@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
-    "superpowers@superpowers-marketplace": true
+    "superpowers@superpowers-marketplace": false
   },
   "extraKnownMarketplaces": {
     "typesafe-ai": {

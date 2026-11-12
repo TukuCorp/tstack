@@ -2,7 +2,7 @@
 
 ## Initialization
 - Treat the project `CLAUDE.md` as project law (tech stack, testing framework, standards).
-- In a code repo with no project `CLAUDE.md`, ask about the tech stack, testing framework, and coding standards before writing code. Outside code repos (home folder, admin or expense work), don't ask.
+- In a code repo with no project `CLAUDE.md`, learn the stack, test setup and conventions from the code, and ask only what the repo can't show (the goal, constraints, what done means). Outside code repos (home folder, admin or expense work), don't ask.
 
 ## Research Before Code
 - Read relevant files, docs, and config before generating code.
@@ -21,20 +21,24 @@
 - Give native Windows programs (python, gws, PIL) `C:/...` paths, not Git Bash `/c/...` paths.
 - Run Python as `python -X utf8`, or Unicode output crashes on cp1252. Add `-I` only for scripts that read untrusted downloads: it ignores `PYTHONUTF8` and drops the script's own folder from imports (`No module named ...`).
 
+## Verification
+- End each task with a runnable check (test, build, script, screenshot) and show the command and its output as proof; "looks done" is not done.
+- When a result falls short, escalate in order: add or tighten that check, then raise effort one level, then move up a model.
+- Briefs (my prompts, subagent and swarm lanes, scheduled jobs) state Goal, Why, Constraints, Out of scope and Check. Leave out what the agent can read from the repo.
+- Unattended runs (loops, swarms, scheduled jobs) also set a turn or spend limit and say where output lands for my approval. Pilot on about 3 items before running the rest.
+- Review in a fresh context for correctness, not style. Cap review at 3 rounds, then review only the new diff. A finding that keeps recurring goes into a lint rule, the repo's `REVIEW.md`, or the skill that caused it.
+
 ## Debugging Rules
 - On test failure: analyze the error output and logs before changing code.
-- If the same bug persists after two fix attempts: stop, summarize the current state and what was tried, and ask for direction.
+- If the same bug persists after two fix attempts: stop, summarize the current state and what was tried, and ask for direction. The next attempt starts from a fresh session with a rewritten prompt, not more patches.
 
 ## Core Principles
 - **Simplicity First:** Make every change as simple as possible. Impact minimal code.
-- **No Laziness:** Find root causes. No temporary fixes. Senior developer standards.
+- **Root causes:** Fix the cause, not the symptom; no temporary fixes.
 
-## Subagent Strategy
-- Use subagents to keep the main context window clean.
-- Offload research, exploration, and parallel analysis to subagents.
-- One focused task per subagent for clarity.
-- For complex problems, use more subagents rather than expanding context.
-- Subagents start cold and cost tokens: do small lookups inline.
+## Subagents
+- Delegate only substantial standalone work (audits, migrations, bulk or verbose reading), one focused task each. Do small jobs inline: subagents add cost and latency and don't make the answer smarter.
+- Put delegated searching and reading on a cheaper model; keep code edits on the main model.
 
 ## Task Management
 - For multi-step implementation work, write a plan to `activeContext.md` at project root with checkable items before starting. Skip it for questions and one-step changes.
@@ -42,7 +46,7 @@
 - Check in with the user before beginning implementation, unless they already said to proceed or the task runs unattended (loops, scheduled jobs).
 - Mark items complete as you go.
 - Add a review/results section to `activeContext.md` after completion.
-- After any user correction: record the pattern and a rule that prevents recurrence. Project-specific → `lessons.md` at project root. Applies across projects → this global file (and the other harnesses' global rule files).
+- When I correct the same thing twice: record the pattern and a rule that prevents recurrence, as a hook or lint rule if it must never bend. Project-specific → `lessons.md` at project root. Applies across projects → this global file (and the other harnesses' global rule files).
 - Review `lessons.md` at session start for project-relevant rules.
 
 ## Google Workspace

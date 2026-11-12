@@ -73,9 +73,11 @@ This is an interview. Work through each component below. Start by asking the use
    - **Golden patterns first.** Before automating, establish what a good change looks like: ask the user whether existing patterns in the codebase should be followed, and inspect the code to find them. Capture these in the actuator skill (Phase C).
    - **Validation.** Decide which commands must pass before the agent commits (propose these from Phase A and confirm).
 
-5. **Disturbances + dampener (offer).** Name what changes the system outside the loop (teammates shipping concurrently, dependency bumps, generated code). Then **offer** a dampener: a check that keeps the measured problem from getting worse while the scheduled loop chips away at it — for example a PR check that compares the sensor's output against a baseline and surfaces (or eventually blocks) newly introduced deviations. This is optional; some loops do not need one.
+5. **Guardrails.** Cap each run with a turn or spend limit and a timeout, name the one branch it may push to, and route anything non-reversible through a human-approved PR. Without a limit, a run on a faulty premise keeps going until someone notices.
 
-Completion criterion: a short written design naming the set point, sensor, controller, actuator (agent + skill + validation), and disturbances/dampener — with each component something the user can run locally.
+6. **Disturbances + dampener (offer).** Name what changes the system outside the loop (teammates shipping concurrently, dependency bumps, generated code). Then **offer** a dampener: a check that keeps the measured problem from getting worse while the scheduled loop chips away at it — for example a PR check that compares the sensor's output against a baseline and surfaces (or eventually blocks) newly introduced deviations. This is optional; some loops do not need one.
+
+Completion criterion: a short written design naming the set point, sensor, controller, actuator (agent + skill + validation), guardrails, and disturbances/dampener — with each component something the user can run locally.
 
 ### Phase C — Build the actuator skill
 

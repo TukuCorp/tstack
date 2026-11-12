@@ -21,6 +21,8 @@ Confirm you are inside Herdr (`HERDR_ENV=1`) and note the caller's workspace id,
 
 Aim for 2-3 lanes, each with a distinct slice and its own output file; if the user names a number, use theirs. Overlapping lanes waste agents; lanes that need each other's results cannot run in parallel. One narrow question per lane beats one broad one, because these agents drift on open-ended briefs.
 
+**Pilot bulk work.** If each lane will repeat the same job over many items (files, companies, pages), run one lane on about 3 items first, fix the brief from what it gets wrong, then launch the rest.
+
 Pick short lane names (`[a-z][a-z0-9_-]{0,31}`, unique among live agents), for example `cgfirms`.
 
 **Verifier lane (optional).** For 4 or more lanes, offer the user one `verify` lane per two to four work lanes. Its brief lists the work lanes' output files. It re-opens a sample of their cited sources, flags claims that don't hold up or have the wrong label, and writes `<prefix>-verify.md`. It starts after the lanes it checks have reported. A verifier on a different model family from the workers catches more, because it doesn't share their blind spots.

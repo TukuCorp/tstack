@@ -11,6 +11,13 @@
 - Give native Windows programs (python, gws, PIL) `C:/...` paths, not Git Bash `/c/...` paths.
 - Run Python as `python -X utf8`, or Unicode output crashes on cp1252. Add `-I` only for scripts that read untrusted downloads: it ignores `PYTHONUTF8` and drops the script's own folder from imports (`No module named ...`).
 
+## Verification
+- End each task with a runnable check (test, build, script, screenshot) and show the command and its output as proof; "looks done" is not done.
+- When a result falls short, escalate in order: add or tighten that check, then raise effort one level, then move up a model.
+- Briefs (my prompts, subagent and swarm lanes, scheduled jobs) state Goal, Why, Constraints, Out of scope and Check. Leave out what the agent can read from the repo.
+- Unattended runs (loops, swarms, scheduled jobs) also set a turn or spend limit and say where output lands for my approval. Pilot on about 3 items before running the rest.
+- Review in a fresh context for correctness, not style. Cap review at 3 rounds, then review only the new diff. A finding that keeps recurring goes into a lint rule, the repo's `REVIEW.md`, or the skill that caused it.
+
 ## Google Workspace
 - For Gmail, Drive, Docs, Sheets, Slides and Calendar, use the `gws` CLI first (`gws <service> --help`), before connectors/MCP, browser or desktop automation. When another route fails on a Google task, switch to `gws` instead of retrying it.
 - Bare `gws` is the work account (<EMAIL>). Test access with a real API call before any login flow: `gws auth login` replaces the whole scope grant, so a narrower re-login breaks other jobs.

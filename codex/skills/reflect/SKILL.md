@@ -56,7 +56,7 @@ One more subagent (or yourself, if subagents are unavailable) runs `references/s
 
 ### 4. Structural enforcement check
 
-Sanity-check the Accepted list. Any item that a lint rule, script, hook, metadata flag, or runtime check would enforce more reliably than prose moves from Accepted to Backlog. Prose is for judgment calls that mechanisms can't enforce.
+Sanity-check the Accepted list. Any item that a lint rule, script, hook, metadata flag, or runtime check would enforce more reliably than prose moves from Accepted to Backlog. Prose is for judgment calls that mechanisms can't enforce. Check the reverse too: a hook or rule that only states a preference, or one written for older models (ALL CAPS, "think harder", "don't be lazy"), is a removal candidate. Newer models need fewer instructions, so prune and add back only what the model then misses.
 
 ### 5. Approval
 
