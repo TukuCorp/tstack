@@ -1,12 +1,13 @@
 {
   "env": {
+    "CLAUDE_CODE_EVEN_MORE_DANGEROUSLY_SKIP_PERMISSIONS": "<REDACTED>",
     "CLAUDE_CODE_SUBAGENT_MODEL": "<REDACTED>"
   },
   "permissions": {
     "allow": [],
     "deny": [],
     "ask": [],
-    "defaultMode": "auto"
+    "defaultMode": "bypassPermissions"
   },
   "model": "opus",
   "skillOverrides": {
