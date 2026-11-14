@@ -25,9 +25,7 @@
     "shortcutxl",
     "tasks-axi"
   ],
-  "bun": [
-    "@oh-my-pi/pi-coding-agent"
-  ],
+  "bun": [],
   "uv": [
     "notebooklm-mcp-cli",
     "ppt-mcp",

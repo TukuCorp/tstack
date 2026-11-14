@@ -1,4 +1,4 @@
-"""Mirror my agent setup (Claude Code, Codex, Opencode, Hermes, omp, noctty, herdr) into this repo.
+"""Mirror my agent setup (Claude Code, Codex, Opencode, Hermes, noctty, herdr) into this repo.
 
 Every run rebuilds each tool folder from the live files, strips secrets from
 configs, applies the private redaction map, and secret-scans the result.
@@ -57,10 +57,6 @@ SOURCES = [
     (".hermes/skills", "hermes/skills", "tree"),
     (".hermes/scripts", "hermes/scripts", "tree"),
     (".hermes/cron", "hermes/cron", "tree"),
-    (".omp/agent/AGENTS.md", "omp/AGENTS.md", "file"),
-    (".omp/agent/config.yml", "omp/config.yml", "config"),
-    (".omp/agent/extensions", "omp/extensions", "tree"),
-    (".omp/agent/skills", "omp/skills", "tree"),
     (".agents/skills", "shared/agents-skills", "tree"),
     ("AGENTS.md", "shared/AGENTS.md", "file"),
     ("AppData/Local/noctty/config.ghostty", "noctty/config.ghostty", "file"),
@@ -71,7 +67,7 @@ SOURCES = [
     ("AppData/Local/Programs/Python/Python314/Lib/site-packages/sitecustomize.py",
      "machine/python/sitecustomize.py", "file"),
 ]
-TOOL_DIRS = ["claude", "codex", "opencode", "hermes", "omp", "shared", "noctty", "herdr", "machine"]
+TOOL_DIRS = ["claude", "codex", "opencode", "hermes", "shared", "noctty", "herdr", "machine"]
 
 # herdr plugins I run as patched local clones (`herdr plugin link`), mirrored as upstream + patch.
 HERDR_LOCAL_PLUGINS = ".herdr/local-plugins"

@@ -10,7 +10,6 @@ run in. `bootstrap.ps1` rebuilds the whole setup on a new machine.
 | `codex/` | OpenAI Codex | `~/.codex` |
 | `opencode/` | Opencode | `~/.config/opencode` |
 | `hermes/` | Hermes | `~/.hermes` + workflow skills from `%LOCALAPPDATA%/hermes/skills` (software-development, opencode, research, engineering, gloop, unslop) |
-| `omp/` | omp | `~/.omp/agent` |
 | `shared/` | cross-tool | `~/.agents/skills`, `~/AGENTS.md` |
 | `noctty/` | noctty terminal | `%LOCALAPPDATA%/noctty/config.ghostty` + `~/.config/noctty` (`dotconfig/`: shaders, backgrounds) |
 | `herdr/` | herdr multiplexer | `%APPDATA%/herdr/config.toml`; `plugins.json` = GitHub plugins to reinstall; `local-plugins.json` + `local-plugins/*.patch` = patched clones in `~/.herdr/local-plugins` (upstream commit + my diff), when there are any |
@@ -62,7 +61,7 @@ powershell -ExecutionPolicy Bypass -File bootstrap.ps1
 
 1. **winget**: Git, GitHub CLI, Node LTS, Python, uv, Bun, noctty, JetBrainsMono Nerd Font.
 2. **Agent CLIs** via each project's official installer: Claude Code, Codex, herdr, Hermes.
-3. **Global packages** from `machine/packages.json` (npm, bun → omp, uv tools).
+3. **Global packages** from `machine/packages.json` (npm, bun, uv tools).
 4. **Configs** via `restore.py` (below).
 5. **herdr plugins** from `herdr/plugins.json`, pinned to the mirrored commit; then the patched local
    plugins from `herdr/local-plugins.json` (clone at the commit, `git apply` the patch, `herdr plugin link`);

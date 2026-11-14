@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RULE_FILES = ["claude/CLAUDE.md", "opencode/AGENTS.md", "codex/AGENTS.md", "omp/AGENTS.md"]
+RULE_FILES = ["claude/CLAUDE.md", "opencode/AGENTS.md", "codex/AGENTS.md"]
 MAX_LINES = 100
 # Shouting markers and habits written for older models (see the 2026-11-12 activeContext section).
 SHOUTING = re.compile(r"\b(IMPORTANT|MUST|NEVER|ALWAYS|CRITICAL|EXTREMELY)\b")
