@@ -76,7 +76,7 @@ Agent output is a lead, not a finding. Before building on it:
 - Discard rankings you cannot reproduce; rebuild them with a stated rubric. Drop stray lines that do not belong to the task (agents sometimes carry text over from an unrelated context).
 - Keep every label. Never upgrade a CLAIMED to VERIFIED in synthesis.
 
-Then produce the deliverable in the project folder (an HTML report when asked, otherwise Markdown), with sources and gaps. Report to the user decision-first: what you recommend, how strong the evidence is, what was blocked, and the project-relative path.
+Then produce the deliverable in the project folder (an HTML report when asked, otherwise Markdown), with sources and gaps. If the user asked for unslopped text, run the unslop skill on the deliverable's prose before publishing it. Report to the user decision-first: what you recommend, how strong the evidence is, what was blocked, and the project-relative path.
 
 ## 6. Clean up
 
