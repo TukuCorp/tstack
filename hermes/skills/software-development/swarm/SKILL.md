@@ -21,7 +21,9 @@ Parallel agents use quota several times faster than one chat. For a big run, che
 
 ## 0. Preconditions
 
-Confirm you are inside Herdr (`HERDR_ENV=1`) and note the caller's workspace id, pane id and working directory; `references/herdr-cli.md` has the Bash and PowerShell forms. If you are not inside Herdr, say so and stop. The caller pane is where agents report back.
+Confirm you are inside Herdr (`HERDR_ENV=1`) and note the caller's workspace id, pane id and working directory; `references/herdr-cli.md` has the Bash and PowerShell forms. If you are not inside Herdr, say so and stop, unless this is a chat-gateway session (below). The caller pane is where agents report back.
+
+**Chat-gateway sessions (Discord, Telegram or another messaging platform).** The gateway process inherits `HERDR_ENV` and `HERDR_PANE_ID` from the pane it was started in, so that pane is the gateway's console, not this chat: a `herdr agent prompt` report-back lands there and never reaches you. In a gateway session, still launch the lanes with herdr (use `HERDR_WORKSPACE_ID`, or a workspace from `herdr workspace list` when it is unset), but change three things. The brief's last action only creates the marker file, with no `herdr agent prompt` step. Skip the watchdog tab. After launching, start one waiter per lane with `terminal(background=true, notify_on_complete=true)`: `bash "C:/Users/<USER>/AppData/Local/hermes/skills/software-development/swarm/scripts/watchdog.sh" - _<prefix> <stall-minutes> <lane>`, run from the project folder. Each waiter exits with one line that arrives here as a new turn: `<lane> finished: ...` or a `watchdog: <lane> ...` notice. After you deal with a notice for a lane that is still running, start a new waiter for it.
 
 ## 1. Split the task into lanes
 

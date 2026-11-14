@@ -4,6 +4,10 @@
 #
 # Usage: watchdog.sh <caller-pane-id> <marker-dir> <stall-minutes> <lane> [lane ...]
 #
+# Caller "-" (stdout mode, for a caller with no Herdr pane such as a chat-gateway session):
+# print one line and exit instead of prompting a pane. Give it one lane; it exits with
+# "<lane> finished: ..." when the marker appears, or with the first "watchdog: ..." notice.
+#
 # For each lane it blocks on `herdr agent wait` (server-side, no polling) and
 # prompts the caller pane only when something is wrong:
 #   - the lane is `blocked` on an approval or question prompt;
@@ -21,7 +25,10 @@ grace=${WATCHDOG_GRACE_S:-120}
 stall_ms=$((stall_min * 60000))
 
 notify() {
-  if [ "${WATCHDOG_DRY:-}" = 1 ]; then
+  if [ "$caller" = - ]; then
+    echo "$1"
+    exit 0
+  elif [ "${WATCHDOG_DRY:-}" = 1 ]; then
     echo "NOTICE: $1"
   else
     herdr agent prompt "$caller" "$1" --timeout 30000 >/dev/null
@@ -62,8 +69,18 @@ watch_lane() {
   done
 }
 
+watch_one() {
+  watch_lane "$1"
+  [ "$caller" = - ] || return
+  if reported "$1"; then
+    echo "$1 finished: $markers/$1.reported exists"
+  else
+    echo "watchdog: $1 agent is gone with no report marker; check its output file"
+  fi
+}
+
 for lane in "$@"; do
-  watch_lane "$lane" &
+  watch_one "$lane" &
 done
 wait
-echo "watchdog: all lanes finished"
+[ "$caller" = - ] || echo "watchdog: all lanes finished"
