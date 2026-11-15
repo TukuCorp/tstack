@@ -119,6 +119,7 @@
   "autoUpdatesChannel": "latest",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
+  "switchModelsOnFlag": false,
   "autoContinueAtUsageLimit": false,
   "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
@@ -158,6 +159,5 @@
       "<REDACTED>",
       "<REDACTED>"
     ]
-  },
-  "switchModelsOnFlag": false
+  }
 }

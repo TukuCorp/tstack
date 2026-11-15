@@ -1,5 +1,5 @@
-model = "opencode-go/muse-spark-1.3-contributor"
-model_reasoning_effort = "medium"
+﻿model = "opencode-go/muse-spark-1.3-contributor"
+model_reasoning_effort = "high"
 approval_policy = "never"
 approvals_reviewer = "user"
 sandbox_mode = "danger-full-access"
