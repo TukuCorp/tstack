@@ -57,6 +57,8 @@ SOURCES = [
     (".hermes/skills", "hermes/skills", "tree"),
     (".hermes/scripts", "hermes/scripts", "tree"),
     (".hermes/cron", "hermes/cron", "tree"),
+    # Live Hermes plugins dir; herdr-agent-state there is installed by herdr itself, so only mine.
+    ("AppData/Local/hermes/plugins/swarm-gateway-guard", "hermes/plugins/swarm-gateway-guard", "tree"),
     (".agents/skills", "shared/agents-skills", "tree"),
     ("AGENTS.md", "shared/AGENTS.md", "file"),
     ("AppData/Local/noctty/config.ghostty", "noctty/config.ghostty", "file"),

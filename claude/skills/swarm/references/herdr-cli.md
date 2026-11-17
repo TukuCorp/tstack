@@ -65,6 +65,7 @@ Then confirm the model in the pane header: `herdr agent read rc1 --source visibl
 
 Gotchas:
 
+- Start each lane with a direct `herdr agent start` call from your own shell, one at a time. On 2026-11-17 every start made from inside a launcher script (`bash launch.sh lanes...`, backgrounded or serial, with or without an 8 s sleep after `tab create`) created the tab but left no agent (`agent_not_found` on the next prompt); the same command run directly succeeded every time (10-20 s each). Cause not found. Check `herdr agent get <lane>` after each start.
 - A new folder may show "Trust this folder?"; `agent start` then reports not ready. Read the pane, confirm the folder, send `enter`.
 - Codex may open an "Update available" menu instead of its prompt. Send `escape` to each lane's pane to skip it (never pick "Update now" unasked), then read the pane again before sending the goal.
 - `agent start` can return while MCP servers are still starting. A prompt sent then sits in the input box and the status shows `done`. Check `agent read --source visible`; if the text is still in the input, re-send. Do not press `ctrl+c`: it exits Codex.

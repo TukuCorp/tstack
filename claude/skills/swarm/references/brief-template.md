@@ -18,6 +18,7 @@ Out of scope: <what this lane must not research, edit or write, including the ot
 ## Evidence rules
 - Allowed, by weight: <official documents, primary sources, dated news from named outlets, ...>.
 - Excluded as evidence: <forums, social media, anonymous testimonials, SEO list sites that copy each other, ...>.
+- If the output carries verbatim quotes, check each one appears on the fetched page by script (normalise whitespace and diacritics) before writing it; a quote not found on the page is dropped and the claim's label lowered. (2026-11-17 PDP8 run: a verifier found invented quotes behind two VERIFIED rows.)
 - Label every claim: VERIFIED (independent or primary source seen; URL and date), PARTIAL, CLAIMED (the subject's own page only), NOT FOUND, UNVERIFIED. Never invent figures, names, licence numbers or contact details. NOT FOUND is an acceptable answer.
 
 ## Hard rules
