@@ -40,6 +40,8 @@ When the file is finished, as your very last actions:
 (replace N with the real row count; do not use --wait). If you could not finish, still do both with the true state, for example "<lane> finished: partial, file <prefix>-<lane>.md". If you receive a fix request later, do both again when the fixes are done.
 ```
 
+In a chat-gateway session (see SKILL.md §0), drop step 2: the last action only creates the marker file, and the caller's background waiter reports it to the chat.
+
 Why each part exists:
 
 - **Context and the other lane's slice** keep lanes from overlapping and let the agent see the purpose behind the task.

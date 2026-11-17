@@ -1,0 +1,5 @@
+name: swarm-gateway-guard
+version: "1.0"
+description: Block /swarm steps that send lane report-backs to the gateway console instead of the chat
+provides_hooks:
+  - pre_tool_call
