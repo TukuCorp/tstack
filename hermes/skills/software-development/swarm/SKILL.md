@@ -51,7 +51,7 @@ Choose the model first (see Model choice below). Launch every lane. For each lan
 2. `herdr agent start <lane> --kind codex --pane <pane-id> --timeout 120000 -- --remote unix:// -C <absolute project dir> -m <model-slug>`
 3. Confirm the model name in the pane header (`herdr agent read <lane> --source visible --lines 12`).
 4. Send the goal prompt: `/goal Read the brief <file> in this folder and execute it fully. As your last action, send the report-back command it specifies.` A prompt that starts with `/` needs `MSYS_NO_PATHCONV=1` in Git Bash.
-5. After a few seconds, check `herdr agent get <lane>` shows `working`.
+5. After a few seconds, check `herdr agent get <lane>` shows `working`, then read the pane (`herdr agent read <lane> --source visible --lines 20`): the goal must be accepted (no parse or usage error) and the agent must have started on the brief. `working` alone does not prove either. For a pilot lane, read the pane again after about two minutes and treat no tool activity as a failed launch.
 
 Then start the stall watchdog once for the whole run. It runs in its own tab so it outlives your turn; command in `references/herdr-cli.md`, "Stall watchdog". It blocks on `herdr agent wait` and prompts this pane only if a lane is `blocked` on a prompt, stops without reporting, or keeps working past the stall limit (default 45 minutes; set it from the size of the brief). Without it, a lane that crashes or hangs on an approval leaves this pane waiting forever.
 
@@ -76,6 +76,8 @@ Close an agent's tab only after its report-back arrives: Codex `--remote` agents
 
 Move to §5 once every lane has reported.
 
+**Agent failure recovery.** A lane can stop mid-task with "stream disconnected before completion: routed provider emitted undeclared client tool" (or a similar provider-side tool error). The agent's pane shows `idle` or `done` but no output file was created and no report-back was sent. The stall watchdog will eventually notice (no marker file within 120 s of the agent going idle). Recovery: read the pane to confirm the failure, close the failed tab, create a new tab and agent with the same brief, and re-send the goal prompt. The new agent starts fresh (no prior context), but the brief file is still in the folder, so it can re-run. Do not re-use the failed tab's pane id. If the same failure repeats, reduce the brief's scope or split the lane differently.
+
 ## 5. Verify, then synthesize
 
 Agent output is a lead, not a finding. Before building on it:
@@ -86,7 +88,7 @@ Agent output is a lead, not a finding. Before building on it:
 - Discard rankings you cannot reproduce; rebuild them with a stated rubric. Drop stray lines that do not belong to the task (agents sometimes carry text over from an unrelated context).
 - Keep every label. Never upgrade a CLAIMED to VERIFIED in synthesis.
 
-Then produce the deliverable in the project folder (an HTML report when asked, otherwise Markdown), with sources and gaps. If the user asked for unslopped text, run the unslop skill on the deliverable's prose before publishing it. Report to the user decision-first: what you recommend, how strong the evidence is, what was blocked, and the project-relative path.
+Then produce the deliverable in the project folder (an HTML report when asked, otherwise Markdown), with sources and gaps. If the user asked for unslopped text, run the unslop skill on the deliverable's prose before publishing it. When the user asks for "less words, more visual" (or similar), produce a self-contained HTML page with: a verdict banner, stat cards, score bars, comparison tables, pros/cons alerts, and a timeline/pathway — minimize prose, maximize visual structure. Use the visual-explainer skill's design patterns (CSS custom properties, progress bars, badge pills, alert boxes). Report to the user decision-first: what you recommend, how strong the evidence is, what was blocked, and the project-relative path.
 
 ## 6. Clean up
 

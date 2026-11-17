@@ -43,7 +43,7 @@ Choose the model first (see Model choice below). Launch every lane. For each lan
 2. `herdr agent start <lane> --kind codex --pane <pane-id> --timeout 120000 -- --remote unix:// -C <absolute project dir> -m <model-slug>`
 3. Confirm the model name in the pane header (`herdr agent read <lane> --source visible --lines 12`).
 4. Send the goal prompt: `/goal Read the brief <file> in this folder and execute it fully. As your last action, send the report-back command it specifies.` A prompt that starts with `/` needs `MSYS_NO_PATHCONV=1` in Git Bash.
-5. After a few seconds, check `herdr agent get <lane>` shows `working`.
+5. After a few seconds, check `herdr agent get <lane>` shows `working`, then read the pane (`herdr agent read <lane> --source visible --lines 20`): the goal must be accepted (no parse or usage error) and the agent must have started on the brief. `working` alone does not prove either. For a pilot lane, read the pane again after about two minutes and treat no tool activity as a failed launch.
 
 Then start the stall watchdog once for the whole run. It runs in its own tab so it outlives your turn; command in `references/herdr-cli.md`, "Stall watchdog". It blocks on `herdr agent wait` and prompts this pane only if a lane is `blocked` on a prompt, stops without reporting, or keeps working past the stall limit (default 45 minutes; set it from the size of the brief). Without it, a lane that crashes or hangs on an approval leaves this pane waiting forever.
 
