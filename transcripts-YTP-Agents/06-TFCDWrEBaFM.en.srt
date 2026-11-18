@@ -1,0 +1,5232 @@
+1
+00:00:00,000 --> 00:00:03,280
+We spent a ton of time recently talking
+
+2
+00:00:01,640 --> 00:00:04,880
+about how to build as effectively with
+
+3
+00:00:03,280 --> 00:00:05,720
+agents as possible, but I don't think
+
+4
+00:00:04,880 --> 00:00:07,680
+we've talked enough about the
+
+5
+00:00:05,720 --> 00:00:09,520
+communication around it. How do we work
+
+6
+00:00:07,680 --> 00:00:11,240
+together as a team? How do we review
+
+7
+00:00:09,520 --> 00:00:13,120
+code? How do we choose what merges and
+
+8
+00:00:11,240 --> 00:00:14,800
+what doesn't? How do we manage all of
+
+9
+00:00:13,120 --> 00:00:17,680
+this, especially at the scale we can
+
+10
+00:00:14,800 --> 00:00:19,840
+ship at now with tools like Opus 5.5? As
+
+11
+00:00:17,680 --> 00:00:21,840
+you can imagine, Anthropic teams like
+
+12
+00:00:19,840 --> 00:00:23,480
+the Claude code team are experiencing
+
+13
+00:00:21,840 --> 00:00:25,960
+this at a scale that is hard to
+
+14
+00:00:23,480 --> 00:00:27,360
+comprehend. They can't even use Git and
+
+15
+00:00:25,960 --> 00:00:29,720
+GitHub anymore because they slow them
+
+16
+00:00:27,360 --> 00:00:31,600
+down too much. So, how does a team
+
+17
+00:00:29,720 --> 00:00:33,600
+possibly review all of the change
+
+18
+00:00:31,600 --> 00:00:36,560
+requests from other people? How do you
+
+19
+00:00:33,600 --> 00:00:37,960
+manage a pull request load like this?
+
+20
+00:00:36,560 --> 00:00:39,800
+We've been experiencing this ourselves
+
+21
+00:00:37,960 --> 00:00:42,760
+with T3 Code as we've been getting as
+
+22
+00:00:39,800 --> 00:00:44,120
+many as 800 PRs filed a day. Figuring
+
+23
+00:00:42,760 --> 00:00:46,240
+out how to get through all of that with
+
+24
+00:00:44,120 --> 00:00:48,920
+a small three-person team is nearly
+
+25
+00:00:46,240 --> 00:00:51,480
+impossible. This is just different world
+
+26
+00:00:48,920 --> 00:00:54,280
+we're in, and the idea of how code is
+
+27
+00:00:51,480 --> 00:00:56,240
+reviewed and landed isn't should be done
+
+28
+00:00:54,280 --> 00:00:58,200
+in a fundamentally different way.
+
+29
+00:00:56,240 --> 00:01:01,400
+And that's what we here here to talk
+
+30
+00:00:58,200 --> 00:01:04,400
+about today. How do you handle this
+
+31
+00:01:01,400 --> 00:01:07,280
+level of load, this burden of constant
+
+32
+00:01:04,400 --> 00:01:08,920
+requests for changes being made on all
+
+33
+00:01:07,280 --> 00:01:10,760
+of our repos now that Opus has made it
+
+34
+00:01:08,920 --> 00:01:13,120
+as easy as sending a prompt to get a
+
+35
+00:01:10,760 --> 00:01:14,520
+pull request? How do you decide? How do
+
+36
+00:01:13,120 --> 00:01:16,240
+you manage? How do you deal with all of
+
+37
+00:01:14,520 --> 00:01:18,280
+this? I have a feeling this is going to
+
+38
+00:01:16,240 --> 00:01:19,760
+be a fun one. I've actually not read
+
+39
+00:01:18,280 --> 00:01:21,440
+this yet because I wanted to read it
+
+40
+00:01:19,760 --> 00:01:23,520
+with y'all together, and I'm hoping we
+
+41
+00:01:21,440 --> 00:01:25,200
+can learn some things too here because
+
+42
+00:01:23,520 --> 00:01:28,040
+this isn't easy. And figuring this out
+
+43
+00:01:25,200 --> 00:01:30,080
+is a a really important piece of getting
+
+44
+00:01:28,040 --> 00:01:31,800
+this new era of engineering right. I
+
+45
+00:01:30,080 --> 00:01:33,640
+also think I should be able to share
+
+46
+00:01:31,800 --> 00:01:35,400
+some special insights at the end on how
+
+47
+00:01:33,640 --> 00:01:36,920
+we were able to ramp up so much with T3
+
+48
+00:01:35,400 --> 00:01:38,360
+Code. I'm very excited to show off more
+
+49
+00:01:36,920 --> 00:01:39,960
+of our process cuz it's been getting
+
+50
+00:01:38,360 --> 00:01:41,880
+really fun. Julie's is cooking like I've
+
+51
+00:01:39,960 --> 00:01:43,720
+never seen. But, I do have one other
+
+52
+00:01:41,880 --> 00:01:45,120
+cool thing I want to show you first.
+
+53
+00:01:43,720 --> 00:01:46,600
+Today's sponsor. When you think about
+
+54
+00:01:45,120 --> 00:01:48,440
+it, it's kind of crazy how much more
+
+55
+00:01:46,600 --> 00:01:49,520
+powerful agents have gotten recently.
+
+56
+00:01:48,440 --> 00:01:51,400
+And it's not just cuz the models have
+
+57
+00:01:49,520 --> 00:01:52,840
+gotten smarter. The majority of the wins
+
+58
+00:01:51,400 --> 00:01:54,200
+have come from the fact that the tools
+
+59
+00:01:52,840 --> 00:01:55,440
+have gotten so much better, and more
+
+60
+00:01:54,200 --> 00:01:57,520
+importantly, the models have gotten
+
+61
+00:01:55,440 --> 00:01:59,040
+better at using those tools. Now that
+
+62
+00:01:57,520 --> 00:02:00,732
+agents can do so much more on our
+
+63
+00:01:59,040 --> 00:02:02,492
+behalf, it's important that we give them
+
+64
+00:02:00,732 --> 00:02:04,692
+what they need to do those things. And
+
+65
+00:02:02,492 --> 00:02:06,892
+when we see tools like Grok Bot, Muse,
+
+66
+00:02:04,692 --> 00:02:08,732
+and more all taking over our day-to-day
+
+67
+00:02:06,892 --> 00:02:10,612
+lives, they need to be able to do things
+
+68
+00:02:08,732 --> 00:02:14,012
+on our behalf. A lot of those things are
+
+69
+00:02:10,612 --> 00:02:15,852
+on a browser. 85% of the APIs on the web
+
+70
+00:02:14,012 --> 00:02:17,652
+are not accessible to just be hit over
+
+71
+00:02:15,852 --> 00:02:19,572
+curl. You need to actually use the
+
+72
+00:02:17,652 --> 00:02:21,012
+website in order to do things. You could
+
+73
+00:02:19,572 --> 00:02:23,092
+build that all yourself, or you could
+
+74
+00:02:21,012 --> 00:02:25,292
+use today's sponsor, Browserbase. These
+
+75
+00:02:23,092 --> 00:02:27,492
+guys have built the best portal for the
+
+76
+00:02:25,292 --> 00:02:28,812
+web for your agents. The simplest way to
+
+77
+00:02:27,492 --> 00:02:30,252
+think about it is that they turn
+
+78
+00:02:28,812 --> 00:02:32,292
+everything on the web into a
+
+79
+00:02:30,252 --> 00:02:33,892
+programmable API. Do your agents need
+
+80
+00:02:32,292 --> 00:02:35,452
+search? They have you covered. Need to
+
+81
+00:02:33,892 --> 00:02:36,972
+fetch content from a page in a format
+
+82
+00:02:35,452 --> 00:02:39,012
+your agents can use? They have you
+
+83
+00:02:36,972 --> 00:02:40,732
+covered. Whether it's HTML, JSON, or
+
+84
+00:02:39,012 --> 00:02:42,652
+markdown, they can get it from the web.
+
+85
+00:02:40,732 --> 00:02:44,692
+And of course, if your agents want to do
+
+86
+00:02:42,652 --> 00:02:46,572
+things on the web, like click buttons,
+
+87
+00:02:44,692 --> 00:02:48,532
+navigate, fill out forms, clear
+
+88
+00:02:46,572 --> 00:02:50,452
+CAPTCHAs, and more, that's where the
+
+89
+00:02:48,532 --> 00:02:52,212
+browser-as-a-service part comes in.
+
+90
+00:02:50,452 --> 00:02:53,732
+There is so much work blocked by the
+
+91
+00:02:52,212 --> 00:02:55,292
+browser, and if you give your agents the
+
+92
+00:02:53,732 --> 00:02:56,852
+ability to do it, you'll be amazed at
+
+93
+00:02:55,292 --> 00:02:59,372
+what they can do. If you don't have any
+
+94
+00:02:56,852 --> 00:03:01,492
+ideas yet, just go ask Claude. Say,
+
+95
+00:02:59,372 --> 00:03:03,132
+"Hey, look at what I do every day. See
+
+96
+00:03:01,492 --> 00:03:04,732
+how much of this can be automated." I
+
+97
+00:03:03,132 --> 00:03:05,532
+bet you'll be surprised. And if you are,
+
+98
+00:03:04,732 --> 00:03:07,172
+start today at
+
+99
+00:03:05,532 --> 00:03:08,772
+solidity.link/browserbase.
+
+100
+00:03:07,172 --> 00:03:11,012
+Now that's out of the way, we can dive
+
+101
+00:03:08,772 --> 00:03:13,132
+in. Let's start with how the Claude code
+
+102
+00:03:11,012 --> 00:03:14,652
+team does code review, and then see how
+
+103
+00:03:13,132 --> 00:03:16,692
+it compares and contrasts to the way we
+
+104
+00:03:14,652 --> 00:03:18,612
+do it, and what my team can learn from
+
+105
+00:03:16,692 --> 00:03:20,212
+it, cuz I'm actually very excited to
+
+106
+00:03:18,612 --> 00:03:21,892
+possibly improve our process here.
+
+107
+00:03:20,212 --> 00:03:24,252
+Starts with the obvious question, "How
+
+108
+00:03:21,892 --> 00:03:25,852
+do you do code review at the volume of
+
+109
+00:03:24,252 --> 00:03:27,532
+code that agents are producing?" On the
+
+110
+00:03:25,852 --> 00:03:29,572
+Claude code team, we once had high
+
+111
+00:03:27,532 --> 00:03:30,932
+coverage and deep reviews. We started
+
+112
+00:03:29,572 --> 00:03:33,132
+optimizing for the minimum amount of
+
+113
+00:03:30,932 --> 00:03:35,252
+human review time that doesn't raise
+
+114
+00:03:33,132 --> 00:03:36,412
+reverts or incidents. Sounds about
+
+115
+00:03:35,252 --> 00:03:38,052
+right, although this sentence is
+
+116
+00:03:36,412 --> 00:03:39,372
+horribly formatted.
+
+117
+00:03:38,052 --> 00:03:41,372
+Let's see how this goes. They've said
+
+118
+00:03:39,372 --> 00:03:43,652
+before that Claude writes around 90% of
+
+119
+00:03:41,372 --> 00:03:45,852
+Claude code's own code. It's got to be
+
+120
+00:03:43,652 --> 00:03:48,052
+more than that at this point. I don't
+
+121
+00:03:45,852 --> 00:03:50,212
+think I or anyone on my team has
+
+122
+00:03:48,052 --> 00:03:52,852
+manually edited a line of code in T3
+
+123
+00:03:50,212 --> 00:03:55,412
+code other than like prose in markdown
+
+124
+00:03:52,852 --> 00:03:58,572
+files in at least 3 months, probably
+
+125
+00:03:55,412 --> 00:04:01,812
+longer. Just Claude is probably over 90%
+
+126
+00:03:58,572 --> 00:04:04,334
+of our code, and the rest is Codex.
+
+127
+00:04:01,812 --> 00:04:05,254
+Yeah, I I am confused by this. I I would
+
+128
+00:04:04,334 --> 00:04:06,334
+have thought it'd be more by now.
+
+129
+00:04:05,254 --> 00:04:08,254
+Previously, the numbers were insane.
+
+130
+00:04:06,334 --> 00:04:10,494
+It's like, we barely touch the code by
+
+131
+00:04:08,254 --> 00:04:12,254
+hand. It's 85% of our code is Claude's.
+
+132
+00:04:10,494 --> 00:04:14,414
+Like, that's insane. A year later, it's
+
+133
+00:04:12,254 --> 00:04:15,654
+90. That feels low. Anyways, how do they
+
+134
+00:04:14,414 --> 00:04:17,374
+review code at the volume that they're
+
+135
+00:04:15,654 --> 00:04:18,814
+producing it? Does anyone read the code
+
+136
+00:04:17,374 --> 00:04:20,894
+anymore? And if something breaks, who
+
+137
+00:04:18,814 --> 00:04:22,534
+catches it? This post is meant to cover
+
+138
+00:04:20,894 --> 00:04:24,374
+the code review flow on the Claude code
+
+139
+00:04:22,534 --> 00:04:26,814
+team and how it has evolved over time.
+
+140
+00:04:24,374 --> 00:04:28,414
+From June to September, merged PRs to
+
+141
+00:04:26,814 --> 00:04:30,774
+Claude code's code base have more than
+
+142
+00:04:28,414 --> 00:04:33,334
+doubled, while the share that had to be
+
+143
+00:04:30,774 --> 00:04:35,654
+reverted fell by more than 40%. This
+
+144
+00:04:33,334 --> 00:04:38,814
+feels as much like model improvements as
+
+145
+00:04:35,654 --> 00:04:41,254
+it does process improvements. Like, our
+
+146
+00:04:38,814 --> 00:04:42,614
+process improvements have given us some
+
+147
+00:04:41,254 --> 00:04:43,574
+bigger wins than this, but model
+
+148
+00:04:42,614 --> 00:04:46,014
+improvements have given us even bigger
+
+149
+00:04:43,574 --> 00:04:49,134
+than that. Like, I would say our revert
+
+150
+00:04:46,014 --> 00:04:51,334
+rate has dropped much more than 40%
+
+151
+00:04:49,134 --> 00:04:53,014
+since Opus 5.5 dropped, personally. We
+
+152
+00:04:51,334 --> 00:04:55,774
+also had another big drop when I banned
+
+153
+00:04:53,014 --> 00:04:57,374
+all Gemini models from landing code.
+
+154
+00:04:55,774 --> 00:04:59,934
+Addy and crew point out that they didn't
+
+155
+00:04:57,374 --> 00:05:02,174
+remove reviews. They did move most of
+
+156
+00:04:59,934 --> 00:05:04,654
+the reading of the code to machines
+
+157
+00:05:02,174 --> 00:05:07,254
+optimized for human time and attention,
+
+158
+00:05:04,654 --> 00:05:09,574
+and invested heavily in making it fast
+
+159
+00:05:07,254 --> 00:05:11,134
+and easy to undo mistakes. Is this going
+
+160
+00:05:09,574 --> 00:05:12,454
+to be a safety net not guardrails?
+
+161
+00:05:11,134 --> 00:05:13,814
+Please tell me it's a safety net not
+
+162
+00:05:12,454 --> 00:05:15,614
+guardrails. It's going to make me so
+
+163
+00:05:13,814 --> 00:05:17,614
+happy. I have a good feeling about this
+
+164
+00:05:15,614 --> 00:05:19,334
+one. So, we start by rethinking the
+
+165
+00:05:17,614 --> 00:05:21,854
+purpose of code review. When agents
+
+166
+00:05:19,334 --> 00:05:24,294
+write code, the number of changes go up
+
+167
+00:05:21,854 --> 00:05:27,454
+fast. In Anthropic's mono repo, changes
+
+168
+00:05:24,294 --> 00:05:30,654
+landing per day went from 2,500 a day in
+
+169
+00:05:27,454 --> 00:05:32,774
+May to more than 30,000 in September.
+
+170
+00:05:30,654 --> 00:05:34,574
+Claude code lives in its own repo,
+
+171
+00:05:32,774 --> 00:05:36,334
+separate from the mono repo, but it's
+
+172
+00:05:34,574 --> 00:05:37,614
+seeing a lot of pressure, too. When
+
+173
+00:05:36,334 --> 00:05:39,134
+you're shipping this fast, manual
+
+174
+00:05:37,614 --> 00:05:40,814
+line-by-line code review is incredibly
+
+175
+00:05:39,134 --> 00:05:41,854
+difficult, if not impossible. It's also
+
+176
+00:05:40,814 --> 00:05:43,654
+interesting to note that Claude code
+
+177
+00:05:41,854 --> 00:05:44,974
+lives in its own repo. That means they
+
+178
+00:05:43,654 --> 00:05:46,854
+were considering open sourcing it. It's
+
+179
+00:05:44,974 --> 00:05:48,734
+what that means. So, code review has two
+
+180
+00:05:46,854 --> 00:05:50,334
+main jobs. Find and fix issues before
+
+181
+00:05:48,734 --> 00:05:52,614
+they ship, and more importantly, in my
+
+182
+00:05:50,334 --> 00:05:54,614
+opinion, building a shared context and
+
+183
+00:05:52,614 --> 00:05:56,774
+code base understanding across the team.
+
+184
+00:05:54,614 --> 00:05:58,694
+This is the most underrated aspect of
+
+185
+00:05:56,774 --> 00:06:01,294
+code review, and I'm still working on
+
+186
+00:05:58,694 --> 00:06:03,254
+figuring out how to maintain this as the
+
+187
+00:06:01,294 --> 00:06:05,615
+pace we ship increases. Like, how do I
+
+188
+00:06:03,254 --> 00:06:07,695
+make sure my team understands the crazy
+
+189
+00:06:05,615 --> 00:06:09,255
+changes I am making to our wire
+
+190
+00:06:07,695 --> 00:06:11,375
+protocol? How do I make sure that
+
+191
+00:06:09,255 --> 00:06:12,615
+Julius' changes to our potential
+
+192
+00:06:11,375 --> 00:06:13,495
+integration of computer use are
+
+193
+00:06:12,615 --> 00:06:14,895
+understood by the rest of the
+
+194
+00:06:13,495 --> 00:06:16,815
+contributors? How do I make sure
+
+195
+00:06:14,895 --> 00:06:19,935
+everyone gets Orchestrator V2 before we
+
+196
+00:06:16,815 --> 00:06:21,855
+merge it? We had random contributors who
+
+197
+00:06:19,935 --> 00:06:24,135
+were pushing Orchestrator V2's like
+
+198
+00:06:21,855 --> 00:06:26,775
+branch really hard before we had landed
+
+199
+00:06:24,135 --> 00:06:28,935
+it that understood the overhaul of our
+
+200
+00:06:26,775 --> 00:06:31,615
+orchestration layer better than I do
+
+201
+00:06:28,935 --> 00:06:32,895
+today before it even merged. That is a
+
+202
+00:06:31,615 --> 00:06:34,335
+thing that's going to be hard to balance
+
+203
+00:06:32,895 --> 00:06:35,815
+over time and I'm excited to see where
+
+204
+00:06:34,335 --> 00:06:37,255
+it goes. So let's see what their
+
+205
+00:06:35,815 --> 00:06:39,095
+recommendations are here. Point of this
+
+206
+00:06:37,255 --> 00:06:40,655
+article is mainly to focus on finding
+
+207
+00:06:39,095 --> 00:06:43,215
+and fixing issues, but we'll come back
+
+208
+00:06:40,655 --> 00:06:45,375
+to the second part near the end. Okay, I
+
+209
+00:06:43,215 --> 00:06:47,455
+can wait. They personally believe that
+
+210
+00:06:45,375 --> 00:06:49,895
+{quote} did a human read the code {end
+
+211
+00:06:47,455 --> 00:06:51,615
+quote} is a very imprecise proxy for
+
+212
+00:06:49,895 --> 00:06:54,055
+{quote} what could go wrong with this
+
+213
+00:06:51,615 --> 00:06:56,175
+change and which check {m-dash}
+
+214
+00:06:54,055 --> 00:06:57,855
+automated or human {m-dash} is the right
+
+215
+00:06:56,175 --> 00:07:00,215
+one to catch it. This is an important
+
+216
+00:06:57,855 --> 00:07:03,375
+detail. I I feel like the conversation
+
+217
+00:07:00,215 --> 00:07:05,455
+around code review has eroded horribly
+
+218
+00:07:03,375 --> 00:07:08,655
+because it was based around this idea
+
+219
+00:07:05,455 --> 00:07:10,735
+that agents make mistakes so much more
+
+220
+00:07:08,655 --> 00:07:12,255
+aggressively and actively than humans
+
+221
+00:07:10,735 --> 00:07:13,895
+do. So if you don't have a human
+
+222
+00:07:12,255 --> 00:07:16,775
+checking to make sure the AI didn't make
+
+223
+00:07:13,895 --> 00:07:18,855
+some dumb obvious mistake that the code
+
+224
+00:07:16,775 --> 00:07:20,615
+is safe otherwise you're going to just
+
+225
+00:07:18,855 --> 00:07:23,015
+ship slop. I'm going to be so real with
+
+226
+00:07:20,615 --> 00:07:25,255
+you. Pretty much every single regression
+
+227
+00:07:23,015 --> 00:07:26,855
+we have shipped in either T3 Chat or T3
+
+228
+00:07:25,255 --> 00:07:28,695
+Code, whether or not I reviewed the
+
+229
+00:07:26,855 --> 00:07:30,575
+code, I would not have caught it in code
+
+230
+00:07:28,695 --> 00:07:32,575
+review and I promise you not a single
+
+231
+00:07:30,575 --> 00:07:34,615
+one of you would have either. The types
+
+232
+00:07:32,575 --> 00:07:37,055
+of bugs that get through now are not the
+
+233
+00:07:34,615 --> 00:07:39,575
+ones where just staring at the code for
+
+234
+00:07:37,055 --> 00:07:41,935
+a long time, you're going to be able to
+
+235
+00:07:39,575 --> 00:07:44,975
+deduct what could go wrong. You need
+
+236
+00:07:41,935 --> 00:07:46,815
+lots of other ways to analyze and verify
+
+237
+00:07:44,975 --> 00:07:48,295
+your code. I also have the hot take that
+
+238
+00:07:46,815 --> 00:07:49,535
+most agents are now better at code
+
+239
+00:07:48,295 --> 00:07:51,255
+review than most humans and if they're
+
+240
+00:07:49,535 --> 00:07:52,455
+not better in your code base, that's
+
+241
+00:07:51,255 --> 00:07:53,575
+because your code base sucks not because
+
+242
+00:07:52,455 --> 00:07:55,215
+the agent sucks, but that's a
+
+243
+00:07:53,575 --> 00:07:57,295
+conversation for another time. Asking
+
+244
+00:07:55,215 --> 00:07:59,815
+that question also changed when reviews
+
+245
+00:07:57,295 --> 00:08:01,775
+happen. Before review was a gate at the
+
+246
+00:07:59,815 --> 00:08:03,335
+end of the road. You write the code,
+
+247
+00:08:01,775 --> 00:08:05,335
+open the PR and then you wait for your
+
+248
+00:08:03,335 --> 00:08:07,255
+colleagues. Now reviews are running
+
+249
+00:08:05,335 --> 00:08:09,177
+constantly, more like a spell check
+
+250
+00:08:07,255 --> 00:08:10,937
+while you write. Most changes have been
+
+251
+00:08:09,177 --> 00:08:13,777
+reviewed and fixed by Claude at least
+
+252
+00:08:10,937 --> 00:08:16,017
+once before a human is asked to look.
+
+253
+00:08:13,777 --> 00:08:17,817
+That shouldn't be most, that should be
+
+254
+00:08:16,017 --> 00:08:19,657
+all. I was saying this for a bit, if
+
+255
+00:08:17,817 --> 00:08:21,537
+you're putting up PR's that your agent
+
+256
+00:08:19,657 --> 00:08:24,657
+hasn't even reviewed yet, you are
+
+257
+00:08:21,537 --> 00:08:26,897
+wasting the time of your team and it
+
+258
+00:08:24,657 --> 00:08:27,857
+upsets me. Apparently, Claude also
+
+259
+00:08:26,897 --> 00:08:29,257
+writes their many times percent, but
+
+260
+00:08:27,857 --> 00:08:30,497
+they have to fix up their attribution to
+
+261
+00:08:29,257 --> 00:08:32,337
+be super confident before they claim
+
+262
+00:08:30,497 --> 00:08:34,097
+that. Good luck, that's hilarious.
+
+263
+00:08:32,337 --> 00:08:36,657
+Here's a fun example from Chad in my
+
+264
+00:08:34,097 --> 00:08:38,857
+chat of the like bad code makes it for
+
+265
+00:08:36,657 --> 00:08:42,257
+review. There was a bug in LLVM that
+
+266
+00:08:38,857 --> 00:08:44,337
+broke safe rust for 10 years. Some of
+
+267
+00:08:42,257 --> 00:08:47,137
+the most well reviewed code by some of
+
+268
+00:08:44,337 --> 00:08:49,657
+the smartest engineers in the world left
+
+269
+00:08:47,137 --> 00:08:50,897
+an aggressive bug in simply because the
+
+270
+00:08:49,657 --> 00:08:53,097
+best humans still can't catch
+
+271
+00:08:50,897 --> 00:08:56,177
+everything. Humans and agents are both
+
+272
+00:08:53,097 --> 00:08:58,897
+lossy. The main difference here between
+
+273
+00:08:56,177 --> 00:09:00,217
+the smartest AI and the smartest human
+
+274
+00:08:58,897 --> 00:09:01,617
+is that the smartest AI isn't going to
+
+275
+00:09:00,217 --> 00:09:03,657
+get burnt out if you tell it to check
+
+276
+00:09:01,617 --> 00:09:05,337
+over and over and over and over again.
+
+277
+00:09:03,657 --> 00:09:06,537
+The humans that are smart enough to find
+
+278
+00:09:05,337 --> 00:09:08,177
+these things are also busy enough
+
+279
+00:09:06,537 --> 00:09:09,737
+they're not going to bother. Oh boy,
+
+280
+00:09:08,177 --> 00:09:11,657
+we're about to get into my favorite part
+
+281
+00:09:09,737 --> 00:09:13,177
+of this conversation. The only truly
+
+282
+00:09:11,657 --> 00:09:15,857
+scarce resource right now other than
+
+283
+00:09:13,177 --> 00:09:17,177
+GPUs, human time and attention. We're
+
+284
+00:09:15,857 --> 00:09:18,377
+going to get into all my favorite themes
+
+285
+00:09:17,177 --> 00:09:19,257
+I get to talk about in my other videos
+
+286
+00:09:18,377 --> 00:09:22,137
+here, aren't we? This is going to be
+
+287
+00:09:19,257 --> 00:09:24,537
+fun. We want to preserve human time and
+
+288
+00:09:22,137 --> 00:09:27,017
+attention for issues that only humans
+
+289
+00:09:24,537 --> 00:09:28,817
+can solve and make sure automated checks
+
+290
+00:09:27,017 --> 00:09:30,337
+are catching the rest. At our current
+
+291
+00:09:28,817 --> 00:09:32,337
+rate of change, there is still an
+
+292
+00:09:30,337 --> 00:09:35,017
+incredible amount of work for humans to
+
+293
+00:09:32,337 --> 00:09:38,257
+do and our team encounters new and novel
+
+294
+00:09:35,017 --> 00:09:40,577
+challenges almost daily. I agree here
+
+295
+00:09:38,257 --> 00:09:43,017
+fully. I would add one other thing,
+
+296
+00:09:40,577 --> 00:09:45,417
+human energy is different from time and
+
+297
+00:09:43,017 --> 00:09:47,857
+attention because certain things demand
+
+298
+00:09:45,417 --> 00:09:50,257
+more energy and less time than others do
+
+299
+00:09:47,857 --> 00:09:52,537
+and figuring out how to minimize the
+
+300
+00:09:50,257 --> 00:09:55,137
+energy cost to keep humans from doing
+
+301
+00:09:52,537 --> 00:09:56,657
+things that feel painful and slow and
+
+302
+00:09:55,137 --> 00:09:58,257
+miserable so that the humans are
+
+303
+00:09:56,657 --> 00:09:59,857
+spending time doing engaging and
+
+304
+00:09:58,257 --> 00:10:01,417
+important things is a
+
+305
+00:09:59,857 --> 00:10:02,857
+valuable distinction. I'll go more into
+
+306
+00:10:01,417 --> 00:10:05,017
+detail on that in a bit. Human time
+
+307
+00:10:02,857 --> 00:10:07,377
+covers both sides of a review's cost,
+
+308
+00:10:05,017 --> 00:10:09,617
+the time people spend reviewing and the
+
+309
+00:10:07,377 --> 00:10:11,778
+time people spend fixing what bad code
+
+310
+00:10:09,617 --> 00:10:13,818
+breaks. There's another aspect of time
+
+311
+00:10:11,778 --> 00:10:16,218
+here, which is the time between all of
+
+312
+00:10:13,818 --> 00:10:18,538
+these parts, which is human files PR,
+
+313
+00:10:16,218 --> 00:10:20,818
+time is waited for, another human comes
+
+314
+00:10:18,538 --> 00:10:23,098
+in and reviews it, time is waited for,
+
+315
+00:10:20,818 --> 00:10:25,258
+the original human sees the review,
+
+316
+00:10:23,098 --> 00:10:27,218
+reads it, goes and makes changes, pushes
+
+317
+00:10:25,258 --> 00:10:29,938
+up the PR, time is waited for before
+
+318
+00:10:27,218 --> 00:10:31,258
+another review happens. That is a lot of
+
+319
+00:10:29,938 --> 00:10:33,658
+time, and more of it's being spent
+
+320
+00:10:31,258 --> 00:10:36,018
+waiting in the in between of comms than
+
+321
+00:10:33,658 --> 00:10:37,098
+is being spent actually doing the work.
+
+322
+00:10:36,018 --> 00:10:38,778
+And this is one of the biggest
+
+323
+00:10:37,098 --> 00:10:40,738
+bottleneck that prevents things from
+
+324
+00:10:38,778 --> 00:10:43,298
+shipping. So, even if you can make it so
+
+325
+00:10:40,738 --> 00:10:45,658
+less time is being wasted doing the code
+
+326
+00:10:43,298 --> 00:10:48,218
+review, if time is still being wasted
+
+327
+00:10:45,658 --> 00:10:50,098
+fixing the code, it doesn't really
+
+328
+00:10:48,218 --> 00:10:51,498
+matter that much. So, the goal is that
+
+329
+00:10:50,098 --> 00:10:53,338
+most pull requests in the cloud code
+
+330
+00:10:51,498 --> 00:10:54,938
+repos for the CLI, the desktop web apps,
+
+331
+00:10:53,338 --> 00:10:57,338
+and the mobile apps should be able to
+
+332
+00:10:54,938 --> 00:10:59,498
+merge with at most one human in the
+
+333
+00:10:57,338 --> 00:11:01,898
+loop, who can be the author, with no
+
+334
+00:10:59,498 --> 00:11:04,138
+increase in reverts or in incidents. To
+
+335
+00:11:01,898 --> 00:11:06,658
+measure human time, we track human
+
+336
+00:11:04,138 --> 00:11:09,418
+approvals per PR, human comments, and
+
+337
+00:11:06,658 --> 00:11:11,738
+how long a PR waits on a person. Revert
+
+338
+00:11:09,418 --> 00:11:14,098
+and incident rates are the guardrail. If
+
+339
+00:11:11,738 --> 00:11:15,538
+they rise, we haven't saved human time,
+
+340
+00:11:14,098 --> 00:11:17,418
+we've only moved it. So, let's look at
+
+341
+00:11:15,538 --> 00:11:19,018
+the life of a change. Typical change
+
+342
+00:11:17,418 --> 00:11:21,058
+from an engineer's laptop or a cloud
+
+343
+00:11:19,018 --> 00:11:22,658
+session in Slack goes through multiple
+
+344
+00:11:21,058 --> 00:11:24,218
+layers of code review. So, after the
+
+345
+00:11:22,658 --> 00:11:25,658
+change is initially made, the work is
+
+346
+00:11:24,218 --> 00:11:27,698
+verified. This could be cloud running
+
+347
+00:11:25,658 --> 00:11:29,578
+tests, building and linting, maybe has a
+
+348
+00:11:27,698 --> 00:11:32,018
+second agent come in and review the diff
+
+349
+00:11:29,578 --> 00:11:35,258
+in a fresh context. I would add, where
+
+350
+00:11:32,018 --> 00:11:38,058
+possible, the work should be verified
+
+351
+00:11:35,258 --> 00:11:40,098
+beyond just like a quick test check,
+
+352
+00:11:38,058 --> 00:11:42,498
+build check, lint check. If the change
+
+353
+00:11:40,098 --> 00:11:45,258
+is complex enough, it is almost always
+
+354
+00:11:42,498 --> 00:11:47,818
+going to be worth it to spin something
+
+355
+00:11:45,258 --> 00:11:49,418
+up and really test it, especially for
+
+356
+00:11:47,818 --> 00:11:51,218
+like UI work, whether you're spinning it
+
+357
+00:11:49,418 --> 00:11:52,778
+up in a simulated browser, or you're
+
+358
+00:11:51,218 --> 00:11:54,538
+spinning it up with computer use in an
+
+359
+00:11:52,778 --> 00:11:56,098
+environment where it can open up the app
+
+360
+00:11:54,538 --> 00:11:57,378
+and actually check things. One of the
+
+361
+00:11:56,098 --> 00:11:59,298
+things I've been loving with T3 OS is
+
+362
+00:11:57,378 --> 00:12:01,978
+that I made it easy for each thread to
+
+363
+00:11:59,298 --> 00:12:03,858
+spin up its own like window in like the
+
+364
+00:12:01,978 --> 00:12:05,818
+equivalent of in macOS how you have the
+
+365
+00:12:03,858 --> 00:12:07,738
+different workspaces here. I made it so
+
+366
+00:12:05,818 --> 00:12:09,738
+every thread can get one of those. And
+
+367
+00:12:07,738 --> 00:12:11,498
+it made it very easy for a thread to
+
+368
+00:12:09,738 --> 00:12:13,819
+spin up an electron dev server for T3
+
+369
+00:12:11,498 --> 00:12:15,419
+code, record a video of the change
+
+370
+00:12:13,819 --> 00:12:17,579
+showing it working, and then send it to
+
+371
+00:12:15,419 --> 00:12:20,179
+me or put it in the PR. I also added the
+
+372
+00:12:17,579 --> 00:12:22,539
+ability for during dev to have fake
+
+373
+00:12:20,179 --> 00:12:23,899
+model selections that have pre-baked
+
+374
+00:12:22,539 --> 00:12:27,299
+events that they will send through the
+
+375
+00:12:23,899 --> 00:12:29,699
+pipes so that an agent can run a full
+
+376
+00:12:27,299 --> 00:12:31,379
+end-to-end test without ever having to
+
+377
+00:12:29,699 --> 00:12:32,659
+actually burn tokens beyond the tokens
+
+378
+00:12:31,379 --> 00:12:35,139
+it's burning doing the like
+
+379
+00:12:32,659 --> 00:12:37,099
+visualization of the check. So, it can
+
+380
+00:12:35,139 --> 00:12:38,339
+test our code without burning tokens.
+
+381
+00:12:37,099 --> 00:12:39,539
+And all of these types of things have
+
+382
+00:12:38,339 --> 00:12:41,739
+actually helped a lot with our
+
+383
+00:12:39,539 --> 00:12:43,899
+confidence shipping and the frequency
+
+384
+00:12:41,739 --> 00:12:46,659
+that I can land scary changes because my
+
+385
+00:12:43,899 --> 00:12:48,179
+agents now can actually test and
+
+386
+00:12:46,659 --> 00:12:50,019
+validate the code the same way a user
+
+387
+00:12:48,179 --> 00:12:51,259
+would. So, by the time my agent is
+
+388
+00:12:50,019 --> 00:12:53,259
+telling me the code is ready to be
+
+389
+00:12:51,259 --> 00:12:54,579
+looked at, it's already verified it in
+
+390
+00:12:53,259 --> 00:12:56,699
+most of the ways I would have verified
+
+391
+00:12:54,579 --> 00:12:57,979
+it. But, that's my process, not Claude
+
+392
+00:12:56,699 --> 00:13:00,019
+team's process. Let's hear more about
+
+393
+00:12:57,979 --> 00:13:01,659
+theirs. On every pull request, they go
+
+394
+00:13:00,019 --> 00:13:03,099
+through the required CI, which includes
+
+395
+00:13:01,659 --> 00:13:05,099
+the lints, types, tests across
+
+396
+00:13:03,099 --> 00:13:07,099
+platforms, building and packaging. Red
+
+397
+00:13:05,099 --> 00:13:08,699
+blocks the merge, expected. Then they
+
+398
+00:13:07,099 --> 00:13:11,259
+have the Claude code review step where
+
+399
+00:13:08,699 --> 00:13:12,979
+Claude code itself comes in and runs
+
+400
+00:13:11,259 --> 00:13:14,779
+through this like a human would play
+
+401
+00:13:12,979 --> 00:13:17,259
+with it. It spins up multiple agents in
+
+402
+00:13:14,779 --> 00:13:19,619
+parallel hunting for bugs, verifying
+
+403
+00:13:17,259 --> 00:13:21,459
+changes using verifiers to vote on each
+
+404
+00:13:19,619 --> 00:13:23,179
+finding. Survivors are ranked by
+
+405
+00:13:21,459 --> 00:13:25,459
+severity. Then the security review,
+
+406
+00:13:23,179 --> 00:13:27,179
+which is a separate pass where they find
+
+407
+00:13:25,459 --> 00:13:29,259
+things that could be potentially
+
+408
+00:13:27,179 --> 00:13:31,659
+insecure. And then there's a risk-based
+
+409
+00:13:29,259 --> 00:13:34,499
+approval. They have a classifier for how
+
+410
+00:13:31,659 --> 00:13:36,339
+risky is this change and how much human
+
+411
+00:13:34,499 --> 00:13:38,379
+intervention should be used here. No
+
+412
+00:13:36,339 --> 00:13:39,539
+person, one person, or two people. This
+
+413
+00:13:38,379 --> 00:13:41,539
+is interesting as I've been thinking
+
+414
+00:13:39,539 --> 00:13:43,699
+about doing something similar in T3 code
+
+415
+00:13:41,539 --> 00:13:46,179
+where it in like the template or the
+
+416
+00:13:43,699 --> 00:13:47,939
+like scale we have for filing PRs, I'm
+
+417
+00:13:46,179 --> 00:13:50,619
+considering having it put a blurb at the
+
+418
+00:13:47,939 --> 00:13:53,339
+end of every PR saying on a scale of 1
+
+419
+00:13:50,619 --> 00:13:55,419
+to 10, how impactful is this change, how
+
+420
+00:13:53,339 --> 00:13:57,379
+many users are impacted by this change,
+
+421
+00:13:55,419 --> 00:13:59,739
+and how risky is this change to make it
+
+422
+00:13:57,379 --> 00:14:02,459
+easier to digest the PRs when they go
+
+423
+00:13:59,739 --> 00:14:03,939
+up. Then we have a merge queue. Uh we
+
+424
+00:14:02,459 --> 00:14:05,419
+don't for T3 code yet. I We probably
+
+425
+00:14:03,939 --> 00:14:07,299
+should. We've broken main enough times.
+
+426
+00:14:05,419 --> 00:14:08,739
+Not broken in the sense that like the
+
+427
+00:14:07,299 --> 00:14:10,019
+build is broken, but broken in the sense
+
+428
+00:14:08,739 --> 00:14:11,459
+that like one or two random CI things
+
+429
+00:14:10,019 --> 00:14:13,259
+fail. We probably need a merge queue at
+
+430
+00:14:11,459 --> 00:14:14,741
+this point, but we don't have one and I
+
+431
+00:14:13,259 --> 00:14:16,941
+would like to avoid it as long as I can.
+
+432
+00:14:14,741 --> 00:14:18,541
+And then after the merge, the changes
+
+433
+00:14:16,941 --> 00:14:20,301
+will be behind a flag that's used
+
+434
+00:14:18,541 --> 00:14:22,741
+internally initially. Then they'll do a
+
+435
+00:14:20,301 --> 00:14:23,741
+gradual release. Then they watch this
+
+436
+00:14:22,741 --> 00:14:25,741
+release to make sure everything goes
+
+437
+00:14:23,741 --> 00:14:27,101
+well, fix forward if it's broken, or
+
+438
+00:14:25,741 --> 00:14:29,301
+roll back if it's too broken to just
+
+439
+00:14:27,101 --> 00:14:31,221
+fix. That all makes sense to me. I like
+
+440
+00:14:29,301 --> 00:14:33,541
+this framing of layers where you want
+
+441
+00:14:31,221 --> 00:14:35,821
+the good change to make it through, and
+
+442
+00:14:33,541 --> 00:14:37,301
+you want all of these blockers to block
+
+443
+00:14:35,821 --> 00:14:39,901
+things that aren't going down the right
+
+444
+00:14:37,301 --> 00:14:41,861
+path. So maybe a change that is bad
+
+445
+00:14:39,901 --> 00:14:44,301
+leaks through the verification system,
+
+446
+00:14:41,861 --> 00:14:46,261
+but then fails the CI layer. Maybe gets
+
+447
+00:14:44,301 --> 00:14:47,581
+through CI and then fails the AI review.
+
+448
+00:14:46,261 --> 00:14:49,941
+Maybe gets through that and then fails
+
+449
+00:14:47,581 --> 00:14:51,621
+the AI security review. These layers
+
+450
+00:14:49,941 --> 00:14:52,741
+increase the likelihood that bad code is
+
+451
+00:14:51,621 --> 00:14:54,701
+filtered out before it makes it to the
+
+452
+00:14:52,741 --> 00:14:56,701
+bottom. But there's another issue here
+
+453
+00:14:54,701 --> 00:14:59,581
+that is worth noting. Each of these
+
+454
+00:14:56,701 --> 00:15:01,981
+layers isn't just trimming out bad, it's
+
+455
+00:14:59,581 --> 00:15:04,621
+sometimes appending additional
+
+456
+00:15:01,981 --> 00:15:05,821
+unnecessary stuff, too. I cannot tell
+
+457
+00:15:04,621 --> 00:15:07,461
+you how many times I've seen a PR that
+
+458
+00:15:05,821 --> 00:15:10,701
+should have been like 50 lines of code
+
+459
+00:15:07,461 --> 00:15:13,101
+get bloated to be 800 to 2,000 because
+
+460
+00:15:10,701 --> 00:15:14,421
+the agent in the center addressed every
+
+461
+00:15:13,101 --> 00:15:16,501
+single piece of feedback from every
+
+462
+00:15:14,421 --> 00:15:18,621
+single layer on the way, and the result
+
+463
+00:15:16,501 --> 00:15:19,621
+was just bad. And the most important
+
+464
+00:15:18,621 --> 00:15:21,381
+thing is at the bottom here. If
+
+465
+00:15:19,621 --> 00:15:22,261
+something bad gets through to the end,
+
+466
+00:15:21,381 --> 00:15:24,021
+you need to be able to roll it back
+
+467
+00:15:22,261 --> 00:15:26,181
+fast. This is like the most important
+
+468
+00:15:24,021 --> 00:15:27,621
+thing. Failures should affect as few
+
+469
+00:15:26,181 --> 00:15:29,381
+people as possible and be as cheap as
+
+470
+00:15:27,621 --> 00:15:32,021
+possible to undo. This has always been
+
+471
+00:15:29,381 --> 00:15:34,261
+the case, but it is worse now than ever.
+
+472
+00:15:32,021 --> 00:15:36,661
+Everybody's systems needs to be set up
+
+473
+00:15:34,261 --> 00:15:38,581
+so rollbacks are viable. So step one is
+
+474
+00:15:36,661 --> 00:15:40,461
+the work is verified before anyone else
+
+475
+00:15:38,581 --> 00:15:42,261
+looks. Most reviews are happening before
+
+476
+00:15:40,461 --> 00:15:44,061
+the PR is even exist. We give Claude
+
+477
+00:15:42,261 --> 00:15:45,261
+something it can run, like a test build,
+
+478
+00:15:44,061 --> 00:15:47,461
+screenshot to compare against the
+
+479
+00:15:45,261 --> 00:15:49,021
+design, and ask it to show the output
+
+480
+00:15:47,461 --> 00:15:50,701
+instead of saying it's done. Then a
+
+481
+00:15:49,021 --> 00:15:52,541
+sub-agent reviews the diff with fresh
+
+482
+00:15:50,701 --> 00:15:54,261
+context. Both habits come from their
+
+483
+00:15:52,541 --> 00:15:56,781
+best practices guide. Before opening a
+
+484
+00:15:54,261 --> 00:15:58,821
+PR, many of us have also run a few
+
+485
+00:15:56,781 --> 00:16:00,621
+internal skills. One hunts for bugs, one
+
+486
+00:15:58,821 --> 00:16:03,741
+simplifies the diff, one checks the
+
+487
+00:16:00,621 --> 00:16:05,501
+behavior end to end. UI changes also get
+
+488
+00:16:03,741 --> 00:16:06,861
+checked against our design guidelines.
+
+489
+00:16:05,501 --> 00:16:08,421
+Yep, this is aligned with what I was
+
+490
+00:16:06,861 --> 00:16:09,821
+talking about before. Boris, who was the
+
+491
+00:16:08,421 --> 00:16:12,061
+original creator of Claude code, has
+
+492
+00:16:09,821 --> 00:16:13,341
+given Claude ways to verify its work and
+
+493
+00:16:12,061 --> 00:16:15,301
+says that this is the most important
+
+494
+00:16:13,341 --> 00:16:16,981
+thing for getting good results. This is
+
+495
+00:16:15,301 --> 00:16:18,662
+I absolutely agree. I think a lot of the
+
+496
+00:16:16,981 --> 00:16:20,622
+people who are struggling to get good
+
+497
+00:16:18,662 --> 00:16:22,102
+results out of working with agents are
+
+498
+00:16:20,622 --> 00:16:24,182
+struggling because they haven't given
+
+499
+00:16:22,102 --> 00:16:26,702
+the agent any way to check if what it
+
+500
+00:16:24,182 --> 00:16:27,982
+did work or not. And to be fair, a lot
+
+501
+00:16:26,702 --> 00:16:29,462
+of their co-workers, especially if they
+
+502
+00:16:27,982 --> 00:16:30,862
+hired a new engine, they'd probably run
+
+503
+00:16:29,462 --> 00:16:32,702
+into a lot of those same problems.
+
+504
+00:16:30,862 --> 00:16:34,302
+Because if you make code that is hard to
+
+505
+00:16:32,702 --> 00:16:36,222
+check, then you made a code base that
+
+506
+00:16:34,302 --> 00:16:37,902
+sucks to work in. Boris estimates that
+
+507
+00:16:36,222 --> 00:16:39,662
+this makes the final result two to three
+
+508
+00:16:37,902 --> 00:16:41,302
+times better. And he writes the
+
+509
+00:16:39,662 --> 00:16:42,582
+following. Verification looks different
+
+510
+00:16:41,302 --> 00:16:43,822
+for each domain. It might be as simple
+
+511
+00:16:42,582 --> 00:16:45,542
+as running a bash command, running a
+
+512
+00:16:43,822 --> 00:16:47,302
+test suite, or testing the app in a
+
+513
+00:16:45,542 --> 00:16:48,982
+browser or a phone simulator. It could
+
+514
+00:16:47,302 --> 00:16:50,622
+also be significantly more complex. Like
+
+515
+00:16:48,982 --> 00:16:53,822
+I've had to build some crazy VM for
+
+516
+00:16:50,622 --> 00:16:55,382
+testing T3OS. Tests are not easy always.
+
+517
+00:16:53,822 --> 00:16:56,742
+Building these systems to verify things
+
+518
+00:16:55,382 --> 00:16:58,062
+are not easy always, but you got to
+
+519
+00:16:56,742 --> 00:17:00,062
+figure out a way to do it. There's
+
+520
+00:16:58,062 --> 00:17:01,502
+always some way. And if you notice the
+
+521
+00:17:00,062 --> 00:17:03,342
+automated reviewers are consistently
+
+522
+00:17:01,502 --> 00:17:04,982
+flagging the same things, then it's time
+
+523
+00:17:03,342 --> 00:17:06,342
+to fix at the source. You can fix this
+
+524
+00:17:04,982 --> 00:17:08,502
+in a skill, with a lint rule, or with
+
+525
+00:17:06,342 --> 00:17:11,222
+updates to instructional files as such
+
+526
+00:17:08,502 --> 00:17:13,022
+as a ClaudeMD change to tell Claude what
+
+527
+00:17:11,222 --> 00:17:15,182
+the project is and like what conventions
+
+528
+00:17:13,022 --> 00:17:16,342
+to follow. A review.md, which is written
+
+529
+00:17:15,182 --> 00:17:18,142
+by the code owners, that tells the
+
+530
+00:17:16,342 --> 00:17:19,822
+reviewer what matters in their part of
+
+531
+00:17:18,142 --> 00:17:21,662
+the code. We check separately whether
+
+532
+00:17:19,822 --> 00:17:23,302
+the reviewer actually follows it. The
+
+533
+00:17:21,662 --> 00:17:25,222
+good ones are short. They say what
+
+534
+00:17:23,302 --> 00:17:27,022
+failure looks like in that repo. For
+
+535
+00:17:25,222 --> 00:17:30,142
+example, in the docs it could say it
+
+536
+00:17:27,022 --> 00:17:31,662
+lies, for config it says it misroutes.
+
+537
+00:17:30,142 --> 00:17:33,942
+You can cap the nits, list paths to
+
+538
+00:17:31,662 --> 00:17:36,262
+skip, yada yada yada. Find good place to
+
+539
+00:17:33,942 --> 00:17:38,502
+put this info. I will say this is not
+
+540
+00:17:36,262 --> 00:17:40,982
+the right starting point. I'm going to
+
+541
+00:17:38,502 --> 00:17:42,222
+cite some of Lauren's stuff here because
+
+542
+00:17:40,982 --> 00:17:43,542
+I think her guidance here is a little
+
+543
+00:17:42,222 --> 00:17:45,342
+bit better.
+
+544
+00:17:43,542 --> 00:17:47,302
+When you have to correct your agent, you
+
+545
+00:17:45,342 --> 00:17:49,982
+should look for the place closest to the
+
+546
+00:17:47,302 --> 00:17:52,262
+top to fix what caused the agent to do
+
+547
+00:17:49,982 --> 00:17:53,662
+things wrong. The top spot is the code
+
+548
+00:17:52,262 --> 00:17:55,182
+base. If it's making mistakes in the
+
+549
+00:17:53,662 --> 00:17:56,862
+code, see if you can fix the code to
+
+550
+00:17:55,182 --> 00:17:58,342
+make it less likely to make mistakes.
+
+551
+00:17:56,862 --> 00:17:59,422
+Don't do this by putting comments
+
+552
+00:17:58,342 --> 00:18:01,102
+everywhere. Do this by making the
+
+553
+00:17:59,422 --> 00:18:03,022
+architecture better and easier to work
+
+554
+00:18:01,102 --> 00:18:04,782
+in. Then, static analysis is a great
+
+555
+00:18:03,022 --> 00:18:07,382
+next step. Things like linters,
+
+556
+00:18:04,782 --> 00:18:09,582
+checkers, rules, type checks, all those
+
+557
+00:18:07,382 --> 00:18:11,062
+types of things that can give agents or
+
+558
+00:18:09,582 --> 00:18:13,302
+even humans feedback that the thing
+
+559
+00:18:11,062 --> 00:18:15,182
+isn't implemented correctly. That gives
+
+560
+00:18:13,302 --> 00:18:17,062
+the agent the feedback it needs to do it
+
+561
+00:18:15,182 --> 00:18:18,982
+correctly if it couldn't figure out what
+
+562
+00:18:17,062 --> 00:18:21,503
+correct is from the code itself. Then,
+
+563
+00:18:18,982 --> 00:18:23,343
+if both of these fail to catch the
+
+564
+00:18:21,503 --> 00:18:25,743
+problems and you've tried and been
+
+565
+00:18:23,343 --> 00:18:27,463
+unable to make it so these specific
+
+566
+00:18:25,743 --> 00:18:30,703
+problems cannot be fixed at those two
+
+567
+00:18:27,463 --> 00:18:32,463
+layers, then you bring in pros. That's
+
+568
+00:18:30,703 --> 00:18:34,303
+when you start touching Claude MDs,
+
+569
+00:18:32,463 --> 00:18:35,463
+Review MDs, Agent MDs. You start
+
+570
+00:18:34,303 --> 00:18:37,943
+building skills. You start doing these
+
+571
+00:18:35,463 --> 00:18:40,143
+things. You do that after the rest
+
+572
+00:18:37,943 --> 00:18:42,103
+failed. But, you should always be trying
+
+573
+00:18:40,143 --> 00:18:45,823
+your damndest to make it so the code
+
+574
+00:18:42,103 --> 00:18:47,623
+base and so the lint checks, etc. guide
+
+575
+00:18:45,823 --> 00:18:49,463
+humans and agents to success. The
+
+576
+00:18:47,623 --> 00:18:51,583
+silliest way to frame this is, imagine a
+
+577
+00:18:49,463 --> 00:18:52,903
+really, really smart human that just
+
+578
+00:18:51,583 --> 00:18:54,943
+joined your team, but doesn't know where
+
+579
+00:18:52,903 --> 00:18:57,023
+anything is. You should make it as easy
+
+580
+00:18:54,943 --> 00:18:58,983
+as possible for that person who has
+
+581
+00:18:57,023 --> 00:19:00,223
+worked in thousands of code bases in the
+
+582
+00:18:58,983 --> 00:19:01,703
+past, but has never worked in yours
+
+583
+00:19:00,223 --> 00:19:03,383
+specifically. You should make it as easy
+
+584
+00:19:01,703 --> 00:19:05,423
+as possible for them to just blindly
+
+585
+00:19:03,383 --> 00:19:07,063
+dive in and work and minimize the chance
+
+586
+00:19:05,423 --> 00:19:08,423
+they make dumb mistakes. And just
+
+587
+00:19:07,063 --> 00:19:10,103
+imagine this person doesn't care about
+
+588
+00:19:08,423 --> 00:19:11,743
+tedium and will do tedious work all day,
+
+589
+00:19:10,103 --> 00:19:13,143
+every day without reason. If you were
+
+590
+00:19:11,743 --> 00:19:15,343
+already setting up your code bases for
+
+591
+00:19:13,143 --> 00:19:17,223
+success for your teammates, this
+
+592
+00:19:15,343 --> 00:19:19,703
+transition should be very easy for you.
+
+593
+00:19:17,223 --> 00:19:22,223
+The next section that Addy has here is
+
+594
+00:19:19,703 --> 00:19:23,743
+AI review on every PR. Each pull request
+
+595
+00:19:22,223 --> 00:19:25,423
+gets a Claude review before person
+
+596
+00:19:23,743 --> 00:19:27,943
+looks. It reads the diff against the
+
+597
+00:19:25,423 --> 00:19:29,703
+whole repo and the PR's stated intent.
+
+598
+00:19:27,943 --> 00:19:31,823
+And it asks, quote, "Does this change
+
+599
+00:19:29,703 --> 00:19:33,623
+solve the problem, fit the system, or
+
+600
+00:19:31,823 --> 00:19:35,703
+does it break something else?" On a bug
+
+601
+00:19:33,623 --> 00:19:37,743
+fix, it looks for the root cause. The
+
+602
+00:19:35,703 --> 00:19:39,463
+public version, code review for Claude
+
+603
+00:19:37,743 --> 00:19:40,823
+code, is now generally available on the
+
+604
+00:19:39,463 --> 00:19:41,863
+team and enterprise plans and {slash}
+
+605
+00:19:40,823 --> 00:19:43,663
+code review runs a lighter version
+
+606
+00:19:41,863 --> 00:19:45,583
+locally. When we launched the research
+
+607
+00:19:43,663 --> 00:19:47,183
+preview, the share of internal PRs
+
+608
+00:19:45,583 --> 00:19:51,663
+getting substantive review comments went
+
+609
+00:19:47,183 --> 00:19:54,103
+from 16% to 54%. Most PRs over 1,000
+
+610
+00:19:51,663 --> 00:19:56,663
+lines get findings and most small ones
+
+611
+00:19:54,103 --> 00:19:59,103
+come back clean. Admins set each repo to
+
+612
+00:19:56,663 --> 00:20:01,303
+quick, standard, or deep. Deep is worth
+
+613
+00:19:59,103 --> 00:20:03,463
+it when one missed bug costs more than
+
+614
+00:20:01,303 --> 00:20:05,583
+the extra review time does. I am not
+
+615
+00:20:03,463 --> 00:20:07,423
+going to pitch the Claude review stuff
+
+616
+00:20:05,583 --> 00:20:09,663
+cuz I think their review is way, way,
+
+617
+00:20:07,423 --> 00:20:10,663
+way too expensive for most real-world
+
+618
+00:20:09,663 --> 00:20:12,703
+cases, especially when you're shipping
+
+619
+00:20:10,663 --> 00:20:14,383
+as fast as they're recommending here.
+
+620
+00:20:12,703 --> 00:20:16,903
+There's lots of other review tools that
+
+621
+00:20:14,383 --> 00:20:18,423
+are cheaper or can be used subsidized
+
+622
+00:20:16,903 --> 00:20:20,343
+locally. One of the things I love is my
+
+623
+00:20:18,423 --> 00:20:21,783
+Council skill, where I have my code get
+
+624
+00:20:20,343 --> 00:20:24,145
+reviewed by three different models from
+
+625
+00:20:21,783 --> 00:20:25,425
+three different families. That gets
+
+626
+00:20:24,145 --> 00:20:27,105
+subsidized so I'm using my subscriptions
+
+627
+00:20:25,425 --> 00:20:29,065
+for it, and it gets as good if not
+
+628
+00:20:27,105 --> 00:20:31,185
+better stuff than these code review
+
+629
+00:20:29,065 --> 00:20:33,065
+processes do, and it runs on a real
+
+630
+00:20:31,185 --> 00:20:35,625
+computer, so it can spin up the code and
+
+631
+00:20:33,065 --> 00:20:37,385
+check. So, I don't think you should go
+
+632
+00:20:35,625 --> 00:20:39,505
+use their product for it. It's not bad,
+
+633
+00:20:37,385 --> 00:20:41,505
+but it's expensive for what it is, and
+
+634
+00:20:39,505 --> 00:20:42,865
+you could just use better prompts in
+
+635
+00:20:41,505 --> 00:20:44,705
+other agents. And I think the
+
+636
+00:20:42,865 --> 00:20:46,105
+multi-model side here is an aspect
+
+637
+00:20:44,705 --> 00:20:47,825
+they'll never talk about that I do think
+
+638
+00:20:46,105 --> 00:20:50,385
+is really good. Another important piece,
+
+639
+00:20:47,825 --> 00:20:51,945
+and I'm somehow surprised people haven't
+
+640
+00:20:50,385 --> 00:20:53,105
+caught onto this part yet, but I know a
+
+641
+00:20:51,945 --> 00:20:55,945
+lot of you haven't, and it's really
+
+642
+00:20:53,105 --> 00:20:58,585
+important. We shouldn't just have agents
+
+643
+00:20:55,945 --> 00:21:00,745
+and review bots leaving a bunch of PR
+
+644
+00:20:58,585 --> 00:21:02,145
+comments that we go through by hand and
+
+645
+00:21:00,745 --> 00:21:03,745
+choose which ones to act on and which
+
+646
+00:21:02,145 --> 00:21:06,145
+ones to not act on. That's the job of
+
+647
+00:21:03,745 --> 00:21:07,665
+your agent. Comment to my sponsors, cuz
+
+648
+00:21:06,145 --> 00:21:09,105
+I know y'all watch my videos, especially
+
+649
+00:21:07,665 --> 00:21:10,625
+ones like this, and I know a handful of
+
+650
+00:21:09,105 --> 00:21:12,745
+you guys are doing AI code review
+
+651
+00:21:10,625 --> 00:21:15,025
+products. Get the goddamn prompt
+
+652
+00:21:12,745 --> 00:21:18,865
+suggestions out of the code review. That
+
+653
+00:21:15,025 --> 00:21:21,425
+is 2024 core. We're in 2026. I'm not
+
+654
+00:21:18,865 --> 00:21:23,505
+copy-pasting from the code review
+
+655
+00:21:21,425 --> 00:21:25,865
+back to my agent. My agent's babysitting
+
+656
+00:21:23,505 --> 00:21:27,865
+the PR. My agent is deciding if your
+
+657
+00:21:25,865 --> 00:21:29,865
+feedback is good or not. All of the code
+
+658
+00:21:27,865 --> 00:21:31,865
+reviewers do this, even like BugBot,
+
+659
+00:21:29,865 --> 00:21:33,585
+which you would think from Cursor would
+
+660
+00:21:31,865 --> 00:21:35,945
+understand this. No. All of them by
+
+661
+00:21:33,585 --> 00:21:37,825
+default leave the one-click AI fix
+
+662
+00:21:35,945 --> 00:21:39,825
+prompt suggestion that you copy-paste
+
+663
+00:21:37,825 --> 00:21:41,385
+over. Now, that. And and not the
+
+664
+00:21:39,825 --> 00:21:43,465
+auto-fix stuff either. Get rid of all
+
+665
+00:21:41,385 --> 00:21:45,145
+that. I want my agents to decide if your
+
+666
+00:21:43,465 --> 00:21:46,945
+feedback is good. And no human should
+
+667
+00:21:45,145 --> 00:21:49,265
+have to look until that is done. I
+
+668
+00:21:46,945 --> 00:21:52,025
+should not be seeing the comments that
+
+669
+00:21:49,265 --> 00:21:53,625
+my agents leave on the PRs. So, please
+
+670
+00:21:52,025 --> 00:21:55,425
+make sure that the findings are verified
+
+671
+00:21:53,625 --> 00:21:57,225
+by other agents before you force humans
+
+672
+00:21:55,425 --> 00:21:58,545
+to review them. Several agents can look
+
+673
+00:21:57,225 --> 00:22:00,545
+for bugs at the same time, and then a
+
+674
+00:21:58,545 --> 00:22:02,785
+separate group votes on each finding and
+
+675
+00:22:00,545 --> 00:22:04,985
+only posts them if there enough
+
+676
+00:22:02,785 --> 00:22:06,225
+agreements that this finding is real.
+
+677
+00:22:04,985 --> 00:22:08,225
+Findings that are only about style,
+
+678
+00:22:06,225 --> 00:22:10,425
+diagnostics, or cleanup get dropped. We
+
+679
+00:22:08,225 --> 00:22:12,345
+AB tested these filters on our own PRs
+
+680
+00:22:10,425 --> 00:22:13,905
+before we kept them. What's left shows
+
+681
+00:22:12,345 --> 00:22:15,825
+up as inline comments sorted by
+
+682
+00:22:13,905 --> 00:22:18,105
+severity. Each is tagged as important,
+
+683
+00:22:15,825 --> 00:22:19,945
+knit, or pre-existing, so a bug that PR
+
+684
+00:22:18,105 --> 00:22:21,625
+just didn't introduce doesn't look like
+
+685
+00:22:19,945 --> 00:22:23,145
+the author's fault. Every finding that
+
+686
+00:22:21,625 --> 00:22:25,025
+gets through this filter does have to be
+
+687
+00:22:23,145 --> 00:22:27,106
+answered. You either fix it or resolve
+
+688
+00:22:25,025 --> 00:22:29,506
+the thread with a reason. Often an agent
+
+689
+00:22:27,106 --> 00:22:31,306
+picks the fix up overnight, so the
+
+690
+00:22:29,506 --> 00:22:33,106
+author comes back to a PR that's already
+
+691
+00:22:31,306 --> 00:22:35,906
+been through another round. Is Anthropic
+
+692
+00:22:33,106 --> 00:22:38,026
+moving slower than us? I'll have a PR go
+
+693
+00:22:35,906 --> 00:22:40,666
+through like eight plus of these rounds
+
+694
+00:22:38,026 --> 00:22:42,906
+in an hour or two, and then bother me
+
+695
+00:22:40,666 --> 00:22:44,746
+when it's ready to go. Next section is
+
+696
+00:22:42,906 --> 00:22:46,266
+security reviews can that can block.
+
+697
+00:22:44,746 --> 00:22:48,746
+Security gets its own automated review,
+
+698
+00:22:46,266 --> 00:22:50,306
+too. A PR can't merge while any finding
+
+699
+00:22:48,746 --> 00:22:52,426
+from the bug review or the security
+
+700
+00:22:50,306 --> 00:22:54,106
+review is still open. You either fix it
+
+701
+00:22:52,426 --> 00:22:55,866
+or you close the thread with a short
+
+702
+00:22:54,106 --> 00:22:57,666
+reason, which is how you clear the false
+
+703
+00:22:55,866 --> 00:23:00,386
+positives. If a later commit fixes the
+
+704
+00:22:57,666 --> 00:23:01,746
+issue, the findings clear on their own.
+
+705
+00:23:00,386 --> 00:23:03,866
+You can set up the same thing with open
+
+706
+00:23:01,746 --> 00:23:05,626
+source security review GitHub actions or
+
+707
+00:23:03,866 --> 00:23:07,266
+the {slash} security review command. Set
+
+708
+00:23:05,626 --> 00:23:08,786
+up is covered in their guide, cool.
+
+709
+00:23:07,266 --> 00:23:11,746
+Awesome. Now we have automated checks
+
+710
+00:23:08,786 --> 00:23:14,466
+that block. This is the usual CI type
+
+711
+00:23:11,746 --> 00:23:15,706
+checks, list linting, testing, all those
+
+712
+00:23:14,466 --> 00:23:16,986
+types of things. You guys hopefully know
+
+713
+00:23:15,706 --> 00:23:19,186
+what those are now.
+
+714
+00:23:16,986 --> 00:23:21,546
+And we have the human approval layers
+
+715
+00:23:19,186 --> 00:23:23,106
+where low risk means no human is
+
+716
+00:23:21,546 --> 00:23:25,306
+required. You can just merge this when
+
+717
+00:23:23,106 --> 00:23:27,106
+it's green. Medium, which is an ordinary
+
+718
+00:23:25,306 --> 00:23:29,466
+change. You should have one person look.
+
+719
+00:23:27,106 --> 00:23:31,186
+High is this is severe, so at least two
+
+720
+00:23:29,466 --> 00:23:34,066
+people should look.
+
+721
+00:23:31,186 --> 00:23:36,866
+I don't love the 012 way of framing
+
+722
+00:23:34,066 --> 00:23:39,506
+this. I would rather we and our agents
+
+723
+00:23:36,866 --> 00:23:41,066
+can decide on a more dynamic scale. I am
+
+724
+00:23:39,506 --> 00:23:42,826
+going to play with these ideas though,
+
+725
+00:23:41,066 --> 00:23:45,426
+so we will see going forward. But the
+
+726
+00:23:42,826 --> 00:23:48,706
+point of the tearing is that it doesn't
+
+727
+00:23:45,426 --> 00:23:50,266
+pick an author, it picks the risk level.
+
+728
+00:23:48,706 --> 00:23:51,986
+A lot of the bots I've seen are trying
+
+729
+00:23:50,266 --> 00:23:53,426
+to choose which human to tag in and be
+
+730
+00:23:51,986 --> 00:23:54,586
+like this person has to review this
+
+731
+00:23:53,426 --> 00:23:56,946
+thing. This person has to review this
+
+732
+00:23:54,586 --> 00:23:59,266
+thing. Ideally, your team trust each
+
+733
+00:23:56,946 --> 00:24:00,746
+other enough to know who can review
+
+734
+00:23:59,266 --> 00:24:01,906
+code, and if one person comes in and
+
+735
+00:24:00,746 --> 00:24:03,186
+reviews it, they're like, "I should have
+
+736
+00:24:01,906 --> 00:24:05,146
+this other person look instead." They
+
+737
+00:24:03,186 --> 00:24:07,306
+can, but the bot shouldn't be the one
+
+738
+00:24:05,146 --> 00:24:09,626
+tagging specific people. The bot should
+
+739
+00:24:07,306 --> 00:24:11,306
+be describing the severity of risk, and
+
+740
+00:24:09,626 --> 00:24:13,466
+then the humans can do the rest. Friends
+
+741
+00:24:11,306 --> 00:24:15,146
+from Cursor are saying that risk tearing
+
+742
+00:24:13,466 --> 00:24:17,186
+is a losing battle. They're still doing
+
+743
+00:24:15,146 --> 00:24:18,666
+it, but they've not had as good of a
+
+744
+00:24:17,186 --> 00:24:20,066
+time with it so far. They call it that
+
+745
+00:24:18,666 --> 00:24:21,826
+there are some paths that always need a
+
+746
+00:24:20,066 --> 00:24:23,866
+person. Anything owners have listed as
+
+747
+00:24:21,826 --> 00:24:25,106
+sensitive in any CI workflow files.
+
+748
+00:24:23,866 --> 00:24:26,386
+Yeah, that checks out. I have a couple
+
+749
+00:24:25,106 --> 00:24:28,546
+of those in T3 code. Like anything
+
+750
+00:24:26,386 --> 00:24:30,268
+touching scroll areas, that's mine.
+
+751
+00:24:28,546 --> 00:24:32,227
+That's not merging until I look. Next
+
+752
+00:24:30,268 --> 00:24:34,388
+section is that only trusted authors are
+
+753
+00:24:32,227 --> 00:24:36,388
+getting the lighter paths. Only authors
+
+754
+00:24:34,388 --> 00:24:38,028
+of the repo's trusted list get the light
+
+755
+00:24:36,388 --> 00:24:39,388
+paths, mostly the team that owns it.
+
+756
+00:24:38,028 --> 00:24:41,427
+Everyone else needs a second person to
+
+757
+00:24:39,388 --> 00:24:43,587
+approve. An agent's approval never
+
+758
+00:24:41,427 --> 00:24:45,908
+counts as a person's either. Automated
+
+759
+00:24:43,587 --> 00:24:47,707
+review can clear a low-risk change, but
+
+760
+00:24:45,908 --> 00:24:48,947
+it can't fill a slot that calls for a
+
+761
+00:24:47,707 --> 00:24:51,467
+human. There's one of these that's been
+
+762
+00:24:48,947 --> 00:24:53,587
+pissing me off on GitHub a lot. I want
+
+763
+00:24:51,467 --> 00:24:55,747
+my bots to be tagged differently than
+
+764
+00:24:53,587 --> 00:24:57,268
+me. I've done this in the sense that I
+
+765
+00:24:55,747 --> 00:24:59,668
+added skills where they put a big
+
+766
+00:24:57,268 --> 00:25:01,268
+callout saying, "I'm Opus 55 via Claude
+
+767
+00:24:59,668 --> 00:25:02,947
+code and T3 code leaving this comment on
+
+768
+00:25:01,268 --> 00:25:04,788
+Theo's behalf." But I want to see when
+
+769
+00:25:02,947 --> 00:25:06,427
+Theo's bot approves separate from when
+
+770
+00:25:04,788 --> 00:25:08,467
+Theo approves. I want two different
+
+771
+00:25:06,427 --> 00:25:10,028
+approval checks for that. They also say
+
+772
+00:25:08,467 --> 00:25:11,947
+that whoever is prompting for these
+
+773
+00:25:10,028 --> 00:25:13,947
+changes is the person on the hook. You
+
+774
+00:25:11,947 --> 00:25:15,547
+can't blame the agent if you prompted
+
+775
+00:25:13,947 --> 00:25:17,347
+it. That's your ownership. That's your
+
+776
+00:25:15,547 --> 00:25:19,467
+problem. And approvals only cover
+
+777
+00:25:17,347 --> 00:25:20,908
+specific commits. If new commits land
+
+778
+00:25:19,467 --> 00:25:22,668
+that the system can't vouch for like an
+
+779
+00:25:20,908 --> 00:25:24,668
+agent push or merge someone resolved by
+
+780
+00:25:22,668 --> 00:25:26,507
+hand, the approval has to be restarted.
+
+781
+00:25:24,668 --> 00:25:28,028
+They have a merge queue with flags and
+
+782
+00:25:26,507 --> 00:25:30,028
+gradual releases. They start with the
+
+783
+00:25:28,028 --> 00:25:32,268
+latest channel first, then stable gets
+
+784
+00:25:30,028 --> 00:25:34,507
+the changes after. Fast detection, fast
+
+785
+00:25:32,268 --> 00:25:35,788
+rollback. Some mistakes will still get
+
+786
+00:25:34,507 --> 00:25:37,467
+through, so the last layer is about
+
+787
+00:25:35,788 --> 00:25:40,227
+catching them fast. They have a weekly
+
+788
+00:25:37,467 --> 00:25:41,867
+on-call rotation. Incident review asks
+
+789
+00:25:40,227 --> 00:25:43,668
+which layer should have caught the
+
+790
+00:25:41,867 --> 00:25:45,347
+issue. Noticing a bad merge still
+
+791
+00:25:43,668 --> 00:25:46,867
+depends on the author and on-call as
+
+792
+00:25:45,347 --> 00:25:48,388
+well as the revert and incident
+
+793
+00:25:46,867 --> 00:25:49,908
+dashboards. We don't yet have circuit
+
+794
+00:25:48,388 --> 00:25:52,107
+breakers that tighten approval when
+
+795
+00:25:49,908 --> 00:25:54,427
+those numbers move. Engineers here want
+
+796
+00:25:52,107 --> 00:25:56,227
+them before more code moves to zero
+
+797
+00:25:54,427 --> 00:25:57,707
+human merges. That makes sense. So
+
+798
+00:25:56,227 --> 00:25:58,987
+they're not doing much zero human. We're
+
+799
+00:25:57,707 --> 00:26:01,227
+starting to do a bit of this now for
+
+800
+00:25:58,987 --> 00:26:03,107
+easy enough bug fixes. That's how Julius
+
+801
+00:26:01,227 --> 00:26:04,908
+is able to start landing like 400 PRs a
+
+802
+00:26:03,107 --> 00:26:07,268
+day. One colleague said that slowing
+
+803
+00:26:04,908 --> 00:26:08,507
+down lowers your error rate, but mostly
+
+804
+00:26:07,268 --> 00:26:10,187
+just cuz you're doing less of
+
+805
+00:26:08,507 --> 00:26:12,227
+everything. Teams decided that they'd
+
+806
+00:26:10,187 --> 00:26:13,547
+rather get faster at noticing and fixing
+
+807
+00:26:12,227 --> 00:26:15,867
+problems rather than slow down to
+
+808
+00:26:13,547 --> 00:26:18,148
+prevent them. And I agree there. If your
+
+809
+00:26:15,867 --> 00:26:20,388
+solution to not shipping breaking
+
+810
+00:26:18,148 --> 00:26:22,107
+changes is to just go slower, then
+
+811
+00:26:20,388 --> 00:26:24,148
+you're not actually solving the problem.
+
+812
+00:26:22,107 --> 00:26:26,347
+Banger. So now, a more important
+
+813
+00:26:24,148 --> 00:26:28,347
+section. How do we actually improve of
+
+814
+00:26:26,347 --> 00:26:29,827
+the reviews and the reviewer? The code
+
+815
+00:26:28,347 --> 00:26:32,269
+review process is constantly improving
+
+816
+00:26:29,827 --> 00:26:33,909
+in a loop. Any incidents become evals.
+
+817
+00:26:32,269 --> 00:26:35,789
+The team collects past PRs that caused
+
+818
+00:26:33,909 --> 00:26:37,789
+incidents with their fixed forwards and
+
+819
+00:26:35,789 --> 00:26:39,389
+reverts, and had engineers who know the
+
+820
+00:26:37,789 --> 00:26:41,389
+code confirm each bug and where it
+
+821
+00:26:39,389 --> 00:26:43,749
+lived. The reviewer runs against that
+
+822
+00:26:41,389 --> 00:26:45,469
+set daily. Not how I would do that, but
+
+823
+00:26:43,749 --> 00:26:47,309
+I like where they're going here. So,
+
+824
+00:26:45,469 --> 00:26:49,309
+there's an incident, an expert checks
+
+825
+00:26:47,309 --> 00:26:51,189
+and confirms, they add it to the set,
+
+826
+00:26:49,309 --> 00:26:53,189
+and then they have this daily eval run
+
+827
+00:26:51,189 --> 00:26:55,149
+where they check to see if these things
+
+828
+00:26:53,189 --> 00:26:56,709
+would have happened again. Cool.
+
+829
+00:26:55,149 --> 00:26:58,949
+We measure noise by watching what people
+
+830
+00:26:56,709 --> 00:27:00,589
+do with the comments. It's easy to catch
+
+831
+00:26:58,949 --> 00:27:03,509
+more bugs if you don't mind flagging a
+
+832
+00:27:00,589 --> 00:27:06,229
+lot of non-bugs. So, we need a check on
+
+833
+00:27:03,509 --> 00:27:08,069
+that. Absolutely agree. Noise in PRs is
+
+834
+00:27:06,229 --> 00:27:10,029
+hell. They sort every comment that the
+
+835
+00:27:08,069 --> 00:27:12,189
+reviewer leaves by how the person on the
+
+836
+00:27:10,029 --> 00:27:13,229
+PR responded. If they fixed it, or if
+
+837
+00:27:12,189 --> 00:27:14,349
+they said it was wrong, or they said the
+
+838
+00:27:13,229 --> 00:27:15,989
+behavior was intentional, or if they
+
+839
+00:27:14,349 --> 00:27:17,829
+decided it didn't matter. We also run
+
+840
+00:27:15,989 --> 00:27:19,429
+the reviewer on PRs that they know are
+
+841
+00:27:17,829 --> 00:27:21,029
+clean, and they count how often they
+
+842
+00:27:19,429 --> 00:27:22,789
+report something that would have led
+
+843
+00:27:21,029 --> 00:27:25,029
+someone to make a harmful change. Our
+
+844
+00:27:22,789 --> 00:27:27,789
+priority, written down, is catching real
+
+845
+00:27:25,029 --> 00:27:29,989
+bugs first and cutting reviewer rounds
+
+846
+00:27:27,789 --> 00:27:31,469
+second. That makes sense. Noise costs
+
+847
+00:27:29,989 --> 00:27:33,029
+more when the author is an agent. A
+
+848
+00:27:31,469 --> 00:27:34,309
+person can wave off a knit in seconds.
+
+849
+00:27:33,029 --> 00:27:36,229
+An agent will fix it, which means
+
+850
+00:27:34,309 --> 00:27:37,789
+another commit, another round of review,
+
+851
+00:27:36,229 --> 00:27:39,909
+more unnecessary code, and so much other
+
+852
+00:27:37,789 --> 00:27:42,069
+slop. But, so the reviews do have to
+
+853
+00:27:39,909 --> 00:27:43,789
+converge. An agent author and an agent
+
+854
+00:27:42,069 --> 00:27:45,469
+reviewer can keep each other busy
+
+855
+00:27:43,789 --> 00:27:47,029
+indefinitely. I had what I thought was
+
+856
+00:27:45,469 --> 00:27:49,749
+going to be a simple change. I'm working
+
+857
+00:27:47,029 --> 00:27:51,269
+on the like Grok bot style experience in
+
+858
+00:27:49,749 --> 00:27:52,589
+T3 code where there's like one main
+
+859
+00:27:51,269 --> 00:27:54,629
+thread that controls all the other
+
+860
+00:27:52,589 --> 00:27:56,589
+threads. I had a working prototype that
+
+861
+00:27:54,629 --> 00:27:59,029
+wasn't quite how I wanted it to work.
+
+862
+00:27:56,589 --> 00:28:00,829
+So, I threw it out into council review
+
+863
+00:27:59,029 --> 00:28:03,029
+and said, "Here is what I want. Keep
+
+864
+00:28:00,829 --> 00:28:04,949
+iterating until the whole council
+
+865
+00:28:03,029 --> 00:28:06,669
+passes." And then I forgot about it cuz
+
+866
+00:28:04,949 --> 00:28:08,469
+it was folded in my working tab. I just
+
+867
+00:28:06,669 --> 00:28:10,549
+noticed it like yesterday. It's been
+
+868
+00:28:08,469 --> 00:28:12,109
+going for 4 days. The PR that it's
+
+869
+00:28:10,549 --> 00:28:13,789
+working on has gotten to like 80,000
+
+870
+00:28:12,109 --> 00:28:15,309
+lines of code, and I had to hop in and
+
+871
+00:28:13,789 --> 00:28:16,989
+be like, "No, you're just running in
+
+872
+00:28:15,309 --> 00:28:18,269
+ circles right now." And I'm
+
+873
+00:28:16,989 --> 00:28:20,069
+realizing I need to add short circuits
+
+874
+00:28:18,269 --> 00:28:21,389
+to my skills cuz it's just it's not
+
+875
+00:28:20,069 --> 00:28:24,349
+making any progress at this
+
+876
+00:28:21,389 --> 00:28:26,629
+point. So, yeah, you need the reviews to
+
+877
+00:28:24,349 --> 00:28:29,429
+converge. You need the things to to end
+
+878
+00:28:26,629 --> 00:28:31,149
+eventually. One CLI PR went through more
+
+879
+00:28:29,429 --> 00:28:32,229
+than 50 rounds of review and fixes
+
+880
+00:28:31,149 --> 00:28:33,710
+overnight before the author stopped it.
+
+881
+00:28:32,229 --> 00:28:35,510
+I didn't even read him say that when I
+
+882
+00:28:33,710 --> 00:28:38,750
+was describing mine. That's hilarious.
+
+883
+00:28:35,510 --> 00:28:40,750
+Yeah. The Anyways, when we ran get blame
+
+884
+00:28:38,750 --> 00:28:42,910
+on what the reviewers kept flagging,
+
+885
+00:28:40,750 --> 00:28:45,270
+about 60% of it was code that had been
+
+886
+00:28:42,910 --> 00:28:47,110
+there since the reviews first pass. The
+
+887
+00:28:45,270 --> 00:28:49,310
+reviewer was rarely finding new bugs. It
+
+888
+00:28:47,110 --> 00:28:51,150
+was finding a few more that the old
+
+889
+00:28:49,310 --> 00:28:52,510
+rounds just didn't catch. We made it
+
+890
+00:28:51,150 --> 00:28:54,230
+worse ourselves. We gotten used to
+
+891
+00:28:52,510 --> 00:28:56,070
+running several rounds by default since
+
+892
+00:28:54,230 --> 00:28:57,670
+each pass was catching something new.
+
+893
+00:28:56,070 --> 00:28:59,830
+This can also be worthwhile on risky
+
+894
+00:28:57,670 --> 00:29:02,430
+changes, but not for every PR. The team
+
+895
+00:28:59,830 --> 00:29:05,750
+now tracks rounds to pass alongside
+
+896
+00:29:02,430 --> 00:29:08,110
+recall and changed re-review. I did also
+
+897
+00:29:05,750 --> 00:29:10,710
+manage to fix this in a silly way.
+
+898
+00:29:08,110 --> 00:29:12,790
+Instead of just tracking all of the nits
+
+899
+00:29:10,710 --> 00:29:15,790
+and going until the agent said, "No,
+
+900
+00:29:12,790 --> 00:29:17,990
+this is fine." I moved over to a scoring
+
+901
+00:29:15,790 --> 00:29:21,110
+system where the review agents leave a
+
+902
+00:29:17,990 --> 00:29:23,790
+score one to 10 and I pick a bar for
+
+903
+00:29:21,110 --> 00:29:25,750
+what score is high enough. Because a PR
+
+904
+00:29:23,790 --> 00:29:27,070
+might have 18 comments but still be a
+
+905
+00:29:25,750 --> 00:29:29,030
+nine out of 10 cuz all the comments are
+
+906
+00:29:27,070 --> 00:29:30,910
+just silly small nits. But you might
+
+907
+00:29:29,030 --> 00:29:32,870
+have a PR that only has one comment
+
+908
+00:29:30,910 --> 00:29:34,670
+that's a six out of 10. And the one with
+
+909
+00:29:32,870 --> 00:29:36,070
+one comment is higher priority to be
+
+910
+00:29:34,670 --> 00:29:38,950
+fixed than the one with 20 comments in
+
+911
+00:29:36,070 --> 00:29:40,910
+this state. So finding a way to to set a
+
+912
+00:29:38,950 --> 00:29:42,310
+bar that isn't by how many comments are
+
+913
+00:29:40,910 --> 00:29:44,510
+left but is instead by how much
+
+914
+00:29:42,310 --> 00:29:46,110
+confidence can you build in the system?
+
+915
+00:29:44,510 --> 00:29:47,790
+That is the path that works. So they
+
+916
+00:29:46,110 --> 00:29:49,150
+started with a round cap. I also did
+
+917
+00:29:47,790 --> 00:29:51,110
+this with Solo. I haven't done this with
+
+918
+00:29:49,150 --> 00:29:52,870
+Council yet and I need to. After three
+
+919
+00:29:51,110 --> 00:29:54,230
+rounds, the reviewer will ask the author
+
+920
+00:29:52,870 --> 00:29:56,550
+to step back and reconsider the
+
+921
+00:29:54,230 --> 00:29:59,230
+approach. There's a diff only re-review
+
+922
+00:29:56,550 --> 00:30:01,190
+after the first few passes. There's a
+
+923
+00:29:59,230 --> 00:30:02,910
+layer to flag the class of bugs so the
+
+924
+00:30:01,190 --> 00:30:04,670
+author can fix every instance, not just
+
+925
+00:30:02,910 --> 00:30:06,150
+one line. And then no repeats of
+
+926
+00:30:04,670 --> 00:30:07,950
+findings that have already been posted.
+
+927
+00:30:06,150 --> 00:30:09,750
+These are good changes. Review agents
+
+928
+00:30:07,950 --> 00:30:11,550
+also are running nightly over existing
+
+929
+00:30:09,750 --> 00:30:13,390
+code helping catch old bugs before they
+
+930
+00:30:11,550 --> 00:30:16,950
+show up somewhere else. After making the
+
+931
+00:30:13,390 --> 00:30:19,110
+convergence changes, they saw a 13%
+
+932
+00:30:16,950 --> 00:30:21,110
+increase in PRs that were passing after
+
+933
+00:30:19,110 --> 00:30:23,310
+one review and fix round. They had a
+
+934
+00:30:21,110 --> 00:30:26,270
+decrease for PRs that need five or more
+
+935
+00:30:23,310 --> 00:30:29,870
+from 9% to 1.5. And the mean reviews to
+
+936
+00:30:26,270 --> 00:30:31,750
+pass went from 2.08 to 1.32. These are
+
+937
+00:30:29,870 --> 00:30:33,350
+good changes. So where do humans stay in
+
+938
+00:30:31,750 --> 00:30:35,630
+the loop with all this? The thing that
+
+939
+00:30:33,350 --> 00:30:36,872
+we're all curious about. Where do we go?
+
+940
+00:30:35,630 --> 00:30:40,432
+Actually, one more good piece of
+
+941
+00:30:36,872 --> 00:30:43,032
+feedback from Jake over at our friends
+
+942
+00:30:40,432 --> 00:30:44,872
+at Graphite aka cursor aka SpaceX aka
+
+943
+00:30:43,032 --> 00:30:46,712
+Grokbot. He thinks that scoring is not
+
+944
+00:30:44,872 --> 00:30:47,992
+the solution. Agent should be able to be
+
+945
+00:30:46,712 --> 00:30:49,912
+trusted enough to make a boolean
+
+946
+00:30:47,992 --> 00:30:52,432
+decision with the right context just
+
+947
+00:30:49,912 --> 00:30:54,392
+like human engineers can who you pay to
+
+948
+00:30:52,432 --> 00:30:57,472
+do that. Quote, can I ignore this
+
+949
+00:30:54,392 --> 00:30:59,312
+comment or not? This is a good solution.
+
+950
+00:30:57,472 --> 00:31:01,192
+His goal here is to keep it simple. I
+
+951
+00:30:59,312 --> 00:31:02,472
+largely agree. I do need to experiment
+
+952
+00:31:01,192 --> 00:31:04,992
+with other options here where I kind of
+
+953
+00:31:02,472 --> 00:31:05,952
+just if I'm not happy with one I play
+
+954
+00:31:04,992 --> 00:31:07,351
+with it until I have an improved
+
+955
+00:31:05,952 --> 00:31:09,072
+solution and then stick with that until
+
+956
+00:31:07,351 --> 00:31:11,351
+it pisses me off. I need to be doing
+
+957
+00:31:09,072 --> 00:31:13,592
+more of the like different tries and
+
+958
+00:31:11,351 --> 00:31:15,152
+ways to do this. So, uh yeah, shout out
+
+959
+00:31:13,592 --> 00:31:16,632
+to all my friends at all of the labs who
+
+960
+00:31:15,152 --> 00:31:17,872
+come in and give feedback as I record
+
+961
+00:31:16,632 --> 00:31:19,072
+these. It helps a ton with getting this
+
+962
+00:31:17,872 --> 00:31:20,632
+all right. So, where do the humans
+
+963
+00:31:19,072 --> 00:31:21,992
+actually come in here? They decide
+
+964
+00:31:20,632 --> 00:31:24,672
+whether the thing is worth building or
+
+965
+00:31:21,992 --> 00:31:26,072
+not. Direction, taste, and scope. One
+
+966
+00:31:24,672 --> 00:31:28,032
+team that declared its review
+
+967
+00:31:26,072 --> 00:31:29,472
+bottlenecks solved still kept human
+
+968
+00:31:28,032 --> 00:31:31,472
+reviews for changes from outside the
+
+969
+00:31:29,472 --> 00:31:33,231
+team. So, someone asks, quote, should we
+
+970
+00:31:31,472 --> 00:31:35,351
+even do this? Next, we have reviewing
+
+971
+00:31:33,231 --> 00:31:37,552
+risky code like billing, auto updater,
+
+972
+00:31:35,351 --> 00:31:39,832
+and CI workflows. Reviewing architecture
+
+973
+00:31:37,552 --> 00:31:41,792
+cuz this sets patterns that others copy.
+
+974
+00:31:39,832 --> 00:31:43,752
+Reading the evidence, test output,
+
+975
+00:31:41,792 --> 00:31:45,352
+commands that run, and what they
+
+976
+00:31:43,752 --> 00:31:47,312
+actually return, screenshots, review
+
+977
+00:31:45,352 --> 00:31:50,272
+findings, things like that. If you can't
+
+978
+00:31:47,312 --> 00:31:51,912
+say what the checks would miss, ask for
+
+979
+00:31:50,272 --> 00:31:53,552
+a real review rather than a quick
+
+980
+00:31:51,912 --> 00:31:55,592
+approval, and of course owning the
+
+981
+00:31:53,552 --> 00:31:57,632
+outcome. Whoever put up the PR is the
+
+982
+00:31:55,592 --> 00:31:59,352
+person who owns it. It doesn't matter
+
+983
+00:31:57,632 --> 00:32:01,112
+where the code itself came from. So, how
+
+984
+00:31:59,352 --> 00:32:03,152
+do we share all of this context across
+
+985
+00:32:01,112 --> 00:32:04,432
+teams? Because again, this is the thing
+
+986
+00:32:03,152 --> 00:32:06,352
+I love code review for. Not just
+
+987
+00:32:04,432 --> 00:32:07,992
+catching bugs. I love code review for
+
+988
+00:32:06,352 --> 00:32:09,872
+making sure everybody knows what's going
+
+989
+00:32:07,992 --> 00:32:11,231
+on in the codebase. And to this day,
+
+990
+00:32:09,872 --> 00:32:12,872
+like when I ask a teammate to review
+
+991
+00:32:11,231 --> 00:32:14,712
+code, it's usually for this reason. I
+
+992
+00:32:12,872 --> 00:32:15,912
+want them to understand it cuz if they
+
+993
+00:32:14,712 --> 00:32:17,471
+don't understand it, it means I have to
+
+994
+00:32:15,912 --> 00:32:19,072
+fix things, and if they do understand
+
+995
+00:32:17,471 --> 00:32:20,712
+it, means I'm not solely responsible
+
+996
+00:32:19,072 --> 00:32:22,192
+going forward. Code review's second
+
+997
+00:32:20,712 --> 00:32:24,272
+job's always been to spread codebase
+
+998
+00:32:22,192 --> 00:32:25,912
+understanding. Reading a teammate's diff
+
+999
+00:32:24,272 --> 00:32:28,152
+is how you learn what changed and how
+
+1000
+00:32:25,912 --> 00:32:29,952
+the pieces fit. If machines do most of
+
+1001
+00:32:28,152 --> 00:32:31,832
+the reading, how does anyone learn the
+
+1002
+00:32:29,952 --> 00:32:33,032
+code? We don't have a formal process for
+
+1003
+00:32:31,832 --> 00:32:35,152
+this. Nobody on the team keeps a
+
+1004
+00:32:33,032 --> 00:32:36,992
+complete mental model of cloud code in
+
+1005
+00:32:35,152 --> 00:32:38,272
+their head. I know you some of y'all are
+
+1006
+00:32:36,992 --> 00:32:40,153
+going to think this is insane. Like,
+
+1007
+00:32:38,272 --> 00:32:41,393
+someone has to know how it all works. I
+
+1008
+00:32:40,153 --> 00:32:43,393
+hope unemployment's treating you well if
+
+1009
+00:32:41,393 --> 00:32:45,753
+you feel that way because any sizeable
+
+1010
+00:32:43,393 --> 00:32:47,953
+codebase does not have one person who
+
+1011
+00:32:45,753 --> 00:32:49,153
+knows everything. The codebases that are
+
+1012
+00:32:47,953 --> 00:32:51,593
+and I've gotten into arguments with this
+
+1013
+00:32:49,153 --> 00:32:53,593
+and I went back and forth on it. There
+
+1014
+00:32:51,593 --> 00:32:55,313
+are lots of really important codebases
+
+1015
+00:32:53,593 --> 00:32:57,033
+that are well understood by the one or
+
+1016
+00:32:55,313 --> 00:32:59,273
+two people that maintain them that are
+
+1017
+00:32:57,033 --> 00:33:00,713
+very small. Those aren't full-time jobs
+
+1018
+00:32:59,273 --> 00:33:02,473
+anymore. If your codebase is small
+
+1019
+00:33:00,713 --> 00:33:03,953
+enough that one person can understand
+
+1020
+00:33:02,473 --> 00:33:05,513
+it, then that codebase doesn't have
+
+1021
+00:33:03,953 --> 00:33:06,553
+enough throughput, not in terms of
+
+1022
+00:33:05,513 --> 00:33:08,393
+travel, like they're going to be a small
+
+1023
+00:33:06,553 --> 00:33:11,873
+codebase that does billions of requests
+
+1024
+00:33:08,393 --> 00:33:13,393
+a day, but it's not changing enough that
+
+1025
+00:33:11,873 --> 00:33:15,873
+it is that important in the sense that
+
+1026
+00:33:13,393 --> 00:33:17,753
+like you need to build a super religious
+
+1027
+00:33:15,873 --> 00:33:19,393
+process around it so that you can make
+
+1028
+00:33:17,753 --> 00:33:21,873
+changes every day. Like if you're only
+
+1029
+00:33:19,393 --> 00:33:24,033
+making one change a week, spending five
+
+1030
+00:33:21,873 --> 00:33:26,073
+of the six days you're working making
+
+1031
+00:33:24,033 --> 00:33:27,913
+sure the change is good, that's fine.
+
+1032
+00:33:26,073 --> 00:33:29,233
+That makes a lot of sense. It's just not
+
+1033
+00:33:27,913 --> 00:33:31,433
+the types of work that we're talking
+
+1034
+00:33:29,233 --> 00:33:33,113
+about here at all. So, as I'm saying,
+
+1035
+00:33:31,433 --> 00:33:35,433
+most full-time jobs are working in
+
+1036
+00:33:33,113 --> 00:33:36,953
+codebases that no human can understand
+
+1037
+00:33:35,433 --> 00:33:38,993
+all of it. No agent can understand all
+
+1038
+00:33:36,953 --> 00:33:40,393
+of either. Nobody needs to understand it
+
+1039
+00:33:38,993 --> 00:33:41,873
+all though. When someone wants to
+
+1040
+00:33:40,393 --> 00:33:43,873
+understand a part of the codebase, they
+
+1041
+00:33:41,873 --> 00:33:45,913
+can ask Claude to write an explainer for
+
+1042
+00:33:43,873 --> 00:33:47,393
+exactly that slice. It takes minutes and
+
+1043
+00:33:45,913 --> 00:33:49,433
+it reflects the code in its current
+
+1044
+00:33:47,393 --> 00:33:51,633
+state. I think people severely underrate
+
+1045
+00:33:49,433 --> 00:33:53,873
+how powerful this is. When I'm reviewing
+
+1046
+00:33:51,633 --> 00:33:57,113
+heavy changes, I'll often just paste the
+
+1047
+00:33:53,873 --> 00:33:58,833
+PR into T3 code with Claude and ask it
+
+1048
+00:33:57,113 --> 00:34:00,433
+to give me a breakdown of the changes.
+
+1049
+00:33:58,833 --> 00:34:02,153
+What is changing, why is it changing,
+
+1050
+00:34:00,433 --> 00:34:03,793
+and where is the risk? Some people on
+
+1051
+00:34:02,153 --> 00:34:05,913
+the team go a step further and have
+
+1052
+00:34:03,793 --> 00:34:07,833
+Claude build an artifact to visualize
+
+1053
+00:34:05,913 --> 00:34:09,673
+the part of the code to teach them how
+
+1054
+00:34:07,833 --> 00:34:10,833
+it works in whatever way that person
+
+1055
+00:34:09,673 --> 00:34:12,193
+likes to learn. This is awesome. I
+
+1056
+00:34:10,833 --> 00:34:14,233
+highly recommend doing it. If the goal
+
+1057
+00:34:12,193 --> 00:34:16,873
+is to spend human attention well, then
+
+1058
+00:34:14,233 --> 00:34:19,433
+this hugely beats out reading a trivial
+
+1059
+00:34:16,873 --> 00:34:21,353
+diff line by line. One line copy changes
+
+1060
+00:34:19,433 --> 00:34:22,953
+teach you nothing. Explainers for the
+
+1061
+00:34:21,353 --> 00:34:24,993
+module you're about to change teach you
+
+1062
+00:34:22,953 --> 00:34:26,513
+a lot. Our culture of defaulting to
+
+1063
+00:34:24,993 --> 00:34:28,153
+working on open Slack channels is
+
+1064
+00:34:26,513 --> 00:34:29,713
+helping here, too, since you see what
+
+1065
+00:34:28,153 --> 00:34:31,033
+others are building while they build it.
+
+1066
+00:34:29,713 --> 00:34:32,873
+I do love that. It's one of the things I
+
+1067
+00:34:31,033 --> 00:34:35,313
+really hope we can figure out in T3 code
+
+1068
+00:34:32,873 --> 00:34:36,873
+is how to like work together as a team
+
+1069
+00:34:35,313 --> 00:34:38,793
+and see who's doing what and when.
+
+1070
+00:34:36,873 --> 00:34:40,473
+There's a lot of reasons it's hard.
+
+1071
+00:34:38,793 --> 00:34:42,074
+I want to figure that out though. And
+
+1072
+00:34:40,473 --> 00:34:43,954
+then of course, the you land it, you own
+
+1073
+00:34:42,074 --> 00:34:45,554
+it. If you land a small or medium change
+
+1074
+00:34:43,954 --> 00:34:47,034
+or and something still goes wrong, it's
+
+1075
+00:34:45,554 --> 00:34:48,874
+the team norm that you're going to be
+
+1076
+00:34:47,034 --> 00:34:50,554
+the one to fix it. A few things keep
+
+1077
+00:34:48,874 --> 00:34:51,994
+this from going badly. Changes are
+
+1078
+00:34:50,554 --> 00:34:53,834
+small, so they're easy to review, debug,
+
+1079
+00:34:51,994 --> 00:34:55,594
+and revert. Everything's reversible.
+
+1080
+00:34:53,834 --> 00:34:57,274
+Blast radius sets the bar. Expensive
+
+1081
+00:34:55,594 --> 00:34:58,794
+code gets more people and more checks.
+
+1082
+00:34:57,274 --> 00:35:00,794
+Regressions surface fast through
+
+1083
+00:34:58,794 --> 00:35:02,794
+telemetry and internal use. And it isn't
+
+1084
+00:35:00,794 --> 00:35:04,434
+blame. The ownership doesn't mean you're
+
+1085
+00:35:02,794 --> 00:35:06,394
+at fault, it means you have the best
+
+1086
+00:35:04,434 --> 00:35:08,114
+understanding, so you are ready to come
+
+1087
+00:35:06,394 --> 00:35:10,274
+in and fix the thing you have the most
+
+1088
+00:35:08,114 --> 00:35:11,834
+context on. Ownership is also shared.
+
+1089
+00:35:10,274 --> 00:35:13,114
+Much of the team works in open channels
+
+1090
+00:35:11,834 --> 00:35:14,874
+where anyone can see what the others are
+
+1091
+00:35:13,114 --> 00:35:17,194
+building, pick up threads, or point a
+
+1092
+00:35:14,874 --> 00:35:19,034
+claw at a gap. And feedback comes from
+
+1093
+00:35:17,194 --> 00:35:20,634
+people who don't own the code, as well.
+
+1094
+00:35:19,034 --> 00:35:22,634
+That openness is a big part of how
+
+1095
+00:35:20,634 --> 00:35:24,754
+quality stays high without gating every
+
+1096
+00:35:22,634 --> 00:35:26,274
+single line. Here's another big piece. I
+
+1097
+00:35:24,754 --> 00:35:28,274
+love they put this in here. Changing
+
+1098
+00:35:26,274 --> 00:35:30,634
+direction. Agents make it cheap to start
+
+1099
+00:35:28,274 --> 00:35:33,034
+things, so some work shouldn't land. I
+
+1100
+00:35:30,634 --> 00:35:35,194
+would guess that even of my PR's at T3
+
+1101
+00:35:33,034 --> 00:35:36,874
+code, about half of them merge, the
+
+1102
+00:35:35,194 --> 00:35:38,674
+other half get closed for various
+
+1103
+00:35:36,874 --> 00:35:40,674
+different reasons. Usually, someone in
+
+1104
+00:35:38,674 --> 00:35:42,474
+the channel asks why, points at an
+
+1105
+00:35:40,674 --> 00:35:44,514
+earlier decision, or suggests a simpler
+
+1106
+00:35:42,474 --> 00:35:46,794
+route, and the author closes or reshapes
+
+1107
+00:35:44,514 --> 00:35:49,314
+the PR. Since the code is fast to write,
+
+1108
+00:35:46,794 --> 00:35:50,834
+closing the PR doesn't feel like a loss.
+
+1109
+00:35:49,314 --> 00:35:53,234
+The trick is to raise a different
+
+1110
+00:35:50,834 --> 00:35:55,314
+direction in the thread early, not as a
+
+1111
+00:35:53,234 --> 00:35:57,554
+blocking comment or a finished PR. So,
+
+1112
+00:35:55,314 --> 00:35:59,554
+how can we adopt the processes that
+
+1113
+00:35:57,554 --> 00:36:01,154
+Anthropic is sharing here? God, I hate
+
+1114
+00:35:59,554 --> 00:36:02,754
+how I don't know who wrote this. Like, I
+
+1115
+00:36:01,154 --> 00:36:04,434
+know Addy wrote a lot of it, but some of
+
+1116
+00:36:02,754 --> 00:36:05,594
+the sentence formatting here is awful.
+
+1117
+00:36:04,434 --> 00:36:08,514
+This is one of the worst sentences I've
+
+1118
+00:36:05,594 --> 00:36:10,994
+ever read. Most of the pieces to do this
+
+1119
+00:36:08,514 --> 00:36:13,554
+with your team exist today. There is not
+
+1120
+00:36:10,994 --> 00:36:16,554
+There's no pause or sectioning of this
+
+1121
+00:36:13,554 --> 00:36:18,514
+sentence at all. This needs a comma or
+
+1122
+00:36:16,554 --> 00:36:21,354
+two or to be split into multi multiple
+
+1123
+00:36:18,514 --> 00:36:23,034
+sentences so badly. Ugh, sorry. I I I'm
+
+1124
+00:36:21,354 --> 00:36:24,514
+picky about prose. I I like writing.
+
+1125
+00:36:23,034 --> 00:36:26,074
+Crazy how large language models have
+
+1126
+00:36:24,514 --> 00:36:27,994
+gotten good at pretty much everything
+
+1127
+00:36:26,074 --> 00:36:30,914
+other than generating text.
+
+1128
+00:36:27,994 --> 00:36:32,434
+I hate LLM writing so much, and I am I'm
+
+1129
+00:36:30,914 --> 00:36:33,514
+smelling things I don't like here, but
+
+1130
+00:36:32,434 --> 00:36:34,994
+we can still learn from how to adopt the
+
+1131
+00:36:33,514 --> 00:36:37,034
+process. I like that we start from
+
+1132
+00:36:34,994 --> 00:36:38,674
+before the PR, cuz there is before,
+
+1133
+00:36:37,034 --> 00:36:39,794
+during, and after the PR. Like, the
+
+1134
+00:36:38,674 --> 00:36:41,716
+sections you should think about this
+
+1135
+00:36:39,794 --> 00:36:43,434
+stuff through. Before the PR, you should
+
+1136
+00:36:41,716 --> 00:36:45,036
+To your agent checks that can run, and
+
+1137
+00:36:43,434 --> 00:36:46,476
+ways they can verify its work, you
+
+1138
+00:36:45,036 --> 00:36:48,796
+should run the code review and security
+
+1139
+00:36:46,476 --> 00:36:50,276
+review skills locally. I just have this
+
+1140
+00:36:48,796 --> 00:36:52,396
+as part of my like main skill for
+
+1141
+00:36:50,276 --> 00:36:53,996
+landing changes, and the agent decides
+
+1142
+00:36:52,396 --> 00:36:56,516
+what to pull in and not pull in.
+
+1143
+00:36:53,996 --> 00:36:59,276
+You add a review MD, and more repeat
+
+1144
+00:36:56,516 --> 00:37:01,116
+review comments can go into that.
+
+1145
+00:36:59,276 --> 00:37:03,876
+You should fix the code first. On every
+
+1146
+00:37:01,116 --> 00:37:05,596
+PR, you should require CI, add testing
+
+1147
+00:37:03,876 --> 00:37:07,556
+risk, how to revert to your PR
+
+1148
+00:37:05,596 --> 00:37:09,196
+templates. I like this part. Like your
+
+1149
+00:37:07,556 --> 00:37:10,716
+PR template and the skills or whatever
+
+1150
+00:37:09,196 --> 00:37:12,956
+you use to open PRs should include how
+
+1151
+00:37:10,716 --> 00:37:15,596
+to test, what the risk is, and how to
+
+1152
+00:37:12,956 --> 00:37:16,956
+undo this change. Add an AI reviewer.
+
+1153
+00:37:15,596 --> 00:37:18,556
+You can use one of theirs that they
+
+1154
+00:37:16,956 --> 00:37:20,836
+suggest or any of the awesome sponsors
+
+1155
+00:37:18,556 --> 00:37:22,476
+of the channel on the repo. Tune the
+
+1156
+00:37:20,836 --> 00:37:25,316
+review MD for a few weeks, and then
+
+1157
+00:37:22,476 --> 00:37:27,076
+widen what this check's going forward.
+
+1158
+00:37:25,316 --> 00:37:29,156
+Totally fine. Add automated security
+
+1159
+00:37:27,076 --> 00:37:30,836
+reviews, and require every review thread
+
+1160
+00:37:29,156 --> 00:37:32,676
+resolve before merge. I love that they
+
+1161
+00:37:30,836 --> 00:37:34,996
+just dropped this in here as though we
+
+1162
+00:37:32,676 --> 00:37:37,316
+can do this, and our Claude doesn't
+
+1163
+00:37:34,996 --> 00:37:39,436
+block us from asking questions about
+
+1164
+00:37:37,316 --> 00:37:40,516
+security stuff. There are solutions to
+
+1165
+00:37:39,436 --> 00:37:42,796
+this problem, but they're not going to
+
+1166
+00:37:40,516 --> 00:37:45,076
+be very free with on the Infroptic side,
+
+1167
+00:37:42,796 --> 00:37:46,916
+sadly. Match review efforts to risk. So,
+
+1168
+00:37:45,076 --> 00:37:49,076
+a quick pass on routine checks, a deep
+
+1169
+00:37:46,916 --> 00:37:50,996
+one where a missed bug is expensive.
+
+1170
+00:37:49,076 --> 00:37:52,396
+Quick, standard, or deep in code review.
+
+1171
+00:37:50,996 --> 00:37:54,276
+And then capping the review rounds so
+
+1172
+00:37:52,396 --> 00:37:55,916
+that you don't go off forever. Like I've
+
+1173
+00:37:54,276 --> 00:37:57,396
+burned so many tokens with accidental
+
+1174
+00:37:55,916 --> 00:37:59,036
+forever reviews. Then you have the
+
+1175
+00:37:57,396 --> 00:38:02,196
+approval process. You write down risk
+
+1176
+00:37:59,036 --> 00:38:04,276
+tiers, yada yada. Set the risk based on
+
+1177
+00:38:02,196 --> 00:38:05,636
+the changes, not on the author. Keep
+
+1178
+00:38:04,276 --> 00:38:07,676
+lighter approval paths for authors you
+
+1179
+00:38:05,636 --> 00:38:09,236
+trust. Use code owners and branch
+
+1180
+00:38:07,676 --> 00:38:10,676
+protection. So, off, billing, CI, and
+
+1181
+00:38:09,236 --> 00:38:12,716
+release flows, other important things
+
+1182
+00:38:10,676 --> 00:38:15,076
+get specific people. Never let a bot's
+
+1183
+00:38:12,716 --> 00:38:17,036
+approval replace a human's. Yes. Then we
+
+1184
+00:38:15,076 --> 00:38:19,556
+have the merge and after section. Use a
+
+1185
+00:38:17,036 --> 00:38:22,676
+merge queue, feature flags, internal use
+
+1186
+00:38:19,556 --> 00:38:24,396
+first, etc. Staged releases and one-step
+
+1187
+00:38:22,676 --> 00:38:26,276
+rollbacks are huge as well. Turn
+
+1188
+00:38:24,396 --> 00:38:28,516
+incidents and reverts into eval sets.
+
+1189
+00:38:26,276 --> 00:38:30,316
+Rescore the reviewer when it prompts,
+
+1190
+00:38:28,516 --> 00:38:32,596
+and use the prompt's tools and model
+
+1191
+00:38:30,316 --> 00:38:33,996
+changes to get a new score to figure out
+
+1192
+00:38:32,596 --> 00:38:36,116
+if the model's actually making progress
+
+1193
+00:38:33,996 --> 00:38:38,436
+here. Anything you cannot measure, you
+
+1194
+00:38:36,116 --> 00:38:40,596
+cannot fix at this point cuz AI is so
+
+1195
+00:38:38,436 --> 00:38:42,396
+good at fixing things when you give it
+
+1196
+00:38:40,596 --> 00:38:44,196
+the tools to climb against. And if you
+
+1197
+00:38:42,396 --> 00:38:45,516
+can make an eval of the types of changes
+
+1198
+00:38:44,196 --> 00:38:47,557
+that that getting into your code that
+
+1199
+00:38:45,516 --> 00:38:49,317
+shouldn't have, and turn that into a
+
+1200
+00:38:47,557 --> 00:38:50,877
+test you can run, it gets very easy to
+
+1201
+00:38:49,317 --> 00:38:52,397
+fix these things. I talk about this a
+
+1202
+00:38:50,877 --> 00:38:54,077
+lot in my hill climb video where I talk
+
+1203
+00:38:52,397 --> 00:38:55,197
+about running Claude forever. I go in
+
+1204
+00:38:54,077 --> 00:38:56,437
+depth on how to set these types of
+
+1205
+00:38:55,197 --> 00:38:58,117
+environments up. They also suggest that
+
+1206
+00:38:56,437 --> 00:38:59,397
+measuring human time is useful, with
+
+1207
+00:38:58,117 --> 00:39:00,997
+reverts and incident rates being
+
+1208
+00:38:59,397 --> 00:39:02,677
+measured as well. So, where is all of
+
+1209
+00:39:00,997 --> 00:39:04,557
+this going now? When they announced the
+
+1210
+00:39:02,677 --> 00:39:06,197
+code review product for Claude code,
+
+1211
+00:39:04,557 --> 00:39:08,797
+they said that approving a PR is still a
+
+1212
+00:39:06,197 --> 00:39:10,717
+human call. The product posts findings,
+
+1213
+00:39:08,797 --> 00:39:12,397
+not approvals. Our own repos are now
+
+1214
+00:39:10,717 --> 00:39:13,997
+going further, letting owners decide
+
+1215
+00:39:12,397 --> 00:39:15,957
+which low-risk changes merge on
+
+1216
+00:39:13,997 --> 00:39:17,717
+automated checks alone, and that line
+
+1217
+00:39:15,957 --> 00:39:19,637
+keeps moving. When a review misses
+
+1218
+00:39:17,717 --> 00:39:21,317
+something, we ask what the model didn't
+
+1219
+00:39:19,637 --> 00:39:23,517
+have in front of it, and we put the fix
+
+1220
+00:39:21,317 --> 00:39:25,677
+in a Claude MD, a skill, or a new check.
+
+1221
+00:39:23,517 --> 00:39:26,917
+Nope. This is not right. This is the I
+
+1222
+00:39:25,677 --> 00:39:28,957
+do not like this guidance. You should
+
+1223
+00:39:26,917 --> 00:39:30,397
+try to fix the code first, and if you
+
+1224
+00:39:28,957 --> 00:39:32,157
+can't fix the code in a way that
+
+1225
+00:39:30,397 --> 00:39:34,117
+prevents the problem, then you add a
+
+1226
+00:39:32,157 --> 00:39:36,957
+check. If you can't fix it there, then
+
+1227
+00:39:34,117 --> 00:39:39,357
+you might maybe add a skill or a Claude
+
+1228
+00:39:36,957 --> 00:39:41,237
+MD. We somewhat recently overhauled all
+
+1229
+00:39:39,357 --> 00:39:42,677
+of our repo guidance,
+
+1230
+00:39:41,237 --> 00:39:45,597
+and I bet
+
+1231
+00:39:42,677 --> 00:39:47,317
+if we go to the agent of the Oh, we did
+
+1232
+00:39:45,597 --> 00:39:48,677
+make a change to agent MD 8 hours ago.
+
+1233
+00:39:47,317 --> 00:39:51,557
+Let's see how frequently this file
+
+1234
+00:39:48,677 --> 00:39:54,357
+changes. More than it used to,
+
+1235
+00:39:51,557 --> 00:39:56,317
+but still not that much.
+
+1236
+00:39:54,357 --> 00:39:58,437
+One month of change is still fits on one
+
+1237
+00:39:56,317 --> 00:40:00,877
+page, which is
+
+1238
+00:39:58,437 --> 00:40:03,557
+much less than other places in this code
+
+1239
+00:40:00,877 --> 00:40:06,357
+base. The chat view component, for
+
+1240
+00:40:03,557 --> 00:40:10,157
+example, changes like 30 to 50 times a
+
+1241
+00:40:06,357 --> 00:40:13,157
+day. Our agent MD has changed once-ish a
+
+1242
+00:40:10,157 --> 00:40:15,197
+day-ish, and even less earlier on. Like,
+
+1243
+00:40:13,157 --> 00:40:17,957
+it changed once every five-ish days
+
+1244
+00:40:15,197 --> 00:40:20,197
+before. So, like, we're not constantly
+
+1245
+00:40:17,957 --> 00:40:23,117
+adjusting all of this. Did Julius move
+
+1246
+00:40:20,197 --> 00:40:24,317
+us off of TS Rust? Oh.
+
+1247
+00:40:23,117 --> 00:40:26,397
+Julius, you should have just told me to
+
+1248
+00:40:24,317 --> 00:40:28,237
+keep going. I would have just spun
+
+1249
+00:40:26,397 --> 00:40:30,477
+back up my agent. Apparently, we turned
+
+1250
+00:40:28,237 --> 00:40:32,677
+off of TS Rust because Julius wanted new
+
+1251
+00:40:30,477 --> 00:40:34,077
+effect features. But yeah, like, actual
+
+1252
+00:40:32,677 --> 00:40:36,037
+guidance changed there, though. Like, we
+
+1253
+00:40:34,077 --> 00:40:38,037
+didn't adjust it because we saw some
+
+1254
+00:40:36,037 --> 00:40:39,797
+small thing that annoyed us. So, like,
+
+1255
+00:40:38,037 --> 00:40:41,637
+even there, we didn't change this
+
+1256
+00:40:39,797 --> 00:40:43,637
+because we saw our agents doing the
+
+1257
+00:40:41,637 --> 00:40:45,157
+wrong thing, we changed it because the
+
+1258
+00:40:43,637 --> 00:40:46,837
+repo itself changed, and one of the
+
+1259
+00:40:45,157 --> 00:40:49,477
+pieces of guidance was no longer true.
+
+1260
+00:40:46,837 --> 00:40:50,998
+That is what leads us to changes, not
+
+1261
+00:40:49,477 --> 00:40:54,238
+problems in the code base that we're
+
+1262
+00:40:50,998 --> 00:40:57,078
+trying to like give you like language to
+
+1263
+00:40:54,238 --> 00:40:59,598
+avoid. Imagine that you're like blind
+
+1264
+00:40:57,078 --> 00:41:01,718
+and you're navigating a maze in a dark
+
+1265
+00:40:59,598 --> 00:41:03,158
+room and you keep running into walls and
+
+1266
+00:41:01,718 --> 00:41:04,558
+tripping. We could give you better
+
+1267
+00:41:03,158 --> 00:41:06,958
+instructions before you walk into the
+
+1268
+00:41:04,558 --> 00:41:09,718
+maze or we could just
+
+1269
+00:41:06,958 --> 00:41:11,278
+cover up the holes and make the guidance
+
+1270
+00:41:09,718 --> 00:41:12,918
+in the maze better so it doesn't matter
+
+1271
+00:41:11,278 --> 00:41:15,118
+how well you can see when you walk in.
+
+1272
+00:41:12,918 --> 00:41:16,998
+Like I don't want to just keep giving
+
+1273
+00:41:15,118 --> 00:41:18,878
+the model more instructions before it
+
+1274
+00:41:16,998 --> 00:41:20,718
+goes in the door. I want to make it so
+
+1275
+00:41:18,878 --> 00:41:22,758
+the room it's navigating in is as easy
+
+1276
+00:41:20,718 --> 00:41:24,638
+for it to navigate as possible and I
+
+1277
+00:41:22,758 --> 00:41:26,918
+don't think more and more of these
+
+1278
+00:41:24,638 --> 00:41:28,398
+review MD files are the solution at all.
+
+1279
+00:41:26,918 --> 00:41:30,838
+They actually have a call out at the end
+
+1280
+00:41:28,398 --> 00:41:32,038
+here asking to hear more from us about
+
+1281
+00:41:30,838 --> 00:41:34,518
+which checks we're automating, which
+
+1282
+00:41:32,038 --> 00:41:36,478
+ones still need people and what we think
+
+1283
+00:41:34,518 --> 00:41:37,998
+they have wrong. I'm even more excited
+
+1284
+00:41:36,478 --> 00:41:38,998
+about this video going out I know
+
+1285
+00:41:37,998 --> 00:41:40,198
+they'll listen. They might actually try
+
+1286
+00:41:38,998 --> 00:41:41,878
+some of these things, especially now
+
+1287
+00:41:40,198 --> 00:41:43,718
+that it's like Addy and Emma who are two
+
+1288
+00:41:41,878 --> 00:41:44,758
+old friends. I also like Emma's
+
+1289
+00:41:43,718 --> 00:41:46,318
+absolutely unbelievable. I'm so happy
+
+1290
+00:41:44,758 --> 00:41:48,198
+that she's at Anthropic now. Not as
+
+1291
+00:41:46,318 --> 00:41:49,678
+familiar with Michael and Amy, but I've
+
+1292
+00:41:48,198 --> 00:41:51,478
+heard good things. This is an awesome
+
+1293
+00:41:49,678 --> 00:41:53,118
+article. It's really nice to have
+
+1294
+00:41:51,478 --> 00:41:55,198
+Anthropic being this much more
+
+1295
+00:41:53,118 --> 00:41:56,758
+transparent with their process now.
+
+1296
+00:41:55,198 --> 00:41:58,438
+Blogs like this just did not exist from
+
+1297
+00:41:56,758 --> 00:41:59,438
+them a year ago. They were not sharing
+
+1298
+00:41:58,438 --> 00:42:01,478
+this much about how they worked
+
+1299
+00:41:59,438 --> 00:42:03,198
+internally and it's such a nice change
+
+1300
+00:42:01,478 --> 00:42:04,998
+to get this type of info. Hopefully you
+
+1301
+00:42:03,198 --> 00:42:06,438
+enjoyed this as much as I did. I love
+
+1302
+00:42:04,998 --> 00:42:08,198
+peering behind the curtains on how
+
+1303
+00:42:06,438 --> 00:42:09,358
+people work with these tools and maybe
+
+1304
+00:42:08,198 --> 00:42:10,718
+you got to learn some things about how
+
+1305
+00:42:09,358 --> 00:42:11,638
+you can use them too. Let me know how
+
+1306
+00:42:10,718 --> 00:42:13,758
+you guys are doing reviews in the
+
+1307
+00:42:11,638 --> 00:42:16,278
+comments and until next time,
+
+1308
+00:42:13,758 --> 00:42:16,278
+peace nerds.
+

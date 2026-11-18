@@ -1,0 +1,2100 @@
+1
+00:00:00,100 --> 00:00:04,726
+I think we've reached a point where
+
+2
+00:00:02,301 --> 00:00:06,895
+if you don't significantly increase the ambition of what you
+
+3
+00:00:04,726 --> 00:00:09,387
+'re working on and what you're doing,
+
+4
+00:00:06,895 --> 00:00:11,897
+you're in big trouble.  I've
+
+5
+00:00:09,387 --> 00:00:15,199
+been thinking about this for a long time and I think I'm ready to
+
+6
+00:00:11,897 --> 00:00:17,936
+make a video about it.  I'm writing this on the day
+
+7
+00:00:15,199 --> 00:00:20,467
+Fable 5.2 is released.  This isn't a Fable video
+
+8
+00:00:17,936 --> 00:00:23,204
+, but in short, it's an incredible model
+
+9
+00:00:20,467 --> 00:00:25,334
+.  She is huge, she is powerful.  What
+
+10
+00:00:23,204 --> 00:00:27,731
+it can do is new, and we
+
+11
+00:00:25,334 --> 00:00:30,028
+continue to move down a path where models
+
+12
+00:00:27,731 --> 00:00:31,586
+get better and better and things get weirder and
+
+13
+00:00:30,028 --> 00:00:33,899
+weirder.
+
+14
+00:00:31,586 --> 00:00:35,801
+You need to be more ambitious, because if
+
+15
+00:00:33,899 --> 00:00:38,020
+you think back to the beginning of this year, when the
+
+16
+00:00:35,801 --> 00:00:40,123
+Codex desktop app didn't exist yet
+
+17
+00:00:38,020 --> 00:00:42,207
+, we weren't using it.  We were still
+
+18
+00:00:40,123 --> 00:00:44,516
+using the sidebar and Cursor
+
+19
+00:00:42,207 --> 00:00:46,793
+for agent tasks, following threads
+
+20
+00:00:44,516 --> 00:00:49,070
+, reading all the code, and doing it all manually
+
+21
+00:00:46,793 --> 00:00:51,411
+, compared to today where
+
+22
+00:00:49,070 --> 00:00:53,592
+I have 20 agents running in the background
+
+23
+00:00:51,411 --> 00:00:55,901
+on five different machines, working on a
+
+24
+00:00:53,592 --> 00:00:58,759
+bunch of different projects that are very big,
+
+25
+00:00:55,901 --> 00:01:00,551
+very ambitious, and actually working.
+
+26
+00:00:58,759 --> 00:01:02,611
+Everything has changed, and the changes will
+
+27
+00:01:00,551 --> 00:01:04,478
+continue.  And what I really
+
+28
+00:01:02,611 --> 00:01:06,192
+want to talk about in this video is a post by
+
+29
+00:01:04,478 --> 00:01:07,958
+one of my friends, Reez, about how
+
+30
+00:01:06,192 --> 00:01:09,544
+life has been like this "
+
+31
+00:01:07,958 --> 00:01:11,647
+software solved,
+
+32
+00:01:09,544 --> 00:01:14,027
+software solved" meme lately.  You either
+
+33
+00:01:11,647 --> 00:01:17,782
+love it or you hate it.  And, to be honest, I've
+
+34
+00:01:14,027 --> 00:01:20,148
+been to both of these camps.
+
+35
+00:01:17,782 --> 00:01:22,185
+There's a certain sadness in the way things are evolving
+
+36
+00:01:20,148 --> 00:01:24,585
+, when many of the things we
+
+37
+00:01:22,185 --> 00:01:26,984
+cared about so much and spent so much time on
+
+38
+00:01:24,585 --> 00:01:28,393
+just don't matter as much anymore
+
+39
+00:01:26,984 --> 00:01:30,496
+.
+
+40
+00:01:28,393 --> 00:01:32,886
+I know it sucks, and I know some people
+
+41
+00:01:30,496 --> 00:01:35,085
+disagree, but the harsh reality is that
+
+42
+00:01:32,886 --> 00:01:37,157
+if you read every line of
+
+43
+00:01:35,085 --> 00:01:39,160
+code and still write something by hand, you're
+
+44
+00:01:37,157 --> 00:01:41,314
+just doing it wrong.  Sorry, you are
+
+45
+00:01:39,160 --> 00:01:43,520
+absolutely wrong.  These agents have
+
+46
+00:01:41,314 --> 00:01:45,665
+crossed the threshold for any task
+
+47
+00:01:43,520 --> 00:01:47,599
+where you go from point A to point B
+
+48
+00:01:45,665 --> 00:01:49,834
+with a clear task to write something and
+
+49
+00:01:47,599 --> 00:01:51,743
+bring it to life: agents write better
+
+50
+00:01:49,834 --> 00:01:53,694
+code than humans.  It's done, it's
+
+51
+00:01:51,743 --> 00:01:55,730
+over.  The software is
+
+52
+00:01:53,694 --> 00:01:57,683
+actually solved, but that doesn't mean
+
+53
+00:01:55,730 --> 00:01:59,761
+everything around the software is
+
+54
+00:01:57,683 --> 00:02:02,200
+solved.  This doesn't mean that people aren't
+
+55
+00:01:59,761 --> 00:02:05,282
+needed, but the process of writing code
+
+56
+00:02:02,200 --> 00:02:07,862
+and inventing functions is a thing of the past.   It's like
+
+57
+00:02:05,282 --> 00:02:09,909
+AI has already figured it out.  And if you
+
+58
+00:02:07,862 --> 00:02:12,348
+extrapolate this, more and
+
+59
+00:02:09,909 --> 00:02:14,555
+more industries will follow the same path.
+
+60
+00:02:12,348 --> 00:02:16,793
+I don't know if we'll end up with
+
+61
+00:02:14,555 --> 00:02:18,875
+some kind of magical god machine that
+
+62
+00:02:16,793 --> 00:02:21,245
+creates itself, a true AGI, the kind of thing we
+
+63
+00:02:18,875 --> 00:02:23,398
+see in real science fiction.
+
+64
+00:02:21,245 --> 00:02:25,318
+It may sound crazy, but I
+
+65
+00:02:23,398 --> 00:02:27,997
+see it.  I can imagine a world where this
+
+66
+00:02:25,318 --> 00:02:31,144
+actually happens.  I don't know when, I don't
+
+67
+00:02:27,997 --> 00:02:33,127
+know how, but it's definitely possible.
+
+68
+00:02:31,144 --> 00:02:35,347
+And if these things continue to
+
+69
+00:02:33,127 --> 00:02:37,768
+improve, even at the current
+
+70
+00:02:35,347 --> 00:02:40,189
+rate, where you can see this graph
+
+71
+00:02:37,768 --> 00:02:42,408
+from Meter on the performance of
+
+72
+00:02:40,189 --> 00:02:44,459
+Anthropic's internal models, where you can see a pretty clear
+
+73
+00:02:42,408 --> 00:02:46,780
+linear trend all the way up to Sonnet 4.5, where there
+
+74
+00:02:44,459 --> 00:02:49,402
+was a pretty sharp jump up, and
+
+75
+00:02:46,780 --> 00:02:51,726
+the capabilities continue to grow much
+
+76
+00:02:49,402 --> 00:02:54,209
+faster.  This doesn't quite look like an
+
+77
+00:02:51,726 --> 00:02:56,019
+exponent yet.  I don't see it.  The jumps aren't
+
+78
+00:02:54,209 --> 00:02:57,745
+getting that crazy, but that
+
+79
+00:02:56,019 --> 00:02:59,495
+could change at any moment.
+
+80
+00:02:57,745 --> 00:03:01,377
+Of course, things can happen where
+
+81
+00:02:59,495 --> 00:03:02,918
+models just magically become
+
+82
+00:03:01,377 --> 00:03:04,539
+so good at something that they can
+
+83
+00:03:02,918 --> 00:03:06,318
+explode and start doing the same
+
+84
+00:03:04,539 --> 00:03:08,772
+crazy fantastic things.  I am not a
+
+85
+00:03:06,318 --> 00:03:10,759
+researcher.  I don't want to discuss all these
+
+86
+00:03:08,772 --> 00:03:12,720
+things.  And, frankly, betting and
+
+87
+00:03:10,759 --> 00:03:14,851
+trying to guess the future is a
+
+88
+00:03:12,720 --> 00:03:16,769
+fool's errand.  I would never in my life have guessed how
+
+89
+00:03:14,851 --> 00:03:18,760
+I work now, so I won't
+
+90
+00:03:16,769 --> 00:03:20,396
+do it.  I just want to talk more
+
+91
+00:03:18,760 --> 00:03:22,006
+about the present, about how I work,
+
+92
+00:03:20,396 --> 00:03:23,616
+think, and feel, because honestly,
+
+93
+00:03:22,006 --> 00:03:25,073
+I think a lot of the challenges of
+
+94
+00:03:23,616 --> 00:03:26,989
+, you know, learning more
+
+95
+00:03:25,073 --> 00:03:28,625
+complex agency work and building
+
+96
+00:03:26,989 --> 00:03:30,525
+bigger things are mostly
+
+97
+00:03:28,625 --> 00:03:32,326
+psychological.  So that's what I want to break down
+
+98
+00:03:30,525 --> 00:03:34,413
+right after today's sponsor.
+
+99
+00:03:32,326 --> 00:03:36,149
+Greptile is my favorite AI code reviewer
+
+100
+00:03:34,413 --> 00:03:37,916
+.  This is the one I use in all
+
+101
+00:03:36,149 --> 00:03:40,091
+my projects.  This is the one my
+
+102
+00:03:37,916 --> 00:03:42,212
+agents interact with constantly.  This is what
+
+103
+00:03:40,091 --> 00:03:44,268
+Greptile discovered in one of my projects
+
+104
+00:03:42,212 --> 00:03:46,518
+, where it found a very subtle
+
+105
+00:03:44,268 --> 00:03:48,896
+race station in the code for that PR, fully
+
+106
+00:03:46,518 --> 00:03:50,631
+running and testing it with evidence
+
+107
+00:03:48,896 --> 00:03:52,977
+through T-Rex, their sandbox that
+
+108
+00:03:50,631 --> 00:03:54,841
+allows the agent to run and test
+
+109
+00:03:52,977 --> 00:03:57,219
+your actual codebase during the
+
+110
+00:03:54,841 --> 00:03:59,914
+test, rather than just looking at it
+
+111
+00:03:57,219 --> 00:04:02,505
+and saying if it looks right.
+
+112
+00:03:59,914 --> 00:04:05,196
+Such things are extremely useful.  And honestly,
+
+113
+00:04:02,505 --> 00:04:07,886
+considering how many bugs it found for
+
+114
+00:04:05,196 --> 00:04:09,357
+me, and the incredible number of bugs for
+
+115
+00:04:07,886 --> 00:04:11,761
+NVIDIA, Scale, PostHog, Substack, WorkOS,
+
+116
+00:04:09,357 --> 00:04:14,295
+and a bunch of other companies, it's the best
+
+117
+00:04:11,761 --> 00:04:16,439
+option.  Add it to all your
+
+118
+00:04:14,295 --> 00:04:18,601
+projects at davis7.link/gptile.  Like I
+
+119
+00:04:16,439 --> 00:04:20,918
+said, I think a lot of this
+
+120
+00:04:18,601 --> 00:04:22,995
+really comes down to weird psychology
+
+121
+00:04:20,918 --> 00:04:25,103
+.  I noticed a bunch of mental
+
+122
+00:04:22,995 --> 00:04:27,243
+barriers that I was building:
+
+123
+00:04:25,103 --> 00:04:29,416
+models can do this, that, and that,
+
+124
+00:04:27,243 --> 00:04:31,589
+so I'll only push them to do
+
+125
+00:04:29,416 --> 00:04:34,056
+certain tasks.  As a result, you
+
+126
+00:04:31,589 --> 00:04:36,491
+stop striving for more and try to
+
+127
+00:04:34,056 --> 00:04:38,830
+squeeze the work of these tools into the old,
+
+128
+00:04:36,491 --> 00:04:40,948
+habitual schemes that you have been using for years,
+
+129
+00:04:38,830 --> 00:04:42,967
+and you focus only on that.  If
+
+130
+00:04:40,948 --> 00:04:44,843
+all you want from them is to write
+
+131
+00:04:42,967 --> 00:04:46,662
+some code in Rails or create simple
+
+132
+00:04:44,843 --> 00:04:48,340
+CRUD applications and be done with it, then
+
+133
+00:04:46,662 --> 00:04:50,500
+yes, it won't be satisfying and
+
+134
+00:04:48,340 --> 00:04:51,156
+will seem kind of bleak and depressing
+
+135
+00:04:50,500 --> 00:04:53,175
+.
+
+136
+00:04:51,156 --> 00:04:55,288
+In fact, it's worth pushing the boundaries of what's
+
+137
+00:04:53,175 --> 00:04:57,494
+possible, setting them increasingly
+
+138
+00:04:55,288 --> 00:04:59,700
+difficult tasks, and you'll almost certainly
+
+139
+00:04:57,494 --> 00:05:00,700
+be shocked by what they're capable of
+
+140
+00:04:59,700 --> 00:05:03,111
+.   There
+
+141
+00:05:00,700 --> 00:05:05,955
+have been a bunch of public examples of this in the last few months
+
+142
+00:05:03,111 --> 00:05:08,091
+.
+
+143
+00:05:05,955 --> 00:05:10,072
+I saw Opus rewrite the entire
+
+144
+00:05:08,091 --> 00:05:12,675
+TypeScript compiler from Go to Rust in a
+
+145
+00:05:10,072 --> 00:05:15,395
+loop in two weeks—it was just Opus
+
+146
+00:05:12,675 --> 00:05:17,174
+running in a loop, and it built it
+
+147
+00:05:15,395 --> 00:05:19,434
+.
+
+148
+00:05:17,174 --> 00:05:21,791
+This has become possible, and therefore many things are
+
+149
+00:05:19,434 --> 00:05:24,595
+now quite real and will soon be realized
+
+150
+00:05:21,791 --> 00:05:27,475
+.  I've been
+
+151
+00:05:24,595 --> 00:05:30,134
+thinking a lot about games lately.
+
+152
+00:05:27,475 --> 00:05:32,475
+I'll show a lot of this in future videos
+
+153
+00:05:30,134 --> 00:05:34,816
+about Fable and other projects: what I'm
+
+154
+00:05:32,475 --> 00:05:37,263
+working on now far exceeds my
+
+155
+00:05:34,816 --> 00:05:39,781
+expectations, and now I understand that I can
+
+156
+00:05:37,263 --> 00:05:42,996
+realize things that I've dreamed of for a long
+
+157
+00:05:39,781 --> 00:05:44,945
+time, because now anything is possible.
+
+158
+00:05:42,996 --> 00:05:46,532
+I don't have to manually deal with the
+
+159
+00:05:44,945 --> 00:05:48,509
+physics engine, tricky 3D
+
+160
+00:05:46,532 --> 00:05:50,737
+rendering, and all the other complicated
+
+161
+00:05:48,509 --> 00:05:52,788
+stuff.  I can just take it and do
+
+162
+00:05:50,737 --> 00:05:54,895
+it.  Of course, I'm not an expert in
+
+163
+00:05:52,788 --> 00:05:57,293
+game design systems and how it all
+
+164
+00:05:54,895 --> 00:05:59,731
+works and fits together.  There are areas that I
+
+165
+00:05:57,293 --> 00:06:02,202
+know very well, for example, the web, servers
+
+166
+00:05:59,731 --> 00:06:04,471
+, websites—I understand this whole system perfectly
+
+167
+00:06:02,202 --> 00:06:06,739
+and get incredible results from
+
+168
+00:06:04,471 --> 00:06:09,510
+agents because I know the subject area and
+
+169
+00:06:06,739 --> 00:06:11,266
+can direct them in the right direction.  I mean,
+
+170
+00:06:09,510 --> 00:06:13,110
+when you see
+
+171
+00:06:11,266 --> 00:06:15,013
+all these crazy demos on Twitter
+
+172
+00:06:13,110 --> 00:06:16,857
+from new models made in one
+
+173
+00:06:15,013 --> 00:06:18,935
+go...Like Fable 5 2 just came out and
+
+174
+00:06:16,857 --> 00:06:20,896
+I saw so many incredible things
+
+175
+00:06:18,935 --> 00:06:22,891
+he created just working in a loop on his
+
+176
+00:06:20,896 --> 00:06:25,087
+own for a day or two.  These
+
+177
+00:06:22,891 --> 00:06:27,361
+things are really good.  They have certain
+
+178
+00:06:25,087 --> 00:06:29,193
+drawbacks.  They are not quite perfect yet.
+
+179
+00:06:27,361 --> 00:06:31,006
+There is still work to be done, but this is far from a
+
+180
+00:06:29,193 --> 00:06:32,604
+minimal effort.  Of course, you can
+
+181
+00:06:31,006 --> 00:06:34,899
+look at this and say, "Oh, this is a
+
+182
+00:06:32,604 --> 00:06:37,069
+hack."  This is terrible.  This, this, and this—it's
+
+183
+00:06:34,899 --> 00:06:39,068
+all wrong.  We need to throw this away.
+
+184
+00:06:37,069 --> 00:06:41,434
+It doesn't matter.  This will never
+
+185
+00:06:39,068 --> 00:06:43,420
+work.  And I think that's the wrong
+
+186
+00:06:41,434 --> 00:06:45,662
+view, because yes, it's true, but
+
+187
+00:06:43,420 --> 00:06:47,905
+think about the other side too: if you
+
+188
+00:06:45,662 --> 00:06:50,019
+can do this with one
+
+189
+00:06:47,905 --> 00:06:52,037
+query without knowing what you're doing, imagine
+
+190
+00:06:50,019 --> 00:06:54,486
+what you can achieve with 300
+
+191
+00:06:52,037 --> 00:06:57,185
+queries when you know what you're doing.  Because there
+
+192
+00:06:54,486 --> 00:06:59,296
+are great examples of this now.
+
+193
+00:06:57,185 --> 00:07:01,991
+My two favorites are Grokbot and T3 code,
+
+194
+00:06:59,296 --> 00:07:04,467
+both incredibly ambitious, very useful,
+
+195
+00:07:01,991 --> 00:07:07,157
+and high-quality products developed
+
+196
+00:07:04,467 --> 00:07:09,508
+almost entirely by agents.
+
+197
+00:07:07,157 --> 00:07:11,924
+They are designed so that models can
+
+198
+00:07:09,508 --> 00:07:14,209
+create things, test their own changes
+
+199
+00:07:11,924 --> 00:07:15,891
+, work in loops, and do all that.  And
+
+200
+00:07:14,209 --> 00:07:18,215
+the teams working on them are
+
+201
+00:07:15,891 --> 00:07:19,897
+only doing high-
+
+202
+00:07:18,215 --> 00:07:22,159
+level orchestration, tasking, and
+
+203
+00:07:19,897 --> 00:07:24,431
+verification—essentially telling them when
+
+204
+00:07:22,159 --> 00:07:26,300
+they're doing something stupid and fixing it.
+
+205
+00:07:24,431 --> 00:07:28,054
+I really like Mario, the
+
+206
+00:07:26,300 --> 00:07:30,099
+creator of Pi,'s post about how the most important
+
+207
+00:07:28,054 --> 00:07:32,144
+skill in 2026 is still the ability
+
+208
+00:07:30,099 --> 00:07:34,168
+to say to your agents, "What the hell is this?"
+
+209
+00:07:32,144 --> 00:07:35,953
+» No, not like that.  If you stop
+
+210
+00:07:34,168 --> 00:07:37,639
+doing this, you are effectively in the air, despite what
+
+211
+00:07:35,953 --> 00:07:40,008
+some "devfluencers" try to impose
+
+212
+00:07:37,639 --> 00:07:42,171
+.  And that's true.  If you
+
+213
+00:07:40,008 --> 00:07:44,186
+don't have any control over the results, don't look at
+
+214
+00:07:42,171 --> 00:07:46,378
+what they're doing, and don't add systems
+
+215
+00:07:44,186 --> 00:07:48,514
+to improve the output—yes, you're going to have
+
+216
+00:07:46,378 --> 00:07:50,404
+problems.  Still,
+
+217
+00:07:48,514 --> 00:07:52,078
+a lot of effort is needed.  It's just that the things that are now
+
+218
+00:07:50,404 --> 00:07:53,927
+possible and can be
+
+219
+00:07:52,078 --> 00:07:56,174
+built upon are much larger
+
+220
+00:07:53,927 --> 00:07:58,522
+than ever before.  I'm working on it now
+
+221
+00:07:56,174 --> 00:08:00,739
+.  This is a robot that will have complete freedom
+
+222
+00:07:58,522 --> 00:08:02,833
+to move around my apartment and do
+
+223
+00:08:00,739 --> 00:08:04,900
+whatever I want, essentially serving as a
+
+224
+00:08:02,833 --> 00:08:06,878
+guardian for my cats.  So when
+
+225
+00:08:04,900 --> 00:08:08,758
+I'm not home, he can patrol and
+
+226
+00:08:06,878 --> 00:08:10,056
+see what they're doing.  I'll have an
+
+227
+00:08:08,758 --> 00:08:11,878
+agent that will control it and
+
+228
+00:08:10,056 --> 00:08:13,376
+send it on tasks, and then
+
+229
+00:08:11,878 --> 00:08:15,049
+it will use Jev, a
+
+230
+00:08:13,376 --> 00:08:16,611
+decision-making model, to decide how to
+
+231
+00:08:15,049 --> 00:08:18,902
+get somewhere.  That is, the
+
+232
+00:08:16,611 --> 00:08:21,130
+orchestrator model will choose: “Okay, go here,
+
+233
+00:08:18,902 --> 00:08:23,448
+” and Jev will make snap decisions to
+
+234
+00:08:21,130 --> 00:08:25,806
+smoothly direct him there.
+
+235
+00:08:23,448 --> 00:08:28,343
+And all this design, all these details, all the
+
+236
+00:08:25,806 --> 00:08:30,773
+schematics, all the wiring, soldering, instructions
+
+237
+00:08:28,343 --> 00:08:33,094
+— it was all put together by models that
+
+238
+00:08:30,773 --> 00:08:35,646
+Grokbot was running in the background, and it
+
+239
+00:08:33,094 --> 00:08:37,905
+worked.  I recently bought a 3D
+
+240
+00:08:35,646 --> 00:08:40,067
+printer because I want to delve deeper into
+
+241
+00:08:37,905 --> 00:08:42,262
+hardware, because while I love
+
+242
+00:08:40,067 --> 00:08:44,652
+software, it's honestly
+
+243
+00:08:42,262 --> 00:08:46,906
+getting a bit boring, and I want to push these
+
+244
+00:08:44,652 --> 00:08:48,794
+things further and more vigorously.  This is my Grokbot
+
+245
+00:08:46,906 --> 00:08:50,919
+for the 3D printer that is connected to it
+
+246
+00:08:48,794 --> 00:08:52,645
+.  He has full
+
+247
+00:08:50,919 --> 00:08:54,645
+developer control over the printer and simply
+
+248
+00:08:52,645 --> 00:08:56,712
+sends me screenshots of the printing in progress
+
+249
+00:08:54,645 --> 00:08:58,721
+.  I can tell it to do something and
+
+250
+00:08:56,712 --> 00:09:01,253
+then type it out and it does it.
+
+251
+00:08:58,721 --> 00:09:03,683
+The way we work has changed radically,
+
+252
+00:09:01,253 --> 00:09:05,805
+but on the other hand, when you look at it, I'm
+
+253
+00:09:03,683 --> 00:09:08,269
+sitting here, texting with a magical
+
+254
+00:09:05,805 --> 00:09:10,323
+wish machine, creating a robot from scratch
+
+255
+00:09:08,269 --> 00:09:12,531
+, and working on a game I've dreamed about for
+
+256
+00:09:10,323 --> 00:09:14,201
+forever.  It's just on the table now, I'm
+
+257
+00:09:12,531 --> 00:09:16,303
+actually making it, and it works,
+
+258
+00:09:14,201 --> 00:09:18,580
+looks, and feels really good—the fact that
+
+259
+00:09:16,303 --> 00:09:20,136
+it just exists.  She is working now
+
+260
+00:09:18,580 --> 00:09:22,173
+.  That's what I mean when I say "
+
+261
+00:09:20,136 --> 00:09:23,993
+be more ambitious."  Try doing
+
+262
+00:09:22,173 --> 00:09:25,469
+things like that.  And actually, when I
+
+263
+00:09:23,993 --> 00:09:27,193
+posted this, I got a few
+
+264
+00:09:25,469 --> 00:09:28,956
+questions that I really enjoyed.
+
+265
+00:09:27,193 --> 00:09:30,668
+One of them that I really liked
+
+266
+00:09:28,956 --> 00:09:32,655
+was from Alex.  Do you have a process,
+
+267
+00:09:30,668 --> 00:09:34,670
+mental or otherwise, to invent a new
+
+268
+00:09:32,655 --> 00:09:36,657
+ocean worth trying to drain—
+
+269
+00:09:34,670 --> 00:09:38,535
+this is a reference to Gary Tan's great article
+
+270
+00:09:36,657 --> 00:09:40,549
+earlier this year where he said it's
+
+271
+00:09:38,535 --> 00:09:42,777
+time for us to "start draining the ocean"
+
+272
+00:09:40,549 --> 00:09:45,023
+and be more ambitious.  Anything you can
+
+273
+00:09:42,777 --> 00:09:47,465
+think of that was too big or
+
+274
+00:09:45,023 --> 00:09:51,126
+crazy to implement—it's worth
+
+275
+00:09:47,465 --> 00:09:51,126
+taking on now, because it's possible.
+
+276
+00:09:51,738 --> 00:09:56,289
+Here's how I think about it: Now that we
+
+277
+00:09:53,866 --> 00:09:58,615
+have such incredibly capable agents,
+
+278
+00:09:56,289 --> 00:10:01,561
+the places where they really go wrong are in
+
+279
+00:09:58,615 --> 00:10:03,952
+unverifiable decisions.
+
+280
+00:10:01,561 --> 00:10:06,245
+Obviously, if you ask them to create
+
+281
+00:10:03,952 --> 00:10:09,147
+an interface, it will look like a typical "
+
+282
+00:10:06,245 --> 00:10:11,824
+LLM dump".  Even newer models like
+
+283
+00:10:09,147 --> 00:10:14,587
+Fable 5.2 are better, they are improved, but
+
+284
+00:10:11,824 --> 00:10:16,783
+still not magical.  They still won't
+
+285
+00:10:14,587 --> 00:10:19,170
+create anything better than a person with
+
+286
+00:10:16,783 --> 00:10:21,093
+good ideas and taste who guides
+
+287
+00:10:19,170 --> 00:10:23,170
+them in a certain direction.  They still
+
+288
+00:10:21,093 --> 00:10:25,036
+need that control and help.
+
+289
+00:10:23,170 --> 00:10:26,958
+A good example of this: I have a bunch of
+
+290
+00:10:25,036 --> 00:10:28,768
+internal tools I'm
+
+291
+00:10:26,958 --> 00:10:30,848
+working on to use the YouTube API for
+
+292
+00:10:28,768 --> 00:10:33,030
+many channels.  The most annoying thing about
+
+293
+00:10:30,848 --> 00:10:34,931
+this project is getting API keys and
+
+294
+00:10:33,030 --> 00:10:36,638
+authenticating with YouTube.  So when you
+
+295
+00:10:34,931 --> 00:10:38,368
+'re working in a cloud sandbox or something
+
+296
+00:10:36,638 --> 00:10:39,813
+like that, you're not logged in, so you
+
+297
+00:10:38,368 --> 00:10:41,579
+can't test or
+
+298
+00:10:39,813 --> 00:10:43,028
+run anything.  So when models make
+
+299
+00:10:41,579 --> 00:10:44,710
+changes, they can't actually
+
+300
+00:10:43,028 --> 00:10:46,628
+test their code on the real
+
+301
+00:10:44,710 --> 00:10:48,683
+YouTube API.  So what I did was this: I made
+
+302
+00:10:46,628 --> 00:10:50,643
+the model run in a loop, took the entire
+
+303
+00:10:48,683 --> 00:10:52,887
+YouTube API spec, and created a
+
+304
+00:10:50,643 --> 00:10:55,194
+mock version of it, which I now hosted
+
+305
+00:10:52,887 --> 00:10:57,576
+locally to test all my changes
+
+306
+00:10:55,194 --> 00:10:59,560
+on the real product.  And every time
+
+307
+00:10:57,576 --> 00:11:01,643
+something changes in the YouTube API spec
+
+308
+00:10:59,560 --> 00:11:04,023
+, my bot tracks it and
+
+309
+00:11:01,643 --> 00:11:06,073
+automatically updates my fake gateway
+
+310
+00:11:04,023 --> 00:11:07,977
+to keep it up to date and working
+
+311
+00:11:06,073 --> 00:11:09,763
+properly.  Whenever you
+
+312
+00:11:07,977 --> 00:11:11,704
+encounter something boring or
+
+313
+00:11:09,763 --> 00:11:13,861
+tedious, it is now very helpful and
+
+314
+00:11:11,704 --> 00:11:15,625
+important to simply entrust it to a model.  I
+
+315
+00:11:13,861 --> 00:11:17,696
+just look for any problems that
+
+316
+00:11:15,625 --> 00:11:19,627
+arise when building something with AI
+
+317
+00:11:17,696 --> 00:11:21,251
+, or even in my normal day-to-day
+
+318
+00:11:19,627 --> 00:11:23,210
+work, and if there's something that I'm
+
+319
+00:11:21,251 --> 00:11:25,018
+tired of and don't want to deal with, I
+
+320
+00:11:23,210 --> 00:11:27,143
+just ask the model to fix it.
+
+321
+00:11:25,018 --> 00:11:29,434
+For example, for a real
+
+322
+00:11:27,143 --> 00:11:31,460
+game project, I often encountered the fact that they
+
+323
+00:11:29,434 --> 00:11:33,486
+overlooked certain details before
+
+324
+00:11:31,460 --> 00:11:35,910
+sending, or started to
+
+325
+00:11:33,486 --> 00:11:38,059
+load the computer too much for
+
+326
+00:11:35,910 --> 00:11:40,086
+FPS testing, which is simply terrible and does not work.  I
+
+327
+00:11:38,059 --> 00:11:42,053
+thought, "Okay, this is terrible, I don't want to
+
+328
+00:11:40,086 --> 00:11:44,230
+do this, let's stop and
+
+329
+00:11:42,053 --> 00:11:46,376
+build a full toolkit for
+
+330
+00:11:44,230 --> 00:11:48,254
+this game" so you can interact with
+
+331
+00:11:46,376 --> 00:11:50,519
+it via the CLI, take screenshots,
+
+332
+00:11:48,254 --> 00:11:52,606
+move your character, jump to different
+
+333
+00:11:50,519 --> 00:11:54,484
+parts of the world, so that while you're testing, you
+
+334
+00:11:52,606 --> 00:11:56,571
+can feel the game environment and
+
+335
+00:11:54,484 --> 00:11:58,931
+loop the process until you get a
+
+336
+00:11:56,571 --> 00:12:01,308
+good result.  Then you add a
+
+337
+00:11:58,931 --> 00:12:03,462
+bunch of other models to that.  Maybe you
+
+338
+00:12:01,308 --> 00:12:05,456
+have a GPT model that does all the work, and
+
+339
+00:12:03,462 --> 00:12:07,706
+then Fable 5.2 comes in, does
+
+340
+00:12:05,456 --> 00:12:09,499
+a review, and it all goes around in circles until
+
+341
+00:12:07,706 --> 00:12:11,233
+Fable says it's ready.  You
+
+342
+00:12:09,499 --> 00:12:13,385
+get a system in which the agent
+
+343
+00:12:11,233 --> 00:12:15,387
+will work for a very long time, repeating everything
+
+344
+00:12:13,385 --> 00:12:17,351
+over and over again to get a much
+
+345
+00:12:15,387 --> 00:12:19,362
+higher quality result.  And I really
+
+346
+00:12:17,351 --> 00:12:21,180
+try to design everything so that I
+
+347
+00:12:19,362 --> 00:12:23,338
+only have to interact with it and
+
+348
+00:12:21,180 --> 00:12:25,278
+work with it.  I would say
+
+349
+00:12:23,338 --> 00:12:27,306
+as little as possible is probably the best
+
+350
+00:12:25,278 --> 00:12:29,395
+way to put it, but I'd rather have as
+
+351
+00:12:27,306 --> 00:12:31,543
+much of my stuff as possible reach
+
+352
+00:12:29,395 --> 00:12:33,632
+the point where I just open my phone,
+
+353
+00:12:31,543 --> 00:12:35,452
+look at the Grok bot, see a message with a
+
+354
+00:12:33,632 --> 00:12:37,550
+link to the previous build, and
+
+355
+00:12:35,452 --> 00:12:39,817
+screenshots showing the changes.  I can
+
+356
+00:12:37,550 --> 00:12:41,904
+quickly review the difference, make sure
+
+357
+00:12:39,817 --> 00:12:44,111
+nothing is beyond what I
+
+358
+00:12:41,904 --> 00:12:45,871
+actually wanted to do, let a bunch of
+
+359
+00:12:44,111 --> 00:12:47,481
+models and bots test and
+
+360
+00:12:45,871 --> 00:12:49,620
+validate it to have full
+
+361
+00:12:47,481 --> 00:12:51,375
+confidence in releasing the product.  And when
+
+362
+00:12:49,620 --> 00:12:53,000
+something goes wrong, you need to stop,
+
+363
+00:12:51,375 --> 00:12:54,729
+tell the system what went wrong, and
+
+364
+00:12:53,000 --> 00:12:56,726
+fix it by developing an appropriate
+
+365
+00:12:54,729 --> 00:12:58,603
+solution.  This is what we need to do
+
+366
+00:12:56,726 --> 00:13:01,003
+right now.  And when you do that,
+
+367
+00:12:58,603 --> 00:13:03,400
+crazy things become possible.
+
+368
+00:13:01,003 --> 00:13:05,797
+I think when you really think
+
+369
+00:13:03,400 --> 00:13:08,259
+about the implications of all this, you see
+
+370
+00:13:05,797 --> 00:13:10,093
+where we are now and what is possible here.
+
+371
+00:13:08,259 --> 00:13:12,207
+Assuming the pace of improvement
+
+372
+00:13:10,093 --> 00:13:14,538
+continues, even if it simply
+
+373
+00:13:12,207 --> 00:13:16,869
+stays at this linear level, we
+
+374
+00:13:14,538 --> 00:13:19,107
+will reach an absurd point where
+
+375
+00:13:16,869 --> 00:13:21,407
+software becomes perfect, leading
+
+376
+00:13:19,107 --> 00:13:23,675
+to an exciting future where companies
+
+377
+00:13:21,407 --> 00:13:25,975
+and products that I sincerely despise will
+
+378
+00:13:23,675 --> 00:13:27,863
+simply be liquidated and thrown out everywhere
+
+379
+00:13:25,975 --> 00:13:30,238
+.  If I get tired and
+
+380
+00:13:27,863 --> 00:13:32,634
+annoyed by something, I'll just fork or
+
+381
+00:13:30,238 --> 00:13:34,426
+create my own version.  I was really annoyed by
+
+382
+00:13:32,634 --> 00:13:36,511
+Whisper Flow in dictation, so now I
+
+383
+00:13:34,426 --> 00:13:38,916
+only use my own tool for it
+
+384
+00:13:36,511 --> 00:13:42,376
+.  This is entirely my
+
+385
+00:13:38,916 --> 00:13:44,620
+own creation and it works very well.
+
+386
+00:13:42,376 --> 00:13:46,967
+It simply performs all the voice-to-
+
+387
+00:13:44,620 --> 00:13:49,047
+text processing locally.  It was created
+
+388
+00:13:46,967 --> 00:13:50,732
+using Opus 55 and GPT 6 Astra in a loop
+
+389
+00:13:49,047 --> 00:13:52,379
+.  I have its open source
+
+390
+00:13:50,732 --> 00:13:54,344
+code somewhere.  I'm not interested in turning this
+
+391
+00:13:52,379 --> 00:13:55,723
+into a product.  This was not the main goal.   The
+
+392
+00:13:54,344 --> 00:13:57,914
+bottom line was that I had this
+
+393
+00:13:55,723 --> 00:13:59,472
+annoying problem.  I went and untied
+
+394
+00:13:57,914 --> 00:14:00,884
+her.  Now think about what you could
+
+395
+00:13:59,472 --> 00:14:02,561
+do with a bunch of big players with
+
+396
+00:14:00,884 --> 00:14:04,150
+terrible software—these
+
+397
+00:14:02,561 --> 00:14:05,784
+huge, slow giants that
+
+398
+00:14:04,150 --> 00:14:07,809
+could never adapt to this
+
+399
+00:14:05,784 --> 00:14:09,777
+fast enough.  My favorite example, because
+
+400
+00:14:07,809 --> 00:14:11,921
+, to be honest, I'm just a hater, but I also
+
+401
+00:14:09,777 --> 00:14:14,400
+really hate Google.  I want
+
+402
+00:14:11,921 --> 00:14:16,255
+Google to disappear.  I want them destroyed.  I
+
+403
+00:14:14,400 --> 00:14:18,438
+really love YouTube and I think it will be
+
+404
+00:14:16,255 --> 00:14:20,055
+stable and around for a long time.  And
+
+405
+00:14:18,438 --> 00:14:22,110
+of course, GCP, they have a lot of
+
+406
+00:14:20,055 --> 00:14:24,060
+GPUs and computing power
+
+407
+00:14:22,110 --> 00:14:25,629
+, so this is not going anywhere.  But Google
+
+408
+00:14:24,060 --> 00:14:28,484
+Search, Gmail, Google Drive, Android—
+
+409
+00:14:25,629 --> 00:14:31,921
+all of this should be destroyed within three
+
+410
+00:14:28,484 --> 00:14:33,969
+years, and I think that's how it will be.
+
+411
+00:14:31,921 --> 00:14:36,577
+I honestly don't believe the Android team
+
+412
+00:14:33,969 --> 00:14:38,625
+will pull it off;  They have proven that they can't
+
+413
+00:14:36,577 --> 00:14:41,084
+keep up with the changes, because when I
+
+414
+00:14:38,625 --> 00:14:42,984
+use the iPhone Duo and compare it to
+
+415
+00:14:41,084 --> 00:14:44,772
+my old foldable Android
+
+416
+00:14:42,984 --> 00:14:47,305
+smartphone, the Google Pixel 10 Pro Fold,
+
+417
+00:14:44,772 --> 00:14:50,024
+which is their most advanced model,
+
+418
+00:14:47,305 --> 00:14:52,398
+the difference in software is like
+
+419
+00:14:50,024 --> 00:14:54,935
+heaven and earth.  Android makes me
+
+420
+00:14:52,398 --> 00:14:57,280
+want to gouge out my eyes.  This is a terrible
+
+421
+00:14:54,935 --> 00:14:59,599
+experience, and now it can be fixed.
+
+422
+00:14:57,280 --> 00:15:01,701
+There will be a small team, probably as early as
+
+423
+00:14:59,599 --> 00:15:03,989
+next year, of three to six people
+
+424
+00:15:01,701 --> 00:15:06,061
+who will sit down and create an infinitely better
+
+425
+00:15:03,989 --> 00:15:07,931
+mobile operating system capable of
+
+426
+00:15:06,061 --> 00:15:10,503
+dethroning Android.  I sincerely
+
+427
+00:15:07,931 --> 00:15:12,561
+believe that it is possible, and already now
+
+428
+00:15:10,503 --> 00:15:15,242
+things like google.com—their
+
+429
+00:15:12,561 --> 00:15:17,557
+search volumes are falling because even regular people are
+
+430
+00:15:15,242 --> 00:15:19,468
+increasingly using chatgpt.com
+
+431
+00:15:17,557 --> 00:15:21,008
+instead of Google Search.  This is a place where they
+
+432
+00:15:19,468 --> 00:15:23,188
+interact with technology much more
+
+433
+00:15:21,008 --> 00:15:25,157
+often.  Everything will change very much.  And I
+
+434
+00:15:23,188 --> 00:15:27,398
+think we already have enough evidence that
+
+435
+00:15:25,157 --> 00:15:29,529
+this is possible.  Look, it
+
+436
+00:15:27,398 --> 00:15:32,016
+pains me to be nice to Theo too, but T3 Code
+
+437
+00:15:29,529 --> 00:15:34,470
+is a great example of a product built by a
+
+438
+00:15:32,016 --> 00:15:36,893
+small team beating out big
+
+439
+00:15:34,470 --> 00:15:39,797
+labs.  T3 Code is better than what the
+
+440
+00:15:36,893 --> 00:15:42,303
+desktop applications Codex or
+
+441
+00:15:39,797 --> 00:15:44,630
+Claude from Anthropic offer.  They both have certain
+
+442
+00:15:42,303 --> 00:15:46,575
+advantages, but as an overall product and
+
+443
+00:15:44,630 --> 00:15:49,111
+experience, T3 Code is much better, and there are
+
+444
+00:15:46,575 --> 00:15:51,872
+actually two people working on it
+
+445
+00:15:49,111 --> 00:15:54,442
+full-time.
+
+446
+00:15:51,872 --> 00:15:56,934
+There are three or four other assistants, but the
+
+447
+00:15:54,442 --> 00:15:59,830
+core of T3 Code is Theo and Julius, and they
+
+448
+00:15:56,934 --> 00:15:59,830
+win.   The thing is,
+
+449
+00:16:00,324 --> 00:16:04,758
+at least now, the possibilities
+
+450
+00:16:02,719 --> 00:16:07,057
+are growing, but the ability to make
+
+451
+00:16:04,758 --> 00:16:08,375
+decisions doesn't seem to be developing as
+
+452
+00:16:07,057 --> 00:16:10,353
+quickly.
+
+453
+00:16:08,375 --> 00:16:12,618
+Models still don't make better
+
+454
+00:16:10,353 --> 00:16:14,629
+product decisions than humans, and it's very
+
+455
+00:16:12,618 --> 00:16:15,934
+noticeable in a lot of the things you
+
+456
+00:16:14,629 --> 00:16:18,501
+use.
+
+457
+00:16:15,934 --> 00:16:21,178
+There's a big difference between a product that has
+
+458
+00:16:18,501 --> 00:16:23,562
+been put into with soul, effort, time, a bunch of prompts
+
+459
+00:16:21,178 --> 00:16:26,459
+and reflections, and one where Opus was simply told,
+
+460
+00:16:23,562 --> 00:16:28,605
+"make me a chat app."  There is a
+
+461
+00:16:26,459 --> 00:16:30,905
+huge difference between these two things.  And
+
+462
+00:16:28,605 --> 00:16:32,855
+maybe in the long run, that
+
+463
+00:16:30,905 --> 00:16:34,520
+will change.  Maybe you just say to
+
+464
+00:16:32,855 --> 00:16:36,341
+Opus, “build me a chat app,” and
+
+465
+00:16:34,520 --> 00:16:38,031
+it will be infinitely better than anything a
+
+466
+00:16:36,341 --> 00:16:39,800
+human can make, but then the world
+
+467
+00:16:38,031 --> 00:16:41,850
+ends, it’s “hey, hey,” nothing else
+
+468
+00:16:39,800 --> 00:16:43,930
+matters.  In the near future,
+
+469
+00:16:41,850 --> 00:16:46,010
+I can confidently say, within a year,
+
+470
+00:16:43,930 --> 00:16:46,926
+but after that, to be honest, I
+
+471
+00:16:46,010 --> 00:16:49,030
+have no idea.
+
+472
+00:16:46,926 --> 00:16:51,164
+Everything is really weird and crazy right now,
+
+473
+00:16:49,030 --> 00:16:51,923
+but at least that's how things are going right now
+
+474
+00:16:51,164 --> 00:16:53,955
+.
+
+475
+00:16:51,923 --> 00:16:56,029
+The most valuable thing you have right now is your
+
+476
+00:16:53,955 --> 00:16:58,312
+effort and concern.  If you
+
+477
+00:16:56,029 --> 00:17:00,246
+put a ton of effort into something and really
+
+478
+00:16:58,312 --> 00:17:02,570
+care about it, you will win.  You will
+
+479
+00:17:00,246 --> 00:17:04,571
+create something better than anyone else
+
+480
+00:17:02,570 --> 00:17:06,996
+, because many of the obstacles that existed
+
+481
+00:17:04,571 --> 00:17:09,369
+before have simply disappeared.  Someone who truly
+
+482
+00:17:06,996 --> 00:17:11,577
+cares deeply, spends all their time
+
+483
+00:17:09,369 --> 00:17:13,850
+thinking, obsessed with the game, creating this
+
+484
+00:17:11,577 --> 00:17:16,189
+world, making changes, and running hundreds of
+
+485
+00:17:13,850 --> 00:17:18,563
+agents in parallel to build this
+
+486
+00:17:16,189 --> 00:17:20,935
+crazy world and experience, will create a
+
+487
+00:17:18,563 --> 00:17:23,579
+better game next year than any
+
+488
+00:17:20,935 --> 00:17:25,400
+AAA studio.  It's just going to happen, and it's going to be
+
+489
+00:17:23,579 --> 00:17:27,526
+really weird when it starts
+
+490
+00:17:25,400 --> 00:17:29,697
+happening.  I don't know what the
+
+491
+00:17:27,526 --> 00:17:31,439
+full long-term consequences of this will be.  I
+
+492
+00:17:29,697 --> 00:17:32,877
+know a lot of this will sound
+
+493
+00:17:31,439 --> 00:17:34,922
+crazy if you're not currently
+
+494
+00:17:32,877 --> 00:17:36,643
+on the cutting edge,
+
+495
+00:17:34,922 --> 00:17:38,940
+but I'm telling you, it already is.  Go and
+
+496
+00:17:36,643 --> 00:17:40,807
+promote these things.  Many people won't want to
+
+497
+00:17:38,940 --> 00:17:42,277
+, they'll get angry or something.  At
+
+498
+00:17:40,807 --> 00:17:43,946
+this point, I just...I can't
+
+499
+00:17:42,277 --> 00:17:45,441
+care, because honestly, I want
+
+500
+00:17:43,946 --> 00:17:47,375
+to see what the people who
+
+501
+00:17:45,441 --> 00:17:49,563
+care the most create.  I want more
+
+502
+00:17:47,375 --> 00:17:51,725
+T3 codes and Grok bots in this world.  I
+
+503
+00:17:49,563 --> 00:17:53,711
+want to see more things being created that are
+
+504
+00:17:51,725 --> 00:17:55,581
+built by small teams that truly
+
+505
+00:17:53,711 --> 00:17:57,801
+understand and love what they do,
+
+506
+00:17:55,581 --> 00:17:59,795
+using the new technologies available to us
+
+507
+00:17:57,801 --> 00:18:01,913
+.  I want more weird random
+
+508
+00:17:59,795 --> 00:18:03,843
+robots.  I want more new research
+
+509
+00:18:01,913 --> 00:18:05,520
+and experiments.  The software issue
+
+510
+00:18:03,843 --> 00:18:07,518
+has been resolved.  The best
+
+511
+00:18:05,520 --> 00:18:09,317
+case scenario for this is the fact that there are
+
+512
+00:18:07,518 --> 00:18:11,034
+so many opportunities now.  If you really
+
+513
+00:18:09,317 --> 00:18:12,635
+embrace it, understand how things
+
+514
+00:18:11,034 --> 00:18:14,097
+really work, and give it your all
+
+515
+00:18:12,635 --> 00:18:15,675
+in
+
+516
+00:18:14,097 --> 00:18:17,462
+something you truly care about, you
+
+517
+00:18:15,675 --> 00:18:19,812
+can achieve extraordinary results
+
+518
+00:18:17,462 --> 00:18:22,214
+.  And that's the reason why I wanted to record
+
+519
+00:18:19,812 --> 00:18:24,413
+this video.  I will talk
+
+520
+00:18:22,214 --> 00:18:27,071
+about all the models in detail soon.  Fable 52, the orchestration
+
+521
+00:18:24,413 --> 00:18:29,511
+I do, the architecture around
+
+522
+00:18:27,071 --> 00:18:30,826
+verification loops—I'll go into all of that in
+
+523
+00:18:29,511 --> 00:18:33,264
+other videos.
+
+524
+00:18:30,826 --> 00:18:37,380
+I just had to say: please,
+
+525
+00:18:33,264 --> 00:18:37,380
+for God's sake, be more ambitious.
+

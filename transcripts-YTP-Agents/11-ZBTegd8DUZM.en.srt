@@ -1,0 +1,5110 @@
+1
+00:00:00,240 --> 00:00:06,160
+for a couple of years and now I'm with
+
+2
+00:00:03,760 --> 00:00:10,639
+Mario and Colin and the all the other
+
+3
+00:00:06,160 --> 00:00:12,960
+Arendel folks working on AI stuff.
+
+4
+00:00:10,639 --> 00:00:15,120
+>> Mario, hit it.
+
+5
+00:00:12,960 --> 00:00:16,800
+>> Hi, I'm Gramps. I was silly and build a
+
+6
+00:00:15,120 --> 00:00:19,039
+shitty coding agent, but before that I
+
+7
+00:00:16,800 --> 00:00:21,359
+was also a longtime open source
+
+8
+00:00:19,039 --> 00:00:23,279
+contributor. Um, also about 20 years,
+
+9
+00:00:21,359 --> 00:00:25,680
+maybe even more, but mostly in the game
+
+10
+00:00:23,279 --> 00:00:27,920
+development space. Um, and then in my
+
+11
+00:00:25,680 --> 00:00:30,320
+bread and butter jobs, I was doing a lot
+
+12
+00:00:27,920 --> 00:00:35,600
+of different things from ML engineering
+
+13
+00:00:30,320 --> 00:00:38,719
+in the 2000s to gamedev to compiler
+
+14
+00:00:35,600 --> 00:00:42,160
+engineering, uh, debugger building and
+
+15
+00:00:38,719 --> 00:00:46,399
+startup adventures who came out luckily
+
+16
+00:00:42,160 --> 00:00:48,559
+in my favor. Um, and then mostly back to
+
+17
+00:00:46,399 --> 00:00:52,079
+gamedev stuff again. Building shovels is
+
+18
+00:00:48,559 --> 00:00:57,039
+my my my thing. [laughter] Nice.
+
+19
+00:00:52,079 --> 00:01:00,480
+So, and like Amen before we went live,
+
+20
+00:00:57,039 --> 00:01:04,320
+you said something about the post opus
+
+21
+00:01:00,480 --> 00:01:07,600
+5.5 era. Now, I find that an interesting
+
+22
+00:01:04,320 --> 00:01:12,080
+phrase and I want you to explain what
+
+23
+00:01:07,600 --> 00:01:15,360
+you mean and what that era is.
+
+24
+00:01:12,080 --> 00:01:17,840
+So I think to me at least what has
+
+25
+00:01:15,360 --> 00:01:19,439
+changed around Opus 5.5 and maybe for
+
+26
+00:01:17,840 --> 00:01:22,560
+some other people this might be asked I
+
+27
+00:01:19,439 --> 00:01:24,400
+don't know is that after a little while
+
+28
+00:01:22,560 --> 00:01:26,080
+of working with the models I think
+
+29
+00:01:24,400 --> 00:01:29,040
+there's a new level of I wouldn't say
+
+30
+00:01:26,080 --> 00:01:31,680
+trust necessarily but like a
+
+31
+00:01:29,040 --> 00:01:33,840
+I feel like
+
+32
+00:01:31,680 --> 00:01:36,720
+myself and I think a lot of others found
+
+33
+00:01:33,840 --> 00:01:39,280
+a new level of sort of baseline of where
+
+34
+00:01:36,720 --> 00:01:42,960
+you can for a certain type of task let
+
+35
+00:01:39,280 --> 00:01:45,280
+it run much more unsupervised for longer
+
+36
+00:01:42,960 --> 00:01:50,479
+and you don't necessarily completely hit
+
+37
+00:01:45,280 --> 00:01:52,479
+the end result. Um, so particularly for
+
+38
+00:01:50,479 --> 00:01:55,200
+things like you have a reference test
+
+39
+00:01:52,479 --> 00:01:57,901
+suite or something and you want to have
+
+40
+00:01:55,200 --> 00:02:00,159
+like a matching implementation, they're
+
+41
+00:01:57,901 --> 00:02:03,600
+[clears throat] sort of they're very
+
+42
+00:02:00,159 --> 00:02:06,000
+good at sort of like grinding down uh
+
+43
+00:02:03,600 --> 00:02:08,879
+for for long. I don't think it
+
+44
+00:02:06,000 --> 00:02:10,239
+generalizes. Um,
+
+45
+00:02:08,879 --> 00:02:11,680
+but there are definitely certain tasks
+
+46
+00:02:10,239 --> 00:02:12,879
+you can do with these models now that I
+
+47
+00:02:11,680 --> 00:02:16,480
+wouldn't have done before without
+
+48
+00:02:12,879 --> 00:02:18,080
+looking. Um, and I don't think that
+
+49
+00:02:16,480 --> 00:02:21,920
+translates necessarily to a lot of
+
+50
+00:02:18,080 --> 00:02:24,000
+day-to-day kind of pi work. Um, but it
+
+51
+00:02:21,920 --> 00:02:25,120
+it definitely it definitely allowed me
+
+52
+00:02:24,000 --> 00:02:28,640
+to do a whole bunch of like side
+
+53
+00:02:25,120 --> 00:02:30,080
+projects that previously I wouldn't have
+
+54
+00:02:28,640 --> 00:02:31,520
+been able to.
+
+55
+00:02:30,080 --> 00:02:33,200
+>> We we always come back to that. They're
+
+56
+00:02:31,520 --> 00:02:33,760
+amazing for your side projects, but in
+
+57
+00:02:33,200 --> 00:02:34,959
+part
+
+58
+00:02:33,760 --> 00:02:36,319
+>> Yeah, they're definitely amazing for
+the
+
+59
+00:02:34,959 --> 00:02:37,360
+side projects. Um
+
+60
+00:02:36,319 --> 00:02:38,319
+>> yeah I
+
+61
+00:02:37,360 --> 00:02:40,160
+>> think like yeah
+
+62
+00:02:38,319 --> 00:02:41,680
+>> no go ahead
+
+63
+00:02:40,160 --> 00:02:43,120
+>> I say like because like the reason
+
+64
+00:02:41,680 --> 00:02:44,800
+there's always a caveat I think for work
+
+65
+00:02:43,120 --> 00:02:45,920
+is that what we're doing we're we're
+
+66
+00:02:44,800 --> 00:02:48,080
+trying to build something for people to
+
+67
+00:02:45,920 --> 00:02:49,440
+build on top and I think there's just I
+
+68
+00:02:48,080 --> 00:02:53,360
+wouldn't say like there's a higher bar
+
+69
+00:02:49,440 --> 00:02:55,760
+but there's a like if anything we're
+
+70
+00:02:53,360 --> 00:02:56,959
+sort of like being very careful that we
+
+71
+00:02:55,760 --> 00:02:59,120
+don't accidentally ship something that
+
+72
+00:02:56,959 --> 00:03:00,720
+we didn't intend on shipping [laughter]
+
+73
+00:02:59,120 --> 00:03:02,080
+where on the side I don't really care if
+
+74
+00:03:00,720 --> 00:03:03,440
+there's like three features in it I
+
+75
+00:03:02,080 --> 00:03:04,640
+didn't really know were in [laughter]
+
+76
+00:03:03,440 --> 00:03:05,760
+there
+
+77
+00:03:04,640 --> 00:03:07,360
+>> because what you're building with PI,
+
+78
+00:03:05,760 --> 00:03:08,959
+right, is you have a you're building
+
+79
+00:03:07,360 --> 00:03:10,159
+essentially a public interface and so
+
+80
+00:03:08,959 --> 00:03:11,440
+everything that's in that interface
+
+81
+00:03:10,159 --> 00:03:13,040
+needs to be really carefully thought
+
+82
+00:03:11,440 --> 00:03:14,560
+through. Mario, go ahead.
+
+83
+00:03:13,040 --> 00:03:17,920
+>> Yeah, pretty much that. I mean, it's
+not
+
+84
+00:03:14,560 --> 00:03:20,400
+just PI. Um, also in my other other
+
+85
+00:03:17,920 --> 00:03:22,159
+bread and butter work, um, as I said,
+
+86
+00:03:20,400 --> 00:03:24,560
+I'm building shovels and those shovels
+
+87
+00:03:22,159 --> 00:03:26,239
+need to be sturdy and dependable. And
+
+88
+00:03:24,560 --> 00:03:27,599
+you don't get that if you wipe code.
+
+89
+00:03:26,239 --> 00:03:31,599
+Irrespective of whether your model is
+
+90
+00:03:27,599 --> 00:03:33,519
+called OPOS 5.5 or Astro Fable 5.2,
+
+91
+00:03:31,599 --> 00:03:35,200
+whatever it's called, I don't even care.
+
+92
+00:03:33,519 --> 00:03:38,560
+My day-to-day job is basically just
+
+93
+00:03:35,200 --> 00:03:40,959
+looking through or designing things
+
+94
+00:03:38,560 --> 00:03:44,000
+systems or APIs
+
+95
+00:03:40,959 --> 00:03:48,560
+and I I have not found this immense uh
+
+96
+00:03:44,000 --> 00:03:51,680
+jump in capability from say 4.8 to 5.5
+
+97
+00:03:48,560 --> 00:03:54,000
+in that area. They still suck at system
+
+98
+00:03:51,680 --> 00:03:56,560
+design and architecture and and API
+
+99
+00:03:54,000 --> 00:03:58,319
+design. Um where they have become
+
+100
+00:03:56,560 --> 00:04:00,560
+significantly better is orchestrating
+
+101
+00:03:58,319 --> 00:04:03,519
+sub agents and anything that is
+
+102
+00:04:00,560 --> 00:04:05,760
+verifiable through tests or some other
+
+103
+00:04:03,519 --> 00:04:07,840
+oracle. They will just pounce at that
+
+104
+00:04:05,760 --> 00:04:10,000
+until the the right result comes out and
+
+105
+00:04:07,840 --> 00:04:12,239
+where they have also increase uh
+
+106
+00:04:10,000 --> 00:04:14,959
+improved [clears throat] was they don't
+
+107
+00:04:12,239 --> 00:04:17,519
+lie to you. They are not um reward
+
+108
+00:04:14,959 --> 00:04:19,919
+hacking as much anymore I think. Um, so
+
+109
+00:04:17,519 --> 00:04:21,919
+previously goals, I give you an example.
+
+110
+00:04:19,919 --> 00:04:24,479
+I I just for shits and giggles, I
+
+111
+00:04:21,919 --> 00:04:26,800
+implement a goal in pi and then I had an
+
+112
+00:04:24,479 --> 00:04:29,759
+agent try to inc decrease the startup
+
+113
+00:04:26,800 --> 00:04:34,800
+time of pi, right? So I let this run
+
+114
+00:04:29,759 --> 00:04:37,919
+overnight and I think that was a soul
+
+115
+00:04:34,800 --> 00:04:39,919
+5.3 or something. And in the morning I
+
+116
+00:04:37,919 --> 00:04:42,800
+woke up and checked the the outputs and
+
+117
+00:04:39,919 --> 00:04:44,639
+was like dude 10% uh decrease uh sorry
+
+118
+00:04:42,800 --> 00:04:47,280
+100% decrease in startup time. I was
+
+119
+00:04:44,639 --> 00:04:49,199
+like, "Amazing. How this seems
+
+120
+00:04:47,280 --> 00:04:50,880
+physically impossible? Do the the laws
+
+121
+00:04:49,199 --> 00:04:52,560
+of thermodynamics no longer apply?" And
+
+122
+00:04:50,880 --> 00:04:54,240
+I was like, "No, totally legit, man.
+
+123
+00:04:52,560 --> 00:04:56,720
+Just started a new." And I like, "Yeah,
+
+124
+00:04:54,240 --> 00:04:58,800
+it's cool." But nothing shows. Uh, did
+
+125
+00:04:56,720 --> 00:05:01,040
+you just Yeah, I just ripped out all the
+
+126
+00:04:58,800 --> 00:05:04,160
+modules basically. [laughter]
+
+127
+00:05:01,040 --> 00:05:07,759
+It removed the application. And that was
+
+128
+00:05:04,160 --> 00:05:10,000
+5.3 or 5.2, I don't remember. And um,
+
+129
+00:05:07,759 --> 00:05:11,759
+that's gotten a little better. um
+
+130
+00:05:10,000 --> 00:05:13,919
+especially the cloud models aren't lying
+
+131
+00:05:11,759 --> 00:05:15,280
+as much to you anymore as they did.
+
+132
+00:05:13,919 --> 00:05:18,240
+There's a concept I think that everyone
+
+133
+00:05:15,280 --> 00:05:19,680
+is noticing, which is that if you I I
+
+134
+00:05:18,240 --> 00:05:21,440
+talk about this all the time, the split
+
+135
+00:05:19,680 --> 00:05:23,520
+between tactical work and strategic
+
+136
+00:05:21,440 --> 00:05:25,360
+work, right? Where tactical work, it's
+
+137
+00:05:23,520 --> 00:05:26,960
+sort of on the ground. It's um focused
+
+138
+00:05:25,360 --> 00:05:28,720
+on the day-to-day stuff. And then
+
+139
+00:05:26,960 --> 00:05:29,919
+strategic is long-term. It's sort of
+
+140
+00:05:28,720 --> 00:05:31,680
+thinking about how to win the war
+
+141
+00:05:29,919 --> 00:05:33,520
+instead of winning the battle. Agents
+
+142
+00:05:31,680 --> 00:05:36,160
+seem to be really good at tactical work
+
+143
+00:05:33,520 --> 00:05:38,720
+is my take and really bad at strategic
+
+144
+00:05:36,160 --> 00:05:40,240
+work. Is there anything Amen. I'll go to
+
+145
+00:05:38,720 --> 00:05:43,759
+you again. Is there anything that you've
+
+146
+00:05:40,240 --> 00:05:46,160
+tried that just did not work or are you
+
+147
+00:05:43,759 --> 00:05:49,400
+just sort of like not not even thinking
+
+148
+00:05:46,160 --> 00:05:49,400
+about that?
+
+149
+00:05:49,759 --> 00:05:53,840
+>> I mean there are definitely some things
+
+150
+00:05:50,960 --> 00:05:55,199
+that I tried that did not work and I
+
+151
+00:05:53,840 --> 00:05:56,960
+where at this point I feel like okay
+
+152
+00:05:55,199 --> 00:06:00,720
+this is surprising it doesn't do it. I
+
+153
+00:05:56,960 --> 00:06:03,680
+think for me one was that um like Opus
+
+154
+00:06:00,720 --> 00:06:06,880
+is really great at understanding
+
+155
+00:06:03,680 --> 00:06:09,039
+art, not like making art, but like it
+
+156
+00:06:06,880 --> 00:06:11,120
+understands like how color composition
+
+157
+00:06:09,039 --> 00:06:12,800
+works and everything. It doesn't
+
+158
+00:06:11,120 --> 00:06:15,919
+translate at all to being able to make
+
+159
+00:06:12,800 --> 00:06:17,280
+music or like manipulate sheet music.
+
+160
+00:06:15,919 --> 00:06:19,440
+That really surprised me and I feel like
+
+161
+00:06:17,280 --> 00:06:21,680
+it was almost intentional that they
+
+162
+00:06:19,440 --> 00:06:23,360
+didn't train [laughter] on it because
+
+163
+00:06:21,680 --> 00:06:25,039
+they're music models for sure. Why why
+
+164
+00:06:23,360 --> 00:06:28,479
+do the Opus family of models not do
+
+165
+00:06:25,039 --> 00:06:31,360
+that? Um and obviously like I think like
+
+166
+00:06:28,479 --> 00:06:34,400
+anything that involves um like really
+
+167
+00:06:31,360 --> 00:06:35,680
+complex systems
+
+168
+00:06:34,400 --> 00:06:39,280
+um I don't really have a lot of
+
+169
+00:06:35,680 --> 00:06:41,680
+expectation that they come out right um
+
+170
+00:06:39,280 --> 00:06:43,360
+without a lot of extra guidance. But at
+
+171
+00:06:41,680 --> 00:06:45,680
+this point honestly I feel like there
+
+172
+00:06:43,360 --> 00:06:47,680
+are more things that
+
+173
+00:06:45,680 --> 00:06:49,120
+I end up being surprised that they work
+
+174
+00:06:47,680 --> 00:06:50,800
+but then also sort of expect them to
+
+175
+00:06:49,120 --> 00:06:52,880
+work then I actually have a good list of
+
+176
+00:06:50,800 --> 00:06:54,319
+things where they don't really work.
+
+177
+00:06:52,880 --> 00:06:55,680
+That doesn't mean that you can't get
+
+178
+00:06:54,319 --> 00:06:58,479
+everything done. And I think like an
+
+179
+00:06:55,680 --> 00:07:00,960
+interesting case like I had um I had a
+
+180
+00:06:58,479 --> 00:07:05,120
+conversation with David Kramer um
+
+181
+00:07:00,960 --> 00:07:07,039
+founder of Century and um we we sort of
+
+182
+00:07:05,120 --> 00:07:08,800
+came to a conclusion that like Opus 5.5
+
+183
+00:07:07,039 --> 00:07:09,919
+makes really good progress in computer
+
+184
+00:07:08,800 --> 00:07:11,520
+games for me it didn't make a lot of
+
+185
+00:07:09,919 --> 00:07:12,720
+progress for progress for him and I
+
+186
+00:07:11,520 --> 00:07:14,160
+realized like well I actually do have a
+
+187
+00:07:12,720 --> 00:07:16,000
+game background so it's like the way I
+
+188
+00:07:14,160 --> 00:07:18,400
+prompted like there's some very specific
+
+189
+00:07:16,000 --> 00:07:19,680
+things and like if you don't prompt it
+
+190
+00:07:18,400 --> 00:07:21,680
+down this path and I also see it with my
+
+191
+00:07:19,680 --> 00:07:22,800
+son is adding stuff to our game it just
+
+192
+00:07:21,680 --> 00:07:25,120
+doesn't come out the same way. So
+
+193
+00:07:22,800 --> 00:07:26,960
+there's there's a ton of skill involved
+
+194
+00:07:25,120 --> 00:07:28,960
+in prompting, but there's a little bit
+
+195
+00:07:26,960 --> 00:07:30,479
+of like when you know in which order you
+
+196
+00:07:28,960 --> 00:07:32,080
+want to do it, you're going to be more
+
+197
+00:07:30,479 --> 00:07:34,960
+successful than if you have no guidance
+
+198
+00:07:32,080 --> 00:07:38,160
+at all. And it's just like I don't know.
+
+199
+00:07:34,960 --> 00:07:40,319
+>> Yeah. W with domain knowledge
+
+200
+00:07:38,160 --> 00:07:42,720
+>> w with domain knowledge like both me
+and
+
+201
+00:07:40,319 --> 00:07:44,400
+Armen have game gamedev backgrounds to
+
+202
+00:07:42,720 --> 00:07:45,840
+some degree. If you come at it with that
+
+203
+00:07:44,400 --> 00:07:48,560
+kind of domain knowledge, you seem to be
+
+204
+00:07:45,840 --> 00:07:50,720
+able to tickle out uh the the the
+
+205
+00:07:48,560 --> 00:07:52,639
+solution space within the weights that's
+
+206
+00:07:50,720 --> 00:07:54,560
+specific to those like
+
+207
+00:07:52,639 --> 00:07:58,479
+Three years ago, we would we would give
+
+208
+00:07:54,560 --> 00:08:00,080
+all our our GPTs roles and and personas,
+
+209
+00:07:58,479 --> 00:08:02,800
+right? But this is kind of the same just
+
+210
+00:08:00,080 --> 00:08:05,199
+for a specific knowledge domain. And if
+
+211
+00:08:02,800 --> 00:08:07,199
+you don't use the right terms, it will
+
+212
+00:08:05,199 --> 00:08:08,720
+just not have access to that parts of
+
+213
+00:08:07,199 --> 00:08:10,639
+its weights that give it that domain
+
+214
+00:08:08,720 --> 00:08:13,280
+knowledge for something for some reason.
+
+215
+00:08:10,639 --> 00:08:15,039
+So yeah, I don't know.
+
+216
+00:08:13,280 --> 00:08:16,879
+>> Or it just or it just decides on a
+
+217
+00:08:15,039 --> 00:08:20,080
+different path. Like I feel like one of
+
+218
+00:08:16,879 --> 00:08:22,400
+the things where um
+
+219
+00:08:20,080 --> 00:08:24,000
+they are I don't know this is sort of
+
+220
+00:08:22,400 --> 00:08:26,879
+like conspiracy theory territory but
+
+221
+00:08:24,000 --> 00:08:28,479
+like I think like it is in a lot of
+
+222
+00:08:26,879 --> 00:08:32,560
+cases the first solution that they come
+
+223
+00:08:28,479 --> 00:08:34,159
+to is technically a solution but it's
+
+224
+00:08:32,560 --> 00:08:36,880
+the likelihood that that is the optimal
+
+225
+00:08:34,159 --> 00:08:38,240
+solution is actually still rather low
+
+226
+00:08:36,880 --> 00:08:41,680
+because you have to sort of give it the
+
+227
+00:08:38,240 --> 00:08:43,200
+right trade-offs. Um
+
+228
+00:08:41,680 --> 00:08:44,640
+>> but I think that also is a good
+
+229
+00:08:43,200 --> 00:08:46,240
+differentiator between where are they
+
+230
+00:08:44,640 --> 00:08:49,040
+good at and what are they not so good
+
+231
+00:08:46,240 --> 00:08:51,279
+at. Anything that's uh ambiguous uh
+
+232
+00:08:49,040 --> 00:08:53,440
+where there is no right solution where
+
+233
+00:08:51,279 --> 00:08:56,240
+you need to bring in some kind of either
+
+234
+00:08:53,440 --> 00:08:58,880
+experience domain knowledge or or just a
+
+235
+00:08:56,240 --> 00:09:01,519
+gut feeling anything like that they
+
+236
+00:08:58,880 --> 00:09:03,519
+really suck at anything where there's
+
+237
+00:09:01,519 --> 00:09:06,240
+pretty much just a straight line towards
+
+238
+00:09:03,519 --> 00:09:07,440
+the goal super nice super easy I I can
+
+239
+00:09:06,240 --> 00:09:07,760
+trust them. So
+
+240
+00:09:07,440 --> 00:09:10,160
+>> yeah.
+
+241
+00:09:07,760 --> 00:09:12,000
+>> Yeah. I was watching um Lauren Tan's
+
+242
+00:09:10,160 --> 00:09:14,240
+talk this morning from AI code and she
+
+243
+00:09:12,000 --> 00:09:16,800
+talked she said that nuance often leads
+
+244
+00:09:14,240 --> 00:09:18,959
+to slop right if there's any nuance in
+
+245
+00:09:16,800 --> 00:09:20,959
+the problem then it will probably choose
+
+246
+00:09:18,959 --> 00:09:22,560
+the wrong one. Right? So that means that
+
+247
+00:09:20,959 --> 00:09:24,480
+when you're designing code bases and
+
+248
+00:09:22,560 --> 00:09:26,720
+designing APIs you need to be really
+
+249
+00:09:24,480 --> 00:09:29,360
+careful to try to avoid as much nuance
+
+250
+00:09:26,720 --> 00:09:30,959
+as possible which I think is quite good.
+
+251
+00:09:29,360 --> 00:09:32,959
+Now just because we touched on domain
+
+252
+00:09:30,959 --> 00:09:34,640
+knowledge there I'm interested in like
+
+253
+00:09:32,959 --> 00:09:36,240
+on every stream people will be asking
+
+254
+00:09:34,640 --> 00:09:38,320
+these questions which is how does a
+
+255
+00:09:36,240 --> 00:09:40,399
+junior cope like what should you be
+
+256
+00:09:38,320 --> 00:09:41,920
+learning in this new age right because
+
+257
+00:09:40,399 --> 00:09:45,839
+you guys obviously have 20 years
+
+258
+00:09:41,920 --> 00:09:48,720
+experience doing this stuff um what how
+
+259
+00:09:45,839 --> 00:09:51,440
+does what are the important skills now
+
+260
+00:09:48,720 --> 00:09:54,880
+are there important skills are or are is
+
+261
+00:09:51,440 --> 00:09:56,880
+coding dead basically uh Mario
+
+262
+00:09:54,880 --> 00:09:59,279
+>> yeah so first you need to grow white
+
+263
+00:09:56,880 --> 00:10:01,600
+hair facial hair irrespective of gender
+
+264
+00:09:59,279 --> 00:10:02,640
+and then just pretend you know then
+
+265
+00:10:01,600 --> 00:10:04,240
+you're good.
+
+266
+00:10:02,640 --> 00:10:05,839
+>> Shave your head too. That and get
+
+267
+00:10:04,240 --> 00:10:08,000
+glasses that really helps you. Yeah.
+
+268
+00:10:05,839 --> 00:10:10,160
+>> And relocate to Oxford.
+
+269
+00:10:08,000 --> 00:10:12,080
+>> Yes. Just sound very posh as well then.
+
+270
+00:10:10,160 --> 00:10:14,480
+>> Oh, absolutely. Yes.
+
+271
+00:10:12,080 --> 00:10:16,240
+>> No, I I I honestly don't know. I I
+still
+
+272
+00:10:14,480 --> 00:10:18,399
+think for the foreseeable future
+
+273
+00:10:16,240 --> 00:10:21,279
+learning fundamentals and talking to
+
+274
+00:10:18,399 --> 00:10:22,640
+your peers um will actually give you
+
+275
+00:10:21,279 --> 00:10:25,440
+that kind of experience you need to be
+
+276
+00:10:22,640 --> 00:10:27,839
+effective at directing your agents. I I
+
+277
+00:10:25,440 --> 00:10:30,320
+think that doesn't go away. Um, it's
+
+278
+00:10:27,839 --> 00:10:32,000
+just there's a magic button now and if I
+
+279
+00:10:30,320 --> 00:10:35,200
+was a junior I would press it all the
+
+280
+00:10:32,000 --> 00:10:36,640
+time. So I I don't know it needs this
+
+281
+00:10:35,200 --> 00:10:39,600
+discipline is probably the one thing you
+
+282
+00:10:36,640 --> 00:10:41,680
+need the most if you want to succeed. M
+
+283
+00:10:39,600 --> 00:10:43,200
+A Al Armen before we went on another
+
+284
+00:10:41,680 --> 00:10:46,560
+thing you mentioned is there's this sort
+
+285
+00:10:43,200 --> 00:10:49,040
+of push and pull between quantity and
+
+286
+00:10:46,560 --> 00:10:50,800
+quality and Mario you were kind of
+
+287
+00:10:49,040 --> 00:10:52,640
+talking there a little bit about you can
+
+288
+00:10:50,800 --> 00:10:55,440
+push the magic button you can get a high
+
+289
+00:10:52,640 --> 00:10:57,040
+quantity of code but then what is the
+
+290
+00:10:55,440 --> 00:10:59,040
+trade-off basically when all code is
+
+291
+00:10:57,040 --> 00:11:02,560
+cheap how much should you care about
+
+292
+00:10:59,040 --> 00:11:04,560
+quality Amen
+
+293
+00:11:02,560 --> 00:11:07,200
+>> I mean I think like in the same way as
+
+294
+00:11:04,560 --> 00:11:09,920
+sort of agents when you just prompt them
+
+295
+00:11:07,200 --> 00:11:11,920
+you're it will never say that you can't
+
+296
+00:11:09,920 --> 00:11:13,279
+do something. At worst, they're going to
+
+297
+00:11:11,920 --> 00:11:14,720
+give you some sort of like this will
+
+298
+00:11:13,279 --> 00:11:17,680
+take six weeks and then actually you're
+
+299
+00:11:14,720 --> 00:11:19,440
+done in like two hours. So there's a I
+
+300
+00:11:17,680 --> 00:11:21,200
+think there's a natural tendency to add
+
+301
+00:11:19,440 --> 00:11:22,640
+every feature and like sometimes even if
+
+302
+00:11:21,200 --> 00:11:24,240
+you don't ask it to add a feature it
+
+303
+00:11:22,640 --> 00:11:26,399
+sort of it comes as a byproduct anyway.
+
+304
+00:11:24,240 --> 00:11:28,240
+So like I think the default behavior of
+
+305
+00:11:26,399 --> 00:11:32,160
+software is towards entropy towards
+
+306
+00:11:28,240 --> 00:11:34,959
+having everything. Um, and I definitely
+
+307
+00:11:32,160 --> 00:11:36,320
+I love the power of these things, but
+
+308
+00:11:34,959 --> 00:11:38,079
+I'm much more interested if people are
+
+309
+00:11:36,320 --> 00:11:39,519
+using that power to just build the best
+
+310
+00:11:38,079 --> 00:11:42,959
+possible software and not so much the
+
+311
+00:11:39,519 --> 00:11:44,880
+software with the most like things it
+
+312
+00:11:42,959 --> 00:11:47,200
+can possibly do. And there's also
+
+313
+00:11:44,880 --> 00:11:49,120
+there's a it's kind of hard to resist
+
+314
+00:11:47,200 --> 00:11:51,760
+like a software that does everything.
+
+315
+00:11:49,120 --> 00:11:53,200
+Um, because like I always wanted it to
+
+316
+00:11:51,760 --> 00:11:54,720
+have this and this and this and now I
+
+317
+00:11:53,200 --> 00:11:58,000
+have like the Simpson car as Mario
+
+318
+00:11:54,720 --> 00:12:00,720
+always likes to say. Um, so I don't
+
+319
+00:11:58,000 --> 00:12:02,880
+know. Like I'm also guilty of like
+
+320
+00:12:00,720 --> 00:12:05,920
+adding too much stuff into like a lot of
+
+321
+00:12:02,880 --> 00:12:07,519
+the things that I'm doing. Um but I'm
+
+322
+00:12:05,920 --> 00:12:10,240
+like really collectively hoping that
+
+323
+00:12:07,519 --> 00:12:13,200
+more people are just building really
+
+324
+00:12:10,240 --> 00:12:15,920
+high quality and very ambitious software
+
+325
+00:12:13,200 --> 00:12:20,320
+but not in terms of features but in
+
+326
+00:12:15,920 --> 00:12:22,880
+terms of quality bar honestly.
+
+327
+00:12:20,320 --> 00:12:24,320
+>> Yeah. I kind of feel sorry.
+
+328
+00:12:22,880 --> 00:12:24,959
+>> Continue. I was going to ask you a
+
+329
+00:12:24,320 --> 00:12:28,000
+followup.
+
+330
+00:12:24,959 --> 00:12:31,120
+>> Yeah. Um I mean it's not like we had
+
+331
+00:12:28,000 --> 00:12:33,760
+brilliant super awesome software before
+
+332
+00:12:31,120 --> 00:12:35,920
+agents, right? But I'm also not of the
+
+333
+00:12:33,760 --> 00:12:38,720
+thought that since that was the case, we
+
+334
+00:12:35,920 --> 00:12:40,320
+should now also not care for quality. Um
+
+335
+00:12:38,720 --> 00:12:42,000
+I I think now is the best time to
+
+336
+00:12:40,320 --> 00:12:44,480
+actually care for quality because of lot
+
+337
+00:12:42,000 --> 00:12:46,560
+of the treachery that took away time
+
+338
+00:12:44,480 --> 00:12:49,279
+from you previously when you handcoded
+
+339
+00:12:46,560 --> 00:12:51,360
+stuff can now be done via an agent. So
+
+340
+00:12:49,279 --> 00:12:53,440
+you should in theory have more time to
+
+341
+00:12:51,360 --> 00:12:54,800
+focus on quality and not quantity. But
+
+342
+00:12:53,440 --> 00:12:56,480
+uh we're currently seeing the opposite
+
+343
+00:12:54,800 --> 00:12:58,240
+still because everybody has AI
+
+344
+00:12:56,480 --> 00:13:00,320
+psychosis.
+
+345
+00:12:58,240 --> 00:13:03,360
+End of the day, it's going to depend on
+
+346
+00:13:00,320 --> 00:13:05,040
+the business uh on on on the on the
+
+347
+00:13:03,360 --> 00:13:06,560
+revenues that you can generate
+
+348
+00:13:05,040 --> 00:13:08,720
+additionally by using agents. And I
+
+349
+00:13:06,560 --> 00:13:11,519
+don't see that yet by going fool's home
+
+350
+00:13:08,720 --> 00:13:13,440
+Simpsons car, but I could totally see
+
+351
+00:13:11,519 --> 00:13:16,240
+that by improving service quality
+
+352
+00:13:13,440 --> 00:13:18,720
+specifically in in domains where uptimes
+
+353
+00:13:16,240 --> 00:13:21,279
+and so on so forth actually make uh
+
+354
+00:13:18,720 --> 00:13:22,959
+financial make or break decisions. You
+
+355
+00:13:21,279 --> 00:13:25,519
+know, not seeing that yet. I I I think
+
+356
+00:13:22,959 --> 00:13:26,880
+we just need to figure out how to We
+
+357
+00:13:25,519 --> 00:13:28,959
+still haven't figured out what the
+
+358
+00:13:26,880 --> 00:13:31,440
+engineering process with agents should
+
+359
+00:13:28,959 --> 00:13:32,800
+look like to create quality software and
+
+360
+00:13:31,440 --> 00:13:34,480
+until we're there, we're just going to
+
+361
+00:13:32,800 --> 00:13:36,000
+throw [ __ ] on the wall until something
+
+362
+00:13:34,480 --> 00:13:37,279
+sticks. I mean, you're doing a lot of
+
+363
+00:13:36,000 --> 00:13:38,399
+that work for us. So,
+
+364
+00:13:37,279 --> 00:13:41,839
+>> I'm [snorts] throwing a lot of [ __ ]
+
+365
+00:13:38,399 --> 00:13:43,600
+Absolutely. A ton of it. I mean you guys
+
+366
+00:13:41,839 --> 00:13:48,000
+I'm the vibe I'm getting from you guys
+
+367
+00:13:43,600 --> 00:13:50,560
+is like sort of um bearded skepticism
+
+368
+00:13:48,000 --> 00:13:52,639
+basically and sort of a sort of sense of
+
+369
+00:13:50,560 --> 00:13:55,680
+things are not things are not quite
+
+370
+00:13:52,639 --> 00:13:59,279
+there yet right like we're not you know
+
+371
+00:13:55,680 --> 00:14:00,880
+something is missing so what is missing
+
+372
+00:13:59,279 --> 00:14:02,399
+is it just that the models are not good
+
+373
+00:14:00,880 --> 00:14:04,560
+enough yet or have we not found
+
+374
+00:14:02,399 --> 00:14:07,199
+techniques to harness the models that we
+
+375
+00:14:04,560 --> 00:14:10,000
+already have like what's what for you
+
+376
+00:14:07,199 --> 00:14:13,040
+guys would go like it sounds like you're
+
+377
+00:14:10,000 --> 00:14:14,800
+in a sort low trust space with agents,
+
+378
+00:14:13,040 --> 00:14:16,880
+right? Whereas a lot of people are
+
+379
+00:14:14,800 --> 00:14:19,600
+especially since Opus 5.5 came out are
+
+380
+00:14:16,880 --> 00:14:21,839
+trusting them more and more or have sort
+
+381
+00:14:19,600 --> 00:14:23,839
+of constructed harnesses constructed
+
+382
+00:14:21,839 --> 00:14:25,680
+their environment such as using
+
+383
+00:14:23,839 --> 00:14:28,880
+verification tools such as automated
+
+384
+00:14:25,680 --> 00:14:31,760
+review to sort of bring the agents under
+
+385
+00:14:28,880 --> 00:14:33,680
+control to give them fewer options. So
+
+386
+00:14:31,760 --> 00:14:36,000
+how are are you sort of just like not
+
+387
+00:14:33,680 --> 00:14:38,480
+trusting the agents at all or are you
+
+388
+00:14:36,000 --> 00:14:40,160
+trying to build systems in which you can
+
+389
+00:14:38,480 --> 00:14:43,839
+trust them? What does that look like?
+
+390
+00:14:40,160 --> 00:14:45,360
+I'm gonna pick one at random. Amen.
+
+391
+00:14:43,839 --> 00:14:50,160
+>> I'm not sure if this is a question of
+
+392
+00:14:45,360 --> 00:14:52,880
+trust. Um because I I don't I like I I
+
+393
+00:14:50,160 --> 00:14:55,920
+don't want a world where like
+
+394
+00:14:52,880 --> 00:14:57,680
+okay maybe like you said I I have a very
+
+395
+00:14:55,920 --> 00:14:59,199
+simple way of looking at the whole thing
+
+396
+00:14:57,680 --> 00:15:01,440
+which is like if hypothetically these
+
+397
+00:14:59,199 --> 00:15:02,880
+agents achieve AGI and everything is the
+
+398
+00:15:01,440 --> 00:15:06,480
+same. This is the baseline like we have
+
+399
+00:15:02,880 --> 00:15:07,839
+the this this all amazing
+
+400
+00:15:06,480 --> 00:15:11,040
+whatever it is. I don't really care
+
+401
+00:15:07,839 --> 00:15:15,279
+which bar it lands. Like we are not
+
+402
+00:15:11,040 --> 00:15:16,800
+building software for like nonhuman
+
+403
+00:15:15,279 --> 00:15:18,880
+things that are going to enjoy our
+
+404
+00:15:16,800 --> 00:15:20,880
+software, right? Like or or anything in
+
+405
+00:15:18,880 --> 00:15:22,880
+in life. It's it's here for humans,
+
+406
+00:15:20,880 --> 00:15:24,560
+right? And so presumably the human
+
+407
+00:15:22,880 --> 00:15:26,079
+element is always going to be there in
+
+408
+00:15:24,560 --> 00:15:28,160
+one form another because like what else
+
+409
+00:15:26,079 --> 00:15:29,279
+is the point of humanity? [snorts] So I
+
+410
+00:15:28,160 --> 00:15:31,120
+don't really care that much about the
+
+411
+00:15:29,279 --> 00:15:33,279
+agent in a sense. I care about that like
+
+412
+00:15:31,120 --> 00:15:34,800
+whatever we're doing is actually really
+
+413
+00:15:33,279 --> 00:15:37,040
+cool for society and does something
+
+414
+00:15:34,800 --> 00:15:39,600
+really good. And so like a lot of the
+
+415
+00:15:37,040 --> 00:15:43,519
+conversation about agents
+
+416
+00:15:39,600 --> 00:15:45,279
+like is for me not all that I do want it
+
+417
+00:15:43,519 --> 00:15:47,519
+to work better and everything like but I
+
+418
+00:15:45,279 --> 00:15:49,120
+do like what whatever level it's going
+
+419
+00:15:47,519 --> 00:15:51,199
+to reach. I really just care about like
+
+420
+00:15:49,120 --> 00:15:53,680
+how do software engineers do the best
+
+421
+00:15:51,199 --> 00:15:55,040
+coolest thing you can possibly do. And I
+
+422
+00:15:53,680 --> 00:15:56,880
+think like it's always going to run up
+
+423
+00:15:55,040 --> 00:15:58,639
+against like the limit of what humans
+
+424
+00:15:56,880 --> 00:16:00,720
+are capable of doing. They're just going
+
+425
+00:15:58,639 --> 00:16:02,000
+to do it with more agents. So like I I
+
+426
+00:16:00,720 --> 00:16:04,079
+don't think there's ever going to be a
+
+427
+00:16:02,000 --> 00:16:05,600
+point where I feel like now remove the
+
+428
+00:16:04,079 --> 00:16:07,519
+human from this loop entirely. that to
+
+429
+00:16:05,600 --> 00:16:09,040
+me is sort of completely uninteresting.
+
+430
+00:16:07,519 --> 00:16:12,160
+So like how do I make the human in this
+
+431
+00:16:09,040 --> 00:16:13,279
+loop work the best. Um so from that
+
+432
+00:16:12,160 --> 00:16:15,120
+perspective I don't think there's a
+
+433
+00:16:13,279 --> 00:16:17,519
+specific bar I'm always I'm going to try
+
+434
+00:16:15,120 --> 00:16:19,360
+to figure out like how do you make that
+
+435
+00:16:17,519 --> 00:16:21,839
+like how do you make the human in that
+
+436
+00:16:19,360 --> 00:16:23,120
+succeed the best. Um and I think like
+
+437
+00:16:21,839 --> 00:16:24,720
+regardless of how good the models are
+
+438
+00:16:23,120 --> 00:16:27,279
+going to get there will always be a new
+
+439
+00:16:24,720 --> 00:16:29,440
+thing to to try to figure out in that
+
+440
+00:16:27,279 --> 00:16:31,839
+sense. [snorts]
+
+441
+00:16:29,440 --> 00:16:34,000
+>> Uh for me it's still a trust thing. Um,
+
+442
+00:16:31,839 --> 00:16:35,600
+but you learn what you can trust an
+
+443
+00:16:34,000 --> 00:16:37,759
+agent with and what you can't trust an
+
+444
+00:16:35,600 --> 00:16:40,000
+agent with over time that happens after
+
+445
+00:16:37,759 --> 00:16:42,240
+each model release or you can also
+
+446
+00:16:40,000 --> 00:16:44,079
+assume a base level with each family's
+
+447
+00:16:42,240 --> 00:16:46,639
+new generation.
+
+448
+00:16:44,079 --> 00:16:49,040
+Um, so to give you an example in PI
+
+449
+00:16:46,639 --> 00:16:53,279
+there's like 40 to 50 new issues every
+
+450
+00:16:49,040 --> 00:16:56,079
+day and we have a triage bot setup. My
+
+451
+00:16:53,279 --> 00:16:59,040
+colleague David built that. It just lets
+
+452
+00:16:56,079 --> 00:17:00,639
+the agent based on a very simple prompt
+
+453
+00:16:59,040 --> 00:17:02,880
+investigate whether the bug is real,
+
+454
+00:17:00,639 --> 00:17:05,919
+whether the issue report makes sense,
+
+455
+00:17:02,880 --> 00:17:09,120
+try to reproduce it reliably and then
+
+456
+00:17:05,919 --> 00:17:11,679
+propose a fix and also assign a
+
+457
+00:17:09,120 --> 00:17:13,439
+priority.
+
+458
+00:17:11,679 --> 00:17:16,480
+And we've been tuning this system for
+
+459
+00:17:13,439 --> 00:17:19,199
+about a week or two uh based on old data
+
+460
+00:17:16,480 --> 00:17:21,919
+and and some additional thoughts we had.
+
+461
+00:17:19,199 --> 00:17:25,439
+And it's super reliable. like if I find
+
+462
+00:17:21,919 --> 00:17:28,319
+an issue that's marked with P0, I can be
+
+463
+00:17:25,439 --> 00:17:31,200
+pretty sure that's it's a P 0. And if
+
+464
+00:17:28,319 --> 00:17:33,600
+that issue was also reproduced has a
+
+465
+00:17:31,200 --> 00:17:37,440
+test that fails with the current code
+
+466
+00:17:33,600 --> 00:17:39,679
+and a fix that runs um that makes the
+
+467
+00:17:37,440 --> 00:17:43,039
+test pass, I have high trust that this
+
+468
+00:17:39,679 --> 00:17:44,720
+is good. So in this case, I I can most
+
+469
+00:17:43,039 --> 00:17:47,520
+often just sign off on the thing and
+
+470
+00:17:44,720 --> 00:17:50,000
+merge the fix the agent suggested. In
+
+471
+00:17:47,520 --> 00:17:52,320
+other cases where it's about adding a
+
+472
+00:17:50,000 --> 00:17:54,880
+specific feature or extending a specific
+
+473
+00:17:52,320 --> 00:17:57,760
+feature, anything that involves me as
+
+474
+00:17:54,880 --> 00:17:59,520
+the user of the product, uh, results are
+
+475
+00:17:57,760 --> 00:18:00,160
+hilarious. So,
+
+476
+00:17:59,520 --> 00:18:02,799
+>> right.
+
+477
+00:18:00,160 --> 00:18:05,120
+>> Yeah. It's not like we don't trust
+
+478
+00:18:02,799 --> 00:18:06,880
+agents. It's just that the the there's
+
+479
+00:18:05,120 --> 00:18:08,400
+rough edges and and and different
+
+480
+00:18:06,880 --> 00:18:10,799
+domains where they excel, where they can
+
+481
+00:18:08,400 --> 00:18:12,960
+be trusted and some where they don't.
+
+482
+00:18:10,799 --> 00:18:16,559
+And I feel like the moment we have
+
+483
+00:18:12,960 --> 00:18:18,320
+reached some level of new trust with it
+
+484
+00:18:16,559 --> 00:18:20,960
+like you automatically aim higher and
+
+485
+00:18:18,320 --> 00:18:22,320
+you find yourself again where where you
+
+486
+00:18:20,960 --> 00:18:23,840
+kind of lose this trust because you
+
+487
+00:18:22,320 --> 00:18:26,480
+almost take the one where you have trust
+
+488
+00:18:23,840 --> 00:18:29,120
+with it that it works now for like for
+
+489
+00:18:26,480 --> 00:18:31,280
+granted like the percentage of code
+
+490
+00:18:29,120 --> 00:18:33,360
+we're reading on pi now is is much much
+
+491
+00:18:31,280 --> 00:18:35,120
+lower but we also don't talk about it
+
+492
+00:18:33,360 --> 00:18:38,160
+that much anymore because like of course
+
+493
+00:18:35,120 --> 00:18:40,480
+it's like it's it's not going to litter
+
+494
+00:18:38,160 --> 00:18:41,679
+is record all over the codebase anymore.
+
+495
+00:18:40,480 --> 00:18:44,240
+Or maybe it still does. [laughter] I
+
+496
+00:18:41,679 --> 00:18:46,240
+don't know. But but I stopped caring
+
+497
+00:18:44,240 --> 00:18:49,280
+about that part for sure.
+
+498
+00:18:46,240 --> 00:18:51,600
+>> So you have Okay. I mean because I
+think
+
+499
+00:18:49,280 --> 00:18:52,799
+the amount of human review is currently
+
+500
+00:18:51,600 --> 00:18:54,559
+the thing that's changing, right?
+
+501
+00:18:52,799 --> 00:18:56,240
+Because earlier in the year it was the
+
+502
+00:18:54,559 --> 00:18:58,880
+amount of code that we were handwriting,
+
+503
+00:18:56,240 --> 00:19:00,720
+right? That has gone virtually to zero
+
+504
+00:18:58,880 --> 00:19:02,559
+for me. I imagine it's gone to zero for
+
+505
+00:19:00,720 --> 00:19:04,400
+you guys as well and has been for a
+
+506
+00:19:02,559 --> 00:19:06,960
+while. But now it's how much do we
+
+507
+00:19:04,400 --> 00:19:09,280
+review and how much are we blocking
+
+508
+00:19:06,960 --> 00:19:11,679
+reviews going out? Especially now with
+
+509
+00:19:09,280 --> 00:19:14,080
+like a public project like Pi obviously
+
+510
+00:19:11,679 --> 00:19:15,360
+you have a lot of you know and with an
+
+511
+00:19:14,080 --> 00:19:16,743
+interface that you have to take care of
+
+512
+00:19:15,360 --> 00:19:18,799
+and that you have to make sure you know
+
+513
+00:19:16,743 --> 00:19:21,760
+[snorts] there's no breaking changes on
+
+514
+00:19:18,799 --> 00:19:23,440
+that's a big deal for you guys but how
+
+515
+00:19:21,760 --> 00:19:24,880
+much are you looking at the code that
+
+516
+00:19:23,440 --> 00:19:26,400
+goes out and how much are you looking at
+
+517
+00:19:24,880 --> 00:19:28,240
+just the evidence the agent is
+
+518
+00:19:26,400 --> 00:19:29,760
+presenting to you like in that I would
+
+519
+00:19:28,240 --> 00:19:32,400
+call what you have a software factory
+
+520
+00:19:29,760 --> 00:19:34,240
+basically in a sort of in I suppose it's
+
+521
+00:19:32,400 --> 00:19:37,280
+sort of a very jargony way just turning
+
+522
+00:19:34,240 --> 00:19:38,720
+issues into something and
+
+523
+00:19:37,280 --> 00:19:40,240
+You're essentially just trusting that
+
+524
+00:19:38,720 --> 00:19:41,840
+instead of having to read the code. And
+
+525
+00:19:40,240 --> 00:19:43,760
+how much are you looking at the code of
+
+526
+00:19:41,840 --> 00:19:46,880
+Pi anymore, Mario?
+
+527
+00:19:43,760 --> 00:19:48,960
+>> Um, quite a lot. I also look at diffs
+
+528
+00:19:46,880 --> 00:19:51,840
+for these issues that get auto fixed.
+
+529
+00:19:48,960 --> 00:19:55,679
+Um, but my my superpower is that I know
+
+530
+00:19:51,840 --> 00:19:58,720
+the code base of Pi and I still know the
+
+531
+00:19:55,679 --> 00:20:00,640
+codebase of Pi after 12 months of agents
+
+532
+00:19:58,720 --> 00:20:03,280
+fixing issues because I actually also
+
+533
+00:20:00,640 --> 00:20:05,600
+look at the fixes. That isn't true for
+
+534
+00:20:03,280 --> 00:20:08,480
+everything. Like we we have an HTML
+
+535
+00:20:05,600 --> 00:20:10,160
+export of of session data. I don't care
+
+536
+00:20:08,480 --> 00:20:12,799
+what the code looks like. [laughter] If
+
+537
+00:20:10,160 --> 00:20:14,559
+the end result is correct, I don't care
+
+538
+00:20:12,799 --> 00:20:16,480
+how it works, right? But if there's
+
+539
+00:20:14,559 --> 00:20:18,640
+anything that
+
+540
+00:20:16,480 --> 00:20:21,039
+is related to how the tools work, their
+
+541
+00:20:18,640 --> 00:20:22,960
+implementations work, or how the agent
+
+542
+00:20:21,039 --> 00:20:24,960
+loop works, or all the core primitives,
+
+543
+00:20:22,960 --> 00:20:27,840
+right, that need to be stable and and
+
+544
+00:20:24,960 --> 00:20:31,200
+good. I still look at the code. I I I
+
+545
+00:20:27,840 --> 00:20:33,200
+have not given up on that yet. all of
+
+546
+00:20:31,200 --> 00:20:34,960
+the code or some of the code or are you
+
+547
+00:20:33,200 --> 00:20:37,520
+sampling or how does that look?
+
+548
+00:20:34,960 --> 00:20:39,600
+>> Um, again, if it if it really touches a
+
+549
+00:20:37,520 --> 00:20:41,840
+subsystem that I know is like super
+
+550
+00:20:39,600 --> 00:20:44,159
+super important, I read the entire diff
+
+551
+00:20:41,840 --> 00:20:45,600
+obviously. If it's something where I
+
+552
+00:20:44,159 --> 00:20:47,919
+have a general idea of what it should
+
+553
+00:20:45,600 --> 00:20:50,720
+look like to fix, um, I might just skip
+
+554
+00:20:47,919 --> 00:20:52,400
+over a lot. Um, especially for non-m
+
+555
+00:20:50,720 --> 00:20:56,080
+mission critical stuff, then I don't
+
+556
+00:20:52,400 --> 00:20:58,000
+look at all because I don't know whether
+
+557
+00:20:56,080 --> 00:20:59,440
+whether whether something has one
+
+558
+00:20:58,000 --> 00:21:01,679
+additional white space or so on and so
+
+559
+00:20:59,440 --> 00:21:03,200
+forth. I trust the agent with that.
+
+560
+00:21:01,679 --> 00:21:06,880
+>> Yeah.
+
+561
+00:21:03,200 --> 00:21:08,880
+So, Mario, I'll stick with you because
+
+562
+00:21:06,880 --> 00:21:12,480
+I I would It seems like both of you guys
+
+563
+00:21:08,880 --> 00:21:15,299
+are a little bit lax or you care less
+
+564
+00:21:12,480 --> 00:21:17,760
+about things like verification than I
+
+565
+00:21:15,299 --> 00:21:19,919
+[clears throat] do. So, like putting the
+
+566
+00:21:17,760 --> 00:21:22,880
+agent in an environment where it can
+
+567
+00:21:19,919 --> 00:21:25,679
+succeed and constraining it, giving it
+
+568
+00:21:22,880 --> 00:21:28,080
+fewer options, um not allowing it to
+
+569
+00:21:25,679 --> 00:21:30,640
+create nuance or or make decisions or
+
+570
+00:21:28,080 --> 00:21:33,200
+things like that. And before we went
+
+571
+00:21:30,640 --> 00:21:35,679
+live, you said the rather intriguing
+
+572
+00:21:33,200 --> 00:21:37,760
+sentence, verification is overrated.
+
+573
+00:21:35,679 --> 00:21:38,240
+What What on earth do you mean? I want
+
+574
+00:21:37,760 --> 00:21:39,679
+to know.
+
+575
+00:21:38,240 --> 00:21:42,320
+>> So, first of all, I want to say that
+
+576
+00:21:39,679 --> 00:21:45,039
+Lauren is super awesome and I like every
+
+577
+00:21:42,320 --> 00:21:46,720
+bit of her output, and I'm not pointing
+
+578
+00:21:45,039 --> 00:21:47,919
+that at her at all.
+
+579
+00:21:46,720 --> 00:21:49,520
+>> It's just that I know too many people
+
+580
+00:21:47,919 --> 00:21:51,520
+that get themselves that if the agent
+
+581
+00:21:49,520 --> 00:21:53,520
+has written a metric ton of either
+
+582
+00:21:51,520 --> 00:21:55,600
+linting rules or unit tests or end to
+
+583
+00:21:53,520 --> 00:21:56,565
+end tests and so on, the system is good.
+
+584
+00:21:55,600 --> 00:21:57,679
+It's not. [snorts]
+
+585
+00:21:56,565 --> 00:21:59,520
+[laughter] And the reason for that is
+
+586
+00:21:57,679 --> 00:22:02,080
+that they are still goal seeking, reward
+
+587
+00:21:59,520 --> 00:22:03,840
+hacking little bastards and they will
+
+588
+00:22:02,080 --> 00:22:05,679
+just lie to you. That's still the case.
+
+589
+00:22:03,840 --> 00:22:08,159
+Or they will measure the wrong thing or
+
+590
+00:22:05,679 --> 00:22:10,159
+they will measure not enough things. Um
+
+591
+00:22:08,159 --> 00:22:12,480
+and unless you have a very good insight
+
+592
+00:22:10,159 --> 00:22:15,280
+into what's actually
+
+593
+00:22:12,480 --> 00:22:17,440
+been is happening underneath the hood,
+
+594
+00:22:15,280 --> 00:22:19,760
+you have no idea if your verifications
+
+595
+00:22:17,440 --> 00:22:21,919
+are actually worth anything. And I would
+
+596
+00:22:19,760 --> 00:22:26,000
+posit that most of these things are
+
+597
+00:22:21,919 --> 00:22:26,880
+mostly not good. [snorts]
+
+598
+00:22:26,000 --> 00:22:30,480
+Amen.
+
+599
+00:22:26,880 --> 00:22:32,000
+>> I mean I I think like um
+
+600
+00:22:30,480 --> 00:22:33,679
+so first of all I think like we we rely
+
+601
+00:22:32,000 --> 00:22:35,919
+on verification a lot right it's not
+
+602
+00:22:33,679 --> 00:22:37,200
+like hey pi is full of unit tests and
+
+603
+00:22:35,919 --> 00:22:39,520
+like every single project I've ever
+
+604
+00:22:37,200 --> 00:22:41,760
+worked on has a lot of like things to
+
+605
+00:22:39,520 --> 00:22:43,039
+rein in on like what an agent is
+
+606
+00:22:41,760 --> 00:22:46,640
+supposed to be doing and not supposed to
+
+607
+00:22:43,039 --> 00:22:49,760
+be doing but a lot of things just are
+
+608
+00:22:46,640 --> 00:22:52,559
+inherently quite hard to
+
+609
+00:22:49,760 --> 00:22:54,400
+verify and I I think like I I did a lean
+
+610
+00:22:52,559 --> 00:22:55,919
+proof on a bunch of things in pie and
+
+611
+00:22:54,400 --> 00:22:57,679
+afterwards like why did I do this
+
+612
+00:22:55,919 --> 00:22:59,440
+because like now I need to like what's
+
+613
+00:22:57,679 --> 00:23:02,440
+the mechanism by which my proof is going
+
+614
+00:22:59,440 --> 00:23:02,440
+to
+
+615
+00:23:03,280 --> 00:23:05,520
+>> no [clears throat] because I was
+
+616
+00:23:04,080 --> 00:23:08,640
+interested like can I build something
+
+617
+00:23:05,520 --> 00:23:12,159
+where like I keep the source sort of in
+
+618
+00:23:08,640 --> 00:23:13,679
+line with the proof and I also built um
+
+619
+00:23:12,159 --> 00:23:15,200
+for like one of our hypothetical
+
+620
+00:23:13,679 --> 00:23:18,159
+components we might or might not want
+
+621
+00:23:15,200 --> 00:23:22,320
+end up using I built a system that
+
+622
+00:23:18,159 --> 00:23:24,000
+basically um like uses a meta language
+
+623
+00:23:22,320 --> 00:23:26,159
+like a mini version of TypeScript as an
+
+624
+00:23:24,000 --> 00:23:28,080
+input language to then transparent to
+
+625
+00:23:26,159 --> 00:23:29,440
+other systems because it allows me a
+
+626
+00:23:28,080 --> 00:23:32,480
+certain level of control that I wouldn't
+
+627
+00:23:29,440 --> 00:23:34,320
+do have in other cases and it is very
+
+628
+00:23:32,480 --> 00:23:36,799
+interesting but it doesn't really solve
+
+629
+00:23:34,320 --> 00:23:39,120
+anything at the end of the day it just
+
+630
+00:23:36,799 --> 00:23:42,720
+gives you the agent another thing to
+
+631
+00:23:39,120 --> 00:23:45,440
+utilize but so far with how we're doing
+
+632
+00:23:42,720 --> 00:23:47,520
+this most of like unless you write code
+
+633
+00:23:45,440 --> 00:23:49,840
+in Okamel most of the software
+
+634
+00:23:47,520 --> 00:23:52,159
+verification like verified code ends up
+
+635
+00:23:49,840 --> 00:23:54,080
+being another artifact for the agent to
+
+636
+00:23:52,159 --> 00:23:55,679
+look at and not yet at least to the best
+
+637
+00:23:54,080 --> 00:23:58,799
+of knowledge, it doesn't yet end up
+
+638
+00:23:55,679 --> 00:24:00,559
+being like an intrinsic part of um of
+
+639
+00:23:58,799 --> 00:24:03,440
+what really fundamentally constrains the
+
+640
+00:24:00,559 --> 00:24:06,880
+agent. Um
+
+641
+00:24:03,440 --> 00:24:11,120
+so I like I think there is a world where
+
+642
+00:24:06,880 --> 00:24:14,400
+software verification will work. Um
+
+643
+00:24:11,120 --> 00:24:16,400
+I I if someone has found a great like
+
+644
+00:24:14,400 --> 00:24:18,559
+actual end to end software development
+
+645
+00:24:16,400 --> 00:24:21,600
+experience that lends itself to that,
+
+646
+00:24:18,559 --> 00:24:23,279
+I'm really curious. um
+
+647
+00:24:21,600 --> 00:24:27,120
+>> I have one counter point
+
+648
+00:24:23,279 --> 00:24:29,039
+>> coke or whatever um and um and and lean
+
+649
+00:24:27,120 --> 00:24:31,360
+so far from the tests that I've done and
+
+650
+00:24:29,039 --> 00:24:33,679
+we're like I haven't yet succeeded in
+
+651
+00:24:31,360 --> 00:24:34,799
+like introducing it as a proper piece in
+
+652
+00:24:33,679 --> 00:24:36,880
+what we're doing. [snorts]
+
+653
+00:24:34,799 --> 00:24:38,720
+>> The the the halting problem is real and
+
+654
+00:24:36,880 --> 00:24:40,960
+it can hurt you whether you use lean or
+
+655
+00:24:38,720 --> 00:24:44,080
+coke or whatever doesn't matter. It's
+
+656
+00:24:40,960 --> 00:24:46,320
+also a question of what the unit is that
+
+657
+00:24:44,080 --> 00:24:48,880
+you're trying to verify. I can easily
+
+658
+00:24:46,320 --> 00:24:50,000
+verify some pure functions. That's easy
+
+659
+00:24:48,880 --> 00:24:52,559
+enough.
+
+660
+00:24:50,000 --> 00:24:54,159
+I cannot verify end to end as of a full
+
+661
+00:24:52,559 --> 00:24:56,000
+system. It just doesn't work. And just
+
+662
+00:24:54,159 --> 00:24:57,279
+because your individual modules verify
+
+663
+00:24:56,000 --> 00:24:59,360
+doesn't mean the combination of these
+
+664
+00:24:57,279 --> 00:25:01,919
+modules verify. So I don't think there's
+
+665
+00:24:59,360 --> 00:25:03,440
+a way for full program verification
+
+666
+00:25:01,919 --> 00:25:05,520
+unless we are talking about things like
+
+667
+00:25:03,440 --> 00:25:07,760
+in the aerospace domain and and other
+
+668
+00:25:05,520 --> 00:25:10,080
+regulated industries and businesses
+
+669
+00:25:07,760 --> 00:25:11,520
+where this has been a thing for decades.
+
+670
+00:25:10,080 --> 00:25:13,039
+But you have to look at what they're
+
+671
+00:25:11,520 --> 00:25:14,480
+actually doing, how they're verifying
+
+672
+00:25:13,039 --> 00:25:16,559
+things and how they're writing things
+
+673
+00:25:14,480 --> 00:25:18,559
+knowing that they need to be verified.
+
+674
+00:25:16,559 --> 00:25:21,760
+none of the code we are writing is in
+
+675
+00:25:18,559 --> 00:25:23,440
+any way, shape or form uh um in line
+
+676
+00:25:21,760 --> 00:25:26,640
+with what the aerospace industry for
+
+677
+00:25:23,440 --> 00:25:27,919
+example does. And so yeah, I again I
+
+678
+00:25:26,640 --> 00:25:29,200
+think we're mostly kidding ourselves.
+
+679
+00:25:27,919 --> 00:25:31,840
+But on the other hand, anything is
+
+680
+00:25:29,200 --> 00:25:34,320
+better than nothing. [laughter]
+
+681
+00:25:31,840 --> 00:25:36,559
+Um you just shouldn't have a sense of
+
+682
+00:25:34,320 --> 00:25:38,480
+security just because there's a bunch of
+
+683
+00:25:36,559 --> 00:25:39,840
+clean code on your disc which doesn't
+
+684
+00:25:38,480 --> 00:25:40,320
+even [laughter] prove what you think it
+
+685
+00:25:39,840 --> 00:25:43,360
+proves.
+
+686
+00:25:40,320 --> 00:25:43,760
+>> Yes. And because the CI is green
+
+687
+00:25:43,360 --> 00:25:45,919
+essentially.
+
+688
+00:25:43,760 --> 00:25:47,600
+>> Yeah. Exactly. So
+
+689
+00:25:45,919 --> 00:25:48,559
+like I think that's always been a thing,
+
+690
+00:25:47,600 --> 00:25:50,159
+right? Like there's always been an
+
+691
+00:25:48,559 --> 00:25:52,559
+element of how far can you get with
+
+692
+00:25:50,159 --> 00:25:54,400
+deterministic tools.
+
+693
+00:25:52,559 --> 00:25:56,080
+>> Farish,
+
+694
+00:25:54,400 --> 00:25:58,000
+but not far enough, right? And it's
+
+695
+00:25:56,080 --> 00:26:00,559
+probably never going to be far enough.
+
+696
+00:25:58,000 --> 00:26:03,039
+>> Do you employ any kind of like AI
+review
+
+697
+00:26:00,559 --> 00:26:05,679
+on top of that? Like to give you an
+
+698
+00:26:03,039 --> 00:26:07,120
+extra level of security?
+
+699
+00:26:05,679 --> 00:26:08,559
+>> Again, I wouldn't call it security, but
+
+700
+00:26:07,120 --> 00:26:09,600
+I would call it insurance against my
+
+701
+00:26:08,559 --> 00:26:10,559
+laziness. [laughter]
+
+702
+00:26:09,600 --> 00:26:12,240
+>> Yeah.
+
+703
+00:26:10,559 --> 00:26:14,240
+because when prompted correctly, an
+
+704
+00:26:12,240 --> 00:26:16,880
+agent can be ruthless and tell you this
+
+705
+00:26:14,240 --> 00:26:19,360
+is real garbage. Um, and so using
+
+706
+00:26:16,880 --> 00:26:21,120
+adversarial reviews is is really really
+
+707
+00:26:19,360 --> 00:26:22,799
+important in my day-to-day work,
+
+708
+00:26:21,120 --> 00:26:25,919
+specifically when I do a system when I
+
+709
+00:26:22,799 --> 00:26:28,240
+do system design. Um, and in that case,
+
+710
+00:26:25,919 --> 00:26:30,480
+I'm just basically using the age-old
+
+711
+00:26:28,240 --> 00:26:33,039
+wisdom of ensemble methods. Like back in
+
+712
+00:26:30,480 --> 00:26:34,960
+the 2000s when I did basic ML, ensemble
+
+713
+00:26:33,039 --> 00:26:36,640
+methods were super invoke. So you can
+
+714
+00:26:34,960 --> 00:26:39,679
+apply the same today. you you take
+
+715
+00:26:36,640 --> 00:26:41,679
+different uh model families and have
+
+716
+00:26:39,679 --> 00:26:44,400
+them each review the same thing with the
+
+717
+00:26:41,679 --> 00:26:48,000
+same inputs and you will get super
+
+718
+00:26:44,400 --> 00:26:50,000
+different answers and super different um
+
+719
+00:26:48,000 --> 00:26:52,320
+problems that get identified and that
+
+720
+00:26:50,000 --> 00:26:54,400
+that's immensely helpful. The problem
+
+721
+00:26:52,320 --> 00:26:56,159
+with that is if you if you tell them to
+
+722
+00:26:54,400 --> 00:26:58,480
+be sellers or whatever it's pronounced.
+
+723
+00:26:56,159 --> 00:27:00,559
+Sorry, my English is not perfect. Um
+
+724
+00:26:58,480 --> 00:27:02,640
+they will be overzealous and that can
+
+725
+00:27:00,559 --> 00:27:04,080
+also hurt because then they identify
+
+726
+00:27:02,640 --> 00:27:05,840
+things that are not really something
+
+727
+00:27:04,080 --> 00:27:08,320
+that you need to think or care about or
+
+728
+00:27:05,840 --> 00:27:09,760
+fix even. Um so you're still in the
+
+729
+00:27:08,320 --> 00:27:11,840
+position where you then have to filter
+
+730
+00:27:09,760 --> 00:27:14,480
+down whatever they reported as problems
+
+731
+00:27:11,840 --> 00:27:15,760
+um using your own judgment.
+
+732
+00:27:14,480 --> 00:27:17,919
+>> Yeah. Like you're always going to get
+
+733
+00:27:15,760 --> 00:27:19,520
+false positives in um any kind of
+
+734
+00:27:17,919 --> 00:27:21,200
+automated adversarial review. It's kind
+
+735
+00:27:19,520 --> 00:27:23,120
+of like the name of the game. you know,
+
+736
+00:27:21,200 --> 00:27:25,120
+you're it's always it's always going to
+
+737
+00:27:23,120 --> 00:27:26,400
+produce something and sometimes there's
+
+738
+00:27:25,120 --> 00:27:28,000
+not actually that much. I have people
+
+739
+00:27:26,400 --> 00:27:29,600
+that sort of run it in a loop until
+
+740
+00:27:28,000 --> 00:27:30,080
+nothing comes up and I think that's just
+
+741
+00:27:29,600 --> 00:27:33,238
+the sort of
+
+742
+00:27:30,080 --> 00:27:33,360
+>> then we have the largest possible ever.
+
+743
+00:27:33,238 --> 00:27:34,640
+[laughter]
+
+744
+00:27:33,360 --> 00:27:36,480
+>> Absolutely.
+
+745
+00:27:34,640 --> 00:27:37,600
+>> Well, you know, and the and the
+comments
+
+746
+00:27:36,480 --> 00:27:39,120
+as well and they're just, you know,
+
+747
+00:27:37,600 --> 00:27:42,080
+they're just slamming each other, you
+
+748
+00:27:39,120 --> 00:27:46,440
+know, knit knit knit. That's brutal. A
+
+749
+00:27:42,080 --> 00:27:46,440
+big problem with this is that um
+
+750
+00:27:46,559 --> 00:27:50,400
+I I I don't know to which degree on new
+
+751
+00:27:48,720 --> 00:27:52,159
+models is not so much of an issue
+
+752
+00:27:50,400 --> 00:27:54,399
+because like I'm tending to steer away
+
+753
+00:27:52,159 --> 00:27:56,159
+from this now but
+
+754
+00:27:54,399 --> 00:27:58,159
+I think like they they have been trained
+
+755
+00:27:56,159 --> 00:28:00,880
+at one point of best practices and a lot
+
+756
+00:27:58,159 --> 00:28:03,369
+of back best practices are can be
+
+757
+00:28:00,880 --> 00:28:03,919
+actually bad.
+
+758
+00:28:03,369 --> 00:28:06,880
+[laughter]
+
+759
+00:28:03,919 --> 00:28:09,440
+Um, I I'm a huge believer in reducing
+
+760
+00:28:06,880 --> 00:28:11,039
+complexity in in systems, but a lot of
+
+761
+00:28:09,440 --> 00:28:14,000
+best practices are like protect against
+
+762
+00:28:11,039 --> 00:28:16,559
+every bad input and like like be
+
+763
+00:28:14,000 --> 00:28:20,000
+defensive programming everywhere and and
+
+764
+00:28:16,559 --> 00:28:23,760
+I think they're they took this to heart
+
+765
+00:28:20,000 --> 00:28:26,559
+and if you're if you just let it do its
+
+766
+00:28:23,760 --> 00:28:29,760
+thing just you increase the system
+
+767
+00:28:26,559 --> 00:28:31,840
+complexity quite a bit still. Um, and
+
+768
+00:28:29,760 --> 00:28:33,440
+I've I've also noticed like as I'm doing
+
+769
+00:28:31,840 --> 00:28:34,720
+a lot of security research at the moment
+
+770
+00:28:33,440 --> 00:28:37,679
+on like making sure that our [ __ ]
+
+771
+00:28:34,720 --> 00:28:39,039
+doesn't completely fall on its floor if
+
+772
+00:28:37,679 --> 00:28:44,000
+someone were to do something bad with
+
+773
+00:28:39,039 --> 00:28:47,039
+it. Um, a lot of the extra
+
+774
+00:28:44,000 --> 00:28:50,080
+protection that it puts in
+
+775
+00:28:47,039 --> 00:28:52,320
+can make it believe something is secure
+
+776
+00:28:50,080 --> 00:28:53,120
+and safe when in reality like it misses
+
+777
+00:28:52,320 --> 00:28:54,480
+like a
+
+778
+00:28:53,120 --> 00:28:56,880
+>> here's a here's a big thing that you
+
+779
+00:28:54,480 --> 00:28:59,440
+missed but like you think it's okay
+
+780
+00:28:56,880 --> 00:29:01,600
+because this is here. Um, so like
+
+781
+00:28:59,440 --> 00:29:03,440
+simpler systems tend to be easier to
+
+782
+00:29:01,600 --> 00:29:06,320
+understand over time and like agents
+
+783
+00:29:03,440 --> 00:29:08,640
+still produce. I'm pretty sure that
+
+784
+00:29:06,320 --> 00:29:10,240
+because human laziness tends you to like
+
+785
+00:29:08,640 --> 00:29:12,399
+make more compact code than what the
+
+786
+00:29:10,240 --> 00:29:15,679
+agent is doing. If we were to like put
+
+787
+00:29:12,399 --> 00:29:18,159
+an agent versus a human head-to-head to
+
+788
+00:29:15,679 --> 00:29:20,240
+solve one problem, it might actually
+
+789
+00:29:18,159 --> 00:29:22,000
+come out that the human code is sort of
+
+790
+00:29:20,240 --> 00:29:23,679
+like long-term easier to maintain in the
+
+791
+00:29:22,000 --> 00:29:24,559
+absence of an agent. I wouldn't be
+
+792
+00:29:23,679 --> 00:29:26,080
+surprised of that.
+
+793
+00:29:24,559 --> 00:29:29,360
+>> Right? Because coder is harder to
+
+794
+00:29:26,080 --> 00:29:29,840
+produce, you think more about it and
+
+795
+00:29:29,360 --> 00:29:34,480
+>> yeah.
+
+796
+00:29:29,840 --> 00:29:36,960
+>> Yeah, I I see that. So like
+
+797
+00:29:34,480 --> 00:29:38,480
+if so let's I think the one thing that a
+
+798
+00:29:36,960 --> 00:29:40,080
+human would be better at is sort of
+
+799
+00:29:38,480 --> 00:29:41,679
+thinking strategically, thinking
+
+800
+00:29:40,080 --> 00:29:42,960
+tactically and strategically at the same
+
+801
+00:29:41,679 --> 00:29:45,200
+time. And hopefully if they're a good
+
+802
+00:29:42,960 --> 00:29:47,440
+coder, they will make choices that will
+
+803
+00:29:45,200 --> 00:29:49,039
+improve the system design over time.
+
+804
+00:29:47,440 --> 00:29:50,880
+When you're thinking about system
+
+805
+00:29:49,039 --> 00:29:54,320
+design, both of you have a lot of
+
+806
+00:29:50,880 --> 00:29:56,640
+experience preAI and during AI. what
+
+807
+00:29:54,320 --> 00:29:58,240
+techniques like can we just sort of mine
+
+808
+00:29:56,640 --> 00:29:59,760
+you both for your domain language so
+
+809
+00:29:58,240 --> 00:30:00,640
+that we can feed into our prompts please
+
+810
+00:29:59,760 --> 00:30:02,880
+that's that's the dream for [laughter]
+
+811
+00:30:00,640 --> 00:30:05,120
+me because like for me it's like I'm
+
+812
+00:30:02,880 --> 00:30:07,200
+thinking like John Asterout deep modules
+
+813
+00:30:05,120 --> 00:30:09,520
+you know interfaces you know seams blah
+
+814
+00:30:07,200 --> 00:30:11,520
+blah blah blah blah like what techniques
+
+815
+00:30:09,520 --> 00:30:14,960
+are you interested in what have you
+
+816
+00:30:11,520 --> 00:30:16,640
+found works maybe giving agents the
+
+817
+00:30:14,960 --> 00:30:18,000
+right ideas about system design either
+
+818
+00:30:16,640 --> 00:30:20,640
+of you jump in on this
+
+819
+00:30:18,000 --> 00:30:22,960
+>> I I let me start because it's entirely
+
+820
+00:30:20,640 --> 00:30:25,440
+unspectacular um for me this is more an
+
+821
+00:30:22,960 --> 00:30:28,240
+artisan endeavor than a structured
+
+822
+00:30:25,440 --> 00:30:30,159
+engineering thing. Um, I need to feel a
+
+823
+00:30:28,240 --> 00:30:32,000
+solution space out before I can create a
+
+824
+00:30:30,159 --> 00:30:33,919
+solution. So, previously I would write
+
+825
+00:30:32,000 --> 00:30:35,919
+little programs, little APIs, the types
+
+826
+00:30:33,919 --> 00:30:37,520
+and so on and have a scratch file where
+
+827
+00:30:35,919 --> 00:30:40,000
+I experiment with what I've written so
+
+828
+00:30:37,520 --> 00:30:42,000
+far, see how it feels, see how where it
+
+829
+00:30:40,000 --> 00:30:44,240
+falls apart. Now, the agent can take
+
+830
+00:30:42,000 --> 00:30:46,960
+that over for me and just write not just
+
+831
+00:30:44,240 --> 00:30:49,039
+one version of the thing uh within the
+
+832
+00:30:46,960 --> 00:30:51,360
+solution space, but 10 and I can explore
+
+833
+00:30:49,039 --> 00:30:54,240
+them all at the same time and that's
+
+834
+00:30:51,360 --> 00:30:56,720
+really great. um I I get to see a lot
+
+835
+00:30:54,240 --> 00:30:58,880
+more of the problem than I would have
+
+836
+00:30:56,720 --> 00:31:00,399
+with just me as being a sole programmer
+
+837
+00:30:58,880 --> 00:31:04,000
+who can only output so many lines of
+
+838
+00:31:00,399 --> 00:31:05,919
+code a day, right? Um and that's that's
+
+839
+00:31:04,000 --> 00:31:07,679
+basically it. I'm I'm just iterating. My
+
+840
+00:31:05,919 --> 00:31:09,600
+my whole life as a programmer was
+
+841
+00:31:07,679 --> 00:31:12,000
+iteration, iteration, iteration until it
+
+842
+00:31:09,600 --> 00:31:14,399
+feels simple enough yet capable enough
+
+843
+00:31:12,000 --> 00:31:16,559
+for what I'm trying to do.
+
+844
+00:31:14,399 --> 00:31:18,320
+It's hard to
+
+845
+00:31:16,559 --> 00:31:20,240
+>> That's not a prompt, is it? I can't say
+
+846
+00:31:18,320 --> 00:31:23,520
+um you know, I'm feeling this, you know.
+
+847
+00:31:20,240 --> 00:31:24,799
+Yeah, it feels good, man. H A Al Armen,
+
+848
+00:31:23,520 --> 00:31:26,720
+you got anything?
+
+849
+00:31:24,799 --> 00:31:28,399
+>> I mean, I think like the last 10 years,
+
+850
+00:31:26,720 --> 00:31:31,679
+maybe 12 years, give or take, a lot of
+
+851
+00:31:28,399 --> 00:31:34,320
+my life has been related to like
+
+852
+00:31:31,679 --> 00:31:37,120
+building and operating a SAS software.
+
+853
+00:31:34,320 --> 00:31:39,440
+And I think u when you do that
+
+854
+00:31:37,120 --> 00:31:41,440
+eventually you
+
+855
+00:31:39,440 --> 00:31:43,840
+internalize this idea that like really
+
+856
+00:31:41,440 --> 00:31:46,799
+what matters the most is that [snorts]
+
+857
+00:31:43,840 --> 00:31:49,519
+when things go wrong. Ideally the
+
+858
+00:31:46,799 --> 00:31:51,600
+software was written in a way where not
+
+859
+00:31:49,519 --> 00:31:53,279
+doing anything doesn't make it worse.
+
+860
+00:31:51,600 --> 00:31:57,120
+Well like you you remove the element of
+
+861
+00:31:53,279 --> 00:31:58,880
+of like um you have to act now. So like
+
+862
+00:31:57,120 --> 00:32:00,399
+create yourself some sort of like
+
+863
+00:31:58,880 --> 00:32:02,240
+switches and toggles and all kind of
+
+864
+00:32:00,399 --> 00:32:03,679
+stuff you can you can sort of press in
+
+865
+00:32:02,240 --> 00:32:07,600
+the heat of the moment to create a
+
+866
+00:32:03,679 --> 00:32:09,760
+little bit of a breathing room here. Um,
+
+867
+00:32:07,600 --> 00:32:13,200
+and
+
+868
+00:32:09,760 --> 00:32:15,200
+I don't know necessarily
+
+869
+00:32:13,200 --> 00:32:17,200
+that there is a magic prompt you can
+
+870
+00:32:15,200 --> 00:32:19,760
+give to an agent to do that because a
+
+871
+00:32:17,200 --> 00:32:21,440
+lot of it has to do with
+
+872
+00:32:19,760 --> 00:32:23,279
+like
+
+873
+00:32:21,440 --> 00:32:25,039
+um
+
+874
+00:32:23,279 --> 00:32:26,720
+like really good understanding of like
+
+875
+00:32:25,039 --> 00:32:28,240
+what kind of data flows for your system,
+
+876
+00:32:26,720 --> 00:32:29,919
+what the volume is that it has because
+
+877
+00:32:28,240 --> 00:32:32,960
+like a different volume have different
+
+878
+00:32:29,919 --> 00:32:36,000
+trade-offs. Um, so there's there's a lot
+
+879
+00:32:32,960 --> 00:32:38,799
+of contextual information that also
+
+880
+00:32:36,000 --> 00:32:40,399
+changes over time. Like hilariously
+
+881
+00:32:38,799 --> 00:32:42,880
+enough, like I had a I had a sort of a
+
+882
+00:32:40,399 --> 00:32:45,840
+situation um that I had to look into
+
+883
+00:32:42,880 --> 00:32:47,519
+last Friday and the a and this is on a
+
+884
+00:32:45,840 --> 00:32:49,840
+codebase where the agent actually sort
+
+885
+00:32:47,519 --> 00:32:52,640
+of willingness to maintain uh some doc
+
+886
+00:32:49,840 --> 00:32:53,919
+files with length findings. And then as
+
+887
+00:32:52,640 --> 00:32:55,440
+it was sort of reading through this, I
+
+888
+00:32:53,919 --> 00:32:58,240
+was like this is this is very weird.
+
+889
+00:32:55,440 --> 00:32:59,519
+Like why why do you think this? And I
+
+890
+00:32:58,240 --> 00:33:00,799
+was like, "Oh, because I found this file
+
+891
+00:32:59,519 --> 00:33:02,000
+here and it says there are only 2,000
+
+892
+00:33:00,799 --> 00:33:03,760
+records." And I was like, "Yeah, you
+
+893
+00:33:02,000 --> 00:33:07,039
+wrote that file when the database was
+
+894
+00:33:03,760 --> 00:33:09,039
+empty." [laughter] So, um, like things
+
+895
+00:33:07,039 --> 00:33:10,399
+change at this point. The database is no
+
+896
+00:33:09,039 --> 00:33:13,200
+longer 2,000 records. At this point, it
+
+897
+00:33:10,399 --> 00:33:15,679
+has millions of records. And so, um,
+
+898
+00:33:13,200 --> 00:33:17,360
+like and you do completely different
+
+899
+00:33:15,679 --> 00:33:18,320
+trade-offs depending on this. So, I
+
+900
+00:33:17,360 --> 00:33:20,480
+don't know. I don't think there's
+
+901
+00:33:18,320 --> 00:33:24,039
+anything really to to share here other
+
+902
+00:33:20,480 --> 00:33:24,039
+than um
+
+903
+00:33:24,240 --> 00:33:27,919
+yeah like
+
+904
+00:33:25,840 --> 00:33:29,679
+>> when you build SAS software then you
+
+905
+00:33:27,919 --> 00:33:30,880
+want to you because at the end of the
+
+906
+00:33:29,679 --> 00:33:32,080
+day I think like you're you're still
+
+907
+00:33:30,880 --> 00:33:33,919
+going to be on the hook if [ __ ] goes
+
+908
+00:33:32,080 --> 00:33:35,760
+wrong, right? And so like the goal is
+
+909
+00:33:33,919 --> 00:33:38,480
+still the same. It's like if things go
+
+910
+00:33:35,760 --> 00:33:41,039
+wrong I the agent is not going to feel
+
+911
+00:33:38,480 --> 00:33:43,200
+my emotions. It's going to be me.
+
+912
+00:33:41,039 --> 00:33:45,760
+>> Yeah, pretty much. I I mean I think
+
+913
+00:33:43,200 --> 00:33:47,279
+Armen and I I mean we've we've some
+
+914
+00:33:45,760 --> 00:33:48,960
+shared history and what things we've
+
+915
+00:33:47,279 --> 00:33:50,480
+worked on but I was more on the client
+
+916
+00:33:48,960 --> 00:33:52,159
+side and more on the graphics
+
+917
+00:33:50,480 --> 00:33:54,159
+programming side and Armen was more on
+
+918
+00:33:52,159 --> 00:33:55,840
+the big fat irons in the cloud and they
+
+919
+00:33:54,159 --> 00:33:58,799
+do a lot of very important and very
+
+920
+00:33:55,840 --> 00:34:01,440
+pricey things. So we might have some uh
+
+921
+00:33:58,799 --> 00:34:03,200
+different views on things but I think
+
+922
+00:34:01,440 --> 00:34:04,399
+what we're trying to do here or what the
+
+923
+00:34:03,200 --> 00:34:05,360
+industry is trying to do here at the
+
+924
+00:34:04,399 --> 00:34:09,760
+moment is running away from
+
+925
+00:34:05,360 --> 00:34:11,440
+understanding. And I don't get that. I
+
+926
+00:34:09,760 --> 00:34:13,440
+that makes no [ __ ] sense to me
+
+927
+00:34:11,440 --> 00:34:15,760
+because if you do not have to understand
+
+928
+00:34:13,440 --> 00:34:17,919
+anything anymore, what use are you for?
+
+929
+00:34:15,760 --> 00:34:19,919
+Like why do why do I need you? If I can
+
+930
+00:34:17,919 --> 00:34:21,839
+just prompt my software factory, I don't
+
+931
+00:34:19,919 --> 00:34:23,440
+need to pay you. I'm going to fire you.
+
+932
+00:34:21,839 --> 00:34:26,240
+In my day-to-day work, I don't see
+
+933
+00:34:23,440 --> 00:34:27,599
+myself being useless just yet. I'm not
+
+934
+00:34:26,240 --> 00:34:30,159
+ruling out that it's going to happen,
+
+935
+00:34:27,599 --> 00:34:31,599
+but it's currently not the case.
+
+936
+00:34:30,159 --> 00:34:33,599
+>> But it's unclear to me like why it's
+
+937
+00:34:31,599 --> 00:34:36,720
+desirable in the first place. Like what
+
+938
+00:34:33,599 --> 00:34:40,240
+do you actually fundamentally gain from
+
+939
+00:34:36,720 --> 00:34:43,599
+operating at such a scale that
+
+940
+00:34:40,240 --> 00:34:45,359
+understanding evaporates in a company?
+
+941
+00:34:43,599 --> 00:34:47,200
+>> Because seemingly that is that is the
+
+942
+00:34:45,359 --> 00:34:48,720
+goal in a way is like you're like how do
+
+943
+00:34:47,200 --> 00:34:50,560
+you scale up that element so that humans
+
+944
+00:34:48,720 --> 00:34:52,720
+don't have to be in a loop anymore and
+
+945
+00:34:50,560 --> 00:34:53,919
+like the the real answer is like
+
+946
+00:34:52,720 --> 00:34:55,200
+anything that will happen at any point
+
+947
+00:34:53,919 --> 00:34:56,639
+in time someone will have to run to an
+
+948
+00:34:55,200 --> 00:34:58,240
+agent to like figure out what's going
+
+949
+00:34:56,639 --> 00:34:59,839
+on. Um,
+
+950
+00:34:58,240 --> 00:35:01,760
+>> I mean, we already have that. We We
+
+951
+00:34:59,839 --> 00:35:04,160
+already have peers of ours that say in
+
+952
+00:35:01,760 --> 00:35:05,520
+during an incident meeting, nobody knows
+
+953
+00:35:04,160 --> 00:35:07,440
+what the [ __ ] going on. They're all
+
+954
+00:35:05,520 --> 00:35:09,040
+just prompting their clot. That is
+
+955
+00:35:07,440 --> 00:35:10,320
+[ __ ] scary. I don't know if you
+
+956
+00:35:09,040 --> 00:35:11,920
+remember this but like I think it was
+
+957
+00:35:10,320 --> 00:35:13,119
+about four years ago Facebook
+
+958
+00:35:11,920 --> 00:35:14,720
+accidentally locked themselves out of
+
+959
+00:35:13,119 --> 00:35:17,359
+the headquarters and they don't really
+
+960
+00:35:14,720 --> 00:35:19,280
+remember this and it's like the the
+
+961
+00:35:17,359 --> 00:35:20,480
+entire because like I I don't exactly
+
+962
+00:35:19,280 --> 00:35:21,839
+remember the story but I think like
+
+963
+00:35:20,480 --> 00:35:23,040
+ultimately like one of the switches
+
+964
+00:35:21,839 --> 00:35:24,640
+failed or something and then eventually
+
+965
+00:35:23,040 --> 00:35:26,000
+there was a cascade of failure and they
+
+966
+00:35:24,640 --> 00:35:27,920
+had like for the first time they had to
+
+967
+00:35:26,000 --> 00:35:29,280
+like really sort of like from first
+
+968
+00:35:27,920 --> 00:35:30,480
+principles figure out what was going on
+
+969
+00:35:29,280 --> 00:35:33,280
+because like there was so much stuff
+
+970
+00:35:30,480 --> 00:35:34,880
+that was standing on top of that and
+
+971
+00:35:33,280 --> 00:35:36,320
+this sort of like level of catastrophic
+
+972
+00:35:34,880 --> 00:35:38,400
+failure and being able to defend
+
+973
+00:35:36,320 --> 00:35:40,160
+yourself against that Like yes, maybe
+
+974
+00:35:38,400 --> 00:35:42,400
+this sort of happens only every once in
+
+975
+00:35:40,160 --> 00:35:44,320
+a while, but like there's a reason why
+
+976
+00:35:42,400 --> 00:35:46,320
+companies are supposed to have disaster
+
+977
+00:35:44,320 --> 00:35:47,839
+contingency plans. And this is very
+
+978
+00:35:46,320 --> 00:35:49,920
+weird to me to imagine that there will
+
+979
+00:35:47,839 --> 00:35:51,359
+be like a Fortune 500 company is like,
+
+980
+00:35:49,920 --> 00:35:54,240
+"Yeah, our plan is to have another
+
+981
+00:35:51,359 --> 00:35:55,119
+backup of another coding agent over
+
+982
+00:35:54,240 --> 00:35:56,240
+there
+
+983
+00:35:55,119 --> 00:35:59,040
+>> and we're going to [snorts] run it on
+
+984
+00:35:56,240 --> 00:36:02,320
+like an generators and [laughter]
+
+985
+00:35:59,040 --> 00:36:04,320
+it's so I don't know. So I guess what
+
+986
+00:36:02,320 --> 00:36:06,560
+what I want to ask you guys
+
+987
+00:36:04,320 --> 00:36:08,480
+>> what I want to ask you guys is like
+
+988
+00:36:06,560 --> 00:36:11,200
+someone let's say someone is asked to
+
+989
+00:36:08,480 --> 00:36:14,000
+justify their job right someone is being
+
+990
+00:36:11,200 --> 00:36:15,839
+asked to say okay you're going to you're
+
+991
+00:36:14,000 --> 00:36:17,440
+planning on firing me I can feel it
+
+992
+00:36:15,839 --> 00:36:22,079
+right or you're going to fire like five
+
+993
+00:36:17,440 --> 00:36:24,400
+people in this team um of 10 maybe
+
+994
+00:36:22,079 --> 00:36:27,599
+why what is the argument to say that the
+
+995
+00:36:24,400 --> 00:36:29,440
+human is not or is needed like why are
+
+996
+00:36:27,599 --> 00:36:30,960
+they needed is it just like disaster
+
+997
+00:36:29,440 --> 00:36:33,680
+contingency that doesn't feel very
+
+998
+00:36:30,960 --> 00:36:34,960
+strong like like it's got to be some it
+
+999
+00:36:33,680 --> 00:36:36,560
+feels like something more than that
+
+1000
+00:36:34,960 --> 00:36:38,240
+right we've sort of mentioned oh yeah
+
+1001
+00:36:36,560 --> 00:36:41,040
+you can use domain knowledge to kind of
+
+1002
+00:36:38,240 --> 00:36:42,960
+like tweak the agent so it sort of you
+
+1003
+00:36:41,040 --> 00:36:46,079
+know it gets the right parameters going
+
+1004
+00:36:42,960 --> 00:36:48,400
+like what is the right way to make that
+
+1005
+00:36:46,079 --> 00:36:49,680
+argument
+
+1006
+00:36:48,400 --> 00:36:52,240
+>> let me start by saying I'm not making
+
+1007
+00:36:49,680 --> 00:36:54,800
+that argument as much as it hurts me to
+
+1008
+00:36:52,240 --> 00:36:56,320
+say I I think for a lot of task in
+
+1009
+00:36:54,800 --> 00:36:59,440
+software you don't need humans anymore
+
+1010
+00:36:56,320 --> 00:37:00,720
+it's just matter of fact um then the
+
+1011
+00:36:59,440 --> 00:37:03,200
+question becomes
+
+1012
+00:37:00,720 --> 00:37:08,800
+How do you retain your value in a market
+
+1013
+00:37:03,200 --> 00:37:10,320
+that can be replaced by machines?
+
+1014
+00:37:08,800 --> 00:37:12,079
+For me, the answer is easy because I'm
+
+1015
+00:37:10,320 --> 00:37:13,760
+old, so I have a lot of experience and
+
+1016
+00:37:12,079 --> 00:37:16,400
+that is still something that seems to
+
+1017
+00:37:13,760 --> 00:37:18,400
+have value in the market. For uh younger
+
+1018
+00:37:16,400 --> 00:37:20,160
+people, I don't know. I honestly don't
+
+1019
+00:37:18,400 --> 00:37:21,760
+know. I can just say people like me are
+
+1020
+00:37:20,160 --> 00:37:23,440
+going to die soon and then we still
+
+1021
+00:37:21,760 --> 00:37:25,040
+probably need some people that that
+
+1022
+00:37:23,440 --> 00:37:26,880
+watch over the software factory and they
+
+1023
+00:37:25,040 --> 00:37:28,480
+still need to know or have at least some
+
+1024
+00:37:26,880 --> 00:37:30,240
+surface understanding of what the [ __ ]
+
+1025
+00:37:28,480 --> 00:37:33,040
+going on. So that's going to be you
+
+1026
+00:37:30,240 --> 00:37:35,359
+youngans. Uh so you better better get to
+
+1027
+00:37:33,040 --> 00:37:38,240
+know things. [laughter]
+
+1028
+00:37:35,359 --> 00:37:40,079
+Um but I I honestly can't can say
+
+1029
+00:37:38,240 --> 00:37:42,240
+there's an argument for every software
+
+1030
+00:37:40,079 --> 00:37:43,599
+engineer in the world to retain their
+
+1031
+00:37:42,240 --> 00:37:45,200
+job.
+
+1032
+00:37:43,599 --> 00:37:46,480
+>> I think like if someone is going to run
+
+1033
+00:37:45,200 --> 00:37:49,680
+up to you and say like hey you need to
+
+1034
+00:37:46,480 --> 00:37:51,920
+justify your job. um like you have
+
+1035
+00:37:49,680 --> 00:37:53,760
+already reached a level of like I'm I'm
+
+1036
+00:37:51,920 --> 00:37:55,040
+running regardless of if I'm justified
+
+1037
+00:37:53,760 --> 00:37:57,461
+to this company or not because like
+
+1038
+00:37:55,040 --> 00:38:00,079
+something went so wrong
+
+1039
+00:37:57,461 --> 00:38:01,359
+[snorts] like like I mean that's
+
+1040
+00:38:00,079 --> 00:38:02,560
+obviously this is easy to say for
+
+1041
+00:38:01,359 --> 00:38:04,400
+someone who probably has some level of
+
+1042
+00:38:02,560 --> 00:38:08,000
+job security but like I think it's
+
+1043
+00:38:04,400 --> 00:38:10,400
+actually sort of important that um that
+
+1044
+00:38:08,000 --> 00:38:11,200
+people do that
+
+1045
+00:38:10,400 --> 00:38:12,320
+um because
+
+1046
+00:38:11,200 --> 00:38:14,240
+>> I think of course you're never going to
+
+1047
+00:38:12,320 --> 00:38:16,800
+be asked that explicitly but you might
+
+1048
+00:38:14,240 --> 00:38:18,240
+um feel a sensation in the company you
+
+1049
+00:38:16,800 --> 00:38:19,680
+might get the sense that things are not
+
+1050
+00:38:18,240 --> 00:38:21,200
+going well. There might be a round of
+
+1051
+00:38:19,680 --> 00:38:22,480
+layoffs where you're not affected and
+
+1052
+00:38:21,200 --> 00:38:24,880
+then maybe there's a next round of
+
+1053
+00:38:22,480 --> 00:38:26,560
+layoffs coming and you might be sort of
+
+1054
+00:38:24,880 --> 00:38:27,920
+tend to post a little bit more in the
+
+1055
+00:38:26,560 --> 00:38:30,800
+group Slack about the things that you're
+
+1056
+00:38:27,920 --> 00:38:32,160
+doing or you might just be a talk a
+
+1057
+00:38:30,800 --> 00:38:32,880
+little bit louder about your
+
+1058
+00:38:32,160 --> 00:38:35,440
+achievements.
+
+1059
+00:38:32,880 --> 00:38:37,040
+>> Yeah. Specific achievements at that
+
+1060
+00:38:35,440 --> 00:38:37,359
+point.
+
+1061
+00:38:37,040 --> 00:38:39,280
+>> Yeah. Yeah,
+
+1062
+00:38:37,359 --> 00:38:41,520
+>> because like
+
+1063
+00:38:39,280 --> 00:38:45,440
+if you ever feel like on a daily basis
+
+1064
+00:38:41,520 --> 00:38:48,880
+you have to justify what you're doing
+
+1065
+00:38:45,440 --> 00:38:50,960
+>> like vibes are off really.
+
+1066
+00:38:48,880 --> 00:38:52,400
+>> Yeah. Yeah. And and like and like
+
+1067
+00:38:50,960 --> 00:38:53,839
+because it will also like fall back on
+
+1068
+00:38:52,400 --> 00:38:55,440
+you in a way like because at that point
+
+1069
+00:38:53,839 --> 00:38:56,320
+you're like you're less motivated of
+
+1070
+00:38:55,440 --> 00:38:57,359
+actually figuring out like what you're
+
+1071
+00:38:56,320 --> 00:38:58,720
+supposed to be doing at the company and
+
+1072
+00:38:57,359 --> 00:39:01,359
+you're spending more time on like
+
+1073
+00:38:58,720 --> 00:39:05,160
+justifying your existence. And if you
+
+1074
+00:39:01,359 --> 00:39:05,160
+have reached that level
+
+1075
+00:39:05,680 --> 00:39:09,599
+>> I don't know like I would I would reach
+
+1076
+00:39:08,160 --> 00:39:12,560
+at an earlier point and trying to figure
+
+1077
+00:39:09,599 --> 00:39:14,400
+out like if what I'm doing actually no
+
+1078
+00:39:12,560 --> 00:39:16,079
+longer delivers value and I sort of feel
+
+1079
+00:39:14,400 --> 00:39:19,599
+like that might be the case then where
+
+1080
+00:39:16,079 --> 00:39:19,839
+do I move where I do deliver value? Um,
+
+1081
+00:39:19,599 --> 00:39:21,839
+>> yeah,
+
+1082
+00:39:19,839 --> 00:39:23,520
+>> I think that might be changing every
+
+1083
+00:39:21,839 --> 00:39:26,160
+three months, right?
+
+1084
+00:39:23,520 --> 00:39:28,000
+>> Historically, we neck beards try to
+
+1085
+00:39:26,160 --> 00:39:30,160
+avoid talking to other humans. And I
+
+1086
+00:39:28,000 --> 00:39:31,599
+think that's the one thing that will
+
+1087
+00:39:30,160 --> 00:39:33,920
+will actually up your value in the
+
+1088
+00:39:31,599 --> 00:39:35,760
+market. Like I I I've never been the the
+
+1089
+00:39:33,920 --> 00:39:37,280
+prototypical developer. I actually like
+
+1090
+00:39:35,760 --> 00:39:39,200
+humans. I actually like talking to
+
+1091
+00:39:37,280 --> 00:39:41,119
+humans. So that puts me in a position
+
+1092
+00:39:39,200 --> 00:39:43,200
+where I can just be more than an
+
+1093
+00:39:41,119 --> 00:39:46,240
+engineer, let's say, more than a coder,
+
+1094
+00:39:43,200 --> 00:39:48,320
+right? I can kind of sympathize with my
+
+1095
+00:39:46,240 --> 00:39:49,680
+users, for example, and better
+
+1096
+00:39:48,320 --> 00:39:50,240
+understand what the [ __ ] they actually
+
+1097
+00:39:49,680 --> 00:39:51,839
+need.
+
+1098
+00:39:50,240 --> 00:39:54,240
+>> Difficulty level impossible. Yeah,
+
+1099
+00:39:51,839 --> 00:39:56,320
+that's always felt really powerful to me
+
+1100
+00:39:54,240 --> 00:39:58,160
+as well, like in my career, too.
+
+1101
+00:39:56,320 --> 00:40:00,079
+>> And and I think that's something that
+
+1102
+00:39:58,160 --> 00:40:01,680
+machines at the moment at least cannot
+
+1103
+00:40:00,079 --> 00:40:03,520
+quite replicate yet if you're actually
+
+1104
+00:40:01,680 --> 00:40:04,240
+good at that as a human, right? Lots of
+
+1105
+00:40:03,520 --> 00:40:06,640
+humans suck at
+
+1106
+00:40:04,240 --> 00:40:08,160
+>> people hate talking to the machine. So
+I
+
+1107
+00:40:06,640 --> 00:40:09,440
+want to I want to pull us back to sorry
+
+1108
+00:40:08,160 --> 00:40:12,960
+I want to pull us back to code a little
+
+1109
+00:40:09,440 --> 00:40:14,480
+bit which is there's this and we've got
+
+1110
+00:40:12,960 --> 00:40:16,880
+maybe time for just a couple more
+
+1111
+00:40:14,480 --> 00:40:18,400
+questions I think and this one is
+
+1112
+00:40:16,880 --> 00:40:20,560
+there's a phrase going around called a
+
+1113
+00:40:18,400 --> 00:40:22,960
+dark factory right which is the idea is
+
+1114
+00:40:20,560 --> 00:40:25,839
+you have a software factory and it is
+
+1115
+00:40:22,960 --> 00:40:27,119
+just essentially operating by itself you
+
+1116
+00:40:25,839 --> 00:40:29,680
+never need to look at the code never
+
+1117
+00:40:27,119 --> 00:40:31,040
+need to turn the lights on I'm
+
+1118
+00:40:29,680 --> 00:40:33,839
+interested in whether you think it's
+
+1119
+00:40:31,040 --> 00:40:36,880
+possible now whether it's possible for
+
+1120
+00:40:33,839 --> 00:40:38,560
+certain things now and whether it might
+
+1121
+00:40:36,880 --> 00:40:40,160
+become possible in the future. I don't
+
+1122
+00:40:38,560 --> 00:40:41,680
+like to generally do a bit of punditry
+
+1123
+00:40:40,160 --> 00:40:44,000
+but you guys are sort of leading me in
+
+1124
+00:40:41,680 --> 00:40:45,520
+that direction. [laughter]
+
+1125
+00:40:44,000 --> 00:40:47,680
+>> Okay, let me let me start by answering
+
+1126
+00:40:45,520 --> 00:40:50,480
+and saying uh if somebody can make that
+
+1127
+00:40:47,680 --> 00:40:52,000
+work and it has economic value then it
+
+1128
+00:40:50,480 --> 00:40:56,920
+would exist. [snorts]
+
+1129
+00:40:52,000 --> 00:40:56,920
+>> I have not seen it existing yet.
+
+1130
+00:40:56,960 --> 00:40:59,920
+>> Yeah.
+
+1131
+00:40:59,280 --> 00:41:02,240
+>> Amen.
+
+1132
+00:40:59,920 --> 00:41:04,079
+>> Yeah. I mean I
+
+1133
+00:41:02,240 --> 00:41:06,800
+I think it's interesting people try for
+
+1134
+00:41:04,079 --> 00:41:08,960
+sure. the example that I had recently on
+
+1135
+00:41:06,800 --> 00:41:12,800
+on this uh in preparation for the talk
+
+1136
+00:41:08,960 --> 00:41:15,040
+that I gave at uh AI engineer.
+
+1137
+00:41:12,800 --> 00:41:16,319
+I had this discussion with a friend. I
+
+1138
+00:41:15,040 --> 00:41:19,280
+said like look I actually don't think
+
+1139
+00:41:16,319 --> 00:41:21,920
+anyone fully operates this like issue
+
+1140
+00:41:19,280 --> 00:41:23,839
+tracker that sort of like gets issues in
+
+1141
+00:41:21,920 --> 00:41:27,040
+and then auto fix and it's like he said
+
+1142
+00:41:23,839 --> 00:41:28,960
+like oh I do. I like so are you still
+
+1143
+00:41:27,040 --> 00:41:30,560
+using it? He said no. Like do you not
+
+1144
+00:41:28,960 --> 00:41:32,079
+mind that it wastes tokens? Like yeah
+
+1145
+00:41:30,560 --> 00:41:34,323
+actually should turn it off. That's what
+
+1146
+00:41:32,079 --> 00:41:34,323
+I was. [laughter]
+
+1147
+00:41:35,040 --> 00:41:38,880
+I mean, [gasps] it really only matters
+
+1148
+00:41:36,960 --> 00:41:40,560
+if if someone cares. And if we have it
+
+1149
+00:41:38,880 --> 00:41:41,200
+fully automated
+
+1150
+00:41:40,560 --> 00:41:42,400
+>> and you're [clears throat] not even
+
+1151
+00:41:41,200 --> 00:41:44,079
+looking at yourself, then it's like,
+
+1152
+00:41:42,400 --> 00:41:45,760
+yeah, it's technically a factory, but it
+
+1153
+00:41:44,079 --> 00:41:47,599
+is
+
+1154
+00:41:45,760 --> 00:41:48,800
+it I mean, it's fully on autopilot, then
+
+1155
+00:41:47,599 --> 00:41:50,400
+it's like whatever. It's like turns out
+
+1156
+00:41:48,800 --> 00:41:51,200
+what the weights are doing. I don't
+
+1157
+00:41:50,400 --> 00:41:53,839
+know.
+
+1158
+00:41:51,200 --> 00:41:55,760
+>> I I wasn't at AIE in San Francisco.
+
+1159
+00:41:53,839 --> 00:41:57,760
+Armen was, but as I understood, Steve
+
+1160
+00:41:55,760 --> 00:41:59,359
+Yaggi gave a talk there where he
+
+1161
+00:41:57,760 --> 00:42:01,040
+basically told people to slow the [ __ ]
+
+1162
+00:41:59,359 --> 00:42:03,200
+down because software factories all end
+
+1163
+00:42:01,040 --> 00:42:07,200
+up in a mess. And that coming from Steve
+
+1164
+00:42:03,200 --> 00:42:08,640
+Yaggi, the OG slopmaster 2000 says
+
+1165
+00:42:07,200 --> 00:42:10,640
+something, right?
+
+1166
+00:42:08,640 --> 00:42:12,560
+>> But he also supported the existence. He
+
+1167
+00:42:10,640 --> 00:42:14,160
+sort of like he argued both ways, which
+
+1168
+00:42:12,560 --> 00:42:15,520
+to me is the most fascinating thing on
+
+1169
+00:42:14,160 --> 00:42:17,280
+the whole thing. [laughter]
+
+1170
+00:42:15,520 --> 00:42:19,280
+>> I don't even think that contradicts
+each
+
+1171
+00:42:17,280 --> 00:42:20,960
+other. I mean we will maybe in the
+
+1172
+00:42:19,280 --> 00:42:22,880
+future have something like dark
+
+1173
+00:42:20,960 --> 00:42:25,440
+factories for some specific problem
+
+1174
+00:42:22,880 --> 00:42:28,240
+domains. I'm absolutely not ruling that
+
+1175
+00:42:25,440 --> 00:42:29,920
+out. Um so we need people to experiment.
+
+1176
+00:42:28,240 --> 00:42:32,079
+We need people to to figure out if this
+
+1177
+00:42:29,920 --> 00:42:33,599
+can work. And again it needs to have
+
+1178
+00:42:32,079 --> 00:42:35,200
+some economic value attached. Otherwise
+
+1179
+00:42:33,599 --> 00:42:37,599
+it's just wankery.
+
+1180
+00:42:35,200 --> 00:42:39,280
+>> Yeah. And there is some problems that
+it
+
+1181
+00:42:37,599 --> 00:42:41,280
+would be better for than others. Right.
+
+1182
+00:42:39,280 --> 00:42:43,040
+like if you you know if a pure
+
+1183
+00:42:41,280 --> 00:42:45,040
+mathematical domain let's say is going
+
+1184
+00:42:43,040 --> 00:42:49,119
+to be more tractable for a software
+
+1185
+00:42:45,040 --> 00:42:50,960
+factory then um you know even like a I
+
+1186
+00:42:49,119 --> 00:42:52,240
+don't know even like a very basic CRUD
+
+1187
+00:42:50,960 --> 00:42:55,760
+app at this point I think would fall
+
+1188
+00:42:52,240 --> 00:42:58,160
+apart pretty quickly and um
+
+1189
+00:42:55,760 --> 00:43:01,720
+so okay one more question I kind of want
+
+1190
+00:42:58,160 --> 00:43:01,720
+to make it a good one
+
+1191
+00:43:03,200 --> 00:43:09,440
+so if you're h what is this good
+
+1192
+00:43:06,960 --> 00:43:12,560
+question.
+
+1193
+00:43:09,440 --> 00:43:14,400
+Okay, I kind of want to ask how uh
+
+1194
+00:43:12,560 --> 00:43:16,880
+knackered are you guys feeling like at
+
+1195
+00:43:14,400 --> 00:43:18,800
+this point? Because the way our job has
+
+1196
+00:43:16,880 --> 00:43:20,960
+shifted is ridiculous. You know, it's
+
+1197
+00:43:18,800 --> 00:43:22,960
+it's gone from okay, we make some
+
+1198
+00:43:20,960 --> 00:43:25,839
+decisions and then we type out some nice
+
+1199
+00:43:22,960 --> 00:43:27,440
+code and then we go back to thinking
+
+1200
+00:43:25,839 --> 00:43:30,000
+strategically again. And like we're just
+
+1201
+00:43:27,440 --> 00:43:31,839
+forced into this strategic thinking mode
+
+1202
+00:43:30,000 --> 00:43:34,640
+all the time, right? At least that's how
+
+1203
+00:43:31,839 --> 00:43:36,000
+I feel. How are you guys feeling at the
+
+1204
+00:43:34,640 --> 00:43:37,839
+moment? How are you doing? Are you more
+
+1205
+00:43:36,000 --> 00:43:41,119
+tired than you used to be? Have you
+
+1206
+00:43:37,839 --> 00:43:44,480
+adjusted? What's the vibe?
+
+1207
+00:43:41,119 --> 00:43:47,520
+>> You start aring
+
+1208
+00:43:44,480 --> 00:43:49,280
+>> um I had um I don't know like two weeks
+
+1209
+00:43:47,520 --> 00:43:52,319
+ago I found this article on the internet
+
+1210
+00:43:49,280 --> 00:43:53,760
+said like the wives of AI husbands or
+
+1211
+00:43:52,319 --> 00:43:55,040
+something like this and it was basically
+
+1212
+00:43:53,760 --> 00:43:57,200
+this [laughter]
+
+1213
+00:43:55,040 --> 00:43:58,370
+and and I shared it with my wife and
+
+1214
+00:43:57,200 --> 00:44:00,390
+she's like you're in this article.
+
+1215
+00:43:58,370 --> 00:44:00,390
+[laughter]
+
+1216
+00:44:00,960 --> 00:44:04,800
+>> See I didn't share it with my wife.
+
+1217
+00:44:04,265 --> 00:44:06,880
+[gasps and laughter]
+
+1218
+00:44:04,800 --> 00:44:09,520
+Um, look, I think I definitely don't
+
+1219
+00:44:06,880 --> 00:44:11,280
+sleep enough. I definitely um and I
+
+1220
+00:44:09,520 --> 00:44:13,280
+don't even know why.
+
+1221
+00:44:11,280 --> 00:44:14,480
+>> Well, I mean, you're also founder of a
+
+1222
+00:44:13,280 --> 00:44:17,359
+startup, so I think that's not
+
+1223
+00:44:14,480 --> 00:44:21,119
+necessarily just AI stuff. So,
+
+1224
+00:44:17,359 --> 00:44:23,040
+>> but um I don't know. It's like it's the
+
+1225
+00:44:21,119 --> 00:44:25,920
+it is simultaneously the coolest time
+
+1226
+00:44:23,040 --> 00:44:28,880
+and the most confusing time and the most
+
+1227
+00:44:25,920 --> 00:44:31,040
+weirdest time. And so, like you have an
+
+1228
+00:44:28,880 --> 00:44:33,760
+urgency to experience it all as it
+
+1229
+00:44:31,040 --> 00:44:36,960
+happens. And as a result, you put more
+
+1230
+00:44:33,760 --> 00:44:40,345
+stress on yourself. Um,
+
+1231
+00:44:36,960 --> 00:44:40,345
+but I'm coping. [laughter]
+
+1232
+00:44:40,400 --> 00:44:45,839
+>> Good.
+
+1233
+00:44:42,800 --> 00:44:48,160
+>> Yeah. Um, I mean, both Armen and I and
+
+1234
+00:44:45,839 --> 00:44:50,640
+Peter Steinberger have been at this
+
+1235
+00:44:48,160 --> 00:44:53,200
+since early last year, and I think we
+
+1236
+00:44:50,640 --> 00:44:55,839
+got our AI psychosis out in the summer
+
+1237
+00:44:53,200 --> 00:44:57,599
+of last year.
+
+1238
+00:44:55,839 --> 00:44:59,760
+That was also when I didn't sleep a lot,
+
+1239
+00:44:57,599 --> 00:45:01,040
+and now I'm much more relaxed. I don't
+
+1240
+00:44:59,760 --> 00:45:05,119
+think a lot has happened actually in the
+
+1241
+00:45:01,040 --> 00:45:07,680
+last 8 months or even 12 months. Um I I
+
+1242
+00:45:05,119 --> 00:45:10,720
+I don't see a big shift anywhere
+
+1243
+00:45:07,680 --> 00:45:12,400
+anymore. I just see a lot of people in
+
+1244
+00:45:10,720 --> 00:45:14,240
+organizations still struggling with how
+
+1245
+00:45:12,400 --> 00:45:16,640
+to build proper engineering processes
+
+1246
+00:45:14,240 --> 00:45:19,280
+around this new tool. And I don't see
+
+1247
+00:45:16,640 --> 00:45:20,640
+anything anyone succeeding yet. Not not
+
+1248
+00:45:19,280 --> 00:45:22,240
+in a way where I say this is the new
+
+1249
+00:45:20,640 --> 00:45:23,839
+pattern and you should follow it. I mean
+
+1250
+00:45:22,240 --> 00:45:27,440
+I should probably check out all of your
+
+1251
+00:45:23,839 --> 00:45:29,359
+material Matt. Um, maybe I [laughter]
+
+1252
+00:45:27,440 --> 00:45:31,359
+maybe there is the the silver bullet in
+
+1253
+00:45:29,359 --> 00:45:33,119
+there somewhere, but I think people like
+
+1254
+00:45:31,359 --> 00:45:34,880
+you and and the guys from human layer
+
+1255
+00:45:33,119 --> 00:45:36,240
+and so on, I think that's super
+
+1256
+00:45:34,880 --> 00:45:38,720
+valuable. I think that's where we
+
+1257
+00:45:36,240 --> 00:45:41,119
+actually need to go as an industry. Um,
+
+1258
+00:45:38,720 --> 00:45:43,040
+so that that's the
+
+1259
+00:45:41,119 --> 00:45:45,440
+I I'm not sleepless because of AI
+
+1260
+00:45:43,040 --> 00:45:47,599
+anymore. I I don't care. [laughter]
+
+1261
+00:45:45,440 --> 00:45:51,520
+I've seen enough.
+
+1262
+00:45:47,599 --> 00:45:54,079
+>> Yeah, I um I've been trying to manage
+my
+
+1263
+00:45:51,520 --> 00:45:55,920
+AI psychosis, I think. you know, like
+
+1264
+00:45:54,079 --> 00:45:57,119
+I'm receiving treatment for it. You
+
+1265
+00:45:55,920 --> 00:45:59,040
+know, [laughter]
+
+1266
+00:45:57,119 --> 00:46:00,800
+I'm feeling I feel okay about it, I
+
+1267
+00:45:59,040 --> 00:46:02,079
+think. Well, guys, we said we carry on
+
+1268
+00:46:00,800 --> 00:46:03,520
+till 10 past. I don't want to keep you
+
+1269
+00:46:02,079 --> 00:46:05,040
+any longer. Um,
+
+1270
+00:46:03,520 --> 00:46:07,839
+>> thank you so much for joining. This was
+
+1271
+00:46:05,040 --> 00:46:09,359
+really fun. Yeah. Not at all. Um, we've
+
+1272
+00:46:07,839 --> 00:46:11,839
+got about a thousand people watching
+
+1273
+00:46:09,359 --> 00:46:14,079
+live, which is crazy. Um, thank you so
+
+1274
+00:46:11,839 --> 00:46:16,560
+much for joining along and I'll see you
+
+1275
+00:46:14,079 --> 00:46:16,560
+guys very

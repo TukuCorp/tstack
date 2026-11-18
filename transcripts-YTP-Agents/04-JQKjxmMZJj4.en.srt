@@ -1,0 +1,2656 @@
+1
+00:00:00,000 --> 00:00:04,120
+Today, we're finally going to learn how
+
+2
+00:00:01,560 --> 00:00:05,600
+to use Cloud for Excel spreadsheet.
+
+3
+00:00:04,120 --> 00:00:08,080
+Because I started my career in a
+
+4
+00:00:05,600 --> 00:00:09,880
+consultancy, I've dealt with Excel for a
+
+5
+00:00:08,080 --> 00:00:12,480
+long, long time. I have dealt with
+
+6
+00:00:09,880 --> 00:00:15,000
+finance data for M&A due diligence or
+
+7
+00:00:12,480 --> 00:00:17,840
+singles data, retail data, all kind of
+
+8
+00:00:15,000 --> 00:00:19,720
+data analysis or drawing graph or coming
+
+9
+00:00:17,840 --> 00:00:22,120
+up with complicated formula in Excel
+
+10
+00:00:19,720 --> 00:00:24,000
+spreadsheet. So, based on my experience,
+
+11
+00:00:22,120 --> 00:00:26,600
+I have came up with three different
+
+12
+00:00:24,000 --> 00:00:29,640
+skills that you must have in your Cloud
+
+13
+00:00:26,600 --> 00:00:31,080
+setting to make your life a lot easier.
+
+14
+00:00:29,640 --> 00:00:33,360
+The thing I'm going to introduce today
+
+15
+00:00:31,080 --> 00:00:35,200
+first is how to compare two different
+
+16
+00:00:33,360 --> 00:00:37,320
+sheets. I'm sure you would have
+
+17
+00:00:35,200 --> 00:00:40,480
+experience about comparing two sheets
+
+18
+00:00:37,320 --> 00:00:43,320
+one by one cuz surprisingly, the data
+
+19
+00:00:40,480 --> 00:00:45,680
+from last year and this year is mildly
+
+20
+00:00:43,320 --> 00:00:47,160
+is very subtly different that normally
+
+21
+00:00:45,680 --> 00:00:49,600
+you need to go through one by one
+
+22
+00:00:47,160 --> 00:00:51,360
+comparison by putting the column side by
+
+23
+00:00:49,600 --> 00:00:53,480
+side. But, we don't need to do that
+
+24
+00:00:51,360 --> 00:00:55,800
+anymore. We can use Cloud.
+
+25
+00:00:53,480 --> 00:00:58,040
+The next thing is we're going to learn
+
+26
+00:00:55,800 --> 00:00:59,520
+how to audit the formulas.
+
+27
+00:00:58,040 --> 00:01:02,040
+If you look at the finance sheet
+
+28
+00:00:59,520 --> 00:01:03,680
+especially, it is all linked together
+
+29
+00:01:02,040 --> 00:01:05,840
+and if you touch something wrong, it
+
+30
+00:01:03,680 --> 00:01:07,960
+totally corrupts the whole Excel
+
+31
+00:01:05,840 --> 00:01:10,200
+spreadsheet and if the size of the data
+
+32
+00:01:07,960 --> 00:01:12,800
+is massive, you also need to be careful
+
+33
+00:01:10,200 --> 00:01:15,080
+about that. But, if you use Cloud, you
+
+34
+00:01:12,800 --> 00:01:17,880
+are able to audit this formula a lot
+
+35
+00:01:15,080 --> 00:01:19,960
+faster than anyone. And you can debug it
+
+36
+00:01:17,880 --> 00:01:21,360
+and dive into the issues that causing
+
+37
+00:01:19,960 --> 00:01:23,680
+the error.
+
+38
+00:01:21,360 --> 00:01:25,560
+Third is a killer skill set that I
+
+39
+00:01:23,680 --> 00:01:28,000
+really want to share with you all. This
+
+40
+00:01:25,560 --> 00:01:30,600
+is a skill that you can attach with any
+
+41
+00:01:28,000 --> 00:01:33,240
+other Cloud Excel spreadsheet related
+
+42
+00:01:30,600 --> 00:01:35,080
+skill. So, this skill will help you to
+
+43
+00:01:33,240 --> 00:01:37,560
+generate the report that you can
+
+44
+00:01:35,080 --> 00:01:39,840
+directly use at your work or also
+
+45
+00:01:37,560 --> 00:01:41,680
+communicate with your seniors.
+
+46
+00:01:39,840 --> 00:01:44,040
+This killer skill will help you to
+
+47
+00:01:41,680 --> 00:01:45,960
+generate the report of the logs, which
+
+48
+00:01:44,040 --> 00:01:48,120
+kind of formula was wrong and how you
+
+49
+00:01:45,960 --> 00:01:50,480
+have fixed it, which can also work as a
+
+50
+00:01:48,120 --> 00:01:52,520
+checklist in your day-to-day work. Or
+
+51
+00:01:50,480 --> 00:01:55,120
+the other thing is a sheet called
+
+52
+00:01:52,520 --> 00:01:57,040
+mapping. This mapping sheet will help
+
+53
+00:01:55,120 --> 00:01:59,560
+you understand the Excel spreadsheet
+
+54
+00:01:57,040 --> 00:02:02,040
+that you you have never seen before, but
+
+55
+00:01:59,560 --> 00:02:04,000
+understand in a straightforward way.
+
+56
+00:02:02,040 --> 00:02:06,960
+You'll have the table that you can see
+
+57
+00:02:04,000 --> 00:02:08,200
+how those formula are created in each
+
+58
+00:02:06,960 --> 00:02:09,800
+cells.
+
+59
+00:02:08,200 --> 00:02:11,959
+I'm really excited to share you this
+
+60
+00:02:09,800 --> 00:02:14,240
+contents I've experimented throughout
+
+61
+00:02:11,959 --> 00:02:16,520
+weeks trying to come up with the best
+
+62
+00:02:14,240 --> 00:02:18,880
+and practical skills that you can apply
+
+63
+00:02:16,520 --> 00:02:20,320
+to the cloud. So, stay tuned and please
+
+64
+00:02:18,880 --> 00:02:22,760
+follow. What you should be doing is
+
+65
+00:02:20,320 --> 00:02:25,040
+adding the cloud plugin to your
+
+66
+00:02:22,760 --> 00:02:26,880
+Microsoft Excel spreadsheet. The way you
+
+67
+00:02:25,040 --> 00:02:29,600
+do it is quite easy. If you go to your
+
+68
+00:02:26,880 --> 00:02:31,560
+home tab and then click the add-ins,
+
+69
+00:02:29,600 --> 00:02:33,440
+you'll be able to see the plugins if you
+
+70
+00:02:31,560 --> 00:02:34,959
+have pre-installed it. If you have
+
+71
+00:02:33,440 --> 00:02:37,000
+already installed it, you can skip to
+
+72
+00:02:34,959 --> 00:02:39,000
+the next chapter. For those of you who
+
+73
+00:02:37,000 --> 00:02:41,240
+haven't installed it yet, click more
+
+74
+00:02:39,000 --> 00:02:43,440
+add-ins and you'll be able to find this
+
+75
+00:02:41,240 --> 00:02:45,240
+link that will lead you to the Microsoft
+
+76
+00:02:43,440 --> 00:02:47,520
+marketplace. And if you click the
+
+77
+00:02:45,240 --> 00:02:49,440
+Microsoft marketplace, which of course
+
+78
+00:02:47,520 --> 00:02:50,560
+you need to be signed in to do all these
+
+79
+00:02:49,440 --> 00:02:52,240
+things,
+
+80
+00:02:50,560 --> 00:02:54,240
+and you'll be able to see different
+
+81
+00:02:52,240 --> 00:02:56,520
+kinds of plugin that you can install to
+
+82
+00:02:54,240 --> 00:02:58,840
+your Microsoft Excel.
+
+83
+00:02:56,520 --> 00:03:01,320
+We are going to focus on this cloud for
+
+84
+00:02:58,840 --> 00:03:03,760
+this episode. There are two options
+
+85
+00:03:01,320 --> 00:03:05,920
+cloud for Microsoft 365. If you're
+
+86
+00:03:03,760 --> 00:03:08,920
+interested in applying cloud into
+
+87
+00:03:05,920 --> 00:03:10,680
+PowerPoint or Microsoft document, then
+
+88
+00:03:08,920 --> 00:03:12,800
+you can install this one. But if you're
+
+89
+00:03:10,680 --> 00:03:14,600
+not interested in all those other usage,
+
+90
+00:03:12,800 --> 00:03:17,040
+then you can only just install this
+
+91
+00:03:14,600 --> 00:03:19,040
+cloud by Anthropic for Excel.
+
+92
+00:03:17,040 --> 00:03:21,440
+And if you click get it now, you'll be
+
+93
+00:03:19,040 --> 00:03:24,080
+able to install it and you need to sign
+
+94
+00:03:21,440 --> 00:03:26,600
+in to this cloud to connect with your
+
+95
+00:03:24,080 --> 00:03:29,160
+Microsoft account and your cloud
+
+96
+00:03:26,600 --> 00:03:32,000
+account. The way it works is if you just
+
+97
+00:03:29,160 --> 00:03:34,840
+click this cloud, you'll be able to see
+
+98
+00:03:32,000 --> 00:03:37,000
+this chat UI based interface. This is
+
+99
+00:03:34,840 --> 00:03:38,360
+pretty much same as how you use cloud
+
+100
+00:03:37,000 --> 00:03:40,040
+day-to-day,
+
+101
+00:03:38,360 --> 00:03:42,160
+but it is more specialized in a
+
+102
+00:03:40,040 --> 00:03:44,840
+Microsoft Excel spreadsheet.
+
+103
+00:03:42,160 --> 00:03:47,280
+So, you can see here are some popular
+
+104
+00:03:44,840 --> 00:03:49,840
+command skill sets that you'll be able
+
+105
+00:03:47,280 --> 00:03:51,560
+to use and we'll try to experiment few
+
+106
+00:03:49,840 --> 00:03:53,320
+of them. And if you just take a quick
+
+107
+00:03:51,560 --> 00:03:55,880
+look at how it looks like, they have
+
+108
+00:03:53,320 --> 00:03:58,240
+Opus, Sonnet. But if you want something
+
+109
+00:03:55,880 --> 00:04:00,200
+more complicated, you are welcome to use
+
+110
+00:03:58,240 --> 00:04:01,520
+Opus, but if not, you can just use
+
+111
+00:04:00,200 --> 00:04:03,720
+Sonnet.
+
+112
+00:04:01,520 --> 00:04:05,480
+And the thing we have to know is if you
+
+113
+00:04:03,720 --> 00:04:07,680
+click this plus sign, you'll be able to
+
+114
+00:04:05,480 --> 00:04:08,920
+see different kinds of paths that you
+
+115
+00:04:07,680 --> 00:04:10,400
+can click.
+
+116
+00:04:08,920 --> 00:04:13,120
+You can add file, you can add character,
+
+117
+00:04:10,400 --> 00:04:15,120
+plugins, or skills. But on this episode,
+
+118
+00:04:13,120 --> 00:04:17,239
+we're going to focus on skills. Those
+
+119
+00:04:15,120 --> 00:04:18,959
+are useful and we are going to create
+
+120
+00:04:17,239 --> 00:04:21,359
+some of them that will change your life.
+
+121
+00:04:18,959 --> 00:04:23,800
+Let's move on. For this episode, I have
+
+122
+00:04:21,359 --> 00:04:25,840
+prepared a realistic sample data that
+
+123
+00:04:23,800 --> 00:04:27,800
+you will encounter day-to-day in your
+
+124
+00:04:25,840 --> 00:04:31,600
+work. So, as you can see, there are
+
+125
+00:04:27,800 --> 00:04:34,960
+different kinds of numbers and also some
+
+126
+00:04:31,600 --> 00:04:37,760
+complicated ones like this PL report,
+
+127
+00:04:34,960 --> 00:04:40,000
+dirty data, dashboard, reconciliation,
+
+128
+00:04:37,760 --> 00:04:42,240
+and even a DCF model. The first thing
+
+129
+00:04:40,000 --> 00:04:44,280
+we're going to dive in is comparing two
+
+130
+00:04:42,240 --> 00:04:46,280
+sheets. I remember when I was doing my
+
+131
+00:04:44,280 --> 00:04:48,480
+first internship, one of my job was
+
+132
+00:04:46,280 --> 00:04:50,960
+comparing two different sheets, which
+
+133
+00:04:48,480 --> 00:04:53,320
+looks pretty much identical. And it was
+
+134
+00:04:50,960 --> 00:04:55,800
+so stressful because back then we didn't
+
+135
+00:04:53,320 --> 00:04:58,720
+have anything like this, which meant all
+
+136
+00:04:55,800 --> 00:05:00,919
+the interns had to click through it and
+
+137
+00:04:58,720 --> 00:05:02,560
+just make an observation, try to spot
+
+138
+00:05:00,919 --> 00:05:04,520
+what's the difference between it. Let's
+
+139
+00:05:02,560 --> 00:05:06,480
+take a quick look over here. The sales
+
+140
+00:05:04,520 --> 00:05:08,800
+version one, take a close look how it
+
+141
+00:05:06,480 --> 00:05:11,080
+looks. It has a order ID and all the
+
+142
+00:05:08,800 --> 00:05:13,919
+number. Look at the total and take a
+
+143
+00:05:11,080 --> 00:05:16,560
+look at how all these data look like.
+
+144
+00:05:13,919 --> 00:05:18,120
+And let's move on here. I've colored bit
+
+145
+00:05:16,560 --> 00:05:20,000
+of the difference that you can notice
+
+146
+00:05:18,120 --> 00:05:21,919
+it, but there are some constants that I
+
+147
+00:05:20,000 --> 00:05:23,840
+haven't painted it.
+
+148
+00:05:21,919 --> 00:05:26,600
+So, you can see here, it looks similar
+
+149
+00:05:23,840 --> 00:05:29,120
+all the column, let's say order date,
+
+150
+00:05:26,600 --> 00:05:31,800
+rep, region, product. It looks pretty
+
+151
+00:05:29,120 --> 00:05:33,760
+much the same, but you can see there are
+
+152
+00:05:31,800 --> 00:05:34,880
+always typo. I don't know who always
+
+153
+00:05:33,760 --> 00:05:37,520
+make this,
+
+154
+00:05:34,880 --> 00:05:39,720
+but there are always typo or different
+
+155
+00:05:37,520 --> 00:05:41,360
+variations of the string, which you're
+
+156
+00:05:39,720 --> 00:05:44,840
+not supposed to.
+
+157
+00:05:41,360 --> 00:05:47,480
+And if you look at the unit in SAS Pro,
+
+158
+00:05:44,840 --> 00:05:48,560
+it should have been six on the ninth
+
+159
+00:05:47,480 --> 00:05:50,320
+row.
+
+160
+00:05:48,560 --> 00:05:52,560
+Now, it's actually seventh. On a seventh
+
+161
+00:05:50,320 --> 00:05:55,040
+row, it should have been 15, but it's
+
+162
+00:05:52,560 --> 00:05:58,080
+only changed to 14. And if you look at
+
+163
+00:05:55,040 --> 00:06:00,280
+the total, it seems different.
+
+164
+00:05:58,080 --> 00:06:03,120
+So, in our original way, what you would
+
+165
+00:06:00,280 --> 00:06:05,400
+have done is put one by one. Or if
+
+166
+00:06:03,120 --> 00:06:08,280
+you're capable of Python, you can use
+
+167
+00:06:05,400 --> 00:06:10,040
+pandas diff function to find out what's
+
+168
+00:06:08,280 --> 00:06:12,560
+different between the two different
+
+169
+00:06:10,040 --> 00:06:14,480
+Excel spreadsheet. But now, because we
+
+170
+00:06:12,560 --> 00:06:16,400
+have Claude, we don't need to do those
+
+171
+00:06:14,480 --> 00:06:18,240
+things anymore.
+
+172
+00:06:16,400 --> 00:06:20,919
+So, let's go to Claude. If you go to
+
+173
+00:06:18,240 --> 00:06:23,720
+Claude, the quickest thing that you can
+
+174
+00:06:20,919 --> 00:06:26,800
+do is simply asking. We can ask Claude,
+
+175
+00:06:23,720 --> 00:06:29,360
+what's the difference between sheet one
+
+176
+00:06:26,800 --> 00:06:32,320
+and two? So, if we wait a little bit, it
+
+177
+00:06:29,360 --> 00:06:34,200
+shows how all those difference looks
+
+178
+00:06:32,320 --> 00:06:37,240
+like. They show what kind of value
+
+179
+00:06:34,200 --> 00:06:39,240
+changes, how it renamed the summary.
+
+180
+00:06:37,240 --> 00:06:41,400
+But before we move on, let's think about
+
+181
+00:06:39,240 --> 00:06:43,600
+what kind of difference we usually need
+
+182
+00:06:41,400 --> 00:06:45,720
+to capture. First of all, we'll need to
+
+183
+00:06:43,600 --> 00:06:48,360
+capture what kind of values
+
+184
+00:06:45,720 --> 00:06:50,000
+how the format is different, cuz I'm
+
+185
+00:06:48,360 --> 00:06:52,240
+sure there's some of you, if you have
+
+186
+00:06:50,000 --> 00:06:54,960
+played around Excel before,
+
+187
+00:06:52,240 --> 00:06:57,760
+there's always date format difference.
+
+188
+00:06:54,960 --> 00:06:59,840
+Um sometimes they just put ones in in
+
+189
+00:06:57,760 --> 00:07:01,080
+not in a numerical way, but in a plain
+
+190
+00:06:59,840 --> 00:07:02,640
+English.
+
+191
+00:07:01,080 --> 00:07:05,120
+Or there are some cases that the
+
+192
+00:07:02,640 --> 00:07:07,400
+capitalized letter doesn't fit in.
+
+193
+00:07:05,120 --> 00:07:09,760
+Or there are cases that this kind of
+
+194
+00:07:07,400 --> 00:07:12,600
+decimal point doesn't match, which often
+
+195
+00:07:09,760 --> 00:07:14,880
+leads to a very minor number difference
+
+196
+00:07:12,600 --> 00:07:17,480
+that sometimes takes an hour to drill in
+
+197
+00:07:14,880 --> 00:07:20,240
+and investigate how it's different.
+
+198
+00:07:17,480 --> 00:07:22,560
+So, to avoid all this situation of
+
+199
+00:07:20,240 --> 00:07:25,240
+writing and requesting Claude one by
+
+200
+00:07:22,560 --> 00:07:27,720
+one, I created a skill called diff
+
+201
+00:07:25,240 --> 00:07:30,640
+sheets. So, if you want to call one of
+
+202
+00:07:27,720 --> 00:07:32,520
+your skill sets, you need to call slash.
+
+203
+00:07:30,640 --> 00:07:35,000
+And you can see there are predefined
+
+204
+00:07:32,520 --> 00:07:37,520
+things, and these also include some of
+
+205
+00:07:35,000 --> 00:07:39,480
+them I have created for this tutorial.
+
+206
+00:07:37,520 --> 00:07:40,680
+And one of them I created is diff
+
+207
+00:07:39,480 --> 00:07:43,000
+sheets.
+
+208
+00:07:40,680 --> 00:07:45,240
+Let's look at how this diff sheets work
+
+209
+00:07:43,000 --> 00:07:46,840
+and I'll show you how it exactly works
+
+210
+00:07:45,240 --> 00:07:48,720
+and what kind of output it shows. The
+
+211
+00:07:46,840 --> 00:07:50,880
+way you can look at your what kind of
+
+212
+00:07:48,720 --> 00:07:53,200
+skill set you have and if you click
+
+213
+00:07:50,880 --> 00:07:55,160
+customize and click skills, you'll be
+
+214
+00:07:53,200 --> 00:07:57,240
+able to see what kind of skills that you
+
+215
+00:07:55,160 --> 00:08:00,120
+have defined. As you can see it says a
+
+216
+00:07:57,240 --> 00:08:02,880
+personal skills. Let's zoom into what
+
+217
+00:08:00,120 --> 00:08:05,560
+diff sheets are. So this is a skill set
+
+218
+00:08:02,880 --> 00:08:08,120
+that I've created particular in a usage
+
+219
+00:08:05,560 --> 00:08:11,320
+of comparing two different sheets.
+
+220
+00:08:08,120 --> 00:08:13,960
+So we can initiate this by also coming
+
+221
+00:08:11,320 --> 00:08:16,200
+up with slash, but you can also say find
+
+222
+00:08:13,960 --> 00:08:17,840
+a difference between two sheets or what
+
+223
+00:08:16,200 --> 00:08:21,160
+changed between version one and version
+
+224
+00:08:17,840 --> 00:08:23,640
+two. So it goes in a gradual steps.
+
+225
+00:08:21,160 --> 00:08:25,800
+First identify the two sheets and second
+
+226
+00:08:23,640 --> 00:08:27,919
+determine the row alignment strategy.
+
+227
+00:08:25,800 --> 00:08:30,800
+And here I've asked to use execute
+
+228
+00:08:27,919 --> 00:08:32,760
+office JavaScript. So this shows what
+
+229
+00:08:30,800 --> 00:08:33,840
+kind of things the diff sheets actually
+
+230
+00:08:32,760 --> 00:08:35,280
+does.
+
+231
+00:08:33,840 --> 00:08:37,200
+First thing that I'll flag is the value
+
+232
+00:08:35,280 --> 00:08:39,360
+change. Look how the value changed. Did
+
+233
+00:08:37,200 --> 00:08:41,520
+value change from 14 to 15? If there's
+
+234
+00:08:39,360 --> 00:08:44,000
+typo, if there's a minor increase that
+
+235
+00:08:41,520 --> 00:08:46,960
+we haven't detected. The other one is a
+
+236
+00:08:44,000 --> 00:08:49,240
+type mismatch. Type mismatch will be
+
+237
+00:08:46,960 --> 00:08:52,880
+thing about the data type mismatch. Did
+
+238
+00:08:49,240 --> 00:08:54,800
+it change from integer to a float? Or
+
+239
+00:08:52,880 --> 00:08:57,800
+the the numerical numbers only change
+
+240
+00:08:54,800 --> 00:09:00,200
+into string that makes us impossible to
+
+241
+00:08:57,800 --> 00:09:03,160
+compute number. Is it text or stored as
+
+242
+00:09:00,200 --> 00:09:06,800
+a number or into float drift? And if the
+
+243
+00:09:03,160 --> 00:09:08,040
+date format is correct and consistent.
+
+244
+00:09:06,800 --> 00:09:10,200
+So these are the things that I've
+
+245
+00:09:08,040 --> 00:09:13,200
+defined as the things that you should
+
+246
+00:09:10,200 --> 00:09:15,800
+particularly tag on if you capture any
+
+247
+00:09:13,200 --> 00:09:18,280
+differences. But if you want to make
+
+248
+00:09:15,800 --> 00:09:20,440
+changes on the different sheets, if you
+
+249
+00:09:18,280 --> 00:09:23,560
+want to add on things that this diff
+
+250
+00:09:20,440 --> 00:09:26,240
+sheet skills want to capture, then what
+
+251
+00:09:23,560 --> 00:09:28,680
+you can do is you can edit. You can
+
+252
+00:09:26,240 --> 00:09:30,760
+edit, click the edit button and add on
+
+253
+00:09:28,680 --> 00:09:32,760
+the explanation. If you have difficulty
+
+254
+00:09:30,760 --> 00:09:34,880
+coming up with comprehensive description
+
+255
+00:09:32,760 --> 00:09:36,920
+for the cloud, what you can do is edit
+
+256
+00:09:34,880 --> 00:09:38,720
+with cloud. If you click edit with
+
+257
+00:09:36,920 --> 00:09:40,480
+cloud, you'll go back to the Claude
+
+258
+00:09:38,720 --> 00:09:42,880
+interface and you'll be able to explain
+
+259
+00:09:40,480 --> 00:09:44,960
+what kind of things you want to add on.
+
+260
+00:09:42,880 --> 00:09:47,520
+Let's move on how this diff sheets
+
+261
+00:09:44,960 --> 00:09:50,280
+actually work. To make things easier,
+
+262
+00:09:47,520 --> 00:09:54,360
+I'll come up with diff sheet and say
+
+263
+00:09:50,280 --> 00:09:56,560
+analyze difference between one and two.
+
+264
+00:09:54,360 --> 00:09:58,960
+It takes a little while, but it follows
+
+265
+00:09:56,560 --> 00:10:00,520
+what kind of steps that I predefined.
+
+266
+00:09:58,960 --> 00:10:02,320
+First step, it'll compute the difference
+
+267
+00:10:00,520 --> 00:10:04,080
+between the sales one and sales two
+
+268
+00:10:02,320 --> 00:10:05,000
+because I've indicated sheet one and
+
+269
+00:10:04,080 --> 00:10:07,240
+two.
+
+270
+00:10:05,000 --> 00:10:09,080
+And second, it'll build a color-coded
+
+271
+00:10:07,240 --> 00:10:11,720
+difference report sheet. This is a thing
+
+272
+00:10:09,080 --> 00:10:14,440
+that I've added on this skill set
+
+273
+00:10:11,720 --> 00:10:15,920
+because if you compare these two, you're
+
+274
+00:10:14,440 --> 00:10:17,880
+not the only one who's working for. You
+
+275
+00:10:15,920 --> 00:10:20,280
+need to report it back to your senior or
+
+276
+00:10:17,880 --> 00:10:22,520
+manager that there are these difference
+
+277
+00:10:20,280 --> 00:10:24,720
+that is discovered. It's difficult for
+
+278
+00:10:22,520 --> 00:10:26,400
+you to write down one-on-one or
+
+279
+00:10:24,720 --> 00:10:27,240
+copy-paste what Claude have come up
+
+280
+00:10:26,400 --> 00:10:29,960
+with.
+
+281
+00:10:27,240 --> 00:10:32,240
+So, I requested to create a difference
+
+282
+00:10:29,960 --> 00:10:34,480
+report sheet. It's something that you
+
+283
+00:10:32,240 --> 00:10:36,400
+can also take a reference on it, but
+
+284
+00:10:34,480 --> 00:10:39,400
+also something that you can deliver to
+
+285
+00:10:36,400 --> 00:10:41,520
+your co-workers. And so, this is a thing
+
+286
+00:10:39,400 --> 00:10:44,440
+that I wanted to show you. The color is
+
+287
+00:10:41,520 --> 00:10:46,760
+fit too vivid, but if you want to change
+
+288
+00:10:44,440 --> 00:10:49,040
+it, feel free to change it. I'll drop
+
+289
+00:10:46,760 --> 00:10:51,400
+this this skill definition on the
+
+290
+00:10:49,040 --> 00:10:53,320
+description. I'll try to find a way to
+
+291
+00:10:51,400 --> 00:10:55,720
+deliver it to you guys.
+
+292
+00:10:53,320 --> 00:10:57,440
+So, after I ask, I'm coming up with diff
+
+293
+00:10:55,720 --> 00:10:59,720
+sheet analyze difference between sheet
+
+294
+00:10:57,440 --> 00:11:02,360
+one and two. It automatically come come
+
+295
+00:10:59,720 --> 00:11:05,680
+up with the way how they discovered. So,
+
+296
+00:11:02,360 --> 00:11:10,080
+let's see. The F7 unit it changed from
+
+297
+00:11:05,680 --> 00:11:13,640
+15 to 14. And H7 the revenue GBP changed
+
+298
+00:11:10,080 --> 00:11:15,960
+from 6,750 to 6,300.
+
+299
+00:11:13,640 --> 00:11:16,880
+Let's just go back and see if this is
+
+300
+00:11:15,960 --> 00:11:20,080
+true.
+
+301
+00:11:16,880 --> 00:11:23,520
+Let's go to H7. H7.
+
+302
+00:11:20,080 --> 00:11:26,720
+It is 6,300 over here. But if you go to
+
+303
+00:11:23,520 --> 00:11:29,640
+H7 here, it's 6,750.
+
+304
+00:11:26,720 --> 00:11:32,360
+So, in total it have discovered seven
+
+305
+00:11:29,640 --> 00:11:35,320
+different differences that we originally
+
+306
+00:11:32,360 --> 00:11:37,600
+had to capture in eye to eye comparing
+
+307
+00:11:35,320 --> 00:11:39,600
+putting the two sheets side by side
+
+308
+00:11:37,600 --> 00:11:41,720
+trying to look for it's kind of like a
+
+309
+00:11:39,600 --> 00:11:44,400
+hide and seek. But it's really annoying
+
+310
+00:11:41,720 --> 00:11:46,320
+when you need to do this at work because
+
+311
+00:11:44,400 --> 00:11:48,920
+on a real world data, you'll be able to
+
+312
+00:11:46,320 --> 00:11:52,400
+see this rows hundreds, thousands,
+
+313
+00:11:48,920 --> 00:11:54,560
+millions. So the best part of using card
+
+314
+00:11:52,400 --> 00:11:56,720
+and how to capture this kind of
+
+315
+00:11:54,560 --> 00:11:59,200
+difference between the sheets is that
+
+316
+00:11:56,720 --> 00:12:02,360
+you'll be able to see and capture all
+
+317
+00:11:59,200 --> 00:12:04,280
+this difference even you don't spend so
+
+318
+00:12:02,360 --> 00:12:06,760
+much time manually checking all these
+
+319
+00:12:04,280 --> 00:12:09,320
+things. But after you look at this,
+
+320
+00:12:06,760 --> 00:12:11,240
+you'll start to feel like oh, but even
+
+321
+00:12:09,320 --> 00:12:14,120
+we have a different sheet, but we'll
+
+322
+00:12:11,240 --> 00:12:17,160
+need to go back here and try to compare
+
+323
+00:12:14,120 --> 00:12:18,680
+one by one which will make us difficult
+
+324
+00:12:17,160 --> 00:12:20,880
+to comprehend.
+
+325
+00:12:18,680 --> 00:12:23,560
+So there's one killer skill set that I
+
+326
+00:12:20,880 --> 00:12:25,920
+really wanted to share with you guys.
+
+327
+00:12:23,560 --> 00:12:28,760
+So I created a skill set called audit
+
+328
+00:12:25,920 --> 00:12:30,840
+output. This audit output is the skill
+
+329
+00:12:28,760 --> 00:12:32,520
+set that you can combine with all the
+
+330
+00:12:30,840 --> 00:12:34,640
+different kinds of skills. It's not
+
+331
+00:12:32,520 --> 00:12:36,960
+something that you will call directly,
+
+332
+00:12:34,640 --> 00:12:39,000
+but if you describe and add the
+
+333
+00:12:36,960 --> 00:12:41,440
+annotation tag, then you'll be able to
+
+334
+00:12:39,000 --> 00:12:43,760
+use it on top of the skill set that you
+
+335
+00:12:41,440 --> 00:12:45,839
+really want to use. So how does audit
+
+336
+00:12:43,760 --> 00:12:49,120
+output works is that shared output
+
+337
+00:12:45,839 --> 00:12:53,080
+mechanics for plus annotate plus report
+
+338
+00:12:49,120 --> 00:12:55,800
+plus map plus log. So if you add /diff
+
+339
+00:12:53,080 --> 00:12:58,960
+sheets and plus annotate plus report
+
+340
+00:12:55,800 --> 00:13:01,560
+plus map, it gives out the additional
+
+341
+00:12:58,960 --> 00:13:04,080
+auditing outputs that you would need in
+
+342
+00:13:01,560 --> 00:13:06,160
+your day-to-day workplace. So as you can
+
+343
+00:13:04,080 --> 00:13:08,320
+see here, it shows this skill is never
+
+344
+00:13:06,160 --> 00:13:11,120
+involved directly by the users. It is
+
+345
+00:13:08,320 --> 00:13:12,680
+referenced by the other skills.
+
+346
+00:13:11,120 --> 00:13:15,040
+I'll show you how this looks like. If
+
+347
+00:13:12,680 --> 00:13:17,480
+you put annotate, it means that on the
+
+348
+00:13:15,040 --> 00:13:19,880
+sheet that you're directly working on,
+
+349
+00:13:17,480 --> 00:13:22,920
+it'll put the color flags cells in the
+
+350
+00:13:19,880 --> 00:13:24,800
+source sheet and add cell notes in each
+
+351
+00:13:22,920 --> 00:13:27,240
+cells. So this is something that I
+
+352
+00:13:24,800 --> 00:13:28,720
+created because when I was doing
+
+353
+00:13:27,240 --> 00:13:31,800
+internship or doing working in a
+
+354
+00:13:28,720 --> 00:13:34,200
+consultancy, what my seniors or managers
+
+355
+00:13:31,800 --> 00:13:37,040
+would do would they would put notes cell
+
+356
+00:13:34,200 --> 00:13:39,200
+by cell. Then our job would be click
+
+357
+00:13:37,040 --> 00:13:41,160
+through and trying to see what is wrong,
+
+358
+00:13:39,200 --> 00:13:43,760
+trying to comprehend their feedback. So
+
+359
+00:13:41,160 --> 00:13:45,400
+this annotate is something that can make
+
+360
+00:13:43,760 --> 00:13:48,280
+your life a lot easier and improve the
+
+361
+00:13:45,400 --> 00:13:51,560
+quality of your Excel spreadsheet. And
+
+362
+00:13:48,280 --> 00:13:55,040
+plus report is a function that you can
+
+363
+00:13:51,560 --> 00:13:57,520
+add the tab called audit report.
+
+364
+00:13:55,040 --> 00:14:00,120
+So this audit report would be tracking
+
+365
+00:13:57,520 --> 00:14:02,040
+your footsteps of how you have modified
+
+366
+00:14:00,120 --> 00:14:03,760
+this Excel spreadsheet.
+
+367
+00:14:02,040 --> 00:14:05,920
+So it is something that you can of
+
+368
+00:14:03,760 --> 00:14:08,520
+course share to your seniors or your
+
+369
+00:14:05,920 --> 00:14:11,800
+colleagues how you have made changes and
+
+370
+00:14:08,520 --> 00:14:14,040
+also able to debug step by step what are
+
+371
+00:14:11,800 --> 00:14:16,120
+the things that we have done wrong.
+
+372
+00:14:14,040 --> 00:14:18,800
+And map is the thing I think that would
+
+373
+00:14:16,120 --> 00:14:20,600
+be really helpful for any accounting
+
+374
+00:14:18,800 --> 00:14:22,840
+related position.
+
+375
+00:14:20,600 --> 00:14:25,120
+Because if you're junior and if you look
+
+376
+00:14:22,840 --> 00:14:27,360
+at the massive spreadsheet that is full
+
+377
+00:14:25,120 --> 00:14:29,320
+of functions and you're not sure how to
+
+378
+00:14:27,360 --> 00:14:32,800
+understand this, the only thing that
+
+379
+00:14:29,320 --> 00:14:34,440
+works in a old way, in a outdated way,
+
+380
+00:14:32,800 --> 00:14:37,320
+would be clicking through all the cells
+
+381
+00:14:34,440 --> 00:14:39,680
+and trying to see how this formula is
+
+382
+00:14:37,320 --> 00:14:42,600
+constructed. But if you use this plus
+
+383
+00:14:39,680 --> 00:14:45,240
+map, you'll be able to see how each cell
+
+384
+00:14:42,600 --> 00:14:47,320
+the complicated formula is constructed
+
+385
+00:14:45,240 --> 00:14:49,360
+in one table. This is actually really
+
+386
+00:14:47,320 --> 00:14:52,600
+cool. I'll show you in a minute.
+
+387
+00:14:49,360 --> 00:14:55,280
+And a log is a place that you put audit
+
+388
+00:14:52,600 --> 00:14:57,640
+log tab. This is a tab that you put when
+
+389
+00:14:55,280 --> 00:15:00,600
+you actually fix something.
+
+390
+00:14:57,640 --> 00:15:04,360
+So report is more about your findings,
+
+391
+00:15:00,600 --> 00:15:06,160
+but log is more about how you fixed it.
+
+392
+00:15:04,360 --> 00:15:08,680
+Let's go back and see how this looks
+
+393
+00:15:06,160 --> 00:15:11,320
+like. Let's go back to diff sheets and
+
+394
+00:15:08,680 --> 00:15:14,000
+then I'm kind of interested in how to
+
+395
+00:15:11,320 --> 00:15:17,120
+see annotate. So if you request this
+
+396
+00:15:14,000 --> 00:15:20,560
+kind of additional tags, which is code
+
+397
+00:15:17,120 --> 00:15:23,560
+defined by the audit output skills that
+
+398
+00:15:20,560 --> 00:15:25,760
+I've separately defined, It'll work in
+
+399
+00:15:23,560 --> 00:15:28,720
+parallel because I have requested two
+
+400
+00:15:25,760 --> 00:15:31,000
+tasks. You can see how it is showing two
+
+401
+00:15:28,720 --> 00:15:32,760
+different tasks in parallel. The
+
+402
+00:15:31,000 --> 00:15:34,360
+annotation is completed. Let's see how
+
+403
+00:15:32,760 --> 00:15:38,920
+annotation works.
+
+404
+00:15:34,360 --> 00:15:40,760
+14. Version one was 15. Two 14.
+
+405
+00:15:38,920 --> 00:15:42,520
+And if you see here, it shows how the
+
+406
+00:15:40,760 --> 00:15:44,520
+number have changed. Isn't it really
+
+407
+00:15:42,520 --> 00:15:47,240
+handy how it looks like? This is
+
+408
+00:15:44,520 --> 00:15:50,080
+possible because as you've seen all the
+
+409
+00:15:47,240 --> 00:15:52,240
+annotated notes are very simple and easy
+
+410
+00:15:50,080 --> 00:15:54,440
+to understand because I've particularly
+
+411
+00:15:52,240 --> 00:15:56,280
+requested to write down the note as a
+
+412
+00:15:54,440 --> 00:15:58,360
+senior style notes. In the beginning
+
+413
+00:15:56,280 --> 00:16:00,560
+when I was experimenting with the skill
+
+414
+00:15:58,360 --> 00:16:02,960
+to prepare for the content, Claude was
+
+415
+00:16:00,560 --> 00:16:05,000
+coming up with very AI generated style,
+
+416
+00:16:02,960 --> 00:16:07,680
+which is difficult to comprehend. But
+
+417
+00:16:05,000 --> 00:16:09,240
+because this audit output have mentioned
+
+418
+00:16:07,680 --> 00:16:10,360
+that you should write down in a senior
+
+419
+00:16:09,240 --> 00:16:12,720
+style,
+
+420
+00:16:10,360 --> 00:16:16,280
+it writes down the annotation in a very
+
+421
+00:16:12,720 --> 00:16:18,480
+intuitive way. So, instead of looking at
+
+422
+00:16:16,280 --> 00:16:20,800
+the difference reports, comparing one by
+
+423
+00:16:18,480 --> 00:16:24,080
+one, the other thing you can do is using
+
+424
+00:16:20,800 --> 00:16:26,480
+a plus annotate tag. And now going back
+
+425
+00:16:24,080 --> 00:16:28,520
+to here, Claude wants to rebuild sales
+
+426
+00:16:26,480 --> 00:16:31,120
+difference report sheet. This is working
+
+427
+00:16:28,520 --> 00:16:33,040
+like this because I have already created
+
+428
+00:16:31,120 --> 00:16:35,360
+sales difference report, but I've
+
+429
+00:16:33,040 --> 00:16:37,520
+requested this report again. I think we
+
+430
+00:16:35,360 --> 00:16:40,320
+didn't really need to do this. Let's
+
+431
+00:16:37,520 --> 00:16:43,320
+just skip this one. You might be
+
+432
+00:16:40,320 --> 00:16:45,760
+wondering why I didn't show the log and
+
+433
+00:16:43,320 --> 00:16:48,240
+map yet, but I'll show you in the next
+
+434
+00:16:45,760 --> 00:16:50,120
+example, which have more complicated
+
+435
+00:16:48,240 --> 00:16:53,440
+formula that you'll understand things a
+
+436
+00:16:50,120 --> 00:16:56,800
+lot better. Now, let's go back to this
+
+437
+00:16:53,440 --> 00:16:58,720
+complicated formula debugging.
+
+438
+00:16:56,800 --> 00:17:01,160
+This looks kind of similar to what kind
+
+439
+00:16:58,720 --> 00:17:03,200
+of financial sheets you'd be looking at
+
+440
+00:17:01,160 --> 00:17:05,280
+if you work in business consultancy,
+
+441
+00:17:03,200 --> 00:17:08,439
+strategy, finance. So, you can see
+
+442
+00:17:05,280 --> 00:17:10,880
+revenue, gross profit, OpEx, EBITDA, all
+
+443
+00:17:08,439 --> 00:17:12,920
+the things. And if you look at it, I'm
+
+444
+00:17:10,880 --> 00:17:15,240
+just quickly clicking around.
+
+445
+00:17:12,920 --> 00:17:17,959
+See, there are something wrong.
+
+446
+00:17:15,240 --> 00:17:20,439
+It should be subtracting the top to the
+
+447
+00:17:17,959 --> 00:17:22,600
+bottom cell, but it is subtracting from
+
+448
+00:17:20,439 --> 00:17:24,839
+here to here. But before then, there
+
+449
+00:17:22,600 --> 00:17:26,720
+seem to have too much complicated
+
+450
+00:17:24,839 --> 00:17:29,080
+formula. You start to think it'd be
+
+451
+00:17:26,720 --> 00:17:31,400
+really nice to have one sheet that
+
+452
+00:17:29,080 --> 00:17:34,440
+summarizes what kind of formulas it
+
+453
+00:17:31,400 --> 00:17:37,360
+have. And this is a thing that you can
+
+454
+00:17:34,440 --> 00:17:39,480
+use at this point. Audit XLS, let me
+
+455
+00:17:37,360 --> 00:17:42,840
+just go back and show you how it means.
+
+456
+00:17:39,480 --> 00:17:45,000
+So Audit XLS is audit the spreadsheet
+
+457
+00:17:42,840 --> 00:17:46,840
+for formula accuracy, error, common
+
+458
+00:17:45,000 --> 00:17:49,200
+mistakes, cuffs of selected range,
+
+459
+00:17:46,840 --> 00:17:51,760
+single sheet. So it comes up with the
+
+460
+00:17:49,200 --> 00:17:54,280
+different kinds of auditing that every
+
+461
+00:17:51,760 --> 00:17:58,120
+spreadsheet would need. So let's just
+
+462
+00:17:54,280 --> 00:18:01,480
+ask on Audit XLS first. Audit XLS, take
+
+463
+00:17:58,120 --> 00:18:05,840
+a look at I'll just give them a concrete
+
+464
+00:18:01,480 --> 00:18:08,080
+name of the sheet. PL formula errors.
+
+465
+00:18:05,840 --> 00:18:09,880
+Let's see how it performs and see what
+
+466
+00:18:08,080 --> 00:18:12,760
+kind of things we can improve and how we
+
+467
+00:18:09,880 --> 00:18:15,400
+can use the audit output skill set that
+
+468
+00:18:12,760 --> 00:18:17,560
+we have already predefined. Hi guys,
+
+469
+00:18:15,400 --> 00:18:20,040
+sorry I had to film this part again cuz
+
+470
+00:18:17,560 --> 00:18:21,800
+I ran out of the cloud credit. So going
+
+471
+00:18:20,040 --> 00:18:25,880
+back to we are experimenting on the
+
+472
+00:18:21,800 --> 00:18:28,760
+Audit XLS. And then I asked to audit
+
+473
+00:18:25,880 --> 00:18:31,680
+this particular sheet. And then what it
+
+474
+00:18:28,760 --> 00:18:34,280
+outputs is quite basic about in a sheet
+
+475
+00:18:31,680 --> 00:18:36,200
+scope, what kind of cells. It's nice
+
+476
+00:18:34,280 --> 00:18:38,520
+that they give this navigation that we
+
+477
+00:18:36,200 --> 00:18:40,520
+can just click to and show what is
+
+478
+00:18:38,520 --> 00:18:41,680
+wrong, what's the issue, and suggested
+
+479
+00:18:40,520 --> 00:18:44,360
+fix.
+
+480
+00:18:41,680 --> 00:18:46,840
+So if you scroll down and it also give
+
+481
+00:18:44,360 --> 00:18:49,080
+out some additional observation that
+
+482
+00:18:46,840 --> 00:18:50,800
+could lead to potential errors and
+
+483
+00:18:49,080 --> 00:18:52,080
+something that it is worth taking a
+
+484
+00:18:50,800 --> 00:18:53,840
+look.
+
+485
+00:18:52,080 --> 00:18:58,080
+But while I was looking at it, I was
+
+486
+00:18:53,840 --> 00:19:00,640
+thinking what if this Audit XLS miss out
+
+487
+00:18:58,080 --> 00:19:03,520
+some particular errors that I wanted to
+
+488
+00:19:00,640 --> 00:19:05,360
+look into. So what I did is I created
+
+489
+00:19:03,520 --> 00:19:09,080
+the separate
+
+490
+00:19:05,360 --> 00:19:10,880
+skill set called Audit XLS enhance.
+
+491
+00:19:09,080 --> 00:19:14,280
+I'll tell you how it is different from
+
+492
+00:19:10,880 --> 00:19:16,880
+existing Audit XLS. So, existing one is
+
+493
+00:19:14,280 --> 00:19:19,520
+something that Claude has originally
+
+494
+00:19:16,880 --> 00:19:21,960
+provided. So, that's the thing we can't
+
+495
+00:19:19,520 --> 00:19:24,160
+edit. If you want to enhance this, we
+
+496
+00:19:21,960 --> 00:19:28,400
+need to create the other one. And I've
+
+497
+00:19:24,160 --> 00:19:31,400
+renamed it into audit XLS enhanced.
+
+498
+00:19:28,400 --> 00:19:34,000
+So, this also can be combined with the
+
+499
+00:19:31,400 --> 00:19:36,400
+audit output as I've explained before,
+
+500
+00:19:34,000 --> 00:19:38,080
+but on a take report and map.
+
+501
+00:19:36,400 --> 00:19:41,000
+But, only thing that is different is
+
+502
+00:19:38,080 --> 00:19:43,520
+I've added inspect. So, this XLS
+
+503
+00:19:41,000 --> 00:19:46,400
+enhanced is more customized version of
+
+504
+00:19:43,520 --> 00:19:49,280
+auditing that you can adjust and inspect
+
+505
+00:19:46,400 --> 00:19:52,040
+things in a more detailed way. I wanted
+
+506
+00:19:49,280 --> 00:19:54,760
+it to look into a little more detail.
+
+507
+00:19:52,040 --> 00:19:57,200
+For example, it gives like a sheet or
+
+508
+00:19:54,760 --> 00:20:00,000
+model selection.
+
+509
+00:19:57,200 --> 00:20:02,520
+So, you can ask the Claude to work on
+
+510
+00:20:00,000 --> 00:20:05,200
+the different kinds of levels.
+
+511
+00:20:02,520 --> 00:20:07,440
+And optional flag is pretty much same as
+
+512
+00:20:05,200 --> 00:20:10,000
+what I've explained in audit output, but
+
+513
+00:20:07,440 --> 00:20:12,760
+on this inspect, it goes through more
+
+514
+00:20:10,000 --> 00:20:14,120
+enhanced formula inspection with pattern
+
+515
+00:20:12,760 --> 00:20:16,160
+suggestions.
+
+516
+00:20:14,120 --> 00:20:19,720
+You'll be able to see what this inspect
+
+517
+00:20:16,160 --> 00:20:21,600
+does and what are the exact examples of
+
+518
+00:20:19,720 --> 00:20:22,760
+enhanced formula inspection on the
+
+519
+00:20:21,600 --> 00:20:25,200
+bottom.
+
+520
+00:20:22,760 --> 00:20:27,520
+So, I asked for this formula checks. I
+
+521
+00:20:25,200 --> 00:20:30,120
+listed down things that I hoped AI could
+
+522
+00:20:27,520 --> 00:20:32,240
+check these for me when I was working on
+
+523
+00:20:30,120 --> 00:20:34,200
+Excel previously. For example, you'll
+
+524
+00:20:32,240 --> 00:20:36,920
+encounter things like formula error.
+
+525
+00:20:34,200 --> 00:20:39,280
+There are always like difficult things
+
+526
+00:20:36,920 --> 00:20:42,480
+to spot in a massive formula sheets like
+
+527
+00:20:39,280 --> 00:20:46,160
+hardcoded ones, inconsistent formula,
+
+528
+00:20:42,480 --> 00:20:48,120
+off-by-one range, things like these.
+
+529
+00:20:46,160 --> 00:20:50,320
+So, these are the exact errors that I
+
+530
+00:20:48,120 --> 00:20:52,320
+want Claude to take a look at. So, if
+
+531
+00:20:50,320 --> 00:20:55,120
+you have particular errors that you feel
+
+532
+00:20:52,320 --> 00:20:57,680
+like you encounter very often, but it is
+
+533
+00:20:55,120 --> 00:20:59,760
+critical in your calculation, you should
+
+534
+00:20:57,680 --> 00:21:02,440
+be able to edit this. As I've told you
+
+535
+00:20:59,760 --> 00:21:04,440
+before, the way you can edit is you can
+
+536
+00:21:02,440 --> 00:21:06,080
+click the three dots and you can edit
+
+537
+00:21:04,440 --> 00:21:08,760
+with Claude.
+
+538
+00:21:06,080 --> 00:21:12,400
+It also adds like complexity scoring.
+
+539
+00:21:08,760 --> 00:21:14,200
+So, we can take a look and have more
+
+540
+00:21:12,400 --> 00:21:16,600
+um hierarchy
+
+541
+00:21:14,200 --> 00:21:18,600
+on the scoring and what kind of things
+
+542
+00:21:16,600 --> 00:21:22,080
+are wrong or
+
+543
+00:21:18,600 --> 00:21:24,200
+how complicated this formula is. Cuz
+
+544
+00:21:22,080 --> 00:21:27,040
+depending on how complex the matter is,
+
+545
+00:21:24,200 --> 00:21:29,360
+it means that it can potentially lead to
+
+546
+00:21:27,040 --> 00:21:31,400
+how many different sheets, um how many
+
+547
+00:21:29,360 --> 00:21:33,600
+nested calculation.
+
+548
+00:21:31,400 --> 00:21:35,880
+And also, if you set it on a model
+
+549
+00:21:33,600 --> 00:21:38,360
+scope, it also checks on the model
+
+550
+00:21:35,880 --> 00:21:41,360
+integrity, such as a little more
+
+551
+00:21:38,360 --> 00:21:43,040
+financial aspect. If you are working in
+
+552
+00:21:41,360 --> 00:21:44,160
+a finance field, this would be quite
+
+553
+00:21:43,040 --> 00:21:47,360
+useful.
+
+554
+00:21:44,160 --> 00:21:49,080
+It outputs in uh this different columns.
+
+555
+00:21:47,360 --> 00:21:50,920
+They'll give you priority, category,
+
+556
+00:21:49,080 --> 00:21:53,800
+issue analysis, recommended fix, and
+
+557
+00:21:50,920 --> 00:21:56,600
+status. As you can see, it's it has a
+
+558
+00:21:53,800 --> 00:21:59,400
+bit of extra columns compared to the
+
+559
+00:21:56,600 --> 00:22:01,720
+very basic audit xls. So, this is the
+
+560
+00:21:59,400 --> 00:22:04,840
+kind of a thing that I expected Claude
+
+561
+00:22:01,720 --> 00:22:07,560
+to output for me.
+
+562
+00:22:04,840 --> 00:22:10,040
+So, let's see how does audit excel
+
+563
+00:22:07,560 --> 00:22:11,400
+enhance works along with this map and
+
+564
+00:22:10,040 --> 00:22:13,840
+log.
+
+565
+00:22:11,400 --> 00:22:16,320
+So, if you use this audit excel enhance,
+
+566
+00:22:13,840 --> 00:22:17,880
+you'll be able to see a little more
+
+567
+00:22:16,320 --> 00:22:20,160
+detailed version.
+
+568
+00:22:17,880 --> 00:22:21,920
+But, I'll let's take a look at how map
+
+569
+00:22:20,160 --> 00:22:24,800
+and log looks like. This is the
+
+570
+00:22:21,920 --> 00:22:28,280
+highlight of this episode, I feel like.
+
+571
+00:22:24,800 --> 00:22:31,360
+If we put this plus map, it outputs the
+
+572
+00:22:28,280 --> 00:22:34,600
+file named model map. This is kind of a
+
+573
+00:22:31,360 --> 00:22:38,360
+magic formula summary that you can see
+
+574
+00:22:34,600 --> 00:22:40,280
+how each cell that contains a static or
+
+575
+00:22:38,360 --> 00:22:41,960
+complicated calculation logic that we
+
+576
+00:22:40,280 --> 00:22:44,920
+need to understand.
+
+577
+00:22:41,960 --> 00:22:47,640
+See how well it has summarized how each
+
+578
+00:22:44,920 --> 00:22:50,240
+cell looks like. Right now, it's fairly
+
+579
+00:22:47,640 --> 00:22:53,560
+simple example, so it only shows like
+
+580
+00:22:50,240 --> 00:22:55,080
+subtraction, summing, or multiplying, or
+
+581
+00:22:53,560 --> 00:22:56,840
+like dividing.
+
+582
+00:22:55,080 --> 00:22:58,960
+But, if you are dealing with a lot more
+
+583
+00:22:56,840 --> 00:23:01,400
+complicated excel spreadsheet, this will
+
+584
+00:22:58,960 --> 00:23:03,560
+save you so much time. If you are junior
+
+585
+00:23:01,400 --> 00:23:05,920
+or if you have started working on a new
+
+586
+00:23:03,560 --> 00:23:08,680
+Excel spreadsheet, you'll be able to
+
+587
+00:23:05,920 --> 00:23:11,840
+look through this and understand how it
+
+588
+00:23:08,680 --> 00:23:13,880
+works, how the logic is related, or if
+
+589
+00:23:11,840 --> 00:23:16,480
+the logic calculation logic is set up
+
+590
+00:23:13,880 --> 00:23:19,640
+properly as expected. You can also see
+
+591
+00:23:16,480 --> 00:23:21,480
+what kind of cells are related, which
+
+592
+00:23:19,640 --> 00:23:23,600
+kind of explains if you're dealing with
+
+593
+00:23:21,480 --> 00:23:26,160
+a complicated formula, it shows how
+
+594
+00:23:23,600 --> 00:23:29,040
+impactful your change would be. And it
+
+595
+00:23:26,160 --> 00:23:31,520
+also shows a brief summary of what kind
+
+596
+00:23:29,040 --> 00:23:34,440
+of issues and fix is needed, and it
+
+597
+00:23:31,520 --> 00:23:37,600
+judges the complexity of how
+
+598
+00:23:34,440 --> 00:23:39,800
+um how this formula is constructed.
+
+599
+00:23:37,600 --> 00:23:43,120
+Also, now we're done with a plus map
+
+600
+00:23:39,800 --> 00:23:45,480
+side. Then, we move on to the plus log.
+
+601
+00:23:43,120 --> 00:23:47,400
+If you put plus log, it creates a tab
+
+602
+00:23:45,480 --> 00:23:49,840
+called audit log. It's a lot more
+
+603
+00:23:47,400 --> 00:23:52,280
+simplified version than this model map,
+
+604
+00:23:49,840 --> 00:23:54,600
+right? So, if you look at it, it is more
+
+605
+00:23:52,280 --> 00:23:56,520
+of how old formula looks like and how
+
+606
+00:23:54,600 --> 00:23:58,320
+new formula looks like.
+
+607
+00:23:56,520 --> 00:24:00,600
+Isn't this something that you would
+
+608
+00:23:58,320 --> 00:24:02,840
+expect for yourself as putting as a
+
+609
+00:24:00,600 --> 00:24:05,360
+checklist to see what kind of errors it
+
+610
+00:24:02,840 --> 00:24:07,080
+have occurred? And you can also have a
+
+611
+00:24:05,360 --> 00:24:09,200
+conversation with your senior or
+
+612
+00:24:07,080 --> 00:24:10,240
+colleagues about how you have fixed this
+
+613
+00:24:09,200 --> 00:24:13,240
+sheet.
+
+614
+00:24:10,240 --> 00:24:15,600
+So, I think it really expands the usage
+
+615
+00:24:13,240 --> 00:24:20,360
+of this cloud Excel. The key thing is
+
+616
+00:24:15,600 --> 00:24:22,840
+sometimes AI fixes and conducts its task
+
+617
+00:24:20,360 --> 00:24:25,240
+in a fast speed that it is difficult for
+
+618
+00:24:22,840 --> 00:24:27,640
+us to comprehend and follow what exact
+
+619
+00:24:25,240 --> 00:24:30,040
+changes it have made. But if you use
+
+620
+00:24:27,640 --> 00:24:32,240
+this audit log and model map, you'll be
+
+621
+00:24:30,040 --> 00:24:34,440
+able to understand what kind of changes
+
+622
+00:24:32,240 --> 00:24:36,800
+the cloud have made. The other thing
+
+623
+00:24:34,440 --> 00:24:39,000
+that I've mentioned before was inspect.
+
+624
+00:24:36,800 --> 00:24:40,120
+Inspect is something that In Hand only
+
+625
+00:24:39,000 --> 00:24:42,360
+has it.
+
+626
+00:24:40,120 --> 00:24:43,560
+So, In Hand, it'll be a lot more useful
+
+627
+00:24:42,360 --> 00:24:46,600
+if you're a dealing with more
+
+628
+00:24:43,560 --> 00:24:48,760
+complicated formula sheet. But looking
+
+629
+00:24:46,600 --> 00:24:50,760
+at this, if you put plus inspect,
+
+630
+00:24:48,760 --> 00:24:54,520
+because I have already run this audit
+
+631
+00:24:50,760 --> 00:24:56,880
+Excel In Hand, it show it it shows that
+
+632
+00:24:54,520 --> 00:25:00,240
+it have already done this. But what
+
+633
+00:24:56,880 --> 00:25:02,920
+inspect does is it's very similar to the
+
+634
+00:25:00,240 --> 00:25:05,120
+output that the basic audit Excel I have
+
+635
+00:25:02,920 --> 00:25:06,760
+shown, but it shows more on like
+
+636
+00:25:05,120 --> 00:25:08,600
+in-depth analysis, what kind of
+
+637
+00:25:06,760 --> 00:25:10,680
+priority, giving it a color to
+
+638
+00:25:08,600 --> 00:25:12,920
+understand a little better. But if you
+
+639
+00:25:10,680 --> 00:25:15,120
+scroll down a little more, you'll be
+
+640
+00:25:12,920 --> 00:25:17,480
+able to also see the pattern analysis
+
+641
+00:25:15,120 --> 00:25:19,600
+summary. So it's it's not just looking
+
+642
+00:25:17,480 --> 00:25:21,520
+at the sheet itself, but also it goes
+
+643
+00:25:19,600 --> 00:25:24,600
+through pattern, is there something that
+
+644
+00:25:21,520 --> 00:25:27,520
+we have missed that is not consistent.
+
+645
+00:25:24,600 --> 00:25:30,200
+So if you have particular sheet that you
+
+646
+00:25:27,520 --> 00:25:32,320
+want to dive in deeper, you can edit
+
+647
+00:25:30,200 --> 00:25:33,680
+your audit in hands to make sure it goes
+
+648
+00:25:32,320 --> 00:25:34,840
+to a particular error that you're
+
+649
+00:25:33,680 --> 00:25:37,200
+looking for
+
+650
+00:25:34,840 --> 00:25:38,840
+or something that you want to verify.
+
+651
+00:25:37,200 --> 00:25:41,040
+How did you find this video? I hope this
+
+652
+00:25:38,840 --> 00:25:43,200
+was helpful for you. This is the first
+
+653
+00:25:41,040 --> 00:25:45,120
+series of the cloud Excel spreadsheet.
+
+654
+00:25:43,200 --> 00:25:47,920
+I'll come back with more of a data
+
+655
+00:25:45,120 --> 00:25:49,920
+visualization side of Excel spreadsheet,
+
+656
+00:25:47,920 --> 00:25:52,080
+but also more complicated finance
+
+657
+00:25:49,920 --> 00:25:53,560
+related models.
+
+658
+00:25:52,080 --> 00:25:56,360
+If you have any other things that you
+
+659
+00:25:53,560 --> 00:25:58,200
+want me to experiment on cloud or any
+
+660
+00:25:56,360 --> 00:26:00,280
+workflows that will make your life
+
+661
+00:25:58,200 --> 00:26:02,400
+better, please let me know.
+
+662
+00:26:00,280 --> 00:26:04,600
+And if you're interested in AI trend and
+
+663
+00:26:02,400 --> 00:26:08,920
+how to learn AI in a better way, please
+
+664
+00:26:04,600 --> 00:26:08,920
+follow and like. Thank you. Bye.
+

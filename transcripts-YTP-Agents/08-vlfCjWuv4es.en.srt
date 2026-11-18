@@ -1,0 +1,2016 @@
+1
+00:00:00,389 --> 00:00:04,348
+I had some technical issues during my
+
+2
+00:00:02,622 --> 00:00:06,552
+speech this morning, so I
+
+3
+00:00:04,348 --> 00:00:09,093
+went home and just recorded it
+
+4
+00:00:06,552 --> 00:00:11,942
+from my computer.  So, hello everyone.
+
+5
+00:00:09,093 --> 00:00:13,903
+I am Lydia.  I work on the Cloud Code team at
+
+6
+00:00:11,942 --> 00:00:15,955
+Anthropic.  Recently, the models have become
+
+7
+00:00:13,903 --> 00:00:18,795
+really, really good.  We have the Opus 55,
+
+8
+00:00:15,955 --> 00:00:20,893
+my favorite everyday instrument.  And
+
+9
+00:00:18,795 --> 00:00:22,535
+earlier this week we also
+
+10
+00:00:20,893 --> 00:00:24,355
+launched Fable 52. These models are
+
+11
+00:00:22,535 --> 00:00:26,293
+extremely good at handling
+
+12
+00:00:24,355 --> 00:00:28,251
+long-running tasks and understanding
+
+13
+00:00:26,293 --> 00:00:30,974
+your code.  And Fable, in particular, also does
+
+14
+00:00:28,251 --> 00:00:33,243
+a great job of checking its own results.  But
+
+15
+00:00:30,974 --> 00:00:35,676
+as models get better,
+
+16
+00:00:33,243 --> 00:00:37,679
+our approach to working with them
+
+17
+00:00:35,676 --> 00:00:39,570
+in Cloud Code is changing.  At the beginning of the year, I don't know
+
+18
+00:00:37,679 --> 00:00:41,781
+if you remember, the sessions usually
+
+19
+00:00:39,570 --> 00:00:43,345
+looked like this.  We used a model
+
+20
+00:00:41,781 --> 00:00:45,308
+like the Opus 45, which, to be honest,
+
+21
+00:00:43,345 --> 00:00:47,566
+was very good for its time.  I
+
+22
+00:00:45,308 --> 00:00:49,113
+really enjoyed working with Opus 45. But
+
+23
+00:00:47,566 --> 00:00:50,835
+compared to today, it
+
+24
+00:00:49,113 --> 00:00:52,750
+stopped much earlier.  So she
+
+25
+00:00:50,835 --> 00:00:54,616
+worked for shorter periods of
+
+26
+00:00:52,750 --> 00:00:56,746
+time.  And we had to constantly
+
+27
+00:00:54,616 --> 00:00:58,520
+correct it.  We kept reminding her
+
+28
+00:00:56,746 --> 00:01:00,614
+what to do, adding things like "
+
+29
+00:00:58,520 --> 00:01:02,573
+important," exclamation points, and everything else to our
+
+30
+00:01:00,614 --> 00:01:05,045
+Cloud MD file.  In addition, functions such
+
+31
+00:01:02,573 --> 00:01:07,294
+as auto mode did not yet exist then.
+
+32
+00:01:05,045 --> 00:01:09,607
+So we either approved everything manually or
+
+33
+00:01:07,294 --> 00:01:11,108
+took the risk of dangerously skipping
+
+34
+00:01:09,607 --> 00:01:13,438
+permissions.
+
+35
+00:01:11,108 --> 00:01:15,944
+So, we, the people, still remained at the
+
+36
+00:01:13,438 --> 00:01:17,831
+center of the process.  But as these models
+
+37
+00:01:15,944 --> 00:01:19,905
+have become better at handling larger
+
+38
+00:01:17,831 --> 00:01:21,871
+tasks, our sessions have changed as well.
+
+39
+00:01:19,905 --> 00:01:23,839
+Today, at least at Anthropic, our
+
+40
+00:01:21,871 --> 00:01:26,338
+sessions look more like this.  We
+
+41
+00:01:23,839 --> 00:01:28,672
+run dozens of sessions simultaneously, they
+
+42
+00:01:26,338 --> 00:01:30,941
+work for hours, checking their own
+
+43
+00:01:28,672 --> 00:01:33,447
+results in the process, and we even have
+
+44
+00:01:30,941 --> 00:01:35,942
+sessions that coordinate other sessions.
+
+45
+00:01:33,447 --> 00:01:38,100
+So while we used to be involved at almost
+
+46
+00:01:35,942 --> 00:01:40,325
+every step and running one or
+
+47
+00:01:38,100 --> 00:01:42,900
+more sessions at a time, now we have
+
+48
+00:01:40,325 --> 00:01:45,059
+essentially become managers of dozens of sessions.
+
+49
+00:01:42,900 --> 00:01:47,466
+But we also manage to do much
+
+50
+00:01:45,059 --> 00:01:49,324
+more.  You may have seen our October
+
+51
+00:01:47,466 --> 00:01:51,742
+blog post about how Anthropic
+
+52
+00:01:49,324 --> 00:01:53,880
+increased its changes from around
+
+53
+00:01:51,742 --> 00:01:56,139
+2,500 per day in May to over 30,000 in
+
+54
+00:01:53,880 --> 00:01:58,526
+September.  But it also means that we,
+
+55
+00:01:56,139 --> 00:02:00,641
+as developers, have to rethink what
+
+56
+00:01:58,526 --> 00:02:02,847
+we focus on.  So if
+
+57
+00:02:00,641 --> 00:02:04,655
+you think about our best practices at
+
+58
+00:02:02,847 --> 00:02:06,739
+the beginning of the year, they were in
+
+59
+00:02:04,655 --> 00:02:08,884
+managing sessions, approving teams,
+
+60
+00:02:06,739 --> 00:02:11,982
+denying certain actions or limiting
+
+61
+00:02:08,884 --> 00:02:14,530
+what Claude could do,
+
+62
+00:02:11,982 --> 00:02:16,806
+and launching sessions.  Wherever we
+
+63
+00:02:14,530 --> 00:02:18,961
+now step out of this cycle, something else
+
+64
+00:02:16,806 --> 00:02:20,946
+must take over that function.  It is either a
+
+65
+00:02:18,961 --> 00:02:23,414
+model, a toolkit, or
+
+66
+00:02:20,946 --> 00:02:25,816
+the environment in which it operates.  So,
+
+67
+00:02:23,414 --> 00:02:27,890
+if we're not involved in approving each
+
+68
+00:02:25,816 --> 00:02:30,226
+team and running many sessions
+
+69
+00:02:27,890 --> 00:02:32,759
+at the same time, how do we make sure the code
+
+70
+00:02:30,226 --> 00:02:34,774
+they write is still of high quality?  And
+
+71
+00:02:32,759 --> 00:02:36,640
+most importantly, if these sessions go on
+
+72
+00:02:34,774 --> 00:02:38,744
+for hours without our supervision, how
+
+73
+00:02:36,640 --> 00:02:40,449
+can we be sure they are working
+
+74
+00:02:38,744 --> 00:02:42,137
+safely?  So let's break this down
+
+75
+00:02:40,449 --> 00:02:43,614
+by taking this old session and seeing what
+
+76
+00:02:42,137 --> 00:02:45,208
+we need to change to get that
+
+77
+00:02:43,614 --> 00:02:46,518
+end result I was showing
+
+78
+00:02:45,208 --> 00:02:47,974
+earlier.  Well, first of all, let's
+
+79
+00:02:46,518 --> 00:02:49,312
+use the current default settings that
+
+80
+00:02:47,974 --> 00:02:51,040
+we're running
+
+81
+00:02:49,312 --> 00:02:53,306
+sessions with today.  So, this is not something
+
+82
+00:02:51,040 --> 00:02:54,945
+you should worry about.  Let's update
+
+83
+00:02:53,306 --> 00:02:57,488
+the model here from Opus 4.5 to Opus 5.5 and
+
+84
+00:02:54,945 --> 00:02:59,949
+change the manual permissioning mode to
+
+85
+00:02:57,488 --> 00:03:02,693
+automatic.  And Opus 5.5
+
+86
+00:02:59,949 --> 00:03:04,520
+understands your intentions and your codebase much better
+
+87
+00:03:02,693 --> 00:03:06,489
+.  So we really don't need to
+
+88
+00:03:04,520 --> 00:03:08,218
+manage it as much during the session anymore.  And you
+
+89
+00:03:06,489 --> 00:03:09,869
+also no longer need to approve
+
+90
+00:03:08,218 --> 00:03:11,830
+every command, as we made
+
+91
+00:03:09,869 --> 00:03:13,674
+automatic permissions the default
+
+92
+00:03:11,830 --> 00:03:15,505
+back in August.  Now, a better understanding of
+
+93
+00:03:13,674 --> 00:03:17,566
+your intentions and codebase also
+
+94
+00:03:15,505 --> 00:03:19,594
+means we need to rethink
+
+95
+00:03:17,566 --> 00:03:21,252
+the instructions in our repository.  So,
+
+96
+00:03:19,594 --> 00:03:22,910
+if you followed our best
+
+97
+00:03:21,252 --> 00:03:24,463
+practices earlier this year,
+
+98
+00:03:22,910 --> 00:03:26,148
+your Claude MD file may still
+
+99
+00:03:24,463 --> 00:03:28,095
+have things like “important” or “
+
+100
+00:03:26,148 --> 00:03:29,748
+never do this” with an exclamation point
+
+101
+00:03:28,095 --> 00:03:31,897
+.  But with modern models, you
+
+102
+00:03:29,748 --> 00:03:33,730
+don't really need that.  And this can cause
+
+103
+00:03:31,897 --> 00:03:35,781
+the model to go astray.  So you
+
+104
+00:03:33,730 --> 00:03:37,809
+get more tool calls and
+
+105
+00:03:35,781 --> 00:03:39,637
+overall worse results.  Today, your
+
+106
+00:03:37,809 --> 00:03:41,550
+Claude MD file should only contain what
+
+107
+00:03:39,637 --> 00:03:43,679
+Claude can't see directly in
+
+108
+00:03:41,550 --> 00:03:45,376
+your code.  For example, maybe you have a
+
+109
+00:03:43,679 --> 00:03:47,362
+service that uses some
+
+110
+00:03:45,376 --> 00:03:49,370
+legacy source, but there is no
+
+111
+00:03:47,362 --> 00:03:51,715
+direct reference to it in the code.  It's still
+
+112
+00:03:49,370 --> 00:03:53,708
+worth leaving there.  But everything else, like the
+
+113
+00:03:51,715 --> 00:03:55,943
+stack you're working on or where
+
+114
+00:03:53,708 --> 00:03:58,043
+to look, you don't need anymore.  We
+
+115
+00:03:55,943 --> 00:03:59,699
+even have a command for this called "
+
+116
+00:03:58,043 --> 00:04:01,592
+doctor prompt audit", which makes it very
+
+117
+00:03:59,699 --> 00:04:03,875
+easy to optimize the environment for a
+
+118
+00:04:01,592 --> 00:04:05,869
+specific model.  So if you are running
+
+119
+00:04:03,875 --> 00:04:07,863
+Opus 5.5 and run this command, it
+
+120
+00:04:05,869 --> 00:04:10,037
+will automatically check your Claude MD and
+
+121
+00:04:07,863 --> 00:04:12,251
+skills to see what the new model
+
+122
+00:04:10,037 --> 00:04:13,920
+no longer requires.  Automatic mode
+
+123
+00:04:12,251 --> 00:04:16,005
+is a permissions method that
+
+124
+00:04:13,920 --> 00:04:17,785
+runs a separate classifier for almost
+
+125
+00:04:16,005 --> 00:04:19,995
+everything that isn't just reading or
+
+126
+00:04:17,785 --> 00:04:22,152
+editing files in your project.
+
+127
+00:04:19,995 --> 00:04:24,186
+It automatically allows commands that are
+
+128
+00:04:22,152 --> 00:04:26,528
+considered safe, such as running
+
+129
+00:04:24,186 --> 00:04:28,316
+tests or installing dependencies, but
+
+130
+00:04:26,528 --> 00:04:30,639
+blocks those that it is not sure are safe
+
+131
+00:04:28,316 --> 00:04:32,795
+.  And it usually works pretty
+
+132
+00:04:30,639 --> 00:04:34,971
+well.  Usually, that's exactly what we,
+
+133
+00:04:32,795 --> 00:04:37,037
+you know, want.  But for example here,
+
+134
+00:04:34,971 --> 00:04:39,104
+if we ask to push something to
+
+135
+00:04:37,037 --> 00:04:41,229
+staging, we would simply approve the push to
+
+136
+00:04:39,104 --> 00:04:43,493
+our deployment repository.  But by
+
+137
+00:04:41,229 --> 00:04:45,463
+default, automode only trusts this
+
+138
+00:04:43,493 --> 00:04:47,689
+folder and this repository, so it will
+
+139
+00:04:45,463 --> 00:04:49,688
+block this command.  So, we are back in the
+
+140
+00:04:47,689 --> 00:04:51,616
+loop.  The default settings
+
+141
+00:04:49,688 --> 00:04:53,491
+should be fine in most cases
+
+142
+00:04:51,616 --> 00:04:55,287
+, but if you still find yourself
+
+143
+00:04:53,491 --> 00:04:57,242
+having to approve a lot of commands
+
+144
+00:04:55,287 --> 00:04:59,038
+even in auto mode, check
+
+145
+00:04:57,242 --> 00:05:00,992
+the settings here first, as you can
+
+146
+00:04:59,038 --> 00:05:02,313
+configure auto mode yourself with just
+
+147
+00:05:00,992 --> 00:05:04,241
+plain language, and this is what is
+
+148
+00:05:02,313 --> 00:05:06,089
+sent to the classifier, which then
+
+149
+00:05:04,241 --> 00:05:07,699
+decides whether to reject or allow certain
+
+150
+00:05:06,089 --> 00:05:09,392
+commands.  So, here we can simply
+
+151
+00:05:07,699 --> 00:05:11,061
+write which repositories, buckets or
+
+152
+00:05:09,392 --> 00:05:12,731
+domains we trust, as well as what it
+
+153
+00:05:11,061 --> 00:05:14,655
+should always allow or never
+
+154
+00:05:12,731 --> 00:05:16,437
+do.  Okay, to be honest, it was
+
+155
+00:05:14,655 --> 00:05:18,283
+pretty easy thanks to the default
+
+156
+00:05:16,437 --> 00:05:20,569
+settings.  We have already gotten rid of
+
+157
+00:05:18,283 --> 00:05:22,636
+most of our “in-loop” tasks
+
+158
+00:05:20,569 --> 00:05:25,047
+because the model has taken over control and
+
+159
+00:05:22,636 --> 00:05:27,044
+auto mode has all the confirmations, so it’s easy to get out
+
+160
+00:05:25,047 --> 00:05:28,731
+of the loop.  But the harder question
+
+161
+00:05:27,044 --> 00:05:30,335
+now is: How do we make sure everything is
+
+162
+00:05:28,731 --> 00:05:32,757
+okay even if we no longer
+
+163
+00:05:30,335 --> 00:05:35,027
+interfere?  So, it's safety first, and
+
+164
+00:05:32,757 --> 00:05:36,857
+verification second.
+
+165
+00:05:35,027 --> 00:05:38,848
+Let's start with safety, because everything so far—
+
+166
+00:05:36,857 --> 00:05:41,986
+updating the model and using
+
+167
+00:05:38,848 --> 00:05:44,341
+auto mode—is just working with the model.
+
+168
+00:05:41,986 --> 00:05:46,885
+And in most cases, she does what
+
+169
+00:05:44,341 --> 00:05:49,158
+you tell her, but that's not a guarantee.  In
+
+170
+00:05:46,885 --> 00:05:51,750
+a study we published in
+
+171
+00:05:49,158 --> 00:05:54,236
+August, we compared auto mode and
+
+172
+00:05:51,750 --> 00:05:56,675
+human operation, and only about 14% of people noticed a
+
+173
+00:05:54,236 --> 00:05:58,585
+clearly dangerous command.  Auto mode
+
+174
+00:05:56,675 --> 00:06:01,441
+blocked 89% of them, so it's
+
+175
+00:05:58,585 --> 00:06:03,824
+doing much better than us.  But
+
+176
+00:06:01,441 --> 00:06:05,931
+about one in ten of these teams still
+
+177
+00:06:03,824 --> 00:06:08,146
+made it through.  So if you need a
+
+178
+00:06:05,931 --> 00:06:10,262
+guarantee, you can only provide it
+
+179
+00:06:08,146 --> 00:06:12,274
+within the system.  And this is where our old
+
+180
+00:06:10,262 --> 00:06:14,306
+best practices still matter,
+
+181
+00:06:12,274 --> 00:06:16,458
+namely—permissions.  For example, if you have a
+
+182
+00:06:14,306 --> 00:06:18,192
+ban rule for a specific tool
+
+183
+00:06:16,458 --> 00:06:20,177
+in your project, Cloud Code checks
+
+184
+00:06:18,192 --> 00:06:22,307
+this rule before the
+
+185
+00:06:20,177 --> 00:06:24,157
+auto mode classifier sees it.  In fact, if a
+
+186
+00:06:22,307 --> 00:06:26,057
+tool call matches a
+
+187
+00:06:24,157 --> 00:06:28,029
+prohibition rule, the classifier doesn't even see
+
+188
+00:06:26,057 --> 00:06:29,931
+it.  So having no-go rules is still the
+
+189
+00:06:28,029 --> 00:06:31,416
+best way to ensure that the
+
+190
+00:06:29,931 --> 00:06:33,321
+cloud never does anything
+
+191
+00:06:31,416 --> 00:06:35,208
+undesirable.  But how do you understand what should
+
+192
+00:06:33,321 --> 00:06:37,209
+be the rule in your project, and what
+
+193
+00:06:35,208 --> 00:06:39,400
+the model can simply know on its own because it has
+
+194
+00:06:37,209 --> 00:06:41,062
+become so perfect?  Um, I guess it comes down
+
+195
+00:06:39,400 --> 00:06:43,063
+to this: if Cloud
+
+196
+00:06:41,062 --> 00:06:44,768
+makes a mistake, can I
+
+197
+00:06:43,063 --> 00:06:46,521
+undo it?  So, if he writes the
+
+198
+00:06:44,768 --> 00:06:48,479
+wrong code, you can still
+
+199
+00:06:46,521 --> 00:06:50,292
+roll it back.  So you can continue to
+
+200
+00:06:48,479 --> 00:06:52,183
+trust this model.  But if it
+
+201
+00:06:50,292 --> 00:06:54,186
+deletes your unsaved changes or
+
+202
+00:06:52,183 --> 00:06:55,850
+reads a key that got into your record
+
+203
+00:06:54,186 --> 00:06:57,700
+and you don't want it to, that should be
+
+204
+00:06:55,850 --> 00:07:00,005
+prohibited by the rule.  For example,
+
+205
+00:06:57,700 --> 00:07:01,518
+let's say we don't want
+
+206
+00:07:00,005 --> 00:07:03,089
+Cloud to read our .env file at all.  By
+
+207
+00:07:01,518 --> 00:07:04,809
+default, automatic mode
+
+208
+00:07:03,089 --> 00:07:06,719
+sees this as normal, so it would just
+
+209
+00:07:04,809 --> 00:07:08,484
+approve it.  So if you want to be
+
+210
+00:07:06,719 --> 00:07:10,139
+sure that Cloud never reads
+
+211
+00:07:08,484 --> 00:07:12,098
+this file, just add a
+
+212
+00:07:10,139 --> 00:07:14,330
+deny rule.  And then commands like cat will
+
+213
+00:07:12,098 --> 00:07:16,295
+also not be able to open this file.  But it's
+
+214
+00:07:14,330 --> 00:07:18,331
+not always that simple, because sometimes certain
+
+215
+00:07:16,295 --> 00:07:20,313
+commands can have side effects.
+
+216
+00:07:18,331 --> 00:07:22,359
+For example, let's say npm test is a
+
+217
+00:07:20,313 --> 00:07:24,468
+regular command, just a test, so
+
+218
+00:07:22,359 --> 00:07:26,670
+automatic mode runs it, and that's
+
+219
+00:07:24,468 --> 00:07:28,354
+fine.  But when the script runs, it
+
+220
+00:07:26,670 --> 00:07:30,693
+executes code that you didn't write,
+
+221
+00:07:28,354 --> 00:07:32,964
+such as your dependencies.  Or maybe
+
+222
+00:07:30,693 --> 00:07:35,555
+Cloud is quickly running a script he
+
+223
+00:07:32,964 --> 00:07:37,823
+wrote to test something.  So, if
+
+224
+00:07:35,555 --> 00:07:40,188
+one of these scripts is compromised,
+
+225
+00:07:37,823 --> 00:07:42,359
+it could just open the same
+
+226
+00:07:40,188 --> 00:07:45,046
+env file or your SSH keys and send them to an
+
+227
+00:07:42,359 --> 00:07:47,270
+unknown server, right?  Even if we
+
+228
+00:07:45,046 --> 00:07:49,689
+humans still approved every action, we
+
+229
+00:07:47,270 --> 00:07:52,441
+would simply click "allow" because there is no
+
+230
+00:07:49,689 --> 00:07:54,870
+reason to refuse.  This is just the part of
+
+231
+00:07:52,441 --> 00:07:56,028
+the script that in this example is run by
+
+232
+00:07:54,870 --> 00:07:57,732
+npm test.
+
+233
+00:07:56,028 --> 00:07:59,831
+Permissions only determine whether a
+
+234
+00:07:57,732 --> 00:08:02,053
+tool call is run, but
+
+235
+00:07:59,831 --> 00:08:04,833
+they cannot restrict its access while it is
+
+236
+00:08:02,053 --> 00:08:07,208
+running.  We want such scripts to
+
+237
+00:08:04,833 --> 00:08:09,481
+work, because it's part of
+
+238
+00:08:07,208 --> 00:08:11,403
+how Cloud verifies its own work through
+
+239
+00:08:09,481 --> 00:08:12,904
+tests.  Therefore, we cannot simply
+
+240
+00:08:11,403 --> 00:08:15,062
+block npm test, but we want to
+
+241
+00:08:12,904 --> 00:08:17,210
+limit its side effects.  In fact,
+
+242
+00:08:15,062 --> 00:08:19,452
+we just want to limit the environment in
+
+243
+00:08:17,210 --> 00:08:21,389
+which it works.  If you run this
+
+244
+00:08:19,452 --> 00:08:23,325
+locally or on your own machine, you
+
+245
+00:08:21,389 --> 00:08:25,608
+can run the following commands in a "
+
+246
+00:08:23,325 --> 00:08:28,137
+sandbox".  Then you control which
+
+247
+00:08:25,608 --> 00:08:30,695
+files the team can read, which folders
+
+248
+00:08:28,137 --> 00:08:32,843
+to write to, and which hosts to access.  And the
+
+249
+00:08:30,695 --> 00:08:35,465
+operating system ensures this
+
+250
+00:08:32,843 --> 00:08:37,773
+execution.  This also applies to everything
+
+251
+00:08:35,465 --> 00:08:39,479
+that this command starts, i.e. any
+
+252
+00:08:37,773 --> 00:08:41,214
+child processes.   The
+
+253
+00:08:39,479 --> 00:08:43,486
+ban rule itself
+
+254
+00:08:41,214 --> 00:08:45,512
+is checked by Cloud before the
+
+255
+00:08:43,486 --> 00:08:47,520
+command is executed, but it only sees npm test.
+
+256
+00:08:45,512 --> 00:08:49,289
+So he doesn't see what files
+
+257
+00:08:47,520 --> 00:08:51,372
+this script ends up opening.  But with the
+
+258
+00:08:49,289 --> 00:08:53,506
+sandbox enabled, this same rule
+
+259
+00:08:51,372 --> 00:08:55,425
+is passed to the operating system.  So
+
+260
+00:08:53,506 --> 00:08:57,507
+now, when this dependency tries
+
+261
+00:08:55,425 --> 00:08:59,019
+to open the file, the operating system simply
+
+262
+00:08:57,507 --> 00:09:00,751
+doesn't let it do so.  By
+
+263
+00:08:59,019 --> 00:09:02,432
+default, it can still read
+
+264
+00:09:00,751 --> 00:09:04,189
+most files on your device,
+
+265
+00:09:02,432 --> 00:09:06,293
+so it's worth adding a separate rule for SSH
+
+266
+00:09:04,189 --> 00:09:08,207
+keys if you care about security.
+
+267
+00:09:06,293 --> 00:09:10,083
+And she can't access a
+
+268
+00:09:08,207 --> 00:09:12,250
+host that hasn't been approved.  But the "
+
+269
+00:09:10,083 --> 00:09:14,240
+sandbox" only applies to the
+
+270
+00:09:12,250 --> 00:09:16,468
+shell commands that Cloud runs and everything
+
+271
+00:09:14,240 --> 00:09:18,640
+they initiate.  However, your own Cloud files
+
+272
+00:09:16,468 --> 00:09:20,933
+, your MCP servers, and all your hooks
+
+273
+00:09:18,640 --> 00:09:22,968
+still work outside of it.  So the rest of your
+
+274
+00:09:20,933 --> 00:09:24,919
+session is still running on your own
+
+275
+00:09:22,968 --> 00:09:27,140
+computer with everything on it.
+
+276
+00:09:24,919 --> 00:09:29,976
+Ideally, you should run all of this where
+
+277
+00:09:27,140 --> 00:09:32,207
+none of this exists at all.   This is exactly what the
+
+278
+00:09:29,976 --> 00:09:34,717
+Cloud session provides, because there it
+
+279
+00:09:32,207 --> 00:09:37,202
+gets its own machine with a fresh copy of
+
+280
+00:09:34,717 --> 00:09:39,366
+our repository.  And it works even
+
+281
+00:09:37,202 --> 00:09:41,368
+when we close the laptop, which is definitely
+
+282
+00:09:39,366 --> 00:09:43,378
+necessary for long sessions that
+
+283
+00:09:41,368 --> 00:09:45,976
+last for hours.
+
+284
+00:09:43,378 --> 00:09:48,461
+In this case, this automatically solves
+
+285
+00:09:45,976 --> 00:09:51,689
+the problem with the files, because they are not in Git,
+
+286
+00:09:48,461 --> 00:09:53,782
+nor are my SSH keys or GitHub token.
+
+287
+00:09:51,689 --> 00:09:55,908
+And if you still need an API key,
+
+288
+00:09:53,782 --> 00:09:58,100
+you can add it as a network secret, and
+
+289
+00:09:55,908 --> 00:10:00,258
+the system will say, "hey, I'm missing an API
+
+290
+00:09:58,100 --> 00:10:02,744
+key during the session," so it can
+
+291
+00:10:00,258 --> 00:10:05,113
+use it without sending the
+
+292
+00:10:02,744 --> 00:10:07,346
+model itself.  By default, network access in a Cloud session
+
+293
+00:10:05,113 --> 00:10:09,750
+is limited to
+
+294
+00:10:07,346 --> 00:10:12,115
+resources such as package registries on GitHub.
+
+295
+00:10:09,750 --> 00:10:13,944
+So you will have to explicitly add these domains
+
+296
+00:10:12,115 --> 00:10:16,565
+to your environment so that Cloud can
+
+297
+00:10:13,944 --> 00:10:18,649
+contact other hosts.
+
+298
+00:10:16,565 --> 00:10:20,799
+So, a Cloud session allows you to run
+
+299
+00:10:18,649 --> 00:10:22,950
+long-running processes even with your
+
+300
+00:10:20,799 --> 00:10:24,836
+laptop closed, and it provides security
+
+301
+00:10:22,950 --> 00:10:27,702
+because everything runs in its own
+
+302
+00:10:24,836 --> 00:10:30,318
+environment.  It's worth remembering that while this
+
+303
+00:10:27,702 --> 00:10:31,809
+machine is temporary, the data that leaves it is
+
+304
+00:10:30,318 --> 00:10:33,281
+not.  For example, when a commit
+
+305
+00:10:31,809 --> 00:10:35,135
+is sent or a message is
+
+306
+00:10:33,281 --> 00:10:36,728
+sent through a connector.  So we
+
+307
+00:10:35,135 --> 00:10:38,275
+still run this in automatic
+
+308
+00:10:36,728 --> 00:10:39,799
+mode with the ban rules, just
+
+309
+00:10:38,275 --> 00:10:41,634
+commit them to the repository so they're
+
+310
+00:10:39,799 --> 00:10:43,424
+always with us.  This can prevent
+
+311
+00:10:41,634 --> 00:10:45,442
+things like forced pushes or
+
+312
+00:10:43,424 --> 00:10:47,207
+secrets getting into commits, and things like that
+
+313
+00:10:45,442 --> 00:10:49,270
+.
+
+314
+00:10:47,207 --> 00:10:51,434
+In addition to security, we also need to
+
+315
+00:10:49,270 --> 00:10:54,113
+make sure that the Cloud is actually working
+
+316
+00:10:51,434 --> 00:10:56,651
+on the right tasks.  So the next
+
+317
+00:10:54,113 --> 00:10:58,866
+step is verification.  The great thing is that we
+
+318
+00:10:56,651 --> 00:11:01,347
+work in a cycle—we were confident in the
+
+319
+00:10:58,866 --> 00:11:03,119
+quality of the work because we had already seen every
+
+320
+00:11:01,347 --> 00:11:05,160
+change and approved everything.
+
+321
+00:11:03,119 --> 00:11:07,141
+But now, if Cloud runs for hours in the
+
+322
+00:11:05,160 --> 00:11:09,437
+background, we don't have that anymore
+
+323
+00:11:07,141 --> 00:11:12,137
+.  Um, and we're not actually going to
+
+324
+00:11:09,437 --> 00:11:14,173
+reread every file at the end.  So
+
+325
+00:11:12,137 --> 00:11:16,459
+, you know, let's say we ask you to
+
+326
+00:11:14,173 --> 00:11:18,263
+migrate our authentication to a new
+
+327
+00:11:16,459 --> 00:11:20,422
+API.  Cloud understands what we
+
+328
+00:11:18,263 --> 00:11:22,839
+want perfectly, but it still has to
+
+329
+00:11:20,422 --> 00:11:23,577
+make a lot of small decisions in the process
+
+330
+00:11:22,839 --> 00:11:25,797
+.
+
+331
+00:11:23,577 --> 00:11:28,216
+So with the same request: one run
+
+332
+00:11:25,797 --> 00:11:30,337
+can migrate everything but leave the old
+
+333
+00:11:28,216 --> 00:11:32,656
+API, another can migrate only for new
+
+334
+00:11:30,337 --> 00:11:34,684
+logins, and a third can migrate but
+
+335
+00:11:32,656 --> 00:11:36,719
+log everyone out.
+
+336
+00:11:34,684 --> 00:11:38,755
+All of these options seem pretty
+
+337
+00:11:36,719 --> 00:11:40,790
+logical, so it's worth setting up
+
+338
+00:11:38,755 --> 00:11:43,122
+checkpoints so that Cloud can constantly
+
+339
+00:11:40,790 --> 00:11:44,815
+check its results.  This can be
+
+340
+00:11:43,122 --> 00:11:46,854
+anything that produces a "
+
+341
+00:11:44,815 --> 00:11:49,553
+pass" or "fail" result.  Tests,
+
+342
+00:11:46,854 --> 00:11:51,674
+build, screenshot—whatever you have.
+
+343
+00:11:49,553 --> 00:11:53,864
+So now we just want to make sure
+
+344
+00:11:51,674 --> 00:11:56,018
+that we check these checkpoints.  They are
+
+345
+00:11:53,864 --> 00:11:57,683
+much faster to check than if we
+
+346
+00:11:56,018 --> 00:12:00,214
+had to review all the changes
+
+347
+00:11:57,683 --> 00:12:01,983
+at the end.  So that's quite reasonable.  If
+
+348
+00:12:00,214 --> 00:12:03,724
+one of these launches still manages to get everyone
+
+349
+00:12:01,983 --> 00:12:05,813
+logged out, it will fail the first
+
+350
+00:12:03,724 --> 00:12:08,162
+test and will be forced to look for another
+
+351
+00:12:05,813 --> 00:12:10,057
+way.  There are several ways to set this up
+
+352
+00:12:08,162 --> 00:12:11,813
+.  The easiest way, of course, is to simply
+
+353
+00:12:10,057 --> 00:12:13,983
+specify it in the request.  You describe
+
+354
+00:12:11,813 --> 00:12:16,047
+the result and ask to break the task into
+
+355
+00:12:13,983 --> 00:12:17,835
+subtasks, each with its own tests.
+
+356
+00:12:16,047 --> 00:12:19,678
+I also like to ask him
+
+357
+00:12:17,835 --> 00:12:21,689
+to show the actual output, because you didn't
+
+358
+00:12:19,678 --> 00:12:23,629
+see it happen.  But again
+
+359
+00:12:21,689 --> 00:12:25,894
+, the query does not guarantee that the model
+
+360
+00:12:23,629 --> 00:12:28,476
+will do everything accurately.  Therefore, for tasks
+
+361
+00:12:25,894 --> 00:12:30,952
+that need to be guaranteed to be completed, I
+
+362
+00:12:28,476 --> 00:12:33,813
+use hooks—these are scripts that Cloud
+
+363
+00:12:30,952 --> 00:12:35,790
+Code runs at a specific time.  They
+
+364
+00:12:33,813 --> 00:12:37,703
+give you a lot of control because you
+
+365
+00:12:35,790 --> 00:12:39,939
+decide when to run them, what
+
+366
+00:12:37,703 --> 00:12:42,058
+to run, and what to check.  For example,
+
+367
+00:12:39,939 --> 00:12:44,047
+every time he edits a file, we can
+
+368
+00:12:42,058 --> 00:12:45,892
+run our linter.  Whenever he
+
+369
+00:12:44,047 --> 00:12:47,585
+wants to mark a task as done, we
+
+370
+00:12:45,892 --> 00:12:49,351
+can run tests for the changed
+
+371
+00:12:47,585 --> 00:12:51,545
+section.  If he touched the
+
+372
+00:12:49,351 --> 00:12:53,221
+authentication code, he must pass the
+
+373
+00:12:51,545 --> 00:12:55,014
+authentication tests.  And when he wants
+
+374
+00:12:53,221 --> 00:12:56,927
+to complete the entire session, we can just
+
+375
+00:12:55,014 --> 00:12:58,990
+run the full set of tests.  And if
+
+376
+00:12:56,927 --> 00:13:01,162
+one of them doesn't pass, he says, "Oh,
+
+377
+00:12:58,990 --> 00:13:03,366
+it still doesn't work."  He goes back
+
+378
+00:13:01,162 --> 00:13:05,686
+until everything works and fixes
+
+379
+00:13:03,366 --> 00:13:08,130
+it.  Another caveat: when a test
+
+380
+00:13:05,686 --> 00:13:10,786
+fails, most tools by
+
+381
+00:13:08,130 --> 00:13:12,663
+default exit with code
+
+382
+00:13:10,786 --> 00:13:15,437
+1, but with code 1, Cloud Code still
+
+383
+00:13:12,663 --> 00:13:17,477
+marks the task as completed.
+
+384
+00:13:15,437 --> 00:13:19,709
+So make sure your scripts
+
+385
+00:13:17,477 --> 00:13:21,782
+exit with code 2, because that's what
+
+386
+00:13:19,709 --> 00:13:23,156
+makes Claude go back and fix the
+
+387
+00:13:21,782 --> 00:13:25,683
+error.   So
+
+388
+00:13:23,156 --> 00:13:28,894
+now we have a session that I
+
+389
+00:13:25,683 --> 00:13:30,944
+can totally leave unattended.
+
+390
+00:13:28,894 --> 00:13:33,149
+Now we can run more of them,
+
+391
+00:13:30,944 --> 00:13:35,322
+because each one has its own machine, so they
+
+392
+00:13:33,149 --> 00:13:39,382
+don't run in the same folder, and we
+
+393
+00:13:35,322 --> 00:13:41,663
+don't have to think about working trees anymore.
+
+394
+00:13:39,382 --> 00:13:44,145
+But we still run each session
+
+395
+00:13:41,663 --> 00:13:46,510
+independently and check each one.  And
+
+396
+00:13:44,145 --> 00:13:48,928
+, to be honest, this is already a pretty good
+
+397
+00:13:46,510 --> 00:13:51,275
+level.  We still have full control over
+
+398
+00:13:48,928 --> 00:13:53,770
+what gets run and when we consider a
+
+399
+00:13:51,275 --> 00:13:56,240
+task complete.
+
+400
+00:13:53,770 --> 00:13:58,779
+But even here, we still initiate
+
+401
+00:13:56,240 --> 00:13:59,858
+each session ourselves and remain involved in
+
+402
+00:13:58,779 --> 00:14:02,088
+all of them.
+
+403
+00:13:59,858 --> 00:14:04,223
+So I think the most important thing here is to
+
+404
+00:14:02,088 --> 00:14:06,326
+set up CI, because all of these sessions
+
+405
+00:14:04,223 --> 00:14:08,460
+eventually create PRs, and your CI performs
+
+406
+00:14:06,326 --> 00:14:10,404
+the same checks for each of them,
+
+407
+00:14:08,460 --> 00:14:12,220
+regardless of how the session was
+
+408
+00:14:10,404 --> 00:14:14,396
+set up or what Claude decided to
+
+409
+00:14:12,220 --> 00:14:15,961
+do in the process.  And if you enable
+
+410
+00:14:14,396 --> 00:14:17,781
+auto-fixes like CI auto-fix,
+
+411
+00:14:15,961 --> 00:14:19,318
+Claude will also be able to see when one of
+
+412
+00:14:17,781 --> 00:14:21,360
+these checks fails and
+
+413
+00:14:19,318 --> 00:14:23,137
+go back to fix it.  So you
+
+414
+00:14:21,360 --> 00:14:24,968
+don't have to waste your time
+
+415
+00:14:23,137 --> 00:14:26,906
+checking what an
+
+416
+00:14:24,968 --> 00:14:28,462
+automated test could have already detected.  And for some of them,
+
+417
+00:14:26,906 --> 00:14:30,167
+you can even enable the "
+
+418
+00:14:28,462 --> 00:14:32,062
+merge when ready" feature.  GitHub then
+
+419
+00:14:30,167 --> 00:14:33,839
+automatically merges the PR once all
+
+420
+00:14:32,062 --> 00:14:35,791
+checks have passed.  So, you don't
+
+421
+00:14:33,839 --> 00:14:37,712
+need to interfere with the verification process.
+
+422
+00:14:35,791 --> 00:14:39,166
+But, again, this is not a standard, and it all
+
+423
+00:14:37,712 --> 00:14:41,431
+depends on how
+
+424
+00:14:39,166 --> 00:14:43,782
+risky the changes are.  For example, in our
+
+425
+00:14:41,431 --> 00:14:46,033
+team, every PR is first reviewed by
+
+426
+00:14:43,782 --> 00:14:48,063
+Claude.  That is, not the session that
+
+427
+00:14:46,033 --> 00:14:50,217
+wrote it.  Therefore, it receives fresh
+
+428
+00:14:48,063 --> 00:14:52,038
+context, as well as a separate group of agents
+
+429
+00:14:50,217 --> 00:14:54,120
+to re-check each
+
+430
+00:14:52,038 --> 00:14:56,238
+bug found.  And the extent to which we
+
+431
+00:14:54,120 --> 00:14:58,299
+check everything ourselves depends solely on the
+
+432
+00:14:56,238 --> 00:15:00,274
+risk.  Minor changes, such as documentation
+
+433
+00:14:58,299 --> 00:15:01,887
+or texts, do not require human intervention.
+
+434
+00:15:00,274 --> 00:15:03,706
+So, as soon as the automated checks
+
+435
+00:15:01,887 --> 00:15:05,790
+give the "green light," we're ready to
+
+436
+00:15:03,706 --> 00:15:08,054
+go.  Maybe regular product
+
+437
+00:15:05,790 --> 00:15:10,585
+changes only require one reviewer
+
+438
+00:15:08,054 --> 00:15:13,051
+, while risky ones require two.
+
+439
+00:15:10,585 --> 00:15:15,217
+Ultimately, we see things developing in a way—and
+
+440
+00:15:13,051 --> 00:15:17,683
+we at Anthropic are already doing this more often—that
+
+441
+00:15:15,217 --> 00:15:20,168
+you don't really need to run all
+
+442
+00:15:17,683 --> 00:15:22,028
+these sessions yourself.  Because if you're anything like
+
+443
+00:15:20,168 --> 00:15:23,933
+me, I'm terrible at switching between
+
+444
+00:15:22,028 --> 00:15:25,971
+contexts.  Therefore, managing so
+
+445
+00:15:23,933 --> 00:15:28,094
+many sessions at the same time does not always
+
+446
+00:15:25,971 --> 00:15:29,956
+work well.  So instead
+
+447
+00:15:28,094 --> 00:15:32,341
+you have just one main session that
+
+448
+00:15:29,956 --> 00:15:34,585
+acts as your orchestrator.  This
+
+449
+00:15:32,341 --> 00:15:36,692
+can already be seen in projects like
+
+450
+00:15:34,585 --> 00:15:39,801
+Claude Code, which is still in beta, where
+
+451
+00:15:36,692 --> 00:15:41,844
+you just say what needs to be done.
+
+452
+00:15:39,801 --> 00:15:44,211
+The orchestrator breaks this task down,
+
+453
+00:15:41,844 --> 00:15:46,621
+launches separate sessions for each one,
+
+454
+00:15:44,211 --> 00:15:48,664
+and tracks the results.  It automatically
+
+455
+00:15:46,621 --> 00:15:50,887
+starts and checks these threads, which
+
+456
+00:15:48,664 --> 00:15:52,992
+are really just new sessions.  So
+
+457
+00:15:50,887 --> 00:15:55,460
+instead of talking to eight sessions,
+
+458
+00:15:52,992 --> 00:15:57,697
+you talk to just one.  Moreover, the
+
+459
+00:15:55,460 --> 00:15:59,708
+main session itself does not write code.  What
+
+460
+00:15:57,697 --> 00:16:01,893
+you need is a model that is good at
+
+461
+00:15:59,708 --> 00:16:03,673
+deciding what to do and evaluating the
+
+462
+00:16:01,893 --> 00:16:05,771
+result, like Fable.
+
+463
+00:16:03,673 --> 00:16:07,899
+And if the result is not complete, she
+
+464
+00:16:05,771 --> 00:16:10,117
+simply sends it back until everything
+
+465
+00:16:07,899 --> 00:16:12,703
+is ready and passes verification.  And
+
+466
+00:16:10,117 --> 00:16:15,003
+for streams, you need a model that
+
+467
+00:16:12,703 --> 00:16:17,478
+does the job well, like the Opus 55. You
+
+468
+00:16:15,003 --> 00:16:19,767
+can configure them separately.  That is, one
+
+469
+00:16:17,478 --> 00:16:21,608
+model for the main session, and another for
+
+470
+00:16:19,767 --> 00:16:23,342
+streams.  Another advantage of this
+
+471
+00:16:21,608 --> 00:16:25,162
+setup, particularly in
+
+472
+00:16:23,342 --> 00:16:27,375
+CloudCode projects, is that we
+
+473
+00:16:25,162 --> 00:16:29,528
+no longer need to manage the context.  This is all
+
+474
+00:16:27,375 --> 00:16:31,784
+done automatically.
+
+475
+00:16:29,528 --> 00:16:34,623
+We no longer need to think about
+
+476
+00:16:31,784 --> 00:16:36,523
+when to compress or purge all of this.  Okay
+
+477
+00:16:34,623 --> 00:16:38,632
+.  So, if you look back at the old
+
+478
+00:16:36,523 --> 00:16:40,712
+best practices, they are all still there,
+
+479
+00:16:38,632 --> 00:16:43,117
+but they just changed places.  Now
+
+480
+00:16:40,712 --> 00:16:45,205
+the model drives the process, auto mode approves
+
+481
+00:16:43,117 --> 00:16:47,773
+your ban rules, and the environment
+
+482
+00:16:45,205 --> 00:16:50,097
+limits the possibilities.  Your tests, hooks, and
+
+483
+00:16:47,773 --> 00:16:52,502
+CI all check this.  And eventually, the Cloud
+
+484
+00:16:50,097 --> 00:16:54,461
+can even run them on its own.  So
+
+485
+00:16:52,502 --> 00:16:56,089
+almost everything we used to do ourselves is
+
+486
+00:16:54,461 --> 00:16:58,388
+now done by either a model, a
+
+487
+00:16:56,089 --> 00:17:00,618
+toolkit, or an environment.  We are
+
+488
+00:16:58,388 --> 00:17:02,842
+only here to launch the first session
+
+489
+00:17:00,618 --> 00:17:04,845
+and review the result.  If you want to
+
+490
+00:17:02,842 --> 00:17:06,962
+try this out for yourself, I would recommend taking on
+
+491
+00:17:04,845 --> 00:17:08,699
+one task that is significantly larger than what
+
+492
+00:17:06,962 --> 00:17:10,251
+you would typically assign to Cloud.
+
+493
+00:17:08,699 --> 00:17:12,246
+Make sure your CI is actually
+
+494
+00:17:10,251 --> 00:17:14,020
+catching the things that are important to you, and then
+
+495
+00:17:12,246 --> 00:17:15,765
+spend some time setting up your
+
+496
+00:17:14,020 --> 00:17:17,234
+environment, such as network
+
+497
+00:17:15,765 --> 00:17:19,717
+access, secrets, and a
+
+498
+00:17:17,234 --> 00:17:21,932
+setup script.  And then start with the cloud and
+
+499
+00:17:19,717 --> 00:17:24,055
+see where your sessions are hanging and
+
+500
+00:17:21,932 --> 00:17:25,803
+where you're still in the loop, because that's the next thing to
+
+501
+00:17:24,055 --> 00:17:27,732
+move to the cloud.  I also
+
+502
+00:17:25,803 --> 00:17:29,285
+highly recommend reviewing
+
+503
+00:17:27,732 --> 00:17:33,133
+our best practices in the
+
+504
+00:17:29,285 --> 00:17:33,133
+documentation.  Thank you very much.
+
