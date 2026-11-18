@@ -69,6 +69,7 @@
 ## Personal Wiki
 - `~/wiki` (private) holds durable context about me, my projects and past decisions, gathered from every agent. When a task needs that background, read `~/wiki/index.md`, then the pages it points to.
 - Save durable facts to your own memory store if you have one (a daily sync folds it into the wiki); otherwise write them into the wiki following `~/wiki/AGENTS.md` (Ingest).
+- Log what happened (a finished task worth real effort, a decision, something learned about me) as one line: `python -X utf8 ~/wiki/scripts/note.py --tool <name> "..."`; it is the live timeline every harness shares. Search everything word for word with `~/wiki/scripts/recall.py <regex>`. Subagents and swarm lanes don't log.
 
 ## Allotrope Decks
 - "Allotrope format" means the real house template, not the apdeck navy/Calibri spec: copy `~/Downloads/ee-heat/gap/Call Notes & Meetings/2026_Allotrope-Gap Kickoff Call v7 final.pptx` (Cabin, teal banner, solar/wind cover), keep its cover, clone its banner, draw native shapes. Pattern: `ee-heat/reports/build_gap_priorities_on_template.py`.
