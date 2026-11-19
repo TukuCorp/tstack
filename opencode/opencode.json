@@ -1,9 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": true,
-  "plugin": [
-    "@different-ai/opencode-browser"
-  ],
   "skills": {
     "paths": [
       "C:\\Users\\<USER>\\.config\\opencode\\skills"
