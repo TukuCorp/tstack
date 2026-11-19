@@ -11,6 +11,7 @@ Plain-text files are the deduplicated cue text joined into one paragraph, so rol
 ## Videos
 
 01 - EvaDsV_HHSU - 30 minutes learning, 65 plus Claude agents, one Chief Agent, coordinated PMs, self-improving loops - about 27 min - 5445 words - https://www.youtube.com/watch?v=EvaDsV_HHSU
+   Content note: despite the title, the video is an Anthropic webinar on Claude Code token and prompt-cache use (/context, CLAUDE.md vs skills, model and effort choice, subagents, managed settings); no multi-agent "Chief Agent" setup is shown.
 02 - SgBKD8wm89k - Agentic Coding at Scale, Verification Loops That Actually Work, Anthropic - about 56 min - 8641 words - https://www.youtube.com/watch?v=SgBKD8wm89k
 03 - O8cl4R5VEOI - How I Am Actually Using AI These Days - about 25 min - 5838 words - https://www.youtube.com/watch?v=O8cl4R5VEOI
 04 - JQKjxmMZJj4 - Stop Auditing Excel Manually, Let Claude Do It - about 26 min - 4519 words - https://www.youtube.com/watch?v=JQKjxmMZJj4

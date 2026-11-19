@@ -83,6 +83,8 @@ If the edited skill is one the user mirrors across tools (the same skill under o
 
 After editing, parse-check the frontmatter of every touched `SKILL.md` (`claude plugin validate <skills-dir>` works for a whole folder).
 
+Then replay: for each edit made to fix a scored failure, give a fresh subagent (no access to this conversation) the original user prompt from the failed session and the edited skill, and check that it now takes the corrected step. The thread that wrote the fix knows too much to test it. If it still fails, say so in the finish list instead of calling the edit done.
+
 Finish with a short list, no preamble:
 
 - Edits applied: `<skill path>`, what changed, one line each.

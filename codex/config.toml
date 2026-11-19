@@ -3,6 +3,7 @@ model_reasoning_effort = "medium"
 approval_policy = "never"
 approvals_reviewer = "user"
 sandbox_mode = "danger-full-access"
+check_for_update_on_startup = false  # update dialog blocked herdr swarm lane startup (2026-11-18, 2 sessions)
 notify = [
     'C:\Users\<USER>\AppData\Local\OpenAI\Codex\runtimes\cua_node\b63ee7ee40c23b77\bin\node_modules\@oai\sky\bin\windows\codex-computer-use.exe',
     "turn-ended",

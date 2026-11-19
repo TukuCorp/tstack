@@ -75,6 +75,8 @@ For each approved Accepted row, follow its Routing exactly:
 
 If the edited skill is one the user mirrors across tools (the same skill under other agent tools' skill folders), list the matching edit for each mirror copy next to the row, adapted to that copy's frontmatter, paths, and tool names, so the user approves them together. Apply them all, or none.
 
+Then replay: for each edit made to fix a scored failure, give a fresh `delegate_task` agent (no access to this conversation) the original user prompt from the failed session and the edited skill, and check that it now takes the corrected step. The thread that wrote the fix knows too much to test it. If it still fails, say so in the finish list instead of calling the edit done.
+
 The skill validator runs on `skill_manage` writes. Fix anything it rejects before declaring done.
 
 Finish with a short list, no preamble:

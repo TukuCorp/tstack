@@ -13,6 +13,7 @@
 
 ## Verification
 - End each task with a runnable check (test, build, script, screenshot) and show the command and its output as proof; "looks done" is not done.
+- For rendered output (HTML pages, artifacts, decks, anything "mobile friendly"), run `python -X utf8 C:/Users/<USER>/.codex/skills/verify/scripts/shot.py <url-or-file>` (add `--artifact` for an artifact's local source) and look at the PNGs. It emulates real phones, not a narrow window, and flags overflow and off-screen controls.
 - When a result falls short, escalate in order: add or tighten that check, then raise effort one level, then move up a model.
 - Briefs (my prompts, subagent and swarm lanes, scheduled jobs) state Goal, Why, Constraints, Out of scope and Check. Leave out what the agent can read from the repo.
 - Unattended runs (loops, swarms, scheduled jobs) also set a turn or spend limit and say where output lands for my approval. Pilot on about 3 items before running the rest.
