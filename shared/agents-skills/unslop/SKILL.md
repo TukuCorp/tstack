@@ -1,6 +1,6 @@
 ---
 name: unslop
-description: Cut AI tells from prose meant for human readers (docs, reports, emails, slides, chat replies). Skip code, identifiers, quoted or reviewer text, and a skill's or domain's defined vocabulary.
+description: Use whenever the user says "unslop" (or typos like "unslip"), "unslop text", "de-slop", or "in my own voice" for any draft, including emails, slide text and decks built in the same task. Cuts AI tells from prose meant for human readers (docs, reports, emails, slides, chat replies). Skip code, identifiers, quoted or reviewer text, and a skill's or domain's defined vocabulary.
 ---
 
 # Unslop
