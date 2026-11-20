@@ -221,7 +221,7 @@ def scan_report():
 
 # ---------- 3. HERDR REVIEW TAB ----------
 def open_herdr(report_path):
-    tag = datetime.now().strftime("%m%d")
+    tag = datetime.now().strftime("%m%d-%H%M")  # unique per run (agent names are global)
     rc, out, err = run([HERDR, "workspace", "create", "--label", f"disk-cleanup-{tag}",
                         "--cwd", str(OUT_DIR), "--no-focus"], timeout=30)
     if rc:
