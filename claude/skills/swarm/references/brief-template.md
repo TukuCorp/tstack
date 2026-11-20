@@ -27,6 +27,7 @@ Out of scope: <what this lane must not research, edit or write, including the ot
 3. Search and read sources in <language> first. Write findings in <language> (headers may be English).
 4. UTF-8 for all files; in Python pass encoding="utf-8" and reconfigure stdout. Avoid the dollar sign in shell text.
 5. No dozens of browser tabs; fetch with scripts and keep only the fields you need.
+6. Never call a tool whose name starts with `default.` or `mcp__codex_apps__`, or a node REPL. On routed models such a call ends the stream with "routed provider emitted undeclared client tool", and `/goal resume` replays it. Search with the web search tool under its exact declared name, or with a Python fetch of DuckDuckGo HTML or Bing.
 
 ## Output
 `<prefix>-<lane>.md`: Method and evidence limits; Candidate table (fields, labels, URL, date); Scores and ranking; <extra sections>; What the sources agree on (5 bullets); Where sources conflict or are thin; Sources (numbered).

@@ -31,7 +31,9 @@ notify() {
   elif [ "${WATCHDOG_DRY:-}" = 1 ]; then
     echo "NOTICE: $1"
   else
-    herdr agent prompt "$caller" "$1" --timeout 30000 >/dev/null
+    # Herdr 2026-11: `agent prompt --timeout` is rejected unless --wait is given, and a
+    # report prompt must not wait; a failed send is echoed so the tab shows it.
+    herdr agent prompt "$caller" "$1" >/dev/null || echo "NOTICE NOT SENT: $1"
   fi
 }
 
@@ -63,7 +65,8 @@ watch_lane() {
         [ -z "$st" ] && return
         if [ "$st" != working ]; then
           notify "watchdog: $lane stopped ($st) without a report-back; read its pane and output file"
-          return
+          # keep watching: the caller may resume or re-prompt the lane
+          herdr agent wait "$lane" --until working >/dev/null 2>&1 || return
         fi ;;
     esac
   done

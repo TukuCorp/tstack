@@ -18,6 +18,7 @@ Out of scope: <what this lane must not research, edit or write, including the ot
 ## Evidence rules
 - Allowed, by weight: <official documents, primary sources, dated news from named outlets, ...>.
 - Excluded as evidence: <forums, social media, anonymous testimonials, SEO list sites that copy each other, ...>.
+- If the output carries verbatim quotes, check each one appears on the fetched page by script (normalise whitespace and diacritics) before writing it; a quote not found on the page is dropped and the claim's label lowered. (2026-11-17 PDP8 run: a verifier found invented quotes behind two VERIFIED rows.)
 - Label every claim: VERIFIED (independent or primary source seen; URL and date), PARTIAL, CLAIMED (the subject's own page only), NOT FOUND, UNVERIFIED. Never invent figures, names, licence numbers or contact details. NOT FOUND is an acceptable answer.
 
 ## Hard rules
@@ -26,6 +27,7 @@ Out of scope: <what this lane must not research, edit or write, including the ot
 3. Search and read sources in <language> first. Write findings in <language> (headers may be English).
 4. UTF-8 for all files; in Python pass encoding="utf-8" and reconfigure stdout. Avoid the dollar sign in shell text.
 5. No dozens of browser tabs; fetch with scripts and keep only the fields you need.
+6. Never call a tool whose name starts with `default.` or `mcp__codex_apps__`, or a node REPL. On routed models such a call ends the stream with "routed provider emitted undeclared client tool", and `/goal resume` replays it. Search with the web search tool under its exact declared name, or with a Python fetch of DuckDuckGo HTML or Bing.
 
 ## Output
 `<prefix>-<lane>.md`: Method and evidence limits; Candidate table (fields, labels, URL, date); Scores and ranking; <extra sections>; What the sources agree on (5 bullets); Where sources conflict or are thin; Sources (numbered).
@@ -40,8 +42,6 @@ When the file is finished, as your very last actions:
 (replace N with the real row count; do not use --wait). If you could not finish, still do both with the true state, for example "<lane> finished: partial, file <prefix>-<lane>.md". If you receive a fix request later, do both again when the fixes are done.
 ```
 
-In a chat-gateway session (see SKILL.md §0), drop step 2: the last action only creates the marker file, and the caller's background waiter reports it to the chat.
-
 Why each part exists:
 
 - **Context and the other lane's slice** keep lanes from overlapping and let the agent see the purpose behind the task.
@@ -49,3 +49,5 @@ Why each part exists:
 - **Hard rules 1-2** exist because earlier agents were stopped by content filters and by runaway output when briefs left them out.
 - **Out of scope and Done when** give the agent a boundary and a stopping test. Without them, open-ended briefs drift or stop early.
 - **The last action** is how the caller learns the lane is done without polling. The marker file tells the stall watchdog the lane reported, so it stays quiet.
+
+In a chat-gateway session (see SKILL.md §0), drop step 2: the last action only creates the marker file, and the caller's background waiter reports it to the chat.
