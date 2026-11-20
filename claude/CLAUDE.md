@@ -54,6 +54,7 @@
 - Use Claude in Chrome (`mcp__claude-in-chrome__*`) first for interactive tasks in my logged-in Chrome. It works in its own tab group. Use browse for scripted or repeatable Playwright work, and when Claude in Chrome fails after 2-3 attempts, say why.
 - Logged-in Chrome (my real profile, which I am using at the same time): use `browse` (MCP server or CLI), and load the browse skill first. Work only in sessions and tabs you created or that I lent you with the toolbar button; never navigate, click, type or close in my other tabs. Leave the `gdrive-daily` session alone: a scheduled job uses it.
 - Headless or throwaway browsing (public pages, localhost testing, scraping, screenshots): use `agent-browser`. Run `agent-browser skills get core` before the first use in a session, and `agent-browser close` when done.
+- Downloads: get files without a browser so they finish while I'm away: `gws` for Google files, `curl -L -o <path> <url>` for direct links, headless `agent-browser download <sel> <path>` when a page must be clicked. Use Claude in Chrome or `browse` only when the file needs my logged-in session, and say so.
 - For Google files, add `authuser=<EMAIL>` (the work account is not the default).
 
 ## Desktop Apps
