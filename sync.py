@@ -59,6 +59,8 @@ SOURCES = [
     (".hermes/cron", "hermes/cron", "tree"),
     # Live Hermes plugins dir; herdr-agent-state there is installed by herdr itself, so only mine.
     ("AppData/Local/hermes/plugins/swarm-gateway-guard", "hermes/plugins/swarm-gateway-guard", "tree"),
+    # Live Hermes cron script (job "Weekly Disk Cleanup (Sunday)"); the job itself is recreated per README.
+    ("AppData/Local/hermes/scripts/disk-cleanup.py", "hermes/live-scripts/disk-cleanup.py", "file"),
     (".agents/skills", "shared/agents-skills", "tree"),
     ("AGENTS.md", "shared/AGENTS.md", "file"),
     ("AppData/Local/noctty/config.ghostty", "noctty/config.ghostty", "file"),

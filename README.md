@@ -9,7 +9,7 @@ run in. `bootstrap.ps1` rebuilds the whole setup on a new machine.
 | `claude/` | Claude Code | `~/.claude` (`skills-synced/` = my skills synced from claude.ai) |
 | `codex/` | OpenAI Codex | `~/.codex` |
 | `opencode/` | Opencode | `~/.config/opencode` |
-| `hermes/` | Hermes | `~/.hermes` + workflow skills from `%LOCALAPPDATA%/hermes/skills` (software-development, opencode, research, engineering, gloop, unslop) |
+| `hermes/` | Hermes | `~/.hermes`, the disk-cleanup cron script (`live-scripts/`) + workflow skills from `%LOCALAPPDATA%/hermes/skills` (software-development, opencode, research, engineering, gloop, unslop) |
 | `shared/` | cross-tool | `~/.agents/skills`, `~/AGENTS.md` |
 | `noctty/` | noctty terminal | `%LOCALAPPDATA%/noctty/config.ghostty` + `~/.config/noctty` (`dotconfig/`: shaders, backgrounds) |
 | `herdr/` | herdr multiplexer | `%APPDATA%/herdr/config.toml`; `plugins.json` = GitHub plugins to reinstall; `local-plugins.json` + `local-plugins/*.patch` = patched clones in `~/.herdr/local-plugins` (upstream commit + my diff), when there are any |
@@ -70,6 +70,12 @@ powershell -ExecutionPolicy Bypass -File bootstrap.ps1
    Claude/Codex/Hermes memory stores from it when they are empty, and registers its daily `wiki-sync` task.
 
 Then sign in to each tool and fill the values `restore.py` listed.
+
+Hermes cron jobs are not mirrored (they hold client details). The one tied to a mirrored script is
+the weekly disk cleanup (`hermes/live-scripts/disk-cleanup.py`: deterministic safe clean, then a
+herdr tab with a file-tools-only Hermes agent on `deepseek-v4.1-flash` that ranks what's left).
+Recreate it with:
+`hermes cron create "0 10 * * 0" --name "Weekly Disk Cleanup (Sunday)" --no-agent --script disk-cleanup.py --deliver origin --catch-up on`
 
 `restore.py` (`--dry-run` to preview) is the reverse of `sync.py`: every file goes back to the path
 it came from, `<USER>` becomes the current username, and a live file it changes is backed up as
