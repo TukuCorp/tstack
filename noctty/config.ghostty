@@ -88,14 +88,17 @@ font-family = JetBrainsMono NF
 # paste (Ctrl+V) was unbound; Noctty forwards ^V to the app instead of pasting
 keybind = ctrl+v=paste_from_clipboard
 
-# --- background image (procedural dark PCB, generated to match the Matrix palette) ---
-background-image = C:/Users/<USER>/.config/noctty/backgrounds/pcb-dark.png
-background-image-fit = cover
-background-image-position = bottom-right
-background-image-opacity = 0.3
-background-image-repeat = false
+# Background image (pcb-dark.png) and CRT shader (crt_finish.glsl) removed 2026-11-20:
+# with herdr they cost ~45% flood speed, +7% CPU on redraws, +47 MB RAM. Assets kept in ~/.config/noctty.
 
-# --- shader: static CRT finish (vignette, faint scanlines, glow on bright text) ---
-# animation off = renders only when the terminal updates; measured ~0% idle cost. Cursor trail (cursor_tail.glsl) needs animation on, ~17% CPU idle, so it's not loaded.
-custom-shader = C:/Users/<USER>/.config/noctty/shaders/crt_finish.glsl
-custom-shader-animation = false
+# Home (hide/show this window) is handled by AutoHotkey: ~/.config/ahk/noctty-toggle.ahk, run from the Startup folder.
+
+# --- cap visible-but-unfocused panes at 15 fps (default 30) to cut CPU from busy agents ---
+unfocused-render-fps = 15
+
+# --- quick select (Ctrl+Shift+Space): setting any pattern replaces the built-ins, so URL/path/SHA are re-added ---
+# herdr ids like w3S:p3 / w3S:t3
+quick-select-patterns = \b[A-Za-z0-9]+:[pt][0-9]+\b
+quick-select-patterns = https?://[^\s"'<>]+
+quick-select-patterns = [A-Za-z]:[\\/][^\s"'<>|]+
+quick-select-patterns = \b[0-9a-f]{7,40}\b

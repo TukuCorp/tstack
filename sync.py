@@ -65,13 +65,15 @@ SOURCES = [
     ("AGENTS.md", "shared/AGENTS.md", "file"),
     ("AppData/Local/noctty/config.ghostty", "noctty/config.ghostty", "file"),
     (".config/noctty", "noctty/dotconfig", "tree"),  # shaders, background images
+    # Home hides/shows the noctty window (AutoHotkey v2); bootstrap adds its Startup shortcut.
+    (".config/ahk/noctty-toggle.ahk", "ahk/noctty-toggle.ahk", "file"),
     ("AppData/Roaming/herdr/config.toml", "herdr/config.toml", "config"),
     ("AppData/Roaming/herdr/plugins.json", "herdr/plugins.json", "herdr-plugins"),
     # UTF-8 stdio even under `python -I`; path assumes winget's per-user Python 3.14 install.
     ("AppData/Local/Programs/Python/Python314/Lib/site-packages/sitecustomize.py",
      "machine/python/sitecustomize.py", "file"),
 ]
-TOOL_DIRS = ["claude", "codex", "opencode", "hermes", "shared", "noctty", "herdr", "machine"]
+TOOL_DIRS = ["claude", "codex", "opencode", "hermes", "shared", "noctty", "ahk", "herdr", "machine"]
 
 # herdr plugins I run as patched local clones (`herdr plugin link`), mirrored as upstream + patch.
 HERDR_LOCAL_PLUGINS = ".herdr/local-plugins"

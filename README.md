@@ -12,6 +12,7 @@ run in. `bootstrap.ps1` rebuilds the whole setup on a new machine.
 | `hermes/` | Hermes | `~/.hermes`, the disk-cleanup cron script (`live-scripts/`) + workflow skills from `%LOCALAPPDATA%/hermes/skills` (software-development, opencode, research, engineering, gloop, unslop) |
 | `shared/` | cross-tool | `~/.agents/skills`, `~/AGENTS.md` |
 | `noctty/` | noctty terminal | `%LOCALAPPDATA%/noctty/config.ghostty` + `~/.config/noctty` (`dotconfig/`: shaders, backgrounds) |
+| `ahk/` | AutoHotkey v2 | `~/.config/ahk/noctty-toggle.ahk`: Home hides/shows the noctty window (live herdr session); bootstrap adds a Startup shortcut |
 | `herdr/` | herdr multiplexer | `%APPDATA%/herdr/config.toml`; `plugins.json` = GitHub plugins to reinstall; `local-plugins.json` + `local-plugins/*.patch` = patched clones in `~/.herdr/local-plugins` (upstream commit + my diff), when there are any |
 | `machine/` | global CLIs | `packages.json`: npm / bun / uv tools installed globally |
 
@@ -59,7 +60,7 @@ powershell -ExecutionPolicy Bypass -File bootstrap.ps1
 
 `bootstrap.ps1` skips anything already installed, so it is safe to re-run:
 
-1. **winget**: Git, GitHub CLI, Node LTS, Python, uv, Bun, noctty, JetBrainsMono Nerd Font.
+1. **winget**: Git, GitHub CLI, Node LTS, Python, uv, Bun, noctty, AutoHotkey v2, JetBrainsMono Nerd Font.
 2. **Agent CLIs** via each project's official installer: Claude Code, Codex, herdr, Hermes.
 3. **Global packages** from `machine/packages.json` (npm, bun, uv tools).
 4. **Configs** via `restore.py` (below).

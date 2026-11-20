@@ -33,6 +33,7 @@ $Winget = [ordered]@{
     'astral-sh.uv'                 = { Have uv }
     'Oven-sh.Bun'                  = { Have bun }
     'AmanThanvi.noctty'            = { Test-Path "$env:LOCALAPPDATA\Programs\noctty" }
+    'AutoHotkey.AutoHotkey'        = { Test-Path "$env:LOCALAPPDATA\Programs\AutoHotkey\v2\AutoHotkey64.exe" }
     'DEVCOM.JetBrainsMonoNerdFont' = { [bool](Get-ChildItem "$env:LOCALAPPDATA\Microsoft\Windows\Fonts", "$env:WINDIR\Fonts" -Filter 'JetBrainsMonoNerdFont*' -ErrorAction SilentlyContinue) }
 }
 # Tools whose official Windows install is a script (from each project's README)
@@ -110,6 +111,19 @@ elseif ((Have herdr) -and (Have git)) {
         }
     }
 } else { Write-Host '    herdr or git missing; skipped' -ForegroundColor Red }
+
+Step 'noctty Home toggle (AutoHotkey Startup shortcut)'
+$AhkExe = "$env:LOCALAPPDATA\Programs\AutoHotkey\v2\AutoHotkey64.exe"
+$AhkScript = "$HOME\.config\ahk\noctty-toggle.ahk"
+$AhkLnk = Join-Path ([Environment]::GetFolderPath('Startup')) 'noctty-toggle.lnk'
+if (Test-Path $AhkLnk) { Write-Host '    ok: shortcut' }
+elseif ((Test-Path $AhkExe) -and (Test-Path $AhkScript)) {
+    Run 'create Startup shortcut + start script' {
+        $s = (New-Object -ComObject WScript.Shell).CreateShortcut($AhkLnk)
+        $s.TargetPath = $AhkExe; $s.Arguments = "`"$AhkScript`""; $s.Save()
+        Start-Process $AhkExe -ArgumentList "`"$AhkScript`""
+    }
+} else { Write-Host '    AutoHotkey or script missing; skipped' -ForegroundColor Red }
 
 Step 'agent-browser Chrome (headless browsing)'
 if (Test-Path "$HOME\.agent-browser\browsers\*") { Write-Host '    ok: agent-browser Chrome' }
