@@ -46,6 +46,16 @@
         ]
       },
       {
+        "matcher": "^(startup|resume|clear|compact)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "quota-axi --provider claude --max-age 5m --no-credential-refresh",
+            "timeout": 20
+          }
+        ]
+      },
+      {
         "matcher": "^(startup|resume|clear|compact|fork)$",
         "hooks": [
           {

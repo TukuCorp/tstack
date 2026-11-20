@@ -10,7 +10,7 @@ Fan one task out to a few Codex agents on a model the user picks for this run, e
 
 This skill is self-contained. The Herdr commands it needs are in `references/herdr-cli.md`; the brief layout is in `references/brief-template.md`; the stall watchdog is `scripts/watchdog.sh`. Read the first before you launch anything.
 
-Parallel agents use quota several times faster than one chat. For a big run, check what the chosen model has left before launching.
+Parallel agents use quota several times faster than one chat. Before launching, run `quota-axi` (the quota-axi skill explains the output) and check the lane the chosen model draws on: `codex` for Codex subscription models, `agy` for Antigravity, `opencode-go` for that plan. If it shows `projected_exhaustion` before the run would finish, or under 20% left, tell the user with the numbers and offer a different model family or fewer lanes. Models billed per token through the proxy have no quota row; say so instead of guessing.
 
 ## 0. Preconditions
 
