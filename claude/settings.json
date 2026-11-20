@@ -27,7 +27,11 @@
     "anthropic-skills:chrome-browser": "off",
     "anthropic-skills:plan": "off",
     "anthropic-skills:present": "off",
-    "anthropic-skills:research": "off"
+    "anthropic-skills:research": "off",
+    "dloop": "off",
+    "gloop": "off",
+    "teach": "off",
+    "anthropic-skills:pdf": "off"
   },
   "hooks": {
     "SessionStart": [
@@ -67,7 +71,7 @@
   },
   "enabledPlugins": {
     "discord@claude-plugins-official": false,
-    "typesafe@typesafe-ai": true,
+    "typesafe@typesafe-ai": false,
     "apollo@synced": false,
     "pdf-viewer@synced": false,
     "design@synced": false,
@@ -84,9 +88,9 @@
     "data@synced": false,
     "cowork-plugin-management@synced": false,
     "enterprise-search@synced": false,
-    "frontend-design@anthropic-plugin-directory": true,
+    "frontend-design@anthropic-plugin-directory": false,
     "code-modernization@anthropic-plugin-directory": true,
-    "plugin-dev@claude-plugins-official": true,
+    "plugin-dev@claude-plugins-official": false,
     "feature-dev@claude-plugins-official": true,
     "superpowers@superpowers-marketplace": false
   },
