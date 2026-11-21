@@ -14,6 +14,7 @@ Scan for:
 - Decisions and their rationale
 - Friction in skill execution, orchestration, or delegation
 - Repeated manual steps that could be automated or encoded
+- Rule-file lines (CLAUDE.md, AGENTS.md) that changed nothing, restate a skill, or hold a coding standard only a reviewer needs. Route these as `steering: <rule file path>` (prune or move the line); they are exempt from the scope rule below
 
 ## Scope to skills and tools the session actually used
 

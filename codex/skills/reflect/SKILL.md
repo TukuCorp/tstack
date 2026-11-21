@@ -5,7 +5,7 @@ description: Audit how well your installed skills perform by scoring recent loca
 
 # Reflect
 
-Two modes. Both end in proposed skill edits that the user approves before anything changes.
+Two modes. Both end in proposed edits (skills, rule files, checks) that the user approves before anything changes.
 
 | Mode | Trigger | Looks at | Output |
 |---|---|---|---|
@@ -56,7 +56,7 @@ One more subagent (or yourself, if subagents are unavailable) runs `references/s
 
 ### 4. Structural enforcement check
 
-Sanity-check the Accepted list. Any item that a lint rule, script, hook, metadata flag, or runtime check would enforce more reliably than prose moves from Accepted to Backlog. Prose is for judgment calls that mechanisms can't enforce. Check the reverse too: a hook or rule that only states a preference, or one written for older models (ALL CAPS, "think harder", "don't be lazy"), is a removal candidate. Newer models need fewer instructions, so prune and add back only what the model then misses.
+Sanity-check the Accepted list. Any item that a lint rule, script, hook, test or CI job would enforce more reliably than prose becomes a `check:` row; it moves to Backlog only when the check can't be built cheaply now. Prose is for judgment calls that mechanisms can't enforce. Check the reverse too: a hook, rule or rule-file line that only states a preference, or one written for older models (ALL CAPS, "think harder", "don't be lazy"), is a removal candidate. Newer models need fewer instructions, so prune and add back only what the model then misses.
 
 ### 5. Approval
 
@@ -74,6 +74,9 @@ For each approved Accepted row, follow its Routing exactly:
 - Substantive edit (a new section, a pattern table, more than ~10 lines): use the `skill-creator` skill if available, otherwise draft the change, show the diff, then apply. In audit mode the drafted file is already in `reports/reflect-<date>/proposed/`.
 - `tune description: <skill path>`: rewrite the description to front-load the trigger phrases the user actually used.
 - `new skill: <kebab-name>`: create it with `skill-creator`, matching the frontmatter conventions of the user's existing skills. Don't invent a shape ad hoc.
+- `check: <mechanism>`: add it to the repo's existing linter, pre-commit hook or CI job before creating a new one. Prove it red then green: run it against the session's mistake (reintroduce the mistake in a scratch copy if it is already fixed) and show it fail, then pass on the fixed code.
+- `steering: <rule file path>`: make the edit, keeping the file to navigation pointers and rules every session needs. If the user mirrors that rule file in other harnesses, list the matching edit for each copy, as for skill mirrors below.
+- `review: <path>`: add the standard to the repo's `REVIEW.md`, creating it if needed, so the review step enforces it.
 
 If the edited skill is one the user mirrors across tools (the same skill under other agent tools' skill folders), list the matching edit for each mirror copy next to the row, adapted to that copy's frontmatter, paths, and tool names, so the user approves them together. Apply them all, or none.
 
@@ -85,6 +88,8 @@ Finish with a short list, no preamble:
 
 - Edits applied: `<skill path>`, what changed, one line each.
 - New skills created: `<skill path>`, one line each (rare).
+- Checks added: the mechanism plus its red and green commands, one line each.
+- Rule-file edits: `<path>`, what changed, one line each.
 - Backlog added to `lessons.md`: one line each.
 - Dropped: one line per rejected finding, with the reason.
 

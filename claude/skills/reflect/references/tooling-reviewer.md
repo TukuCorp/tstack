@@ -18,6 +18,17 @@ Examples of the pattern:
 - User describes a flaky test the agent could have queried via an observability MCP. Routing: the debugging skill should mention the observability MCP.
 - User links a chat thread the agent could have fetched via a chat MCP. Routing: the relevant skill should mention the chat MCP.
 
+## Lens addition: environment
+
+Some fixes belong in the agent's environment, not in a skill. Flag each of these:
+
+- **Navigation**: the agent spent several calls finding a file, command or fact that one pointer line would have handed it. Routing: `steering: <rule file path>` with the pointer.
+- **Automated checks**: a mistake that a linter, type check, test, pre-commit hook or CI job would have caught. Read the repo's own check command first (package scripts, Makefile, pyproject, CI workflow): a check that exists but is unwired or silently broken is the finding, not a new one. A repo with no guardrail at all (no hook and no CI job running its lint or tests) is a finding in its own right. Routing: `check: <mechanism and where it goes>`.
+- **Tool economy**: a call that cost far more tokens or time than its answer needed (a whole-file read for one line, an unfiltered listing, a verbose CLI run without its quiet or JSON flag). Routing: the skill that made the call, or `steering:` when none did.
+- **Information access**: the agent lacked logs, state or read-only access that would have settled a question quickly (a dev server's output teed to a file, a read-only token, a status command). Routing: `check:` for a script that provides it, or the skill that should fetch it.
+
+`steering:` and `check:` rows are exempt from the scope rule below: rule files load in every session, and checks live in the repo.
+
 Read the session digest at <ABSOLUTE_PATH> (or use the digest below if no path is given). Each line is `user:`, `assistant:`, `assistant TOOL <name>:`, or `RESULT:`; long messages are truncated. Search it before reading it end to end.
 
 Scan for:
