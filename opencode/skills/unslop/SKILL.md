@@ -27,6 +27,8 @@ grep -niE '\b(the|this) (read|picture|takeaway|open question)\b|put it best|then
 grep -nE '\[(Your|Insert|Describe|Name)[^]]*\]' draft.md
 ```
 
+Then run the lexicon scan from this skill's folder: `python -X utf8 scripts/lexicon_scan.py draft.md`. It matches the draft against `references/ai-tells-lexicon.csv` (about 290 phrases and templates with a suggested fix each) and skips code. Fix every `FIX` hit unless a glossary, the house style or quoted text covers it, and judge each `JUDGE` hit in context. The lexicon cannot see rhythm, so rule 43 still needs a read.
+
 For text that isn't in a file, write it to a temp file first or run the same check by eye, word by word.
 
 ## Output
@@ -88,7 +90,7 @@ Calibrate this to the audience. Opinions, first person and deliberate mess suit 
 
 ### Filler
 
-23. **Filler phrases.** "In order to" becomes "To". "Due to the fact that" becomes "Because". "It is important to note that" gets deleted. "Worth noting", "it's crucial to remember" and "may vary" go the same way: give the fact itself.
+23. **Filler phrases.** "In order to" becomes "To". "Due to the fact that" becomes "Because". "It is important to note that" gets deleted. "Worth noting", "it's crucial to remember" and "may vary" go the same way: give the fact itself. Say a thing once: "completely finished", "past history", "free gift", "end result", "close proximity", "at this point in time" (now).
 24. **Excessive hedging.** "could potentially possibly be argued that it might" becomes "may". Cut stacked and disclaimer-style hedges, not every qualifier: a plain "perhaps", "very" or "tends to" is how people write. Also cut false balance that dodges a judgment the evidence supports: "Both sides present valid points", "There are pros and cons", "Reasonable people may disagree". Make the strongest claim the evidence allows.
 25. **Generic conclusions.** "The future looks bright." State specific plans or facts. Also "In summary", "In conclusion", "Overall", and a closing line that restates each section's point. Also an ending that settles what the body left open or turns one case into a universal lesson. End one step before the model wants to, on a decision, cost, consequence or specific open question.
 
@@ -124,6 +126,10 @@ Calibrate this to the audience. Opinions, first person and deliberate mess suit 
 41. **Stock openers and frames.** "In today's fast-paced world", "In the ever-evolving landscape of", "In the realm of", "At its core", "When it comes to", "The truth is", "Now more than ever", "At the end of the day", "Moving forward", "One thing is clear". Delete the frame and start with the fact, date, name or action.
 42. **Business jargon.** "problem space", "solution space", "value proposition", "go-to-market motion", "operating cadence", "pain points", "actionable insights", "move the needle", "low-hanging fruit", "circle back", "frameworks for thinking about X". Name the actual problem, option, action, metric or decision. If the sentence can't be restated without the jargon, the claim underneath is vague. Keep a term that a glossary or the house documents use precisely.
 
+### Sentence shapes
+
+43. **Repeated sentence shapes.** The rhythm gives the draft away even when every word is plain. Watch for a three-beat run of short sentences where one would do ("It mattered. It changed things. It was real."), the "No X. No Y. Just Z." punchline, a list with its final "and" dropped for drama ("She opened the laptop, ran the script, watched it fail."), and the same mold in consecutive sentences or paragraphs, such as subject, verb, object, then a trailing "-ing" clause every time. Keep the strongest sentence of a triad and fold in anything new, put the "and" back, and vary the build so the shape follows the content. Rule 34 covers fragments in body copy; this rule covers repetition.
+
 Rules 36 to 40 and the additions to rules 1 to 12, 19 to 25 and 27 to 30 draw on Wikipedia, "Signs of AI writing" (en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing, CC BY-SA 4.0), read 2026-10-21.
 
-`references/overcompletion.md`, rules 41 and 42, and the additions to rules 10, 24, 25 and 33 and to "Adding soul" are adapted from EveryInc/compound-writing (github.com/EveryInc/compound-writing, MIT), skill cw-ai-check at commit 8fd0ec8, read 2026-11-11.
+`references/overcompletion.md`, rules 41 and 42, and the additions to rules 10, 24, 25 and 33 and to "Adding soul" are adapted from EveryInc/compound-writing (github.com/EveryInc/compound-writing, MIT), skill cw-ai-check at commit 8fd0ec8, read 2026-11-11. `references/ai-tells-lexicon.csv` is copied unchanged from the same repo's cw-ai-check, and rule 43 and the redundant pairs in rule 23 draw on its lexicon and cw-hemingway, at commit 90f043c, read 2026-11-21. `scripts/lexicon_scan.py` is written for this skill.
