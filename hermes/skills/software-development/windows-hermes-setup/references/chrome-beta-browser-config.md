@@ -1,6 +1,8 @@
-# Chrome Stable — browse Setup
+# Helium (and Chrome Stable) — browse Setup
 
-**browse (`@opencode/browse`, anomalyco/browse) is the default browser automation for this user.** It replaced browser-control on 2026-11-07. The built-in `browser` toolset (Browserbase/CDP) is disabled; browse's MCP server and CLI replace it. Runs on Chrome **Stable** (`C:\Program Files\Google\Chrome\Application\chrome.exe`).
+**browse (`@opencode/browse`, anomalyco/browse) is the default browser automation for this user.** It replaced browser-control on 2026-11-07. The built-in `browser` toolset (Browserbase/CDP) is disabled; browse's MCP server and CLI replace it. Since 2026-11-21 the daily browser is **Helium** (`%LOCALAPPDATA%\imput\Helium\Application\chrome.exe`, browse browser id `chrome-<TAILNET_MACHINE>-2`); Chrome Stable (`chrome-<TAILNET_MACHINE>`) stays paired as a fallback. Both show the same display name, so target Helium by id: MCP `session_new { browser: "chrome-<TAILNET_MACHINE>-2" }`. The CLI has no browser flag and uses the first connected browser.
+
+Helium setup: the Web Store page may render blank, so copy the extension from Chrome's `User Data\Default\Extensions\mfnicocicmmlkpjnaffgihfjhdgjkdjg\<ver>` to `%LOCALAPPDATA%\imput\browse-ext`, delete `_metadata`, then in `helium://extensions` turn on Developer mode and Load unpacked (the manifest `key` keeps the ID). Pair by running `browse pair` and opening `chrome-extension://mfnicocicmmlkpjnaffgihfjhdgjkdjg/onboarding.html#code=<CODE>&port=19988` in Helium. The unpacked copy never auto-updates: recopy and click reload after a browse update.
 
 ## One-time setup
 
@@ -40,7 +42,7 @@ browse execute --rm 'await page.goto("https://example.com"); return await page.t
 - Relay auto-starts on first command, `127.0.0.1:19988`. Data: `~/.config/browse`, `~/.local/share/browse`, logs in `~/.local/state/browse/logs`.
 - Agent tabs open in the background in a collapsed group; idle tabs close after 10 minutes.
 - Execute code has no `fs`/`require`: use `files.write(name, data)` / `files.read(path)` (temp dir and `OPENCODE_BROWSER_FILE_ROOTS` only, `;`-separated) and copy results into place from the shell.
-- Scheduled job: cron "Linh Daily Log 8pm Reminder" runs `scripts/linh-daily-log-export.py` in session `gdrive-daily`; leave that session alone.
+- Scheduled job: cron "Linh Daily Log 8pm Reminder" runs `scripts/linh-daily-log-export.py` with `browse execute --rm` (one-shot session, tab closed afterward). Leave no standing browse sessions.
 
 ## Memory note
 

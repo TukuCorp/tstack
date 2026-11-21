@@ -35,6 +35,7 @@ $Winget = [ordered]@{
     'AmanThanvi.noctty'            = { Test-Path "$env:LOCALAPPDATA\Programs\noctty" }
     'AutoHotkey.AutoHotkey'        = { Test-Path "$env:LOCALAPPDATA\Programs\AutoHotkey\v2\AutoHotkey64.exe" }
     'DEVCOM.JetBrainsMonoNerdFont' = { [bool](Get-ChildItem "$env:LOCALAPPDATA\Microsoft\Windows\Fonts", "$env:WINDIR\Fonts" -Filter 'JetBrainsMonoNerdFont*' -ErrorAction SilentlyContinue) }
+    'ImputNet.Helium'              = { Test-Path "$env:LOCALAPPDATA\imput\Helium\Application\chrome.exe" }
 }
 # Tools whose official Windows install is a script (from each project's README)
 $Installers = [ordered]@{
@@ -149,8 +150,16 @@ Write-Host @'
     - Sign in: claude, codex login, gh auth login, hermes setup, opencode auth login, gws auth login, agy (work account; swarm lanes only)
     - Fill the <REDACTED> values restore.py listed above (API keys, MCP env blocks)
     - Restart noctty (Ctrl+Shift+, reloads config) and herdr so they pick up the restored configs
-    - Chrome: sign in to the work account; add browse from the Chrome Web Store
-      (chromewebstore.google.com/detail/mfnicocicmmlkpjnaffgihfjhdgjkdjg), then run browse pair and enter
-      the code on the extension's setup page. Windows: if pair fails with "spawnSync browse ENOENT", set
-      "entry" in ~/.config/browse/settings.json to %APPDATA%\npm\node_modules\@opencode\browse\dist\cli.mjs
+    - Helium is the daily browser (Chrome stays as fallback and as the source of extension updates).
+      Set it as the Windows default (Settings > Default apps) and sign in to the Google accounts.
+    - Extensions: add browse (chromewebstore.google.com/detail/mfnicocicmmlkpjnaffgihfjhdgjkdjg) and
+      Claude to Chrome. Helium's Web Store page can render blank, so copy each from Chrome's
+      User Data\Default\Extensions\<id>\<ver> to %LOCALAPPDATA%\imput\browse-ext and \claude-ext,
+      delete _metadata, then helium://extensions > Developer mode > Load unpacked (the key keeps the ID).
+    - Pair browse: run browse pair, then open in Helium
+      chrome-extension://mfnicocicmmlkpjnaffgihfjhdgjkdjg/onboarding.html#code=<CODE>&port=19988
+      Windows: if pair fails with "spawnSync browse ENOENT", set "entry" in
+      ~/.config/browse/settings.json to %APPDATA%\npm\node_modules\@opencode\browse\dist\cli.mjs
+    - The rule files name Helium's browse browser id and Claude in Chrome deviceId; a new machine gets
+      new ones: update them from browse status and list_connected_browsers.
 '@

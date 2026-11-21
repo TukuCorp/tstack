@@ -1,6 +1,6 @@
 ---
 name: browse
-description: Drive the user's own logged-in Chrome with scripted Playwright through the browse extension and local relay (anomalyco/browse, successor of browser-control). Use when a task needs deterministic Playwright against their real authenticated browser - background agent tabs, session adopt of a lent tab, human handoff for 2FA/CAPTCHA/payment, site secrets, network HAR capture, recording. Inside Claude Code, prefer Claude in Chrome (mcp__claude-in-chrome__*) for interactive work and use browse for scripted or repeatable runs, or when Claude in Chrome fails. Not for headless or throwaway browsing; use agent-browser for that.
+description: Drive the user's own logged-in browser (Helium, Chromium-based) with scripted Playwright through the browse extension and local relay (anomalyco/browse, successor of browser-control). Use when a task needs deterministic Playwright against their real authenticated browser - background agent tabs, session adopt of a lent tab, human handoff for 2FA/CAPTCHA/payment, site secrets, network HAR capture, recording. Inside Claude Code, prefer Claude in Chrome (mcp__claude-in-chrome__*) for interactive work and use browse for scripted or repeatable runs, or when Claude in Chrome fails. Not for headless or throwaway browsing; use agent-browser for that.
 ---
 
 # browse
@@ -22,7 +22,12 @@ it is needed, so do not start `browse serve` first.
 
 ## Local Install
 
-- Browser: Chrome Stable at `C:\Program Files\Google\Chrome\Application\chrome.exe`.
+- Browsers (2026-11-21): Helium is the daily browser (`%LOCALAPPDATA%\imput\Helium\Application\chrome.exe`),
+  paired as browser id `chrome-<TAILNET_MACHINE>-2`; Chrome (`chrome-<TAILNET_MACHINE>`) stays paired and
+  may be closed. Both show the same display name, so target by id: MCP
+  `session_new { browser: "chrome-<TAILNET_MACHINE>-2" }`. CLI 0.0.13 has no browser flag; a CLI
+  `session new` lands on the first connected browser. Helium's extension is an unpacked copy in
+  `%LOCALAPPDATA%\imput\browse-ext` (no auto-update: recopy from Chrome's Extensions folder after a browse update).
 - CLI: `npm install --global @opencode/browse` (npm global root `%APPDATA%\npm\node_modules`).
   Installed 2026-11-07 to replace browser-control; `autoUpdate=notify`, so run
   `browse update` yourself when status says an update exists and the user agrees.
@@ -34,7 +39,7 @@ it is needed, so do not start `browse serve` first.
   which makes Opencode drop every MCP server. Fix it by hand after any re-install.
 - `browse install` on Windows ends with `spawnSync browse ENOENT` (it spawns `browse` without
   `.cmd`); the config writes still succeed. Pair with `browse pair` instead.
-- Scheduled job: Hermes cron "Linh Daily Log 8pm Reminder" uses CLI session `gdrive-daily`.
+- Scheduled job: Hermes cron "Linh Daily Log 8pm Reminder" runs `execute --rm` (one-shot session, tab closed afterward; no standing session since 2026-11-21).
   Leave that session alone.
 
 `browse skill` prints the upstream text for the installed version. After an upgrade, diff it

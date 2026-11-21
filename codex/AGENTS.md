@@ -25,7 +25,7 @@
 - Syntax, accounts and Windows quirks: `~/wiki/wiki/gws-cli.md`.
 
 ## Browser Use
-- Logged-in Chrome (my real profile, which I am using at the same time): use `browse` (MCP server or CLI), and load the browse skill first. Work only in sessions and tabs you created or that I lent you with the toolbar button; never navigate, click, type or close in my other tabs. Leave the `gdrive-daily` session alone: a scheduled job uses it.
+- Logged-in Helium (my daily browser; my real profile, which I am using at the same time): use `browse` (MCP server or CLI), and load the browse skill first. Create sessions with MCP `session_new { browser: "chrome-<TAILNET_MACHINE>-2" }` (Helium); the CLI can't pick a browser and uses whichever connected first. Work only in sessions and tabs you created or that I lent you with the toolbar button; never navigate, click, type or close in my other tabs. Don't leave sessions behind: `session_delete` (CLI `browse session delete`) yours when done, or use `execute --rm` for one-off runs.
 - Headless or throwaway browsing (public pages, localhost testing, scraping, screenshots): use `agent-browser`. Run `agent-browser skills get core` before the first use in a session, and `agent-browser close` when done.
 - Downloads: get files without a browser so they finish while I'm away: `gws` for Google files, `curl -L -o <path> <url>` for direct links, headless `agent-browser download <sel> <path>` when a page must be clicked. Use Claude in Chrome or `browse` only when the file needs my logged-in session, and say so.
 - For Google files, add `authuser=<EMAIL>` (the work account is not the default).

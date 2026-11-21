@@ -60,7 +60,8 @@ powershell -ExecutionPolicy Bypass -File bootstrap.ps1
 
 `bootstrap.ps1` skips anything already installed, so it is safe to re-run:
 
-1. **winget**: Git, GitHub CLI, Node LTS, Python, uv, Bun, noctty, AutoHotkey v2, JetBrainsMono Nerd Font.
+1. **winget**: Git, GitHub CLI, Node LTS, Python, uv, Bun, noctty, AutoHotkey v2, JetBrainsMono Nerd Font,
+   Helium (the daily browser; browse and Claude in Chrome run in it, Chrome stays as fallback).
 2. **Agent CLIs** via each project's official installer: Claude Code, Codex, herdr, Hermes.
 3. **Global packages** from `machine/packages.json` (npm, bun, uv tools).
 4. **Configs** via `restore.py` (below).

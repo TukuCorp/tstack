@@ -1060,7 +1060,7 @@ misregistered:
 | Component | Needed by | Fix |
 |---|---|---|
 | **Microsoft Edge WebView2 Runtime** | Hermes Desktop GUI, Electron wrappers | Check registry at `HKLM\\...\\{F3017226-...}\\pv`. If installed but not registered, see `references/webview2-registry-fix.md`. |
-| **Chrome Stable** (browse) | browse (`@opencode/browse`) via MCP server & CLI — replaces built-in browser toolset | See `references/chrome-beta-browser-config.md` for full setup: npm global install, unpacked extension load, MCP server config, skill preload, and CLI workflow. (Chrome Beta uninstalled Aug 2026 — everything now uses Chrome Stable.) |
+| **Helium** (browse; daily browser since 2026-11-21, Chrome Stable kept as fallback) | browse (`@opencode/browse`) via MCP server & CLI — replaces built-in browser toolset | See `references/chrome-beta-browser-config.md` for full setup: npm global install, unpacked extension load, MCP server config, skill preload, and CLI workflow. (Chrome Beta uninstalled Aug 2026 — everything now uses Chrome Stable.) |
 | **cua-driver** | Computer Use (desktop automation) | `hermes computer-use install` |
 | **Setup Doctor** | Read-only diagnosis of context/speed costs (checks 0-9) | See `references/setup-doctor-2026-08-31.md` — layout discovery, install health, unused skills, memory trim, version check, permission mode |
 | **tmux** (Windows port) | Interactive multi-turn CLI delegation | `winget install arndawg.tmux-windows` |
