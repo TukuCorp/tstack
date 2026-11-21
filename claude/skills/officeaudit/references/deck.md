@@ -25,10 +25,11 @@ For PDFs, or images of tables, read the file and list the numbers by page yourse
 
 1. **Tie-out**: headline and decision numbers match the source, at the stated rounding, for the right period and scenario.
 2. **Internal consistency**: the same figure is identical everywhere it appears (summary vs body vs appendix vs chart); totals add up; percentages match their base; growth rates match the start and end values.
-3. **Units and labels**: units stated and consistent (MW/MWh, tCO2e/MtCO2e, USD/VND, real/nominal, year basis); chart axes labelled; footnotes and sources present and dated.
-4. **Staleness**: data dates, FX rates, tariffs and policy references are current for the audience; flag anything older than the decision needs.
-5. **Claims**: each conclusion follows from the numbers shown; flag a claim the data does not support, or support that is only asserted.
-6. **Hygiene** (minor unless it misleads): typos in numbers, inconsistent decimals, leftover placeholder text, wrong slide numbers in cross-references.
+3. **Baselines**: every change or comparison names what it is measured against. "+32%" is incomplete; "+32% YoY" or "+32% vs plan" is complete. Check the baseline period too: a Covid year, a one-off quarter, a seasonal peak, or a window that starts at a trough flatters the change. Flag the comparison and name the fairer baseline.
+4. **Units and labels**: units stated and consistent (MW/MWh, tCO2e/MtCO2e, USD/VND, real/nominal, year basis); chart axes labelled; footnotes and sources present and dated.
+5. **Staleness**: data dates, FX rates, tariffs and policy references are current for the audience; flag anything older than the decision needs. A headline number with no "as of" date is a finding.
+6. **Claims**: each conclusion follows from the numbers shown; flag a claim the data does not support, or support that is only asserted. A quantitative claim with no number behind it ("strong traction", "healthy pipeline", "significant savings") is a finding: give the figure or soften the claim.
+7. **Hygiene** (minor unless it misleads): typos in numbers, inconsistent decimals, leftover placeholder text, wrong slide numbers in cross-references.
 
 Route model-level problems (a wrong formula behind a number) to `/officeaudit model` rather than solving them here.
 

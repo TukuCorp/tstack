@@ -1,19 +1,20 @@
 ---
 name: officeaudit
-description: Read-only quality audit of office work: `model` audits an Excel or Google Sheets model (formula scan, tie-out ledger, verdict), `deck` checks every number in a deck or report (pptx, docx, pdf, Slides, Docs) against its source model, and `comments` posts the findings as evidence-anchored Google Drive comments. Use for "/officeaudit", "audit this model/workbook", "QC this deck/report before it goes out", "do the numbers tie", "check the numbers against the model", or "leave review comments on this Sheet/Doc/Slides". Finds and ranks issues; changes nothing unless asked.
-argument-hint: "model|deck|comments <file or Drive link> [--model <xlsx>]"
+description: 'Read-only quality audit of office work: `model` audits an Excel or Google Sheets model (formula scan, tie-out ledger, verdict), `deck` checks every number in a deck or report (pptx, docx, pdf, Slides, Docs) against its source model, `memo` reviews an IC memo, proposal or strategy brief as a skeptical decision-maker would (clear ask, testable thesis, measures, costs, fit, alternatives, risks), and `comments` posts the findings as evidence-anchored Google Drive comments. Use for "/officeaudit", "audit this model/workbook", "QC this deck/report before it goes out", "do the numbers tie", "check the numbers against the model", "would IC approve this", "poke holes in this memo/proposal", or "leave review comments on this Sheet/Doc/Slides". Finds and ranks issues; changes nothing unless asked.'
+argument-hint: "model|deck|memo|comments <file or Drive link> [--model <xlsx>]"
 user-invocable: true
 ---
 
 # Office audit
 
-Three subcommands share one stance: review before changing, rank issues by how much they would change a decision, and keep machine-checked facts apart from judgment calls.
+Four subcommands share one stance: review before changing, rank issues by how much they would change a decision, and keep machine-checked facts apart from judgment calls.
 
 - `/officeaudit model <workbook>`: audit a spreadsheet model. Follow `references/model.md`.
 - `/officeaudit deck <deck or report> [--model <workbook>]`: QC a deck, memo or report, tying its numbers to the model. Follow `references/deck.md`.
+- `/officeaudit memo <memo, proposal or brief>`: review the argument as the decision-maker would. Follow `references/memo.md`.
 - `/officeaudit comments <Drive file> [findings]`: post findings as Drive comments. Follow `references/comments.md`.
 
-With no subcommand, infer it: a workbook means `model`; a pptx, docx, pdf, Slides or Doc means `deck` (with tie-out when a workbook is also given); "comment on it" or "leave notes" after an audit means `comments`. Say which one you picked in the first line.
+With no subcommand, infer it: a workbook means `model`; a pptx, docx, pdf, Slides or Doc means `deck` (with tie-out when a workbook is also given), unless the ask is about the case rather than the numbers ("would IC approve this", "poke holes"), which means `memo`; "comment on it" or "leave notes" after an audit means `comments`. Say which one you picked in the first line.
 
 ## Shared rules
 
@@ -39,4 +40,4 @@ Write the audit in chat, verdict first, then the issue log as a table (`#`, seve
 
 Finish by offering the next step that fits: `comments` to send the findings to the file's owner, a fixed copy, or the other subcommand (a deck audit often needs a model audit behind it).
 
-Patterns adapted from the model-audit-tieout, deck-report-qc and google-drive-comments skills in openai/plugins; the scripts and text here are written from scratch.
+Patterns adapted from the model-audit-tieout, deck-report-qc and google-drive-comments skills in openai/plugins; the scripts and text here are written from scratch. The `memo` checklist and the deck checks for baselines, "as of" dates and claims with no number are adapted from the strategic-alignment and data-accuracy reviewers in EveryInc/compound-knowledge-plugin (MIT), read 2026-11-21.
