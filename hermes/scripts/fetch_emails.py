@@ -2,10 +2,10 @@
 import json, subprocess, sys, re
 from datetime import datetime
 
-# On Windows, use the .cmd shim so subprocess can find it
+# On Windows, call the native exe (the gws.cmd shim breaks quoting)
 import os, platform
 if platform.system() == "Windows":
-    gws_cmd = "gws.cmd"
+    gws_cmd = r"C:\Users\<USER>\AppData\Roaming\npm\node_modules\@googleworkspace\cli\bin\gws.exe"
 else:
     gws_cmd = "gws"
 

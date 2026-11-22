@@ -88,18 +88,18 @@ Key points:
 - The `/c/...` (MSYS-style) path works for the `cat` command even though it's inside a bash terminal call
 - `timeout=30` is safe — Drive queries rarely take more than a few seconds
 
-## Why Python subprocess Fails (and the `gws.cmd` workaround)
+## Why Python subprocess Fails (and the `gws.exe` fix)
 
 `gws` at `/c/Users/<USER>/AppData/Roaming/npm/gws` is a Node.js executable (no `.exe` extension). It's added to the MSYS/bash PATH but Python's `subprocess` inherits the **Windows** PATH, not the bash/MSYS PATH. So `subprocess.run(['gws', ...])` throws `FileNotFoundError` even though `which gws` works in terminal.
 
 Always call `gws` from `terminal()` (bash context), not from `execute_code()` (Python context).
 
-**Unless you use `gws.cmd`:** The npm install also creates `gws.cmd` in the same directory — a native Windows batch file that re-invokes node properly. This CAN be called from `execute_code()` (Python subprocess) because Windows `.cmd` files are valid Win32 executables via `CreateProcess`:
+**Unless you call the native exe:** the npm package ships `gws.exe` under `node_modules/@googleworkspace/cli/bin/`. Call it with an argument list from `execute_code()` (Python subprocess). Do not use the `gws.cmd` shim: it runs through cmd.exe, which breaks quoted Drive queries (`>`) and fails on long `--json` payloads (8191-char limit).
 
 ```python
 import subprocess, json
 
-gws_path = r"C:\Users\<USER>\AppData\Roaming\npm\gws.cmd"
+gws_path = r"C:\Users\<USER>\AppData\Roaming\npm\node_modules\@googleworkspace\cli\bin\gws.exe"
 # ✅ Works from Python subprocess
 result = subprocess.run(
     [gws_path, "drive", "files", "list", "--params", json.dumps({...})],

@@ -33,7 +33,7 @@ The `resultSizeEstimate` field gives the total count (may exceed `maxResults`).
 
 ```python
 import subprocess, json
-gws = r"C:\Users\<USER>\AppData\Roaming\npm\gws.cmd"
+gws = r"C:\Users\<USER>\AppData\Roaming\npm\node_modules\@googleworkspace\cli\bin\gws.exe"
 result = subprocess.run(
     [gws, "gmail", "users", "messages", "get", "--params",
      json.dumps({"userId": "me", "id": mid, "format": "full"})],
@@ -199,7 +199,7 @@ gws auth export
 ```python
 import subprocess, json, os
 
-gws = r"C:\Users\<USER>\AppData\Roaming\npm\gws.cmd"
+gws = r"C:\Users\<USER>\AppData\Roaming\npm\node_modules\@googleworkspace\cli\bin\gws.exe"
 env = os.environ.copy()
 env.pop("GOOGLE_WORKSPACE_CLI_TOKEN", None)
 
@@ -211,6 +211,6 @@ result = subprocess.run(
 data = json.loads(result.stdout)
 ```
 
-Note: `shell=True` or `gws.cmd` — both work. The `.cmd` extension is needed
-for direct `CreateProcess` resolution in subprocess on Windows; `shell=True`
-resolves via PATH.
+Note: call the native `gws.exe` with an argument list and no `shell=True`. The
+`gws.cmd` shim and `shell=True` both go through cmd.exe, which breaks quoted
+Drive queries (`>` in `modifiedTime >`) and caps the command line at 8191 chars.

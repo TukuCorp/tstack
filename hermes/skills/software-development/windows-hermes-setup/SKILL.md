@@ -88,7 +88,7 @@ gws drive files list --params "$(cat /c/path/to/params.json)" --format json
 gws drive files list --params '{"q": "fullText contains '\''vida'\'' and modifiedTime > '\''2026-06-20'\''", "orderBy": "modifiedTime desc", "pageSize": 10}'
 ```
 
-See `references/gws-json-params-quoting.md` for the full workaround catalogue, the `gws.cmd` subprocess alternative, and the batch Gmail metadata fetch pattern.
+See `references/gws-json-params-quoting.md` for the full workaround catalogue, the native `gws.exe` subprocess call, and the batch Gmail metadata fetch pattern.
 
 ### schtasks.exe from bash
 

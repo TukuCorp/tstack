@@ -2,7 +2,7 @@
 import json, subprocess, sys
 
 import platform
-gws = "gws.cmd" if platform.system() == "Windows" else "gws"
+gws = r"C:\Users\<USER>\AppData\Roaming\npm\node_modules\@googleworkspace\cli\bin\gws.exe" if platform.system() == "Windows" else "gws"  # native exe; gws.cmd shim breaks quoting
 
 # Drive file IDs from the earlier query
 file_ids = [
