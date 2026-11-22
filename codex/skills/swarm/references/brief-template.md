@@ -27,7 +27,8 @@ Out of scope: <what this lane must not research, edit or write, including the ot
 3. Search and read sources in <language> first. Write findings in <language> (headers may be English).
 4. UTF-8 for all files; in Python pass encoding="utf-8" and reconfigure stdout. Avoid the dollar sign in shell text.
 5. No dozens of browser tabs; fetch with scripts and keep only the fields you need.
-6. Never call a tool whose name starts with `default.` or `mcp__codex_apps__`, or a node REPL. On routed models such a call ends the stream with "routed provider emitted undeclared client tool", and `/goal resume` replays it. Search with the web search tool under its exact declared name, or with a Python fetch of DuckDuckGo HTML or Bing.
+6. Search only from inside an exec script: `await tools.mcp__codex_apps__search_service_web_run({system2_search_query: [{q: "..."}]})`. There is no `tools.web_search`. Never emit that tool, or any name starting with `default.`, as a direct tool call: on routed models it ends the stream with "routed provider emitted undeclared client tool", and `/goal resume` replays it. If exec lacks it (`ALL_TOOLS` shows the names), use a Python fetch of DuckDuckGo HTML or Bing.
+7. Write files with a Python script (`open(path, "w", encoding="utf-8")`). If you use `apply_patch`, the patch starts `*** Begin Patch`, then `*** Add File: <path>` with every line prefixed `+`, or `*** Update File: <path>` with context hunks, and ends `*** End Patch`. One file per call; no `@@ -0,0 +1 @@` unified-diff headers.
 
 ## Output
 `<prefix>-<lane>.md`: Method and evidence limits; Candidate table (fields, labels, URL, date); Scores and ranking; <extra sections>; What the sources agree on (5 bullets); Where sources conflict or are thin; Sources (numbered).
