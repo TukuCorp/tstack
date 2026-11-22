@@ -9,6 +9,15 @@
             "type": "command"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "quota-axi --provider codex --max-age 5m --no-credential-refresh",
+            "timeout": 20,
+            "type": "command"
+          }
+        ]
       }
     ],
     "SubagentStart": [
