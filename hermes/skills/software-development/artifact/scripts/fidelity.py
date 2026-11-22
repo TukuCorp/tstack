@@ -20,6 +20,11 @@ s_vn, p_vn = len(re.findall(VN, src, re.I)), len(re.findall(VN, page, re.I))
 if s_vn >= 10 and p_vn < 0.6 * s_vn:
     fails.append(f'Vietnamese diacritics dropped (source {s_vn}, page {p_vn}): write the file as UTF-8 and keep source terms verbatim')
 
+# 1b. Quoted titles and terms in the source appear verbatim (catches QĐ -> QD in short text).
+for q in set(re.findall(r'"([^"\n]{6,120})"', src)):
+    if re.search(VN, q, re.I) and q not in page:
+        fails.append(f'quoted source text changed or missing: "{q[:70]}"')
+
 # 2. Source URLs are clickable links, not plain text.
 urls = {u.rstrip('.,;') for u in re.findall(r'https?://[^\s)"<>]+', src_raw)}
 hrefs = set(re.findall(r'href="(https?://[^"]+)"', page_raw))

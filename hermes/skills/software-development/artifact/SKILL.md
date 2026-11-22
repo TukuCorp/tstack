@@ -39,6 +39,15 @@ Build a polished, self-contained HTML page (report, explainer, dashboard, compar
 - Cap the check-and-fix loop at 3 rounds. If anything still fails, stop and hand over with the open issues listed rather than polishing further.
 - Show the command and its result as proof.
 
+## Interactive pages (maps, filters, dashboards, tools)
+- Layout: `index.html` in its own folder under `.lavish/<date>-<slug>/`, code in `app.js` (split by job past ~800 lines: data, map, panels, i18n), data in `data/*.json` loaded with `fetch` and relative paths. Never paste large data into the HTML.
+- Pin library versions (`d3@7.9.0`). For maps, project the real geometry (GeoJSON or TopoJSON) with d3-geo. Never draw a hand-made outline.
+- One state object drives everything: filters, search, selection and language update the map, panels and counts together. Show an empty state when filters match nothing.
+- Touch first: tap targets at least 40px, pinch and button zoom, the detail view as a bottom sheet. On phones the map or main visual must show on the first screen: filters go behind a "Filters" button (drawer), never stacked above the map.
+- Check the interactions headlessly, not just the first screen. Run `lavish-axi stop` first if needed, serve the folder (`python -m http.server 8765`), then with `agent-browser`: `open` the page, `set viewport 393 852`, click one filter, one map feature and the language toggle, `screenshot` after each, and read `errors` and `console`. Any page error is a FAIL.
+- Spot-check three totals shown in the UI (for example MW for one filter) against the data with a one-off script. For `fidelity.py`, the source is the data's text fields, not the page prose. Skip the word-count warning.
+- A client-confidential dataset never goes to `share`; hand over the `export` file or the folder instead.
+
 ## 4. Review in Lavish
 - Always finish by opening the page: `lavish-axi <file>` opens it in the user's default browser. Never pass `--no-open`. Status `opened` means a tab opened. Status `ready` means the browser did not launch, so give the user the printed `url`.
 - If it fails with "server did not start", run `lavish-axi stop` and open it again. A stale server can hold port 4387.
