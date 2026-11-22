@@ -39,6 +39,12 @@
 - Unattended runs (loops, swarms, scheduled jobs) also set a turn or spend limit and say where output lands for my approval. Pilot on about 3 items before running the rest.
 - Review in a fresh context for correctness, not style. Cap review at 3 rounds, then review only the new diff. A finding that keeps recurring goes into a lint rule, the repo's `REVIEW.md`, or the skill that caused it.
 
+## Artifacts and HTML Pages
+- Default style: fewer words, more visuals (charts, diagrams, stat tiles). Run unslop on all prose before publishing.
+- Cite each factual claim to its original source in a footnote. Never cite our own generated files or notes as evidence.
+- Vietnamese when asked: write natural Vietnamese using the source's own terms, not a translation of the English. Put the EN/VI toggle where a phone can see it.
+- On an update, rewrite and merge sections. Remove anything the new information makes outdated instead of appending.
+
 ## Debugging Rules
 - If the same bug persists after two fix attempts: stop, summarize the current state and what was tried, and ask for direction. The next attempt starts from a fresh session with a rewritten prompt, not more patches.
 

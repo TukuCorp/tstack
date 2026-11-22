@@ -19,6 +19,12 @@
 - Unattended runs (loops, swarms, scheduled jobs) also set a turn or spend limit and say where output lands for my approval. Pilot on about 3 items before running the rest.
 - Review in a fresh context for correctness, not style. Cap review at 3 rounds, then review only the new diff. A finding that keeps recurring goes into a lint rule, the repo's `REVIEW.md`, or the skill that caused it.
 
+## Artifacts and HTML Pages
+- Default style: fewer words, more visuals (charts, diagrams, stat tiles). Run unslop on all prose before publishing.
+- Cite each factual claim to its original source in a footnote. Never cite our own generated files or notes as evidence.
+- Vietnamese when asked: write natural Vietnamese using the source's own terms, not a translation of the English. Put the EN/VI toggle where a phone can see it.
+- On an update, rewrite and merge sections. Remove anything the new information makes outdated instead of appending.
+
 ## Google Workspace
 - For Gmail, Drive, Docs, Sheets, Slides and Calendar, use the `gws` CLI first (`gws <service> --help`), before connectors/MCP, browser or desktop automation. When another route fails on a Google task, switch to `gws` instead of retrying it.
 - Bare `gws` is the work account (<EMAIL>). Test access with a real API call before any login flow: `gws auth login` replaces the whole scope grant, so a narrower re-login breaks other jobs.
