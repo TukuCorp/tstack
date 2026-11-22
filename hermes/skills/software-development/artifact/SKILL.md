@@ -21,21 +21,28 @@ Build a polished, self-contained HTML page (report, explainer, dashboard, compar
 - Pick the playbooks: run `lavish-axi design`, then `lavish-axi playbook <id>` for every one that fits (diagram, table, comparison, plan, explanation, slides, input). A page often needs several.
 
 ## 2. Write it
-- One HTML file at `.lavish/<YYYY-MM-DD>-<slug>.html` in the working directory, unless the user names a place. Copy local images next to it and use relative paths.
+- One HTML file at `.lavish/<YYYY-MM-DD>-<slug>.html` in the working directory (local date from `date +%F`), unless the user names a place. Copy local images next to it and use relative paths.
+- Create the file with a short Python script that writes UTF-8 (`open(path, "w", encoding="utf-8")`) or your file-write tool. Never push a whole page through `apply_patch`: HTML lines break its hunk parser.
 - Design source, in this order: a look the user named, the subject project's own design system, then the Lavish CDN default. Say which you used.
+- House theme, overriding Lavish's `data-theme="luxury"` default (dark only, gold): leave `<html>` without a dark `data-theme` so DaisyUI follows the system light/dark, or define CSS variables with a `prefers-color-scheme: dark` block. Accent teal `#0f7a6c` (dark `#3cc2ae`). Status colors ok `#2f855a`, warn `#b7791f`, bad `#c2410c` (dark `#6fcf97`, `#e6b75a`, `#f08a5d`), used the same way on chips, key numbers and chart marks. Every stat-tile number and verdict (OK, Gap, Risk) gets its status color as a colored chip, not plain text; a neutral white number on a judged item is a miss.
 - House defaults:
   - Fewer words, more visuals: charts, diagrams, stat tiles, tables. Run the `unslop` skill on all prose before showing it.
-  - Cite each factual claim to its original source in a footnote with URL and date. Never cite our own generated files or notes as evidence.
+  - Keep source wording exact: Vietnamese diacritics, names, table and page labels (`Bảng 55`, never `Bang 55`). Never transliterate to ASCII.
+  - Cite each factual claim to its original source in a footnote, as a clickable `<a href>` link with the date. Never cite our own generated files or notes as evidence.
   - Vietnamese when asked: natural Vietnamese using the source's own terms, not a translation of the English. A language toggle must be visible at phone width.
   - Phone first: 16px side gutter, no horizontal scroll, controls reachable at 390px wide. Light and dark themes from CSS variables. Pin exact versions on any CDN script.
 
 ## 3. Check it
+- Run `python -X utf8 <this skill's folder>/scripts/fidelity.py <source> <file>`, where `<source>` is the brief, notes or original the page was built from. Fix every FAIL (dropped diacritics, unlinked sources, dark-only theme). For each WARN number, confirm it was shown in a chart or dropped on purpose.
 - Run `python -X utf8 C:/Users/<USER>/.claude/skills/verify/scripts/shot.py <file>` and look at the PNGs. Fix any overflow or off-screen control it flags.
 - Compare the phone and desktop shots for buttons and toggles: a control visible on desktop but missing on the phone is a bug, even if the script does not flag it.
+- Cap the check-and-fix loop at 3 rounds. If anything still fails, stop and hand over with the open issues listed rather than polishing further.
 - Show the command and its result as proof.
 
 ## 4. Review in Lavish
-- Open it with `lavish-axi <file>` and follow `lavish-axi --help` for the poll and reply loop. Keep the poll in the foreground.
+- Always finish by opening the page: `lavish-axi <file>` opens it in the user's default browser. Never pass `--no-open`. Status `opened` means a tab opened. Status `ready` means the browser did not launch, so give the user the printed `url`.
+- If it fails with "server did not start", run `lavish-axi stop` and open it again. A stale server can hold port 4387.
+- Then follow `lavish-axi --help` for the poll and reply loop. Keep the poll in the foreground.
 - Apply the feedback to the same file. On an update, rewrite and merge sections; remove anything the new information makes outdated instead of appending.
 
 ## 5. Share (only when asked)
