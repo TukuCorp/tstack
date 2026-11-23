@@ -67,6 +67,8 @@ SOURCES = [
     (".gemini/config/mcp_config.json", "agy/mcp_config.json", "json"),
     # agy reads ~/.agents/skills only from a cwd of ~, so this declares it globally (absolute path; ~ is not expanded).
     (".gemini/config/skills.json", "agy/skills.json", "json"),
+    # Default model and permission settings; trustedWorkspaces is dropped (see MACHINE_LOCAL_KEYS).
+    (".gemini/antigravity-cli/settings.json", "agy/settings.json", "json"),
     (".agents/skills", "shared/agents-skills", "tree"),
     ("AGENTS.md", "shared/AGENTS.md", "file"),
     ("AppData/Local/noctty/config.ghostty", "noctty/config.ghostty", "file"),
@@ -112,6 +114,7 @@ EXCLUDE_GLOBS = ["*.sqlite", "*.sqlite-*", "*.db", "*.db-shm", "*.db-wal", "*.ba
 SENSITIVE_WORDS = {"key", "apikey", "token", "secret", "password", "passwd", "auth",
                    "authorization", "cookie", "credential", "credentials", "bearer", "pat"}
 SENSITIVE_BLOCKS = {"env", "headers", "http_headers", "environment", "env_http_headers", "set"}
+MACHINE_LOCAL_KEYS = {"trustedWorkspaces"}  # top-level JSON keys naming private folders on this machine only
 KEYBIND_TABLES = {"keys", "keybinds", "keybindings"}  # `key` in these is a key chord, not a secret
 
 SECRET_PATTERNS = [
@@ -153,6 +156,9 @@ def _blank(value):
 
 def sanitize_json(obj):
     obj = copy.deepcopy(obj)
+    if isinstance(obj, dict):
+        for k in MACHINE_LOCAL_KEYS:
+            obj.pop(k, None)
 
     def walk(node):
         if isinstance(node, dict):

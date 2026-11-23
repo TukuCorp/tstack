@@ -86,6 +86,17 @@ class SanitizeJsonTests(unittest.TestCase):
         sync.sanitize_json(src)
         self.assertEqual(src, {"token": "abc"})
 
+    def test_drops_machine_local_folder_lists(self):
+        # agy's trustedWorkspaces names private project folders and only means something on this machine
+        out = sync.sanitize_json({"model": "Gemini 4 Neon (Medium)", "trustedWorkspaces": ["C:\\x\\client"]})
+        self.assertEqual(out, {"model": "Gemini 4 Neon (Medium)"})
+
+
+class AgyTests(unittest.TestCase):
+    def test_agy_settings_are_mirrored(self):
+        # carries the default model (Gemini 4 Neon) to a new machine
+        self.assertIn((".gemini/antigravity-cli/settings.json", "agy/settings.json", "json"), sync.SOURCES)
+
 
 class SanitizeTextConfigTests(unittest.TestCase):
     def test_toml(self):

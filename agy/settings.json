@@ -1,0 +1,8 @@
+{
+  "allowNonWorkspaceAccess": true,
+  "artifactReviewPolicy": "always-proceed",
+  "model": "Gemini 4 Neon (Medium)",
+  "runningLightSpeed": "fast",
+  "toolPermission": "always-proceed",
+  "verbosity": "low"
+}
