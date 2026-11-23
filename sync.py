@@ -69,6 +69,9 @@ SOURCES = [
     (".config/ahk/noctty-toggle.ahk", "ahk/noctty-toggle.ahk", "file"),
     ("AppData/Roaming/herdr/config.toml", "herdr/config.toml", "config"),
     ("AppData/Roaming/herdr/plugins.json", "herdr/plugins.json", "herdr-plugins"),
+    # Windows PowerShell 5.1 $PROFILE (codex wrapper, claude-code-mode). Assumes OneDrive redirects Documents.
+    ("OneDrive/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1",
+     "machine/powershell/Microsoft.PowerShell_profile.ps1", "file"),
     # UTF-8 stdio even under `python -I`; path assumes winget's per-user Python 3.14 install.
     ("AppData/Local/Programs/Python/Python314/Lib/site-packages/sitecustomize.py",
      "machine/python/sitecustomize.py", "file"),

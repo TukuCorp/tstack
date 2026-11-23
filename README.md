@@ -14,7 +14,7 @@ run in. `bootstrap.ps1` rebuilds the whole setup on a new machine.
 | `noctty/` | noctty terminal | `%LOCALAPPDATA%/noctty/config.ghostty` + `~/.config/noctty` (`dotconfig/`: shaders, backgrounds) |
 | `ahk/` | AutoHotkey v2 | `~/.config/ahk/noctty-toggle.ahk`: Home hides/shows the noctty window (live herdr session); bootstrap adds a Startup shortcut |
 | `herdr/` | herdr multiplexer | `%APPDATA%/herdr/config.toml`; `plugins.json` = GitHub plugins to reinstall; `local-plugins.json` + `local-plugins/*.patch` = patched clones in `~/.herdr/local-plugins` (upstream commit + my diff), when there are any |
-| `machine/` | global CLIs | `packages.json`: npm / bun / uv tools installed globally |
+| `machine/` | global CLIs, shell | `packages.json`: npm / bun / uv tools installed globally; `powershell/`: Windows PowerShell `$PROFILE` (`codex` proxy wrapper, `claude-code-mode` launcher for experimental Code Mode) |
 
 **agy (Antigravity CLI)** is installed by `bootstrap.ps1` for one role only: a worker lane in the `swarm`
 skill (`herdr agent start <lane> --kind agy`, see `swarm/references/herdr-cli.md`, "Starting an agy agent").
