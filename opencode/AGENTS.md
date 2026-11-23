@@ -45,6 +45,9 @@
 - Vietnamese when asked: write natural Vietnamese using the source's own terms, not a translation of the English. Put the EN/VI toggle where a phone can see it.
 - On an update, rewrite and merge sections. Remove anything the new information makes outdated instead of appending.
 
+## Estimates
+- Size work in agent units, not calendar time: phases, sessions, files touched, verification gates, and human checkpoints (reviews, logins, approvals, external waits). Give wall-clock time only for outside dependencies (vendors, CI, people), and name them.
+
 ## Debugging Rules
 - If the same bug persists after two fix attempts: stop, summarize the current state and what was tried, and ask for direction. The next attempt starts from a fresh session with a rewritten prompt, not more patches.
 

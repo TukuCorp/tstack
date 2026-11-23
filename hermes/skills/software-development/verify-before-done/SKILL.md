@@ -13,4 +13,5 @@ author: Tung Ho
 - Briefs (my prompts, subagent and swarm lanes, scheduled jobs) state Goal, Why, Constraints, Out of scope and Check. Leave out what the agent can read from the repo.
 - Unattended runs (loops, swarms, scheduled jobs) also set a turn or spend limit and say where output lands for my approval. Pilot on about 3 items before running the rest.
 - Review in a fresh context for correctness, not style. Cap review at 3 rounds, then review only the new diff. A finding that keeps recurring goes into a lint rule, the repo's `REVIEW.md`, or the skill that caused it.
+- Size work in agent units, not calendar time: phases, sessions, files touched, verification gates, and human checkpoints (reviews, logins, approvals, external waits). Give wall-clock time only for outside dependencies (vendors, CI, people), and name them.
 - Delegate only substantial standalone work to subagents; do small jobs inline.

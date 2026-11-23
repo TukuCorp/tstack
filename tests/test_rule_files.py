@@ -25,6 +25,10 @@ class RuleFileTests(unittest.TestCase):
                     hits.append(f"{rel}:{n}: {line.strip()[:80]}")
         self.assertEqual(hits, [], "state rules plainly; enforce must-nevers with hooks instead")
 
+    def test_rule_files_size_work_in_agent_units(self):
+        missing = [rel for rel in RULE_FILES if "## Estimates" not in (ROOT / rel).read_text(encoding="utf-8")]
+        self.assertEqual(missing, [], "each rule file needs the agent-unit Estimates section")
+
 
 if __name__ == "__main__":
     unittest.main()

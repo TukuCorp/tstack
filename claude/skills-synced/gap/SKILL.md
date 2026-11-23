@@ -1,6 +1,6 @@
 ---
 name: gap
-description: Systematic codebase-grounded gap analysis comparing current repo capabilities against a stated target (demo, product launch, milestone, feature set). Produces a severity-rated report with existing assets, effort estimates, and sprint sequencing that feeds directly into /plan.
+description: Systematic codebase-grounded gap analysis comparing current repo capabilities against a stated target (demo, product launch, milestone, feature set). Produces a severity-rated report with existing assets, agent-unit effort estimates, and wave sequencing that feeds directly into /plan.
 argument-hint: "[target state or goal — what you want to ship, demo, or deliver]"
 allowed-tools:
   - Bash
@@ -43,8 +43,8 @@ The output is designed to feed directly into `/plan` for implementation planning
 - Ground every gap claim in specific files, modules, or capabilities observed in the repo.
 - Rate severity with actionable labels: CRITICAL (blocks the target), HIGH (significantly degrades the target), MEDIUM (limits value), LOW (polish/nice-to-have).
 - For each gap, identify existing assets that can be reused or extended — never claim "build from scratch" when the repo has relevant code.
-- Estimate effort in terms that feed `/plan` — number of phases, approximate complexity.
-- Recommend sprint sequencing based on dependencies and impact.
+- Estimate effort in agent units that feed `/plan` — number of phases, approximate complexity, verification gates. No calendar time (days, weeks, sprints) except for named outside dependencies (vendors, CI, people).
+- Recommend sequencing in waves based on dependencies and impact, and name the human checkpoints (reviews, logins, approvals, external waits) each wave needs.
 - Write for another agent or engineer with zero shared context about this repo.
 
 ## Context Gathering
@@ -125,7 +125,7 @@ Use the following structure as the output skeleton. Fill every section. Remove p
 **Existing assets to reuse:**
 - {{File or module that can be extended, with what it already does}}
 
-**Effort estimate:** {{Rough sizing — e.g., "1 multi-phase plan (3-4 phases)"}}
+**Effort estimate:** {{Agent-unit sizing — e.g., "1 multi-phase plan (3-4 phases), 2 verification gates, 1 human review"}}
 
 ---
 
@@ -139,11 +139,11 @@ Use the following structure as the output skeleton. Fill every section. Remove p
 
 ---
 
-## Recommended Sprint Sequencing
+## Recommended Sequencing
 
-| Priority | Gap | Rationale |
-|---|---|---|
-| Sprint 1 | {{GAP-XX}} | {{Why first}} |
+| Wave | Gap | Rationale | Human checkpoints |
+|---|---|---|---|
+| Wave 1 | {{GAP-XX}} | {{Why first}} | {{Reviews, logins, approvals, external waits}} |
 
 ---
 
@@ -165,7 +165,7 @@ Use the following structure as the output skeleton. Fill every section. Remove p
 | Rating | Meaning | Action |
 |---|---|---|
 | CRITICAL | Blocks the target entirely | Must address first |
-| HIGH | Significantly degrades the target | Address in first sprint |
+| HIGH | Significantly degrades the target | Address in the first wave |
 | MEDIUM | Limits value of the target | Address if time permits |
 | LOW | Polish — target works fine without this | Backlog |
 
@@ -175,7 +175,7 @@ The report is complete when:
 - Every gap is grounded in specific repo observations (file paths, module names)
 - Severity ratings are justified, not just assigned
 - Existing reusable assets are identified for every gap where they exist
-- Sprint sequencing accounts for dependencies between gaps
+- Wave sequencing accounts for dependencies between gaps and names the human checkpoints
 - Another agent could take any gap and invoke `/plan` on it immediately
 - The report is self-contained — no conversation context required
 

@@ -25,6 +25,9 @@
 - Vietnamese when asked: write natural Vietnamese using the source's own terms, not a translation of the English. Put the EN/VI toggle where a phone can see it.
 - On an update, rewrite and merge sections. Remove anything the new information makes outdated instead of appending.
 
+## Estimates
+- Size work in agent units, not calendar time: phases, sessions, files touched, verification gates, and human checkpoints (reviews, logins, approvals, external waits). Give wall-clock time only for outside dependencies (vendors, CI, people), and name them.
+
 ## Google Workspace
 - For Gmail, Drive, Docs, Sheets, Slides and Calendar, use the `gws` CLI first (`gws <service> --help`), before connectors/MCP, browser or desktop automation. When another route fails on a Google task, switch to `gws` instead of retrying it.
 - Bare `gws` is the work account (<EMAIL>). Test access with a real API call before any login flow: `gws auth login` replaces the whole scope grant, so a narrower re-login breaks other jobs.
