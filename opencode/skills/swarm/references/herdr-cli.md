@@ -88,7 +88,7 @@ Tested 2026-11-07 (agy 1.5.3): the model took, the brief was read, a file was wr
 - Tool permission follows `toolPermission` in that settings file (currently `always-proceed`), so lanes run unattended.
 - Never run `agy -p "/something"` to test slash commands: print mode sends it to the model as a prompt. `/usage` and `/credits` work only in the interactive screen.
 - No daemon: closing the tab ends the agent, and there is nothing to archive.
-- Check quota before a big run: `/usage` in an interactive agy shows the weekly limit left for the Gemini group and the Claude and GPT group.
+- Check quota before a big run: `quota-axi --provider agy` reads the 5-hour and weekly windows for the Gemini group and the Claude and GPT group without opening agy (`/usage` in the interactive screen shows the same).
 
 ## Unloading finished threads
 

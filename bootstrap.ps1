@@ -147,7 +147,7 @@ if ((Test-Path "$WikiDir\.git") -and (Have python)) {
 
 Step 'left for you'
 Write-Host @'
-    - Sign in: claude, codex login, gh auth login, hermes setup, opencode auth login, gws auth login, agy (work account; swarm lanes only)
+    - Sign in: claude, codex login, gh auth login, hermes setup, opencode auth login, gws auth login, agy (personal Google account; swarm lanes only)
     - Fill the <REDACTED> values restore.py listed above (API keys, MCP env blocks)
     - Restart noctty (Ctrl+Shift+, reloads config) and herdr so they pick up the restored configs
     - Helium is the daily browser (Chrome stays as fallback and as the source of extension updates).
