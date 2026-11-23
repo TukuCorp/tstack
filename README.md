@@ -21,7 +21,7 @@ run in. `bootstrap.ps1` rebuilds the whole setup on a new machine.
 verbatim (a test keeps them equal), `agy/skills` holds the skills it doesn't already get from
 `~/.agents/skills` (`agy/skills.json` declares that folder globally), and `agy/mcp_config.json` registers browse (officecli and powerpoint disabled).
 It also works as a swarm lane (`herdr agent start <lane> --kind agy`). Sign in once on a new machine;
-its `settings.json` is not mirrored.
+`agy/settings.json` carries the default model (Gemini 4 Neon Medium) without `trustedWorkspaces`.
 
 This repo is a **mirror**, not the source of truth: `sync.py` rebuilds each folder from the
 live files, so edit skills where the tool reads them and let the sync pick them up.
