@@ -43,7 +43,7 @@ $Installers = [ordered]@{
     'codex'  = 'irm https://chatgpt.com/codex/install.ps1 | iex'
     'herdr'  = 'irm https://herdr.dev/install.ps1 | iex'
     'hermes' = 'iex (irm https://hermes-agent.nousresearch.com/install.ps1)'
-    # Antigravity CLI: installed only as a swarm lane worker (herdr agent start --kind agy); not a general agent
+    # Antigravity CLI: full peer (rules, skills, MCP restored from agy/) and a swarm lane worker
     'agy'    = 'irm https://antigravity.google/cli/install.ps1 | iex'
 }
 
@@ -147,7 +147,7 @@ if ((Test-Path "$WikiDir\.git") -and (Have python)) {
 
 Step 'left for you'
 Write-Host @'
-    - Sign in: claude, codex login, gh auth login, hermes setup, opencode auth login, gws auth login, agy (personal Google account; swarm lanes only)
+    - Sign in: claude, codex login, gh auth login, hermes setup, opencode auth login, gws auth login, agy (personal Google account)
     - Fill the <REDACTED> values restore.py listed above (API keys, MCP env blocks)
     - Restart noctty (Ctrl+Shift+, reloads config) and herdr so they pick up the restored configs
     - Helium is the daily browser (Chrome stays as fallback and as the source of extension updates).

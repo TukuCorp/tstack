@@ -61,6 +61,12 @@ SOURCES = [
     ("AppData/Local/hermes/plugins/swarm-gateway-guard", "hermes/plugins/swarm-gateway-guard", "tree"),
     # Live Hermes cron script (job "Weekly Disk Cleanup (Sunday)"); the job itself is recreated per README.
     ("AppData/Local/hermes/scripts/disk-cleanup.py", "hermes/live-scripts/disk-cleanup.py", "file"),
+    # agy (Antigravity CLI): global rules are ~/.gemini/GEMINI.md (gemini-cli reads it too); it also loads ~/.agents/skills.
+    (".gemini/GEMINI.md", "agy/GEMINI.md", "file"),
+    (".gemini/config/skills", "agy/skills", "tree"),
+    (".gemini/config/mcp_config.json", "agy/mcp_config.json", "json"),
+    # agy reads ~/.agents/skills only from a cwd of ~, so this declares it globally (absolute path; ~ is not expanded).
+    (".gemini/config/skills.json", "agy/skills.json", "json"),
     (".agents/skills", "shared/agents-skills", "tree"),
     ("AGENTS.md", "shared/AGENTS.md", "file"),
     ("AppData/Local/noctty/config.ghostty", "noctty/config.ghostty", "file"),
@@ -76,7 +82,7 @@ SOURCES = [
     ("AppData/Local/Programs/Python/Python314/Lib/site-packages/sitecustomize.py",
      "machine/python/sitecustomize.py", "file"),
 ]
-TOOL_DIRS = ["claude", "codex", "opencode", "hermes", "shared", "noctty", "ahk", "herdr", "machine"]
+TOOL_DIRS = ["claude", "codex", "opencode", "hermes", "agy", "shared", "noctty", "ahk", "herdr", "machine"]
 
 # herdr plugins I run as patched local clones (`herdr plugin link`), mirrored as upstream + patch.
 HERDR_LOCAL_PLUGINS = ".herdr/local-plugins"

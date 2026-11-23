@@ -10,16 +10,18 @@ run in. `bootstrap.ps1` rebuilds the whole setup on a new machine.
 | `codex/` | OpenAI Codex | `~/.codex` |
 | `opencode/` | Opencode | `~/.config/opencode` |
 | `hermes/` | Hermes | `~/.hermes`, the disk-cleanup cron script (`live-scripts/`) + workflow skills from `%LOCALAPPDATA%/hermes/skills` (software-development, opencode, research, engineering, gloop, unslop) |
+| `agy/` | Antigravity CLI | `~/.gemini/GEMINI.md`, `~/.gemini/config/skills`, `~/.gemini/config/mcp_config.json`, `~/.gemini/config/skills.json` |
 | `shared/` | cross-tool | `~/.agents/skills`, `~/AGENTS.md` |
 | `noctty/` | noctty terminal | `%LOCALAPPDATA%/noctty/config.ghostty` + `~/.config/noctty` (`dotconfig/`: shaders, backgrounds) |
 | `ahk/` | AutoHotkey v2 | `~/.config/ahk/noctty-toggle.ahk`: Home hides/shows the noctty window (live herdr session); bootstrap adds a Startup shortcut |
 | `herdr/` | herdr multiplexer | `%APPDATA%/herdr/config.toml`; `plugins.json` = GitHub plugins to reinstall; `local-plugins.json` + `local-plugins/*.patch` = patched clones in `~/.herdr/local-plugins` (upstream commit + my diff), when there are any |
 | `machine/` | global CLIs, shell | `packages.json`: npm / bun / uv tools installed globally; `powershell/`: Windows PowerShell `$PROFILE` (`codex` proxy wrapper, `claude-code-mode` launcher for experimental Code Mode) |
 
-**agy (Antigravity CLI)** is installed by `bootstrap.ps1` for one role only: a worker lane in the `swarm`
-skill (`herdr agent start <lane> --kind agy`, see `swarm/references/herdr-cli.md`, "Starting an agy agent").
-It has no folder here, no rules file and no memory, and no other skill or rule should hand it work.
-Sign in once on a new machine; its `settings.json` is not mirrored.
+**agy (Antigravity CLI)** is a full peer since 2026-11-23: `agy/GEMINI.md` is the Codex rule set
+verbatim (a test keeps them equal), `agy/skills` holds the skills it doesn't already get from
+`~/.agents/skills` (`agy/skills.json` declares that folder globally), and `agy/mcp_config.json` registers browse (officecli and powerpoint disabled).
+It also works as a swarm lane (`herdr agent start <lane> --kind agy`). Sign in once on a new machine;
+its `settings.json` is not mirrored.
 
 This repo is a **mirror**, not the source of truth: `sync.py` rebuilds each folder from the
 live files, so edit skills where the tool reads them and let the sync pick them up.

@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RULE_FILES = ["claude/CLAUDE.md", "opencode/AGENTS.md", "codex/AGENTS.md"]
+RULE_FILES = ["claude/CLAUDE.md", "opencode/AGENTS.md", "codex/AGENTS.md", "agy/GEMINI.md"]
 MAX_LINES = 100
 # Shouting markers and habits written for older models (see the 2026-11-12 activeContext section).
 SHOUTING = re.compile(r"\b(IMPORTANT|MUST|NEVER|ALWAYS|CRITICAL|EXTREMELY)\b")
@@ -28,6 +28,11 @@ class RuleFileTests(unittest.TestCase):
     def test_rule_files_size_work_in_agent_units(self):
         missing = [rel for rel in RULE_FILES if "## Estimates" not in (ROOT / rel).read_text(encoding="utf-8")]
         self.assertEqual(missing, [], "each rule file needs the agent-unit Estimates section")
+
+    def test_agy_rules_match_codex(self):
+        # agy (~/.gemini/GEMINI.md) carries the Codex rule set verbatim; edit both together.
+        agy = (ROOT / "agy/GEMINI.md").read_text(encoding="utf-8")
+        self.assertEqual(agy, (ROOT / "codex/AGENTS.md").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

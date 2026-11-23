@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Topic Explained</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Tokens: swap these for the subject project's colours/fonts. One stable hue per actor
+   (--a1/--a2/--a3); --agree = good/done, --warn = problem/change, --wait = pending,
+   --them = the audience's side. */
+:root{
+  --bg:#f3f6f5;--panel:#ffffff;--ink:#14262a;--muted:#56676a;--line:#d8e1df;--track:#e7edeb;
+  --agree:#08866a;--wait:#c27510;--a1:#2f6cc0;--a2:#c27510;--a3:#8a4fb5;--both:#8f9b99;--warn:#c43c6c;
+  --them:#0b6e64;--soft:#e4f1ed;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1517;--panel:#141c1e;--ink:#e2ebe9;--muted:#93a4a6;--line:#29393c;--track:#1f2c2f;
+  --agree:#2aa585;--wait:#d08a2c;--a1:#5a93e0;--a2:#d08a2c;--a3:#a070d4;--both:#6c7a7c;--warn:#e0648f;
+  --them:#3fb5a6;--soft:#15292a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1517;--panel:#141c1e;--ink:#e2ebe9;--muted:#93a4a6;--line:#29393c;--track:#1f2c2f;
+  --agree:#2aa585;--wait:#d08a2c;--a1:#5a93e0;--a2:#d08a2c;--a3:#a070d4;--both:#6c7a7c;--warn:#e0648f;
+  --them:#3fb5a6;--soft:#15292a;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);margin:0;padding:28px 16px 64px}
+.wrap{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.15}
+h1{font:700 clamp(30px,5vw,46px)/1.06 var(--display);letter-spacing:-.01em}
+h2{font:600 26px/1.2 var(--display)}
+h2 .vi{display:block;font:400 14px var(--body);color:var(--muted);margin-top:4px}
+h3{font:600 17px/1.3 var(--display)}
+p{margin:0;max-width:70ch}
+ul,ol{margin:0;padding-left:20px}
+li{margin:4px 0}
+.eyebrow{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--agree)}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+section{display:flex;flex-direction:column;gap:18px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:16px}
+.grid2>*,.grid3>*{min-width:0}
+code{font-family:var(--mono);font-size:.9em;background:var(--track);padding:1px 6px;border-radius:4px}
+
+/* hero */
+.hero{display:flex;flex-direction:column;gap:16px}
+.answer{font-size:clamp(18px,2.4vw,22px);line-height:1.5;max-width:60ch}
+.answer b{color:var(--agree)}
+.status{display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 12px}
+.pill i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:12px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.kpi b{font:500 30px/1.1 var(--mono);font-variant-numeric:tabular-nums}
+.kpi span{font-size:13.5px;color:var(--muted)}
+
+/* analogy */
+.analogy{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:14px;align-items:stretch}
+.dict{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.dict .who{font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.dict .row{display:flex;gap:10px;align-items:baseline;font-size:14.5px;border-top:1px dashed var(--line);padding-top:6px}
+.dict .row code{flex:0 0 auto}
+.bridge{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;font:600 14px var(--display);color:var(--agree);text-align:center;min-width:110px}
+.bridge svg{width:90px;height:auto}
+@media(max-width:720px){.analogy{grid-template-columns:1fr}.bridge svg{transform:rotate(90deg);width:60px}}
+
+/* who does what */
+.side{border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;border:1px solid var(--line);background:var(--panel)}
+.side.us{border-top:4px solid var(--a1)}
+.side.them{border-top:4px solid var(--them)}
+.side h3 small{display:block;font:400 13px var(--body);color:var(--muted)}
+.lock{display:flex;gap:10px;align-items:flex-start;background:var(--soft);border-radius:10px;padding:12px 14px;font-size:14.5px}
+.lock svg{flex:0 0 22px;margin-top:2px}
+
+/* diagrams */
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto}
+.diagram .mermaid{display:flex;justify-content:center;min-width:0}
+.caption{font-size:14px;color:var(--muted)}
+
+/* steps */
+.steplist{display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.stepcard{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+.stepcard .n{width:40px;height:40px;border-radius:50%;background:var(--agree);color:#fff;display:grid;place-items:center;font:600 18px var(--mono)}
+.stepcard .body{display:flex;flex-direction:column;gap:6px}
+.coders{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;margin-top:6px}
+.coder{border:1px solid var(--line);border-left:4px solid var(--c);border-radius:8px;padding:10px 12px;font-size:14.5px;background:var(--bg)}
+.coder b{display:block;font:600 15px var(--display)}
+.tagline{font:500 12px var(--mono);color:var(--c)}
+
+/* examples */
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tab{font:500 14px var(--body);border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--agree);border-color:var(--agree);color:#fff}
+.tab:focus-visible{outline:2px solid var(--agree);outline-offset:2px}
+.ex{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:16px}
+.exhead{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline}
+.exhead .vi{font:600 20px var(--display)}
+.picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px}
+.pick{border:1px solid var(--line);border-top:4px solid var(--c);border-radius:8px;padding:10px 12px;background:var(--bg);font-size:14px;display:flex;flex-direction:column;gap:4px}
+.pick .who{font:500 12px var(--mono);color:var(--c);text-transform:uppercase;letter-spacing:.05em}
+.pick .sec{font-weight:500}
+.mark{font:500 12px var(--mono)}
+.mark.ok{color:var(--agree)}.mark.no{color:var(--warn)}
+.verdict{display:flex;gap:12px;align-items:flex-start;border-radius:10px;padding:14px 16px;background:var(--soft)}
+.verdict .badge{flex:0 0 auto;font:600 12px var(--mono);color:#fff;border-radius:6px;padding:3px 9px;margin-top:2px;text-transform:uppercase;letter-spacing:.04em}
+
+/* confidence */
+.conf{border-radius:12px;padding:16px 18px;border:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;gap:8px}
+.conf .lvl{display:flex;align-items:center;gap:10px}
+.conf .lvl b{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;color:#fff;font:600 17px var(--mono)}
+.conf .lvl span{font:600 17px var(--display)}
+.conf .count{font:500 13px var(--mono);color:var(--muted)}
+
+/* results bars */
+.bars{display:flex;flex-direction:column;gap:12px}
+.bar{display:grid;grid-template-columns:minmax(120px,230px) minmax(0,1fr) 70px;gap:12px;align-items:center;font-size:14.5px}
+.track{height:20px;background:var(--track);border-radius:5px;overflow:hidden;display:flex}
+.track i{display:block;height:100%}
+.bar .val{text-align:right;font:500 14px var(--mono)}
+@media(max-width:560px){.bar{grid-template-columns:minmax(0,1fr) 60px}.bar .track{grid-column:1/-1;grid-row:2}}
+.split{display:flex;height:40px;border-radius:8px;overflow:hidden;gap:2px}
+.split div{display:flex;align-items:center;justify-content:center;color:#fff;font:600 14px var(--mono);min-width:28px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* asks table */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 13px var(--body);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+.todo{display:flex;flex-direction:column;gap:10px}
+.todo label{display:flex;gap:12px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
+.todo input{margin-top:5px;accent-color:var(--agree);width:18px;height:18px;flex:0 0 auto}
+.todo .when{font:500 12px var(--mono);color:var(--muted);display:block}
+
+/* timeline */
+.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:10px}
+.tl{border-top:4px solid var(--line);padding-top:10px;font-size:14.5px}
+.tl.done{border-color:var(--agree)}
+.tl.now{border-color:var(--a2)}
+.tl b{display:block;font:600 15px var(--display)}
+.tl .d{font:500 12px var(--mono);color:var(--muted)}
+
+/* glossary */
+details{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+details+details{margin-top:8px}
+summary{cursor:pointer;font-weight:600}
+details p{margin-top:8px;font-size:15px}
+footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;display:flex;flex-direction:column;gap:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<!-- Arc and section patterns: references/page-sections.md. Delete sections that do not earn their place.
+     Writing rules: references/plain-english.md (one idea per sentence, <=20 words, active voice). -->
+
+<header class="hero">
+  <div class="eyebrow">PROJECT · AUDIENCE · status at DD Mon YYYY</div>
+  <h1>How we turn A into B</h1>
+  <p class="answer">One to four short sentences. <b>The one-line essence in bold.</b> State the boundary: what we do not see or do.</p>
+  <div class="status">
+    <span class="pill"><i style="background:var(--agree)"></i>Done thing</span>
+    <span class="pill"><i style="background:var(--wait)"></i>Waiting for you → next version</span>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>000</b><span>plain label</span></div>
+    <div class="kpi"><b>00%</b><span>plain label</span></div>
+    <div class="kpi"><b>0 + 0</b><span>items for you to review</span></div>
+  </div>
+</header>
+
+<section id="why">
+  <div class="eyebrow">1 · The problem</div>
+  <h2>Plain heading<span class="vi">Optional native-language subtitle</span></h2>
+  <p>The analogy in two or three sentences.</p>
+  <div class="analogy">
+    <div class="dict" style="border-top:4px solid var(--them)">
+      <span class="who" style="color:var(--them)">Their list / system</span>
+      <div class="row"><code>ID-1</code><span>Real example</span></div>
+      <div class="row"><code>ID-2</code><span>Real example</span></div>
+      <span class="small muted">Count and role.</span>
+    </div>
+    <div class="bridge">
+      <svg viewBox="0 0 90 40" aria-hidden="true"><path d="M4 20h76" stroke="currentColor" stroke-width="3" fill="none"/><path d="M70 10l12 10-12 10" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Our deliverable
+    </div>
+    <div class="dict" style="border-top:4px solid var(--a1)">
+      <span class="who" style="color:var(--a1)">Target list / system</span>
+      <div class="row"><code>X-1</code><span>Real example</span></div>
+      <div class="row"><code>X-2</code><span>Real example</span></div>
+      <span class="small muted">Count and role.</span>
+    </div>
+  </div>
+  <div class="diagram">
+    <pre class="mermaid">
+flowchart LR
+  A["Input<br/>their system"] --> B["Key<br/>e.g. ID-1"]
+  B --> X["Our piece"]
+  X --> C["Result<br/>their system"]
+  classDef ours fill:#2f6cc0,stroke:#2f6cc0,color:#fff
+  class X ours
+    </pre>
+  </div>
+  <p class="caption">The blue box is the only piece we supply.</p>
+</section>
+
+<section id="who">
+  <div class="eyebrow">2 · Roles</div>
+  <h2>Who does what</h2>
+  <div class="grid2">
+    <div class="side us"><h3>We deliver<small>what we use</small></h3><ul><li>Item.</li></ul></div>
+    <div class="side them"><h3>You keep and do<small>what stays with you</small></h3><ul><li>Item.</li></ul></div>
+  </div>
+  <div class="lock">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" fill="none" stroke="var(--them)" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="var(--them)" stroke-width="2"/></svg>
+    <span>Exactly what data we saw, and what we did not.</span>
+  </div>
+</section>
+
+<section id="process">
+  <div class="eyebrow">3 · The method</div>
+  <h2>N steps from start to finish</h2>
+  <div class="diagram">
+    <pre class="mermaid">
+flowchart TD
+  A["1 · Step"] --> B["2 · Step"]
+  B --> K{"Check passes?"}
+  K -- "yes: n" --> OK["Keep"]
+  K -- "no: n" --> D["3 · Resolve"]
+  D --> V["Final version"]
+  OK --> V
+    </pre>
+  </div>
+  <div class="steplist">
+    <div class="stepcard"><div class="n">1</div><div class="body"><h3>Step name</h3><p>Two to four plain sentences.</p>
+      <div class="coders">
+        <div class="coder" style="--c:var(--a1)"><span class="tagline">Actor 1</span><b>Name</b>What it does.</div>
+        <div class="coder" style="--c:var(--a2)"><span class="tagline">Actor 2</span><b>Name</b>What it does.</div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<section id="examples">
+  <div class="eyebrow">4 · Real examples</div>
+  <h2>Cases, from easy to difficult</h2>
+  <p>Select a case. You see each answer and the final decision.</p>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="ex" id="ex" role="tabpanel" aria-live="polite"></div>
+</section>
+
+<section id="confidence">
+  <div class="eyebrow">5 · Quality signals</div>
+  <h2>What each level means for you</h2>
+  <div class="grid3">
+    <div class="conf"><div class="lvl"><b style="background:var(--agree)">H</b><span>High</span></div><span class="count">n · %</span><p class="small">Meaning. What to do.</p></div>
+    <div class="conf"><div class="lvl"><b style="background:var(--wait)">M</b><span>Medium</span></div><span class="count">n · %</span><p class="small">Meaning. What to do.</p></div>
+    <div class="conf"><div class="lvl"><b style="background:var(--warn)">L</b><span>Low</span></div><span class="count">n · %</span><p class="small">Meaning. What to do.</p></div>
+  </div>
+</section>
+
+<section id="results">
+  <div class="eyebrow">6 · Results</div>
+  <h2>Plain claim about the results</h2>
+  <div class="panel"><div class="bars">
+    <div class="bar"><span>Label</span><div class="track"><i style="width:80%;background:var(--a1)"></i></div><span class="val">80%</span></div>
+  </div><p class="small muted" style="margin-top:14px">One sentence that turns the statistic into plain words, plus the pass mark and when it was set.</p></div>
+  <div class="split" role="img" aria-label="describe the split"><div style="flex:70;background:var(--a1)">70</div><div style="flex:25;background:var(--both)">25</div><div style="flex:5;background:var(--warn)">5</div></div>
+  <div class="legend"><span><i style="background:var(--a1)"></i>70 · meaning</span><span><i style="background:var(--both)"></i>25 · meaning</span><span><i style="background:var(--warn)"></i>5 · meaning</span></div>
+</section>
+
+<section id="asks">
+  <div class="eyebrow">7 · Your input</div>
+  <h2>What we need from you</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>ID</th><th>Item</th><th>Current</th><th>Proposed</th><th>Why</th></tr></thead>
+    <tbody><tr><td class="mono">ID</td><td>…</td><td>…</td><td>…</td><td>…</td></tr></tbody>
+  </table></div>
+  <p class="small muted">Tick an item when it is answered. Ticks stay in your browser only.</p>
+  <div class="todo" id="todo">
+    <label><input type="checkbox" data-k="q1"><span><b>Question?</b> Why it matters.<span class="when">Needed before DATE</span></span></label>
+  </div>
+  <div class="timeline">
+    <div class="tl done"><span class="d">Date</span><b>Done</b>What.</div>
+    <div class="tl now"><span class="d">Now</span><b>Current</b>What.</div>
+    <div class="tl"><span class="d">Date</span><b>Next</b>What.</div>
+  </div>
+</section>
+
+<section id="limits">
+  <div class="eyebrow">8 · Limits</div>
+  <h2>What this cannot do</h2>
+  <div class="grid2"><div class="panel"><h3>Limit</h3><p class="small" style="margin-top:6px">Consequence. What to do instead.</p></div></div>
+</section>
+
+<section id="glossary">
+  <div class="eyebrow">9 · Words used on this page</div>
+  <h2>Glossary</h2>
+  <div><details><summary>Term</summary><p>One or two plain sentences.</p></details></div>
+</section>
+
+<footer>
+  <span><b>Scope:</b> what we do and do not do.</span>
+  <span><b>Sources:</b> name (date) · name (date).</span>
+  <span><b>Working files:</b> file · file.</span>
+</footer>
+</div>
+
+<script>
+// Actor colours for the example picker; keys match the 2nd field of each pick.
+const C={a1:"var(--a1)",a2:"var(--a2)",a3:"var(--a3)"};
+const BADGE={agree:"var(--agree)",keep:"var(--a1)",change:"var(--warn)",both:"var(--both)"};
+// One entry per real case, easy -> hard. picks: [label, colourKey, answer, matchesFinal 1/0]
+const EX=[
+ {code:"ID-1",vi:"Native label",en:"Plain English label",
+  picks:[["Actor 1","a1","Answer",1],["Actor 2","a2","Answer",1]],
+  kind:"agree",badge:"All agree",text:"Two or three sentences: what this case teaches."},
+ {code:"ID-2",vi:"Native label",en:"Case where the majority was wrong",
+  picks:[["Actor 1","a1","Answer",1],["Actor 2","a2","Other answer",0]],
+  kind:"keep",badge:"Keep actor 1",text:"Why the method, not the vote, decided."}
+];
+const tabs=document.getElementById("tabs"),ex=document.getElementById("ex");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function show(i){
+  const e=EX[i];
+  [...tabs.children].forEach((b,j)=>b.setAttribute("aria-selected",j===i));
+  ex.innerHTML=`<div class="exhead"><code>${esc(e.code)}</code><span class="vi">${esc(e.vi)}</span><span class="muted">${esc(e.en)}</span></div>
+  <div class="picks">${e.picks.map(([w,c,s,ok])=>`<div class="pick" style="--c:${C[c]}"><span class="who">${esc(w)}</span><span class="sec">${esc(s)}</span><span class="mark ${ok?"ok":"no"}">${ok?"✓ matches final":"✗ differs from final"}</span></div>`).join("")}</div>
+  <div class="verdict"><span class="badge" style="background:${BADGE[e.kind]}">${esc(e.badge)}</span><p>${esc(e.text)}</p></div>`;
+}
+EX.forEach((e,i)=>{const b=document.createElement("button");b.className="tab";b.role="tab";b.textContent=`${e.code} · ${e.en.split(" (")[0]}`;b.onclick=()=>show(i);tabs.appendChild(b);});
+if(EX.length) show(0);
+// Checklist ticks: per-viewer convenience only.
+document.querySelectorAll("#todo input").forEach(cb=>{
+  const k="explainer-"+location.pathname+"-"+cb.dataset.k;
+  try{cb.checked=localStorage.getItem(k)==="1";}catch(_){}
+  cb.addEventListener("change",()=>{try{localStorage.setItem(k,cb.checked?"1":"0");}catch(_){}});
+});
+</script>
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.15.0/dist/mermaid.esm.min.mjs";
+  const dark = window.matchMedia("(prefers-color-scheme: dark)");
+  const isDark = () => {
+    const t = document.documentElement.dataset.theme;
+    return t ? t === "dark" : dark.matches;
+  };
+  const diagrams = [...document.querySelectorAll(".mermaid")].map((el) => ({ el, src: el.innerHTML }));
+  let applied;
+  async function render() {
+    const theme = isDark() ? "dark" : "neutral";
+    if (theme === applied) return;
+    applied = theme;
+    mermaid.initialize({ startOnLoad: false, theme, securityLevel: "strict",
+      themeVariables: { fontFamily: "IBM Plex Sans, system-ui, sans-serif", fontSize: "15px" } });
+    for (const { el, src } of diagrams) { el.removeAttribute("data-processed"); el.innerHTML = src; }
+    try { await mermaid.run({ nodes: diagrams.map((d) => d.el) }); } catch (e) { console.error("Mermaid render failed:", e); }
+  }
+  if (document.readyState === "complete") render(); else window.addEventListener("load", render, { once: true });
+  dark.addEventListener("change", render);
+  new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+</script>
+</body>
+</html>

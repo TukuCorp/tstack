@@ -1,0 +1,4 @@
+interface:
+  display_name: "HTML Report"
+  short_description: "Build polished single-file HTML reports"
+  default_prompt: "Use $report to generate a polished self-contained HTML report for this work."

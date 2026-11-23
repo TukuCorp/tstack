@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "browse": {
+      "args": [
+        "C:/Users/<USER>/AppData/Roaming/npm/node_modules/@opencode/browse/dist/cli.mjs",
+        "mcp"
+      ],
+      "command": "node",
+      "disabled": false
+    },
+    "officecli": {
+      "args": [
+        "mcp"
+      ],
+      "command": "C:/Users/<USER>/AppData/Roaming/npm/node_modules/@officecli/officecli/vendor/officecli.exe",
+      "disabled": true
+    },
+    "powerpoint": {
+      "command": "C:/Users/<USER>/.local/bin/ppt-mcp.exe",
+      "disabled": true
+    }
+  }
+}
