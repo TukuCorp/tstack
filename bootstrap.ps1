@@ -43,7 +43,7 @@ $Installers = [ordered]@{
     'codex'  = 'irm https://chatgpt.com/codex/install.ps1 | iex'
     'herdr'  = 'irm https://herdr.dev/install.ps1 | iex'
     'hermes' = 'iex (irm https://hermes-agent.nousresearch.com/install.ps1)'
-    # Antigravity CLI: full peer (rules, skills, MCP restored from agy/) and a swarm lane worker
+    # Antigravity CLI: full peer (rules, skills, MCP restored from agy/)
     'agy'    = 'irm https://antigravity.google/cli/install.ps1 | iex'
 }
 

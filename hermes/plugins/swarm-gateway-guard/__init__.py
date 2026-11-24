@@ -1,8 +1,8 @@
-"""Keep /swarm report-backs reachable in chat-gateway sessions (Discord, Telegram, ...).
+"""Keep /necro report-backs reachable in chat-gateway sessions (Discord, Telegram, ...).
 
 A gateway inherits HERDR_PANE_ID from the console pane it was started in, so a lane's
 `herdr agent prompt <pane>` report-back lands in that console and never reaches the chat.
-A gateway chat is one continuous session, so the agent can keep a copy of the swarm skill
+A gateway chat is one continuous session, so the agent can keep a copy of the necro skill
 from before its gateway steps existed (13-15 Nov 2026: lanes reported to the console, the
 user had to ask for progress). This pre_tool_call hook blocks the two calls that cause it
 and tells the agent to reload the skill.
@@ -12,7 +12,7 @@ from __future__ import annotations
 import os
 import re
 
-_RELOAD = ("Reload the swarm skill now with skill_view(name=\"swarm\"): the copy earlier in this chat may "
+_RELOAD = ("Reload the necro skill now with skill_view(name=\"necro\"): the copy earlier in this chat may "
            "be stale. Follow its Gateway steps.")
 _WHY = ("This is a chat-gateway session, so a herdr pane report-back goes to the gateway's console "
         "pane and never reaches this chat.")

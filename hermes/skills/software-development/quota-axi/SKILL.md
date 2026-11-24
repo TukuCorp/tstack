@@ -8,7 +8,7 @@ platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [quota, rate-limits, observability, cli]
-    related_skills: [swarm]
+    related_skills: [necro]
 ---
 
 # quota-axi
