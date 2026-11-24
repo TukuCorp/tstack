@@ -1,6 +1,6 @@
 ---
 name: necro
-description: This skill should be used when delegate a research, audit or bulk-analysis task to several Codex agents in separate Herdr tabs, each in /goal mode on an OpenCode Go model (default opencode-go/deepseek-v4.1-flash), which report back to the calling pane without polling, then verify and synthesize their output into one deliverable. Use for `/necro`, "necro this", "spawn codex agents", "same cadence" after an earlier necro run, or any request to fan a task out to parallel Codex agents in new Herdr tabs. Requires HERDR_ENV=1. Not for a single quick lookup (do it inline) or for controlling existing panes (use the herdr skill).
+description: This skill should be used to delegate a research, audit or bulk-analysis task to several Codex agents in separate Herdr tabs, each in /goal mode on an OpenCode Go model (default opencode-go/deepseek-v4.1-flash), which report back to the calling pane without polling, then verify and synthesize their output into one deliverable. Use for `/necro`, "necro this", "spawn codex agents", "same cadence" after an earlier necro run, or any request to fan a task out to parallel Codex agents in new Herdr tabs. Requires HERDR_ENV=1. Not for a single quick lookup (do it inline) or for controlling existing panes (use the herdr skill).
 argument-hint: "<task to fan out>"
 ---
 
@@ -10,11 +10,11 @@ Fan one task out to a few Codex agents on an OpenCode Go model (`opencode-go/dee
 
 This skill is self-contained. The Herdr commands it needs are in `references/herdr-cli.md`; the brief layout is in `references/brief-template.md`; the stall watchdog is `scripts/watchdog.sh`. Read the first before you launch anything.
 
-Parallel agents use quota several times faster than one chat. Before launching, run `quota-axi` (the quota-axi skill explains the output) and check the `opencode-go` row: every lane draws on the OpenCode Go subscription. If it shows `projected_exhaustion` before the run would finish, or under 20% left, tell the user with the numbers and offer a cheaper opencode-go model or fewer lanes.
-
 ## 0. Preconditions
 
 Confirm you are inside Herdr (`HERDR_ENV=1`) and note the caller's workspace id, pane id and working directory; `references/herdr-cli.md` has the Bash and PowerShell forms. If you are not inside Herdr, say so and stop. The caller pane is where agents report back.
+
+Then check that pane id is live and is yours: `herdr pane get "$HERDR_PANE_ID"` must succeed and its `agent` field must be your own harness. A long-lived tool shell can carry a stale id from the pane it first started in; on 2026-11-24 a Hermes shell reported `w3S:p3`, a pane that no longer existed, while Hermes ran in `w3S:pE`, so the brief and watchdog reported to nowhere. If the check fails, find your row in `herdr agent list` by agent kind and working directory and use its `pane_id`; if no single row matches, ask the user. Put the checked id, never the raw variable, in briefs and the watchdog.
 
 ## 1. Split the task into lanes
 
@@ -22,7 +22,7 @@ Aim for 2-3 lanes, each with a distinct slice and its own output file; if the us
 
 **Pilot bulk work.** If each lane will repeat the same job over many items (files, companies, pages), run one lane on about 3 items first, fix the brief from what it gets wrong, then launch the rest.
 
-Pick short lane names (`[a-z][a-z0-9_-]{0,31}`, unique among live agents), for example `cgfirms`.
+Pick short lane names (`[a-z][a-z0-9_-]{0,31}`, unique among live agents), for example `cgfirms`. Check `herdr agent list` for live names before choosing: parallel runs sharing the workspace can already own the obvious name, and `agent start` then fails with `agent_name_taken`. On a collision, rename the lane and update the brief's marker path and report-back line to match the new name.
 
 **Verifier lane (optional).** For 4 or more lanes, offer the user one `verify` lane per two to four work lanes. Its brief lists the work lanes' output files. It re-opens a sample of their cited sources, flags claims that don't hold up or have the wrong label, and writes `<prefix>-verify.md`. It starts after the lanes it checks have reported. A verifier on a different model family from the workers catches more, because it doesn't share their blind spots.
 
@@ -82,7 +82,7 @@ Then produce the deliverable in the project folder (an HTML report when asked, o
 Closing a tab ends only the Codex client: the agent's thread and its tool processes stay loaded in the shared Codex daemon. For each lane this run created, once its final file is read:
 
 1. Close its tab: `herdr tab close <tab-id>`.
-2. Find its thread id from the rollout that holds its goal prompt, then archive it, which unloads it from the daemon (commands in `references/herdr-cli.md`, "Unloading finished threads").
+2. Find its thread id from the rollout that holds its goal prompt and its project dir, then archive it, which unloads it from the daemon (commands in `references/herdr-cli.md`, "Unloading finished threads").
 3. Confirm it printed `Archived session <id>.`
 
 Once every lane is cleaned up, close the watchdog's tab too (it exits by itself when every lane has reported or closed).

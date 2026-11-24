@@ -20,6 +20,15 @@ if ($env:HERDR_ENV -ne '1') { 'not in herdr' }
 
 Herdr injects `HERDR_WORKSPACE_ID` (e.g. `w34`), `HERDR_TAB_ID` and `HERDR_PANE_ID` (e.g. `w34:p1`) into every managed pane. The caller's `HERDR_PANE_ID` is the address the agents report back to. If `HERDR_ENV` is not `1`, stop: do not control a Herdr session you are not inside.
 
+Check the id before you use it. A tool shell that outlives its pane keeps the old value (2026-11-24: a Hermes shell said `w3S:p3`, which no longer existed; Hermes ran in `w3S:pE`):
+
+```bash
+herdr pane get "$HERDR_PANE_ID"   # must succeed, and .result.pane.agent must be your harness
+herdr agent list                  # if not: your row is the one with your agent kind and cwd; use its pane_id
+```
+
+Errors look like `{"error":{"code":"pane_not_found",...}}` with exit status 1. If no single `agent list` row matches, ask the user rather than guess.
+
 ## IDs
 
 Workspace `w1`, tab `w1:t1`, pane `w1:p1`. They are opaque and never reused. Read them from the JSON a command returns; do not guess them from the sidebar. Most commands print JSON (`.result...`); errors are JSON on stderr with exit status 1.
@@ -49,7 +58,7 @@ herdr tab close <tab-id>
 
 - Agent names match `[a-z][a-z0-9_-]{0,31}` and must be unique among live agents.
 - Statuses: `idle` ready for input; `done` the same state after unseen background work finished; `working`; `blocked` an approval or question prompt is showing; `unknown` the agent is present but unclassified (it does not prove completion).
-- Always pass `--timeout <ms>` to any command that can wait.
+- Pass `--timeout <ms>` to every command that waits: `agent start`, `agent wait`, `agent prompt --wait`. Never pass it to `agent prompt` without `--wait`; Herdr rejects that with "--timeout requires --wait" (since 2026-11-20).
 - Do not close tabs, panes or workspaces you did not create. Never run `herdr server stop` (it kills every pane).
 
 ## Starting a Codex agent
@@ -67,6 +76,7 @@ Gotchas:
 
 - Start each lane with a direct `herdr agent start` call from your own shell, one at a time. On 2026-11-17 every start made from inside a launcher script (`bash launch.sh lanes...`, backgrounded or serial, with or without an 8 s sleep after `tab create`) created the tab but left no agent (`agent_not_found` on the next prompt); the same command run directly succeeded every time (10-20 s each). Cause not found. Check `herdr agent get <lane>` after each start.
 - A new folder may show "Trust this folder?"; `agent start` then reports not ready. Read the pane, confirm the folder, send `enter`.
+- A new agent may show a "Hooks need review" menu offering "Trust all and continue" (Codex 0.167, seen 2026-11-24). Its default highlight is "Review hooks", so a bare `enter` opens the review instead of launching. Send `down` first, confirm the highlight moved to "Trust all and continue" by reading the pane, then send `enter`.
 - Codex may open an "Update available" menu instead of its prompt. Send `escape` to each lane's pane to skip it (never pick "Update now" unasked), then read the pane again before sending the goal.
 - `agent start` can return while MCP servers are still starting. A prompt sent then sits in the input box and the status shows `done`. Check `agent read --source visible`; if the text is still in the input, re-send. Do not press `ctrl+c`: it exits Codex.
 - A prompt that begins with `/` (such as `/goal ...`) is rewritten into a Windows path by Git Bash. Prefix the call with `MSYS_NO_PATHCONV=1`, or send it from PowerShell.
@@ -75,15 +85,33 @@ Gotchas:
 
 ## Unloading finished threads
 
-Closing a tab ends the Codex client process, but the thread stays loaded in the daemon with its MCP servers and tool processes (tested 2026-10-22: still loaded 30 s after the close; the daemon may unload it on its own much later). `codex archive` unloads it at once. The thread id is the UUID at the end of the rollout file that holds the lane's goal prompt:
+Closing a tab ends the Codex client process, but the thread stays loaded in the daemon with its MCP servers and tool processes (tested 2026-10-22: still loaded 30 s after the close; the daemon may unload it on its own much later). `codex archive` unloads it at once. The thread id is the UUID at the end of the rollout file that holds the lane's goal prompt and whose first line records the lane's project dir as `"cwd"`. Match both: brief names repeat across runs (on 2026-11-24 two harnesses each launched a `nt-brief-audit.md` lane at once).
+
+Bash / Git Bash (`dir` is the `-C` dir you started the lane with):
 
 ```bash
-id=$(grep -rl --include='rollout-*.jsonl' "Read the brief <prefix>-brief-<lane>.md" ~/.codex/sessions \
+dir='C:\path\to\project'
+cwd=$(printf '"cwd":"%s"' "$(printf '%s' "$dir" | sed 's#/#\\#g; s#\\#\\\\#g')")
+id=$(grep -rlF --include='rollout-*.jsonl' "Read the brief <prefix>-brief-<lane>.md" ~/.codex/sessions \
+  | while read -r f; do head -n 1 "$f" | grep -qF "$cwd" && echo "$f"; done \
   | sed -E 's/.*-([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\.jsonl$/\1/')
 codex archive --remote unix:// "$id"       # unloads it; `codex unarchive <id>` restores it to history
 ```
 
-- Expect exactly one id per lane. If the grep returns none or several, stop and read the matches; do not archive a guess.
+PowerShell (no grep or sed needed):
+
+```powershell
+$dir = (Resolve-Path 'C:\path\to\project').Path
+$id = Get-ChildItem ~/.codex/sessions -Recurse -Filter 'rollout-*.jsonl' |
+  Where-Object { (Select-String -LiteralPath $_.FullName -SimpleMatch 'Read the brief <prefix>-brief-<lane>.md' -Quiet) -and
+                 ((Get-Content -LiteralPath $_.FullName -TotalCount 1 | ConvertFrom-Json).payload.cwd -eq $dir) } |
+  ForEach-Object { $_.BaseName.Substring($_.BaseName.Length - 36) }
+codex archive --remote unix:// $id
+```
+
+Both forms were tested 2026-11-24 against the four rollouts of that day's test run: each returned exactly its own lane's id, with `/` or `\` in the dir.
+
+- Expect exactly one id per lane. If the lookup returns none or several, stop and read the matches; do not archive a guess.
 - Success prints `Archived session <id>.`; in the test that thread left the daemon's loaded list at once.
 - Do not use `codex app-server daemon stop` or `restart`: the daemon holds every other session's agents.
 

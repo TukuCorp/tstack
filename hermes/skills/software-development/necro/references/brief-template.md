@@ -38,7 +38,7 @@ Out of scope: <what this lane must not research, edit or write, including the ot
 
 ## Last action (mandatory)
 When the file is finished, as your very last actions:
-1. Create the empty file `_<prefix>/<lane>.reported`.
+1. Create the empty file `_<prefix>/<lane>.reported`, then list it to confirm it exists.
 2. Run: herdr agent prompt <caller-pane-id> "<lane> finished: N rows, file <prefix>-<lane>.md"
 (replace N with the real row count; do not use --wait). If you could not finish, still do both with the true state, for example "<lane> finished: partial, file <prefix>-<lane>.md". If you receive a fix request later, do both again when the fixes are done.
 ```
