@@ -82,3 +82,13 @@ function claude-code-mode {
     $env:CLAUDE_CODE_EXPERIMENTAL_CODE_MODE = '1'
     try { claude @args } finally { Remove-Item Env:CLAUDE_CODE_EXPERIMENTAL_CODE_MODE -ErrorAction SilentlyContinue }
 }
+
+# agy: YOLO by default (no settings key exists for --dangerously-skip-permissions as of agy 1.5.16).
+# Subcommands (models, mcp, update...) pass through unchanged.
+function agy {
+    $exe = "$env:LOCALAPPDATA\agy\bin\agy.exe"
+    $sub = 'acp','agent','agents','changelog','help','install','mcp','mic-serve','models','plugin','plugins','remote-control','update'
+    if ($args.Count -gt 0 -and $sub -contains $args[0]) { & $exe @args }
+    elseif ($args -contains '--dangerously-skip-permissions') { & $exe @args }
+    else { & $exe --dangerously-skip-permissions @args }
+}
