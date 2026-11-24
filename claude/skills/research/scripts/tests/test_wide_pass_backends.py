@@ -28,13 +28,6 @@ def rows(path):
             if line.strip()]
 
 
-def hermes_present():
-    candidates = [os.environ.get("HERMES_AGENT_DIR", ""),
-                  os.path.join(os.environ.get("LOCALAPPDATA", ""), "hermes", "hermes-agent"),
-                  os.path.expanduser("~/.hermes/hermes-agent")]
-    return any(c and os.path.isdir(c) for c in candidates)
-
-
 class Merge(unittest.TestCase):
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
@@ -78,8 +71,18 @@ class Merge(unittest.TestCase):
         self.assertEqual(summary["merged"][str(self.worker)]["added"], 0)
 
 
-@unittest.skipUnless(os.environ.get("PERPLEXITY_API_KEY") or hermes_present(),
-                     "needs PERPLEXITY_API_KEY or a Hermes install")
+class NoPerplexityKey(unittest.TestCase):
+    # Self-contained: without PERPLEXITY_API_KEY, Perplexity is skipped; no other agent's install is used.
+    def test_perplexity_unavailable_without_key(self):
+        env = {k: v for k, v in os.environ.items() if k not in ("FIRECRAWL_API_KEY", "PERPLEXITY_API_KEY")}
+        with tempfile.TemporaryDirectory() as d:
+            summary = run(["--ledger", str(pathlib.Path(d) / "l.jsonl"), "--web-target", "1",
+                           "--web-query", "Perplexity Photon retrieval engine"], env=env)
+            self.assertTrue(summary["perplexity"].startswith("unavailable"), summary)
+            self.assertEqual(summary["by_bucket"].get("web", 0), 0, summary)
+
+
+@unittest.skipUnless(os.environ.get("PERPLEXITY_API_KEY"), "needs PERPLEXITY_API_KEY")
 class PerplexityFallback(unittest.TestCase):
     def test_web_bucket_filled_by_perplexity_when_firecrawl_unavailable(self):
         env = {k: v for k, v in os.environ.items() if k != "FIRECRAWL_API_KEY"}

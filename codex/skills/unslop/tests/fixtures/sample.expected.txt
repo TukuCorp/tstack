@@ -1,0 +1,14 @@
+3:1 FIX High "In today's fast-paced world" (Openers) fix: Start with a concrete fact, date, or scene; name proper nouns; drop the throat‑clearing.
+3:39 FIX High "embarked on a journey" (Exhausted metaphor) fix: Name the first action.
+3:64 JUDGE Medium "unlock the power of" (AI-scent vocabulary) fix: Prefer plain verbs ('use', 'try', 'test'); swap abstractions for specifics; cut puffery.
+3:90 JUDGE Medium "Moreover" (Transitional adverbs) fix: Vary transitions or drop them; switch to simpler connectors ('and', 'but'); reorder sentences.
+3:122 JUDGE Medium "game-changer" (Corporate boilerplate) fix: Replace with measurable claims, numbers, and concrete nouns.
+3:139 JUDGE Medium "stakeholders" (Corporate boilerplate) fix: Name the people or groups.
+3:153 FIX High "At its core, this is" (Openers) fix: Start with a concrete fact, date, or scene; name proper nouns; drop the throat‑clearing.
+3:176 JUDGE Medium "holistic approach" (Corporate boilerplate) fix: Name the dimensions.
+3:199 JUDGE Medium "myriad" (Unnecessary formality) fix: Use many or give the number.
+5:1 JUDGE Medium "It's not about speed, it's about" (Regex) fix: Catches "It's not about X, it's about Y" patterns
+5:41 JUDGE Medium "No meetings. No delays. Just results" (Regex) fix: Catches "No X. No Y. Just Z" patterns
+7:46 JUDGE Low "prior to" (Unnecessary formality) fix: Use before unless the genre requires formality.
+7:69 FIX High "All in all" (Closers) fix: End on one sharp implication, next step, or specific unanswered question.
+7:83 JUDGE Medium "win-win" (Corporate boilerplate) fix: Name each party's benefit and any cost.

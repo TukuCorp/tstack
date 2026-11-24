@@ -34,7 +34,7 @@ Buckets are orthogonal to modes. Modes set topic emphasis; buckets set source-ty
    (`gh`, OpenAlex, and Firecrawl search via the helper - Firecrawl requires `FIRECRAWL_API_KEY` in the
    environment), so the even split is normally achievable without cross-bucket pressure. When Firecrawl is
    unavailable (no key, invalid key, or exhausted credits), the helper searches with Perplexity instead
-   (Search API fast preset, via `PERPLEXITY_API_KEY` or a signed-in local Hermes Agent install). If both
+   (Search API fast preset, via `PERPLEXITY_API_KEY`). If both
    are unavailable, `industry`/`web` fall back to WebSearch,
    which shares one hard session quota, and at large `--sources` the 25%/25% targets will usually be
    capped by the WebSearch budget (Wide-Pass Execution, <=8 queries/bucket). When that happens,
@@ -116,7 +116,7 @@ python <skill>/scripts/wide_pass.py \
 
 It prints a JSON summary (`new_rows`, `by_bucket`, `firecrawl`, `errors`). The `firecrawl` field is
 `"ok"`, `"skipped"` (no industry/web targets given), or `"unavailable: <reason>"`. The `perplexity` field is `"not needed"` (Firecrawl
-served every query), `"ok (direct)"`, `"ok (hermes provider)"`, `"skipped"`, or `"unavailable: <reason>"`;
+served every query), `"ok (direct)"`, `"skipped"`, or `"unavailable: <reason>"`;
 `rows_by_engine` counts rows per engine. If a bucket is short
 of target, call it again with broader/different queries - it will only add new, deduped rows. The
 academia/github buckets never use WebSearch and are not subject to the session search quota, so they

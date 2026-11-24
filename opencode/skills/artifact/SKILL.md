@@ -27,7 +27,7 @@ Build a polished, self-contained HTML page (report, explainer, dashboard, compar
 
 ## 3. Check it
 - Run `python -X utf8 <this skill's folder>/scripts/fidelity.py <source> <file>`, where `<source>` is the brief, notes or original the page was built from. Fix every FAIL (dropped diacritics, unlinked sources, dark-only theme). For each WARN number, confirm it was shown in a chart or dropped on purpose.
-- Run `python -X utf8 C:/Users/<USER>/.claude/skills/verify/scripts/shot.py <file>` and look at the PNGs. Fix any overflow or off-screen control it flags.
+- Run `python -X utf8 C:/Users/<USER>/.config/opencode/skills/verify/scripts/shot.py <file>` and look at the PNGs. Fix any overflow or off-screen control it flags.
 - Compare the phone and desktop shots for buttons and toggles: a control visible on desktop but missing on the phone is a bug, even if the script does not flag it.
 - Cap the check-and-fix loop at 3 rounds. If anything still fails, stop and hand over with the open issues listed rather than polishing further.
 - Show the command and its result as proof.

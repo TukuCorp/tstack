@@ -1,0 +1,133 @@
+---
+name: gloop
+description: Turns any goal into one short, paste-ready "gauntlet loop" prompt - a prompt that makes an agent set a concrete quality bar, split the work into small judgeable pieces, run a builder and a separate harsh critic on each, compare blind against the bar, and loop until it wins or stalls. Works for builds, writing, code, research, or design. Triggers on "/gloop", "gloop", "gauntlet loop", "gauntlet this", "make a gauntlet prompt", "loop until it beats X".
+---
+
+# Gauntlet Loop
+
+The user gives a goal. You give back ONE short prompt they can paste into a fresh agent session.
+
+You are not doing the work. You are writing the prompt that makes another agent grind on the work until it beats a real reference.
+
+## Flow
+
+1. **Read the goal.** One line restatement in your head, not on screen.
+2. **Set the bar.** If the user supplied a reference, use it. If not, offer **2 or 3 candidate bars**, one line each, and stop. Wait for their pick. Do not write the prompt yet.
+3. **Write the prompt.** One block, paste-ready, no preamble, no headings inside it, no narration after it.
+4. **Offer to run it.** One flat line under the prompt: "I can run this here." Not a question.
+
+If they say run it, you become the lead agent and follow the prompt you just wrote.
+
+## The bar is the whole trick
+
+Everything else in a gauntlet loop is scaffolding. The loop only produces quality if the thing it compares against is real.
+
+A bar has to pass three tests:
+
+- **Named.** A specific thing, not a category. "Stripe's pricing page" works. "Award-winning SaaS sites" does not.
+- **Fetchable.** The critic can actually get it - screenshot the live page, read the published piece, run the binary, open the repo, watch the footage. If the agent cannot obtain it, it will hallucinate the comparison.
+- **Comparable.** Both can sit side by side and a judge can pick one. If you cannot imagine the A/B, it is not a bar.
+
+Bars by goal type:
+
+| Goal | Bar that works |
+|---|---|
+| Website, app, UI | The live site of a specific best-in-class product, screenshotted at the same viewport |
+| Game, 3D, visual | Real footage or screenshots from a named shipped title |
+| Writing | A specific published piece by a named author or publication, same length and format |
+| Code, tooling | A named repo's implementation, plus its benchmark or test suite as the measurable half |
+| Research, analysis | A named analyst report or a paper's methods section, judged on rigour and coverage |
+| Deck, doc, deliverable | A real artifact from a firm known for it, same page count |
+
+When you propose bars, prefer the hardest one the agent can genuinely reach. A bar that is too easy makes the loop exit on round one.
+
+If the goal has a measurable half (load time, token cost, benchmark score, word count, pass rate), name it alongside the reference. Taste plus a number beats taste alone.
+
+## Prompt template
+
+Adapt the wording every time. Fill the brackets, keep it short, keep the last line.
+
+```
+Build [GOAL].
+
+The bar is [BAR]. Get the real thing first and compare against it directly, not against a description of it.
+
+Break this into the smallest pieces that can be improved and judged on their own. For each piece, fan out a builder and a separate critic with fresh context. A separate capture step produces ours and the bar in the same format, shuffles them into A and B, and logs which is which where the critic cannot see it. The critic judges A against B, says which one is better, and names the single biggest remaining gap. Only then is the mapping revealed. Then the gap goes back to the builder.
+
+The critic should be a harsh critic. Praise is not useful. If ours does not win, it keeps going.
+
+Loop on each piece until the critic picks ours blind. The only early stop: if 3 rounds in a row close no gap, stop that piece and report the gap that remains.
+
+Keep a live progress page updating as the work evolves so I can watch it.
+
+Keep iterating until the critic picks ours; run builders and critics as parallel subagents.
+```
+
+Rules for what you fill in:
+
+- Bake the bar in as a concrete, fetchable thing. URL, product name, repo, title.
+- Always keep the early-stop sentence. It stops a piece after K rounds in a row with no gap closed; K is 3 unless the user names another number.
+- Add a budget or cost ceiling **only if the user named one**, as a second early stop in the same sentence ("..., or once $X is spent, stop and report the gap that remains"). No default budget.
+- Add tool names only if the goal needs them (image or video generation, a browser, a deploy target).
+- Everything else stays out. No architecture, no file layout, no decomposition, no round count, no stack choice unless the user demanded it. The agent decides those, and it decides better than a spec written before the work started.
+
+## Length and voice
+
+Short. Around 150 to 220 words. If the prompt needs a heading to stay readable, it is too long.
+
+Plain sentences. No bullet lists inside the prompt. It should read like someone telling an agent what perfect looks like and refusing to accept less.
+
+## Running it here
+
+Fan out builders and critics as parallel subagents with fresh context, one focused piece per agent. Keep the judging blind: capture both outputs in a separate step, write them as A and B in shuffled order, and log the mapping in a file the critic is never given. Reveal it only after the verdict.
+
+## Two filled examples
+
+**Visual goal.** User: "landing page for my running brand, athletic, green and dark, has to feel alive."
+
+Bars offered: A) Nike's current running campaign page B) On Running's homepage C) Gymshark's product landing page. User picks A.
+
+```
+Build a landing page for a running brand. Athletic, peak performance, green and dark, energetic, aimed at a young healthy audience. It needs to be interactive and visually unmistakable.
+
+The bar is Nike's current running campaign page. Screenshot it at desktop and mobile and compare against those directly, not against a description of them.
+
+Break this into the smallest pieces that can be improved and judged on their own - hero, motion, type, colour, imagery, interaction, mobile. For each piece, fan out a builder and a separate critic with fresh context. A capture step screenshots our page and Nike's at the same viewports, shuffles them into A and B, and logs the mapping where the critic cannot see it. The critic says which is better and names the single biggest remaining gap; only then is the mapping revealed. Then it goes back to the builder.
+
+The critic should be a harsh critic. Praise is not useful. If ours does not win, it keeps going.
+
+Loop on each piece until the critic picks ours blind. The only early stop: if 3 rounds in a row close no gap, stop that piece and report the gap that remains.
+
+Keep a live progress page updating as the work evolves so I can watch it.
+
+Keep iterating until the critic picks ours; run builders and critics as parallel subagents.
+```
+
+**Non-visual goal.** User: "a 2000-word explainer on vector databases for non-engineers."
+
+Bars offered: A) a specific Stripe engineering blog explainer B) a named Julia Evans post C) the Wikipedia article plus a comprehension test. User picks B.
+
+```
+Write a 2000-word explainer on vector databases for readers who are smart but not engineers.
+
+The bar is Julia Evans' writing on hard technical topics. Pull three of her actual posts and compare against them directly, not against a description of her style.
+
+Break this into the smallest pieces that can be judged on their own - the opening, each explanation, the diagrams, the analogies, the ending. For each piece, fan out a writer and a separate critic with fresh context. A capture step strips bylines and formatting from ours and hers, shuffles them into A and B, and logs the mapping where the critic cannot see it. The critic says which one a non-engineer would understand faster and names the single biggest remaining gap; only then is the mapping revealed. Then it goes back to the writer.
+
+The critic should be a harsh critic. Praise is not useful. If ours does not win, it keeps going.
+
+Loop on each piece until the critic picks ours blind. The only early stop: if 3 rounds in a row close no gap, stop that piece and report the gap that remains.
+
+Keep a live progress page updating as the work evolves so I can watch it.
+
+Keep iterating until the critic picks ours; run builders and critics as parallel subagents.
+```
+
+## What breaks a gauntlet loop
+
+- **A vague bar.** The critic invents a comparison and approves everything. Most common failure by far.
+- **The builder judging its own work.** The critic must be a separate agent with fresh context. It should not know how hard the builder tried.
+- **A soft critic.** Say "harsh" in the prompt and give it a binary job: which one is better, A or B. Scores out of 10 drift upward every round.
+- **A fixed round count, or no stop at all.** The exit is winning the comparison. The only early stops are the stall rule (K rounds in a row with no gap closed, default 3) and a budget the user named. Both end by reporting the remaining gap, never by declaring a win.
+- **A critic that knows which one is ours.** If the critic gathers the outputs itself or can see file names, the comparison is not blind. Capture in a separate step, shuffle into A and B, keep the mapping out of the critic's context, and reveal it only after the verdict.
+- **Over-specifying.** Every extra instruction is one fewer decision the agent makes with its own judgment. Minimal wins.

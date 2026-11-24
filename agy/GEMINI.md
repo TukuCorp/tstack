@@ -1,3 +1,7 @@
+## Initialization
+- Treat the project rules file (`GEMINI.md`, `AGENTS.md` or `CLAUDE.md`) as project law (tech stack, testing framework, standards).
+- In a code repo with no project rules file, learn the stack, test setup and conventions from the code, and ask only what the repo can't show (the goal, constraints, what done means). Outside code repos (home folder, admin or expense work), don't ask.
+
 ## Testing
 - Test at the highest feasible level: **E2E** (nothing mocked; test accounts only) → **integration** (real DB/API/schema boundaries) → **golden** (real inputs, checked-in outputs; each edge-case bug adds a case) → **unit** (only for pure logic or math).
 - Red/green: write the failing test first, at that level, and confirm it fails before implementing.
@@ -6,6 +10,9 @@
 ## File Size
 - Keep each code file at 1000 lines or fewer. In a new repo, add a lint rule for it before much code exists (ESLint `max-lines`, pylint `max-module-lines`, or a test that counts lines); unwinding big files later is costly. Split a file that nears the cap by responsibility.
 
+## When Uncertain
+- Use the most conventional approach, follow existing patterns, leave a single inline comment documenting the assumption.
+
 ## Shell on Windows
 - Write any script longer than a few lines to a scratch file (Write tool) and run the file. Long programs inlined in `bash -c`, heredocs or PowerShell strings break on quotes.
 - Give native Windows programs (python, gws, PIL) `C:/...` paths, not Git Bash `/c/...` paths.
@@ -13,7 +20,7 @@
 
 ## Verification
 - End each task with a runnable check (test, build, script, screenshot) and show the command and its output as proof; "looks done" is not done.
-- For rendered output (HTML pages, artifacts, decks, anything "mobile friendly"), run `python -X utf8 C:/Users/<USER>/.codex/skills/verify/scripts/shot.py <url-or-file>` (add `--artifact` for an artifact's local source) and look at the PNGs. It emulates real phones, not a narrow window, and flags overflow and off-screen controls.
+- For rendered output (HTML pages, artifacts, decks, anything "mobile friendly"), run `python -X utf8 C:/Users/<USER>/.gemini/config/skills/verify/scripts/shot.py <url-or-file>` (add `--artifact` for an artifact's local source) and look at the PNGs. It emulates real phones, not a narrow window, and flags overflow and off-screen controls.
 - When a result falls short, escalate in order: add or tighten that check, then raise effort one level, then move up a model.
 - Briefs (my prompts, subagent and swarm lanes, scheduled jobs) state Goal, Why, Constraints, Out of scope and Check. Leave out what the agent can read from the repo.
 - Unattended runs (loops, swarms, scheduled jobs) also set a turn or spend limit and say where output lands for my approval. Pilot on about 3 items before running the rest.
@@ -27,6 +34,26 @@
 
 ## Estimates
 - Size work in agent units, not calendar time: phases, sessions, files touched, verification gates, and human checkpoints (reviews, logins, approvals, external waits). Give wall-clock time only for outside dependencies (vendors, CI, people), and name them.
+
+## Debugging Rules
+- If the same bug persists after two fix attempts: stop, summarize the current state and what was tried, and ask for direction. The next attempt starts from a fresh session with a rewritten prompt, not more patches.
+
+## Core Principles
+- **Simplicity First:** Make every change as simple as possible. Impact minimal code.
+- **Root causes:** Fix the cause, not the symptom; no temporary fixes.
+
+## Subagents
+- Delegate only substantial standalone work (audits, migrations, bulk or verbose reading), one focused task each. Do small jobs inline: subagents add cost and latency and don't make the answer smarter.
+- Put delegated searching and reading on a cheaper model; keep code edits on the main model.
+
+## Task Management
+- For multi-step implementation work, write a plan to `activeContext.md` at project root with checkable items before starting. Skip it for questions and one-step changes.
+- Give each task its own dated `##` section in `activeContext.md`; don't rewrite earlier tasks' sections.
+- Check in with the user before beginning implementation, unless they already said to proceed or the task runs unattended (loops, scheduled jobs).
+- Mark items complete as you go.
+- Add a review/results section to `activeContext.md` after completion.
+- When I correct the same thing twice: record the pattern and a rule that prevents recurrence, as a hook or lint rule if it must never bend. Project-specific → `lessons.md` at project root. Applies across projects → this global file (and the other harnesses' global rule files).
+- Review `lessons.md` at session start for project-relevant rules.
 
 ## Google Workspace
 - For Gmail, Drive, Docs, Sheets, Slides and Calendar, use the `gws` CLI first (`gws <service> --help`), before connectors/MCP, browser or desktop automation. When another route fails on a Google task, switch to `gws` instead of retrying it.

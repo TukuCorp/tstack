@@ -61,15 +61,14 @@ SOURCES = [
     ("AppData/Local/hermes/plugins/swarm-gateway-guard", "hermes/plugins/swarm-gateway-guard", "tree"),
     # Live Hermes cron script (job "Weekly Disk Cleanup (Sunday)"); the job itself is recreated per README.
     ("AppData/Local/hermes/scripts/disk-cleanup.py", "hermes/live-scripts/disk-cleanup.py", "file"),
-    # agy (Antigravity CLI): global rules are ~/.gemini/GEMINI.md (gemini-cli reads it too); it also loads ~/.agents/skills.
+    # agy (Antigravity CLI): global rules are ~/.gemini/GEMINI.md (gemini-cli reads it too); skills only from its own dir.
     (".gemini/GEMINI.md", "agy/GEMINI.md", "file"),
     (".gemini/config/skills", "agy/skills", "tree"),
     (".gemini/config/mcp_config.json", "agy/mcp_config.json", "json"),
-    # agy reads ~/.agents/skills only from a cwd of ~, so this declares it globally (absolute path; ~ is not expanded).
+    # Extra skill dirs for agy; kept empty since 2026-11-24 (each harness loads only its own skills).
     (".gemini/config/skills.json", "agy/skills.json", "json"),
     # Default model and permission settings; trustedWorkspaces is dropped (see MACHINE_LOCAL_KEYS).
     (".gemini/antigravity-cli/settings.json", "agy/settings.json", "json"),
-    (".agents/skills", "shared/agents-skills", "tree"),
     ("AGENTS.md", "shared/AGENTS.md", "file"),
     ("AppData/Local/noctty/config.ghostty", "noctty/config.ghostty", "file"),
     (".config/noctty", "noctty/dotconfig", "tree"),  # shaders, background images

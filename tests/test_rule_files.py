@@ -29,10 +29,18 @@ class RuleFileTests(unittest.TestCase):
         missing = [rel for rel in RULE_FILES if "## Estimates" not in (ROOT / rel).read_text(encoding="utf-8")]
         self.assertEqual(missing, [], "each rule file needs the agent-unit Estimates section")
 
-    def test_agy_rules_match_codex(self):
-        # agy (~/.gemini/GEMINI.md) carries the Codex rule set verbatim; edit both together.
+    def test_agy_rules_contain_codex(self):
+        # agy (~/.gemini/GEMINI.md) carries every Codex section verbatim plus the Claude Code
+        # workflow sections (2026-11-24); a Codex rule edit must be copied into agy too.
         agy = (ROOT / "agy/GEMINI.md").read_text(encoding="utf-8")
-        self.assertEqual(agy, (ROOT / "codex/AGENTS.md").read_text(encoding="utf-8"))
+        # Self-paths differ by design: each harness points at its own skills folder.
+        codex = (ROOT / "codex/AGENTS.md").read_text(encoding="utf-8").replace(
+            "/.codex/skills/", "/.gemini/config/skills/")
+        sections = [sec.strip() for sec in re.split(r"(?m)^(?=## )", codex) if sec.strip()]
+        missing = [sec.splitlines()[0] for sec in sections if sec not in agy]
+        self.assertEqual(missing, [], "agy/GEMINI.md lost or changed these Codex sections")
+        for heading in ("## Initialization", "## Debugging Rules", "## Task Management", "## Subagents"):
+            self.assertIn(heading, agy)
 
 
 if __name__ == "__main__":

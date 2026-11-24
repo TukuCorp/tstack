@@ -11,15 +11,23 @@ run in. `bootstrap.ps1` rebuilds the whole setup on a new machine.
 | `opencode/` | Opencode | `~/.config/opencode` |
 | `hermes/` | Hermes | `~/.hermes`, the disk-cleanup cron script (`live-scripts/`) + workflow skills from `%LOCALAPPDATA%/hermes/skills` (software-development, opencode, research, engineering, gloop, unslop) |
 | `agy/` | Antigravity CLI | `~/.gemini/GEMINI.md`, `~/.gemini/config/skills`, `~/.gemini/config/mcp_config.json`, `~/.gemini/config/skills.json` |
-| `shared/` | cross-tool | `~/.agents/skills`, `~/AGENTS.md` |
+| `shared/` | cross-tool | `~/AGENTS.md` |
 | `noctty/` | noctty terminal | `%LOCALAPPDATA%/noctty/config.ghostty` + `~/.config/noctty` (`dotconfig/`: shaders, backgrounds) |
 | `ahk/` | AutoHotkey v2 | `~/.config/ahk/noctty-toggle.ahk`: Home hides/shows the noctty window (live herdr session); bootstrap adds a Startup shortcut |
 | `herdr/` | herdr multiplexer | `%APPDATA%/herdr/config.toml`; `plugins.json` = GitHub plugins to reinstall; `local-plugins.json` + `local-plugins/*.patch` = patched clones in `~/.herdr/local-plugins` (upstream commit + my diff), when there are any |
 | `machine/` | global CLIs, shell | `packages.json`: npm / bun / uv tools installed globally; `powershell/`: Windows PowerShell `$PROFILE` (`codex` proxy wrapper, `claude-code-mode` launcher for experimental Code Mode) |
 
-**agy (Antigravity CLI)** is a full peer since 2026-11-23: `agy/GEMINI.md` is the Codex rule set
-verbatim (a test keeps them equal), `agy/skills` holds the skills it doesn't already get from
-`~/.agents/skills` (`agy/skills.json` declares that folder globally), and `agy/mcp_config.json` registers browse (officecli and powerpoint disabled).
+**Each harness is self-contained** (since 2026-11-24): it loads and runs only files in its own
+folders. The shared `~/.agents/skills` pool is retired, every harness has its own skill copies with
+its own self-paths, Opencode runs with `OPENCODE_DISABLE_CLAUDE_CODE=1` (user env var) so it ignores
+`~/.claude`, and `tests/test_self_contained.py` fails on any rule or skill that points into another
+harness (orchestration skills such as necro, coop and reflect are exempt by name).
+`grill-with-ui` (vendored, skipped by sync) is a git clone at `~/.claude/skills/grill-with-ui` with
+plain copies in the other harnesses; on a new machine, clone it there and copy it.
+
+**agy (Antigravity CLI)** is a full peer since 2026-11-23: `agy/GEMINI.md` holds every Codex section
+verbatim (self-paths aside) plus the Claude Code workflow sections (a test enforces it), `agy/skills`
+holds all its skills (`agy/skills.json` adds no extra folders), and `agy/mcp_config.json` registers browse (officecli and powerpoint disabled).
 Sign in once on a new machine;
 `agy/settings.json` carries the default model (Gemini 4 Neon Medium) without `trustedWorkspaces`.
 

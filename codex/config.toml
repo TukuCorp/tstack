@@ -303,6 +303,8 @@ theme = "coldark-dark"
 [shell_environment_policy.set]
 NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "<REDACTED>"
 
+[hooks.state]
+
 [hooks.state.'C:\Users\<USER>\.codex\hooks.json:session_start:0:0']
 trusted_hash = "sha256:3bb1d74f2a7f3e60cb6d457e700ebd7bf5932650037e1017d80a11b0468c09ae"
 
@@ -310,7 +312,7 @@ trusted_hash = "sha256:3bb1d74f2a7f3e60cb6d457e700ebd7bf5932650037e1017d80a11b04
 trusted_hash = "sha256:69b7575ddb3a5eb98372c5b1f60942323bfaa3e034c65235cd7b2e2160efdc4a"
 
 [hooks.state.'C:\Users\<USER>\.codex\hooks.json:session_start:1:0']
-trusted_hash = "sha256:42ad5843ba79bdd68be42269ac7b513889a767e052dda6c6c28079a53af982ee"
+trusted_hash = "sha256:fe8f8d29765987a12e58559f43ebdc3ead9b380ae82ac4f97ebdef5037b1e545"
 
 [hooks.state.'C:\Users\<USER>\.codex\hooks.json:session_start:2:0']
 trusted_hash = "sha256:93fbfa14717a31d18c62d1ba6141b6d7dd89551c24972ca793fadfd6f74baa7f"

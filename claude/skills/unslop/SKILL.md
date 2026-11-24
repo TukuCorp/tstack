@@ -9,6 +9,17 @@ Edit text to remove AI patterns and add human voice. This applies to prose meant
 
 These patterns are tells, not proof. One hit means little. A cluster of different kinds means a lot. Fixing a tell means putting back the missing specific, not swapping a synonym: the model's habit is to replace a precise fact with a generic one, and a new word over the same empty sentence still reads as slop. Surface marks (em dashes, curly quotes, boldface, emoji, Title Case, Markdown) are the weakest signals alone, since people produce them too, so rules 13 to 19 are house style first and tells second. Clean grammar, formal register and ordinary transition words are not tells.
 
+## Rewrite with agy (Gemini Neon)
+
+agy's default model (Gemini 4 Neon) writes better prose than you do, so hand it the rewrite whenever you run inside Herdr (`HERDR_ENV=1`) and the text is a deliverable: an email, doc, report, memo, artifact or slide copy, or anything over about 80 words. Short chat replies stay with you.
+
+1. You do steps 1 to 3 of the Process below and write what you found into a short brief: audience, house voice, glossary terms to keep, structure problems to fix.
+2. Save the draft to a file and send it to an agy agent in a pane of your own Herdr tab, reusing a live one (for example `coop-agy`) or starting `unslop-agy`. Commands and the prompt are in `references/agy-rewrite.md`.
+3. agy runs its own unslop skill and writes the cleaned copy to a new file. You then run `python -X utf8 scripts/fact_guard.py <draft> <clean>` from this skill's folder: every number, date, URL, code span and footnote marker must survive, and nothing new may appear. Put back any missing fact and cut any added one, unless the source supports it.
+4. Finish with step 8 (mechanical check) yourself, and keep the Output rules.
+
+If you are not inside Herdr, agy will not start, or `quota-axi --provider agy` shows its Gemini window nearly spent, do the whole Process yourself and say so in one line.
+
 ## Process
 
 1. Find the house voice. If the text belongs to an organization or a series, such as a training deck, a client report or a docs site, read that organization's existing documents of the same kind first. Note how they title things, how long headings run and what register the body uses. Where the house style contradicts a rule below, the house style wins.

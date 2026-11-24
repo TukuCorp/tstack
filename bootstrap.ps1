@@ -130,6 +130,20 @@ Step 'agent-browser Chrome (headless browsing)'
 if (Test-Path "$HOME\.agent-browser\browsers\*") { Write-Host '    ok: agent-browser Chrome' }
 elseif (Have agent-browser) { Run 'agent-browser install' { agent-browser install } }
 
+Step 'self-contained harnesses (each loads only its own skills)'
+# Opencode would otherwise also load ~/.claude/skills and ~/.claude/CLAUDE.md
+if ([Environment]::GetEnvironmentVariable('OPENCODE_DISABLE_CLAUDE_CODE', 'User') -eq '1') { Write-Host '    ok: OPENCODE_DISABLE_CLAUDE_CODE' }
+else { Run 'set OPENCODE_DISABLE_CLAUDE_CODE=1' { [Environment]::SetEnvironmentVariable('OPENCODE_DISABLE_CLAUDE_CODE', '1', 'User') } }
+# grill-with-ui is vendored (sync skips it): git clone for Claude, plain copies for the others
+$Gwu = "$HOME\.claude\skills\grill-with-ui"
+if (Test-Path "$Gwu\.git") { Write-Host '    ok: grill-with-ui clone' }
+elseif (Have git) { Run 'clone grill-with-ui' { git clone https://github.com/jasonku09/grill-with-ui $Gwu } }
+foreach ($dst in "$HOME\.codex\skills", "$HOME\.config\opencode\skills", "$HOME\.gemini\config\skills", "$env:LOCALAPPDATA\hermes\skills\software-development") {
+    if ((Test-Path "$Gwu\SKILL.md") -and (Test-Path $dst) -and -not (Test-Path "$dst\grill-with-ui")) {
+        Run "copy grill-with-ui -> $dst" { robocopy $Gwu "$dst\grill-with-ui" /E /XD .git node_modules /NFL /NDL /NJH /NJS /NP | Out-Null }
+    }
+}
+
 Step 'wiki (private TukuCorp/wiki -> ~/wiki)'
 # Agent memory lives there, not here: tstack is public
 $WikiDir = "$HOME\wiki"

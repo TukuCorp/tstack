@@ -8,7 +8,6 @@ PARENTS = [
     "claude/skills/research",
     "codex/skills/research",
     "opencode/skills/research",
-    "shared/agents-skills/research",
     "hermes/skills/opencode/research",
 ]
 failures = []

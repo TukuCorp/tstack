@@ -1,0 +1,5 @@
+missing  number   6
+missing  url      https://example.com/pilot
+missing  footref  [^1]
+added    number   80%
+4 drift(s): restore missing facts, cut added ones unless the source supports them
