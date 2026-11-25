@@ -85,6 +85,51 @@ def test_comment_validation_rejects_vague_and_unanchored():
     slides = {"fileId": "x", "kind": "slides", "comments": [
         {"location": "slide 1", "body": "Slide 1: 7.3-year payback does not tie to the model."}]}
     assert post_comments.validate(slides) == []
+    anchored_doc = {"fileId": "x", "kind": "docs", "comments": [
+        {"quote": "5.568.100", "body": "@owner Sums to 8,992,506 instead of 8,992,306."}]}
+    assert post_comments.validate(anchored_doc) == []
+    unanchored_doc = {"fileId": "x", "kind": "docs", "comments": [
+        {"quote": "5.568.100", "anchored": False, "body": "Wrong sum."}]}
+    assert any("must quote its target text" in e for e in post_comments.validate(unanchored_doc))
+
+
+def test_find_quote_ranges_body_table_utf16_and_disambiguation():
+    doc = {
+        "revisionId": "rev-1",
+        "tabs": [{
+            "tabProperties": {"tabId": "t.0"},
+            "documentTab": {"body": {"content": [
+                {"paragraph": {"elements": [
+                    {"startIndex": 1, "textRun": {"content": "Hi \U0001F642 "}},  # emoji = 2 UTF-16 units
+                    {"startIndex": 7, "textRun": {"content": "5.568.100", "suggestedDeletionIds": ["s1"]}},
+                    {"startIndex": 16, "textRun": {"content": "PA1 5.568.100 end\n"}},
+                ]}},
+                {"table": {"tableRows": [{"tableCells": [{"content": [
+                    {"paragraph": {"elements": [
+                        {"startIndex": 40, "textRun": {"content": "PA2 5.568.100 ok\n"}},
+                    ]}}
+                ]}]}]}},
+            ]}},
+        }],
+    }
+    matches = post_comments.find_quote_ranges(doc, "5.568.100")
+    assert len(matches) == 2  # suggestedDeletionIds run skipped
+    assert matches[0]["range"] == {"startIndex": 20, "endIndex": 29, "tabId": "t.0"}
+    assert matches[1]["range"] == {"startIndex": 44, "endIndex": 53, "tabId": "t.0"}
+    assert post_comments.resolve_doc_range(doc, {"quote": "5.568.100", "context": "PA2"}) == {
+        "startIndex": 44, "endIndex": 53, "tabId": "t.0"
+    }
+    assert post_comments.resolve_doc_range(doc, {"quote": "5.568.100", "occurrence": 1}) == {
+        "startIndex": 20, "endIndex": 29, "tabId": "t.0"
+    }
+    req = post_comments.build_insert_comment_request(
+        {"body": "@a Fix", "assignee": "a@example.com"}, matches[1]["range"]
+    )
+    assert req == {"insertComment": {
+        "content": "@a Fix",
+        "range": {"startIndex": 44, "endIndex": 53, "tabId": "t.0"},
+        "assigneeEmailAddress": "a@example.com",
+    }}
 
 
 def test_cli_writes_outputs(tmp_path):

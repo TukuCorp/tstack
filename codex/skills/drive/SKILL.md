@@ -78,6 +78,9 @@ gws calendar events list --params '{"calendarId":"primary","timeMin":"2026-05-01
 
 # Sheets
 gws sheets spreadsheets values get --params '{"spreadsheetId":"SHEET_ID","range":"Sheet1!A1:Z100"}'
+
+# Docs: range-anchored comments (kix.* anchor + @email notifications; prefer over drive comments create)
+gws docs documents batchUpdate --params '{"documentId":"DOC_ID"}' --json '{"requests":[{"insertComment":{"content":"@owner@example.com Note","range":{"startIndex":120,"endIndex":129}}}],"writeControl":{"requiredRevisionId":"REV_ID"}}'
 ```
 
 Drive query syntax: `name contains 'text'` | `mimeType = 'application/pdf'` | `'FOLDER_ID' in parents` | `fullText contains 'keyword'` | `modifiedTime > '2026-01-01T00:00:00'` | `trashed = false`. Gmail `q` mirrors the Gmail search bar.

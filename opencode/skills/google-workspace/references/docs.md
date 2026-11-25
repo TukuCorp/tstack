@@ -283,6 +283,17 @@ To fill a table that already exists, a cell's text goes at its first paragraph's
 
 **Add a footnote.** `createFootnote` returns the footnote's ID; the new footnote holds a single space. In the next call, add your text with `insertText` and `endOfSegmentLocation: {"segmentId": "<footnote ID>"}`, then delete the space with `deleteContentRange` over `{"segmentId": "<footnote ID>", "startIndex": 0, "endIndex": 1}`. Drive's text read leaves footnote text out; check it with `read_doc`.
 
+**Anchored comments.** The Docs API v1 (`documents.batchUpdate`, discovery rev `20261118`) supports real range-anchored (`kix.*`) comments pinned to exact UTF-16 text ranges, with `@email` notifications handled the same way as in the Docs editor. Compute `startIndex`/`endIndex` (and `tabId` on multi-tab docs) with `docs_index.py find`, and guard the batch with `writeControl.requiredRevisionId`:
+
+```json
+{"insertComment": {
+  "content": "@owner@example.com Check this total.",
+  "range": {"startIndex": 120, "endIndex": 129, "tabId": "t.0"},
+  "assigneeEmailAddress": "owner@example.com"}}
+```
+
+`assigneeEmailAddress` is optional. Sibling requests: `addCommentReply`, `updateCommentPost`, `deleteComment`, `deleteCommentReply`. Prefer `insertComment` over Drive API `comments.create` (which leaves Google Docs comments unanchored).
+
 ## Verify
 
 - For content, read with Drive `read_file_content` and `includeComments: true`, and check the text you changed.
