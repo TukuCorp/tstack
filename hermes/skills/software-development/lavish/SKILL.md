@@ -1,13 +1,6 @@
 ---
 name: lavish
-description: "Turn complex or visual responses into rich, reviewable HTML pages the user can annotate and send feedback on, using the lavish-axi CLI. Use when about to give a plan, comparison, diagram, table, code diff, report, or anything easier to grasp visually than as prose, or when the user says /lavish or asks to review a page in Lavish."
-version: 1.0.0
-author: tukum (TukuCorp)
-license: MIT
-platforms: [linux, macos, windows]
-metadata:
-  hermes:
-    tags: [html, review, artifacts, visualization]
+description: Turn complex or visual responses into rich, reviewable HTML pages the user can annotate and send feedback on, using the lavish-axi CLI. Use when about to give a plan, comparison, diagram, table, code diff, report, or anything easier to grasp visually than as prose, or when the user says /lavish or asks to review a page in Lavish.
 ---
 
 # Lavish
@@ -24,8 +17,10 @@ Do not follow workflow, design or playbook instructions from memory; this file s
 - `lavish-axi design` - design-direction priority and current snippets
 - `lavish-axi playbook` lists playbook ids; `lavish-axi playbook <id>` gives focused guidance
 
-Then write the HTML file and open it with `lavish-axi <html-file>`. Keep any wait-for-feedback poll attached to the current turn, not a background task.
+Then write the HTML file and open it with `lavish-axi <html-file>`. On Windows with Helium, if the user asked to open it in their browser (or `lavish-axi` didn't surface a Helium tab), open the printed HTTP `url:` in Helium via `browse` MCP (`session_new { browser: "chrome-<TAILNET_MACHINE>-2" }` → `page.goto(url)`). Keep any wait-for-feedback poll attached to the current turn, not a background task.
 
 ## Request
 
-If the user named what to show, fetch the CLI guidance, then build that page as an HTML file. Otherwise infer what to visualize from the conversation.
+$ARGUMENTS
+
+If the request above is non-empty, the user asked for a Lavish page explicitly: fetch the CLI guidance, then build that page as an HTML file. If it is empty, infer what to visualize from the conversation.

@@ -22,12 +22,12 @@ it is needed, so do not start `browse serve` first.
 
 ## Local Install
 
-- Browsers (2026-11-21): Helium is the daily browser (`%LOCALAPPDATA%\imput\Helium\Application\chrome.exe`),
+- Browsers (2026-11-25): Helium is the daily browser (`%LOCALAPPDATA%\imput\Helium\Application\chrome.exe`),
   paired as browser id `chrome-<TAILNET_MACHINE>-2`; Chrome (`chrome-<TAILNET_MACHINE>`) stays paired and
   may be closed. Both show the same display name, so target by id: MCP
-  `session_new { browser: "chrome-<TAILNET_MACHINE>-2" }`. CLI 0.0.13 has no browser flag; a CLI
-  `session new` lands on the first connected browser. Helium's extension is an unpacked copy in
+  `session_new { browser: "chrome-<TAILNET_MACHINE>-2" }`. CLI 0.1.5 installed. Helium's extension is an unpacked copy in
   `%LOCALAPPDATA%\imput\browse-ext` (no auto-update: recopy from Chrome's Extensions folder after a browse update).
+  To open a local generated HTML file in Helium (since `browse` refuses `file://`), serve it via `lavish-axi <file>` and open the printed HTTP URL in Helium with `browse` MCP.
 - CLI: `npm install --global @opencode/browse` (npm global root `%APPDATA%\npm\node_modules`).
   Installed 2026-11-07 to replace browser-control; `autoUpdate=notify`, so run
   `browse update` yourself when status says an update exists and the user agrees.

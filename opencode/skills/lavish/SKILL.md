@@ -17,7 +17,7 @@ Do not follow workflow, design or playbook instructions from memory; this file s
 - `lavish-axi design` - design-direction priority and current snippets
 - `lavish-axi playbook` lists playbook ids; `lavish-axi playbook <id>` gives focused guidance
 
-Then write the HTML file and open it with `lavish-axi <html-file>`. Keep any wait-for-feedback poll attached to the current turn, not a background task.
+Then write the HTML file and open it with `lavish-axi <html-file>`. On Windows with Helium, if the user asked to open it in their browser (or `lavish-axi` didn't surface a Helium tab), open the printed HTTP `url:` in Helium via `browse` MCP (`session_new { browser: "chrome-<TAILNET_MACHINE>-2" }` → `page.goto(url)`). Keep any wait-for-feedback poll attached to the current turn, not a background task.
 
 ## Request
 
