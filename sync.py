@@ -38,6 +38,7 @@ SOURCES = [
     (".codex/agents", "codex/agents", "tree"),
     (".codex/skills", "codex/skills", "tree"),
     (".codex/hooks.json", "codex/hooks.json", "json"),
+    (".codex/hooks", "codex/hooks", "tree"),  # PreToolUse inline-script guard (2026-11-25)
     (".codex/config.toml", "codex/config.toml", "config"),
     (".codex/herdr-agent-state.ps1", "codex/herdr-agent-state.ps1", "file"),
     # .codex/memories/MEMORY.md is not mirrored: it holds client project notes and this repo is public
@@ -67,6 +68,8 @@ SOURCES = [
     (".gemini/config/mcp_config.json", "agy/mcp_config.json", "json"),
     # Extra skill dirs for agy; kept empty since 2026-11-24 (each harness loads only its own skills).
     (".gemini/config/skills.json", "agy/skills.json", "json"),
+    (".gemini/config/hooks.json", "agy/hooks.json", "json"),
+    (".gemini/config/hooks", "agy/hooks", "tree"),
     # Default model and permission settings; trustedWorkspaces is dropped (see MACHINE_LOCAL_KEYS).
     (".gemini/antigravity-cli/settings.json", "agy/settings.json", "json"),
     ("AGENTS.md", "shared/AGENTS.md", "file"),

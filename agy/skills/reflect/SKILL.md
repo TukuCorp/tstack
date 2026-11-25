@@ -1,6 +1,6 @@
 ---
 name: reflect
-description: This skill should be used when the user explicitly invokes `/reflect` or says "reflect". Audits how well installed skills perform by scoring recent local agent conversations (Claude Code, Codex, Hermes) for efficiency, code quality, procedure compliance and verbosity, then drafts skill edits and an HTML report. With `--session`, reviews only the current session with three parallel reviewer subagents and routes durable learnings into skill edits (or a backlog entry in lessons.md).
+description: This skill should be used when the user explicitly invokes `/reflect` or says "reflect". Audits how well installed skills perform by scoring recent local agent conversations (Claude Code, Codex, Hermes, agy) for efficiency, code quality, procedure compliance and verbosity, then drafts skill edits and an HTML report. With `--session`, reviews only the current session with three parallel reviewer subagents and routes durable learnings into skill edits (or a backlog entry in lessons.md).
 argument-hint: "[--session] [--all | --repo PATH] [--days N] [focus]"
 ---
 

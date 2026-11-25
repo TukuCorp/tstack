@@ -1,0 +1,25 @@
+{
+  "herdr": {
+    "PreInvocation": [
+      {
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -EncodedCommand JgAgACcAQwA6AFwAVQBzAGUAcgBzAFwAdAB1AGsAdQBtAFwALgBnAGUAbQBpAG4AaQBcAGMAbwBuAGYAaQBnAFwAaABvAG8AawBzAFwAaABlAHIAZAByAC0AYQBnAGUAbgB0AC0AcwB0AGEAdABlAC4AcABzADEAJwAgAHMAZQBzAHMAaQBvAG4A",
+        "timeout": 10,
+        "type": "command"
+      }
+    ]
+  },
+  "inline-script-guard": {
+    "PreToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 10,
+            "command": "python -X utf8 C:/Users/<USER>/.gemini/config/hooks/inline-script-guard.py"
+          }
+        ]
+      }
+    ]
+  }
+}

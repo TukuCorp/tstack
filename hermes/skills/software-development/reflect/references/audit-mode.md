@@ -26,7 +26,7 @@ python -I "$SKILL_ROOT/scripts/collect_sessions.py" --out "$WORK" \
   [--include-global-skills] [--days N] [--max-sessions N]
 ```
 
-Defaults: 45 days, 12 sampled sessions, `--harness auto` (Claude Code, Codex and Hermes, whichever exist locally). Opencode and omp history is not scanned. Read `$WORK/inventory.json` (counts are under `stats`; each skill lists every path it was found at in `paths`). If `stats.sessions_sampled` is 0, say there is nothing recent in that scope (suggest `--days` or another scope) and stop. If `stats.skills_found` is 0, continue: the report becomes a case for creating skills and `skill_coverage` is 0. Hermes sessions without a recorded working directory only appear with `--all`.
+Defaults: 45 days, 12 sampled sessions, `--harness auto` (Claude Code, Codex, Hermes and agy, whichever exist locally; `--harness agy` reads `~/.gemini/antigravity-cli/conversations/*.db`, `--agy-home` overrides). Opencode history is not scanned. Read `$WORK/inventory.json` (counts are under `stats`; each skill lists every path it was found at in `paths`). If `stats.sessions_sampled` is 0, say there is nothing recent in that scope (suggest `--days` or another scope) and stop. If `stats.skills_found` is 0, continue: the report becomes a case for creating skills and `skill_coverage` is 0. Hermes sessions without a recorded working directory only appear with `--all`.
 
 ## 2. Score each transcript
 

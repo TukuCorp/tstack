@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # Adapted from warpdotdev/common-skills skill-doctor (MIT, Copyright (c) 2026 Denver Technologies, Inc.)
-"""Collect local Claude Code, Codex, and Hermes sessions and skills for reflection.
+"""Collect local Claude Code, Codex, Hermes and agy sessions and skills for reflection.
 
-Scans Claude Code project history, Codex rollout files, and/or Hermes Agent's
-state.db, discovers installed skills (de-duplicated across mirrored copies),
+Scans Claude Code project history, Codex rollout files, Hermes Agent's state.db
+and/or agy's (Antigravity CLI) conversation databases, discovers installed skills (de-duplicated across mirrored copies),
 detects which sessions used which skills, and emits:
 
   <out>/inventory.json        - skills, per-session stats, sampling decisions
@@ -25,6 +25,7 @@ from pathlib import Path
 # -I (isolated mode) drops the script dir from sys.path; the sibling modules live there.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+from agy_sessions import default_agy_home, find_agy_sessions, load_history_workspaces, parse_agy_session
 from hermes_sessions import (
     discover_hermes_databases,
     find_hermes_sessions,
@@ -53,7 +54,7 @@ def parse_args():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument(
         "--harness",
-        choices=("auto", "all", "claude", "codex", "hermes"),
+        choices=("auto", "all", "claude", "codex", "hermes", "agy"),
         default="auto",
         help="session source (default: auto; scans every locally available source)",
     )
@@ -63,6 +64,8 @@ def parse_args():
         help="Claude Code config directory (default: CLAUDE_CONFIG_DIR or ~/.claude)",
     )
     p.add_argument("--codex-home", default=os.environ.get("CODEX_HOME", "~/.codex"))
+    p.add_argument("--agy-home", default=None,
+                   help="agy (Antigravity CLI) data dir (default: ~/.gemini/antigravity-cli)")
     p.add_argument(
         "--hermes-home",
         default=None,
@@ -194,6 +197,7 @@ def discover_skills(repos, codex_home: Path, extra_dirs, include_global: bool,
             ("agents", home / ".agents" / "skills", False),
             ("codex", codex_home / "skills", False),
             ("opencode", home / ".config" / "opencode" / "skills", False),
+            ("agy", home / ".gemini" / "config" / "skills", False),
         ]
         if hermes_home is not None:
             roots.append(("hermes", Path(hermes_home) / "skills", True))
@@ -767,9 +771,30 @@ def main():
         )
         sys.exit(1)
 
+    requested_agy = args.harness in ("auto", "all", "agy")
+    agy_home = Path(args.agy_home).expanduser() if args.agy_home else default_agy_home()
+    if requested_agy and (agy_home / "conversations").is_dir():
+        agy_dbs, agy_scanned = find_agy_sessions(agy_home, cutoff)
+        sources["agy"] = {"home": str(agy_home), "records_in_window": len(agy_dbs)}
+        scanned_count += agy_scanned
+        workspaces = load_history_workspaces(agy_home)
+        for db in agy_dbs:
+            parsed = parse_agy_session(db, skills.keys(), workspaces)
+            if parsed is None:
+                continue
+            meta, stats, entries, skills_used = parsed
+            if not args.all_conversations and not session_matches_repos(meta.get("cwd"), repos):
+                continue
+            in_scope_count += 1
+            sessions.append({"harness": "agy", "meta": meta, "stats": stats, "skills_used": skills_used,
+                             "file": str(db), "modified_at": meta["timestamp"], "_entries": entries})
+    elif args.harness == "agy":
+        print(f"error: agy conversations not found under {agy_home}", file=sys.stderr)
+        sys.exit(1)
+
     if not sources:
         print(
-            "error: no supported session source found (Claude Code, Codex, or Hermes)",
+            "error: no supported session source found (Claude Code, Codex, Hermes, or agy)",
             file=sys.stderr,
         )
         sys.exit(1)

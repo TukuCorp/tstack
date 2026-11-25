@@ -33,9 +33,10 @@ class RuleFileTests(unittest.TestCase):
         # agy (~/.gemini/GEMINI.md) carries every Codex section verbatim plus the Claude Code
         # workflow sections (2026-11-24); a Codex rule edit must be copied into agy too.
         agy = (ROOT / "agy/GEMINI.md").read_text(encoding="utf-8")
-        # Self-paths differ by design: each harness points at its own skills folder.
+        # Self-paths and file-writing tools differ by design: each harness names its own.
         codex = (ROOT / "codex/AGENTS.md").read_text(encoding="utf-8").replace(
-            "/.codex/skills/", "/.gemini/config/skills/")
+            "/.codex/skills/", "/.gemini/config/skills/").replace(
+            "`apply_patch` (`*** Add File: <path>`, every content line prefixed `+`)", "`write_file`")
         sections = [sec.strip() for sec in re.split(r"(?m)^(?=## )", codex) if sec.strip()]
         missing = [sec.splitlines()[0] for sec in sections if sec not in agy]
         self.assertEqual(missing, [], "agy/GEMINI.md lost or changed these Codex sections")

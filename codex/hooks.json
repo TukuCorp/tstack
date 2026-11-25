@@ -30,6 +30,18 @@
         ],
         "matcher": "tldraw-offline"
       }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 10,
+            "command": "python -X utf8 C:/Users/<USER>/.codex/hooks/inline-script-guard.py"
+          }
+        ],
+        "matcher": "Bash"
+      }
     ]
   }
 }

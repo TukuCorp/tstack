@@ -35,7 +35,7 @@ def _targets(root, home):
             continue
         for f in sorted(repo.rglob("*")) if repo.is_dir() else []:
             rel = f.relative_to(repo)
-            if not f.is_file():
+            if not f.is_file() or sync.is_excluded(rel):  # e.g. local __pycache__ that sync never mirrors
                 continue
             # hermes/skills merges ~/.hermes/skills with the workflow categories from %LOCALAPPDATA%
             if dest_rel == "hermes/skills" and rel.parts[0] in sync.HERMES_CATEGORIES:

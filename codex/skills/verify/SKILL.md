@@ -202,6 +202,8 @@ REPORT: reports/verify-YYYYMMDD-HHMM.md
 Then one line saying the checks live in `.verify/<task-slug>.json` (plus any
 `.verify/checks/` scripts) and belong in the same commit as the work: they are the
 proof anyone can rerun with the command from step 4.
+If `git check-ignore -q .verify` succeeds, the repo keeps checks out of git on purpose
+(tstack lists `.verify/` in `.git/info/exclude`): say the checks stay local and never `git add -f` them.
 
 ## Anti-Patterns
 

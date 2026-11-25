@@ -150,6 +150,13 @@ class RoundTripTests(unittest.TestCase):
         self.run_restore()
         self.assertEqual(self.run_restore()["backed_up"], [])
 
+    def test_local_pycache_in_mirror_is_not_restored(self):
+        # a pytest run inside the repo leaves gitignored __pycache__ in mirrored skill folders (2026-11-24)
+        put(self.repo, "claude/skills/demo/scripts/__pycache__/x.cpython-314.pyc", "bytecode")
+        put(self.repo, "claude/skills/demo/scripts/y.pyc", "bytecode")
+        written = self.run_restore(dry_run=True)["written"]
+        self.assertFalse([w for w in written if "pycache" in w or w.endswith(".pyc")], written)
+
     def test_dry_run_writes_nothing(self):
         rep = self.run_restore(dry_run=True)
         self.assertTrue(rep["written"])

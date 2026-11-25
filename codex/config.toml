@@ -320,6 +320,9 @@ trusted_hash = "sha256:93fbfa14717a31d18c62d1ba6141b6d7dd89551c24972ca793fadfd6f
 [hooks.state.'C:\Users\<USER>\.codex\hooks.json:session_start:3:0']
 trusted_hash = "sha256:2035963d8116b7f9c8418a165ee1d22cc62fa076e6536be410a8534452869541"
 
+[hooks.state.'C:\Users\<USER>\.codex\hooks.json:pre_tool_use:0:0']
+trusted_hash = "sha256:e94b9798467b2370ee073f557721a5c18d571098e9622e826b9b577ecd5898e5"
+
 [notice]
 hide_rate_limit_model_nudge = true
 

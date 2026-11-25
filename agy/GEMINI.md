@@ -14,7 +14,8 @@
 - Use the most conventional approach, follow existing patterns, leave a single inline comment documenting the assumption.
 
 ## Shell on Windows
-- Write any script longer than a few lines to a scratch file (Write tool) and run the file. Long programs inlined in `bash -c`, heredocs or PowerShell strings break on quotes.
+- Write any script or file longer than a few lines with `write_file`, then run the file. Long programs inlined in `python -c`, `node -e`, heredocs or PowerShell strings break on quotes and backticks.
+- The shell is Windows PowerShell 5.1: chain with `;` or `if ($?) { ... }`, never `&&`; write `Remove-Item -Recurse -Force`, never `-rf` or `-f`.
 - Give native Windows programs (python, gws, PIL) `C:/...` paths, not Git Bash `/c/...` paths.
 - Run Python as `python -X utf8`, or Unicode output crashes on cp1252. Add `-I` only for scripts that read untrusted downloads: it ignores `PYTHONUTF8` and drops the script's own folder from imports (`No module named ...`).
 

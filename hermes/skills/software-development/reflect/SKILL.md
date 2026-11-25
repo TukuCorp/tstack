@@ -1,6 +1,6 @@
 ---
 name: reflect
-description: "Audit how well installed skills perform by scoring recent local agent conversations (Claude Code, Codex, Hermes) for efficiency, code quality, procedure compliance and verbosity, then draft skill edits and an HTML report. With `--session`, review only the current session with three parallel reviewer subagents and route durable learnings into skill edits (or a backlog entry in lessons.md). Use only when the user says \"reflect\" or \"/reflect\"."
+description: "Audit how well installed skills perform by scoring recent local agent conversations (Claude Code, Codex, Hermes, agy) for efficiency, code quality, procedure compliance and verbosity, then draft skill edits and an HTML report. With `--session`, review only the current session with three parallel reviewer subagents and route durable learnings into skill edits (or a backlog entry in lessons.md). Use only when the user says \"reflect\" or \"/reflect\"."
 version: 2.0.0
 author: Lauren Tan (pstack) and Warp skill-doctor, adapted
 license: MIT

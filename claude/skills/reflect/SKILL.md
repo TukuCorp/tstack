@@ -1,6 +1,6 @@
 ---
 name: reflect
-description: Audit how well your installed skills perform by scoring recent local agent conversations (Claude Code, Codex, Hermes) for efficiency, code quality, procedure compliance and verbosity, then draft skill edits and an HTML report. With `--session`, review only the current session with three parallel reviewers and route its learnings into skill edits. Use when the user says "reflect" or "/reflect", asks which skills are working, or wants to learn from this session ("/reflect --session").
+description: Audit how well your installed skills perform by scoring recent local agent conversations (Claude Code, Codex, Hermes, agy) for efficiency, code quality, procedure compliance and verbosity, then draft skill edits and an HTML report. With `--session`, review only the current session with three parallel reviewers and route its learnings into skill edits. Use when the user says "reflect" or "/reflect", asks which skills are working, or wants to learn from this session ("/reflect --session").
 argument-hint: "[--session] [--all | --repo PATH] [--days N] [focus]"
 ---
 

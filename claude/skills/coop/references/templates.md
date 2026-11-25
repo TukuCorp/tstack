@@ -91,6 +91,8 @@ Last action: herdr agent prompt <DRIVER_PANE> 'coop-<peer> done: build r1 <PASS|
 
 For prose slices, add to the Build prompt: `These slices are prose: write them with your unslop skill. If a fact-first draft exists at <file>, rewrite it in place and keep every number, date, name, link, quote, code span and footnote marker; add no facts. Audience: <...>. House voice: <...>.`
 
+For slices with rendered output (deck slides, HTML pages, charts), add: `Render every slide or page you changed and look at each PNG yourself before reporting. Report PASS only if none shows clipped or overflowing text, stray line breaks, or overlapping shapes; list each PNG path with one line on what you checked.` (The 2026-11-25 Gap v0.81 build reported PASS with a clipped pill and broken lines in its own renders, which cost a fix round.)
+
 **Review**
 
 ```
