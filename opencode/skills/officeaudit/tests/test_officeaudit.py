@@ -91,6 +91,59 @@ def test_comment_validation_rejects_vague_and_unanchored():
     unanchored_doc = {"fileId": "x", "kind": "docs", "comments": [
         {"quote": "5.568.100", "anchored": False, "body": "Wrong sum."}]}
     assert any("must quote its target text" in e for e in post_comments.validate(unanchored_doc))
+    docx_good = {"fileId": "x", "kind": "docx", "comments": [
+        {"quote": "4.084.960,53", "body": "@owner Table 114 lacks tonnes for all 8 measures."}]}
+    assert post_comments.validate(docx_good) == []
+    docx_no_quote = {"fileId": "x", "kind": "docx", "comments": [{"body": "Fix this."}]}
+    assert any("exact quoted text" in e for e in post_comments.validate(docx_no_quote))
+
+
+def test_docx_inspection_and_guarded_browse_script(tmp_path):
+    import zipfile
+
+    p = tmp_path / "sample.docx"
+    doc_xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        '<w:body>'
+        '<w:p><w:r><w:t>Live 4.084.960,53 value</w:t></w:r>'
+        '<w:del><w:r><w:delText>Deleted 4.084.960,53</w:delText></w:r></w:del></w:p>'
+        '<w:p><w:r><w:drawing><w:txbxContent><w:p><w:r><w:t>COVER BOX ONLY</w:t></w:r></w:p></w:txbxContent></w:drawing></w:r></w:p>'
+        '<w:p><w:commentRangeStart w:id="1"/><w:r><w:t>4.084.960,53</w:t></w:r><w:commentRangeEnd w:id="1"/></w:p>'
+        '</w:body></w:document>'
+    )
+    com_xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<w:comments xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        '<w:comment w:id="1" w:author="Tung Ho" w:date="2026-11-25T11:08:02Z">'
+        '<w:p><w:r><w:t>Existing comment on 4.084.960,53</w:t></w:r></w:p></w:comment>'
+        '</w:comments>'
+    )
+    with zipfile.ZipFile(p, "w") as z:
+        z.writestr("word/document.xml", doc_xml)
+        z.writestr("word/comments.xml", com_xml)
+
+    info = post_comments.inspect_docx(
+        p,
+        [
+            {"quote": "Live 4.084.960,53", "body": "Body check"},
+            {"quote": "COVER BOX ONLY", "body": "Box check"},
+            {"quote": "Deleted 4.084.960,53", "body": "Deleted check"},
+        ],
+    )
+    assert len(info["existing_comments"]) == 1
+    assert info["existing_comments"][0]["anchor"] == "4.084.960,53"
+    assert info["checks"][0]["matches"] == 1 and not info["checks"][0]["in_textbox"]
+    assert info["checks"][1]["matches"] == 0 and info["checks"][1]["in_textbox"]
+    assert info["checks"][2]["matches"] == 0
+
+    js = post_comments.build_docx_browse_script(
+        {"fileId": "FID123", "kind": "docx", "authuser": "<EMAIL>"},
+        [{"quote": "Live 4.084.960,53", "occurrence": 1, "body": "@owner Check value"}],
+    )
+    assert "docs.google.com/document/d/FID123/edit?authuser=<EMAIL>" in js
+    assert "docos-input-textarea" in js
+    assert "composer_not_focused" in js
 
 
 def test_find_quote_ranges_body_table_utf16_and_disambiguation():
