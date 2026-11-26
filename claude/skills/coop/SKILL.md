@@ -21,7 +21,7 @@ hc commands and gotchas: `references/hc.md` (next to this file). Brief, prompts,
 
 1. `HC_TERMINAL_ID` must be set (for example `t5`). If not, say you are not in an hc terminal and stop. This address is where the peer reports back. Call it `DRIVER`.
 2. Read your space and tab ids from your own labels (`references/hc.md`, "Who and where you are"); the peer's pane goes beside you in that tab.
-3. Check quota for both sides: `quota-axi` (Claude) and `quota-axi --provider agy`. If either is under 15% with a reset after the run would end, say so in one line and continue only if the task is small.
+3. Check quota for both sides: `quota-axi` (Claude) and `quota-axi --provider agy`. If either is under 15% with a reset after the run would end, say so in one line and continue only if the task is small. When the user caps a quota, cut Brainstorm and Critique first; never skip Verify, which runs on the peer's side.
 4. Work root: the git top level if the cwd is in a repo, else the cwd. If on the default branch of a repo and the task changes code, create a branch `coop/<slug>` first.
 
 ## 1. Frame (driver)
@@ -71,7 +71,7 @@ Outside split mode, and outside its own listed files during split, the peer neve
 
 **7. Verify.** Hand off the verify prompt: the peer runs `04-checks.md` plus the repo's checks against the current tree and returns `PASS | ISSUES | BLOCKED`. A finding counts only with the exact command and its output (code) or the source and quote (non-code). On `ISSUES`, rerun each failing command yourself, fix the real ones, and verify again. Limit: 2 rounds; a check still failing after that goes in the report as open.
 
-**8. Sign-off.** The peer's sign-off is the `SCORE` and `CONCERNS` lines of its last passing verify file; no extra round. Rerun the main check yourself and give your own score. Write `08-summary.md`: what was done, proof (commands and outputs), per-round scores table, disputes, declined items as follow-ups, and anything unverified. If a PR exists, put the scores table in its description. Then, if you started the peer in this run, end it (`references/hc.md`, Clean up); leave a reused peer running. Give the user the final report.
+**8. Sign-off.** The peer's sign-off is the `SCORE` and `CONCERNS` lines of its last passing verify file; no extra round. Publish, push, share or send the deliverable only now, after a passing Verify; never during Execute. Rerun the main check yourself and give your own score. Write `08-summary.md`: what was done, proof (commands and outputs), per-round scores table, disputes, declined items as follow-ups, and anything unverified. If a PR exists, put the scores table in its description. Then, if you started the peer in this run, end it (`references/hc.md`, Clean up); leave a reused peer running. Give the user the final report.
 
 ## Writing goes to agy
 

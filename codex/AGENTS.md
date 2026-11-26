@@ -32,7 +32,7 @@
 ## Google Workspace
 - For Gmail, Drive, Docs, Sheets, Slides and Calendar, use the `gws` CLI first (`gws <service> --help`), before connectors/MCP, browser or desktop automation. When another route fails on a Google task, switch to `gws` instead of retrying it.
 - Bare `gws` is the work account (<EMAIL>). Test access with a real API call before any login flow: `gws auth login` replaces the whole scope grant, so a narrower re-login breaks other jobs.
-- Syntax, accounts and Windows quirks: `~/wiki/wiki/gws-cli.md`.
+- In scripts, call the native `C:/Users/<USER>/AppData/Roaming/npm/node_modules/@googleworkspace/cli/bin/gws.exe` with an argument list, never `gws`/`gws.cmd` (`shutil.which` finds the shim, which breaks quoted queries and `--json`). Other syntax, accounts and Windows quirks: `~/wiki/wiki/gws-cli.md`.
 
 ## Browser Use
 - Logged-in Helium (my daily browser; my real profile, which I am using at the same time): use `browse` (MCP server or CLI), and load the browse skill first. Create sessions with MCP `session_new { browser: "chrome-<TAILNET_MACHINE>-2" }` (Helium); the CLI can't pick a browser and uses whichever connected first. Work only in sessions and tabs you created or that I lent you with the toolbar button; never navigate, click, type or close in my other tabs. Don't leave sessions behind: `session_delete` (CLI `browse session delete`) yours when done, or use `execute --rm` for one-off runs.

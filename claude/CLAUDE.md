@@ -57,7 +57,7 @@
 ## Google Workspace
 - For Gmail, Drive, Docs, Sheets, Slides and Calendar, use the `gws` CLI first (`gws <service> --help`), before connectors/MCP, browser or desktop automation. When another route fails on a Google task, switch to `gws` instead of retrying it.
 - Bare `gws` is the work account (<EMAIL>). Test access with a real API call before any login flow: `gws auth login` replaces the whole scope grant, so a narrower re-login breaks other jobs.
-- Syntax, accounts and Windows quirks: `~/wiki/wiki/gws-cli.md`.
+- In scripts, call the native `C:/Users/<USER>/AppData/Roaming/npm/node_modules/@googleworkspace/cli/bin/gws.exe` with an argument list, never `gws`/`gws.cmd` (`shutil.which` finds the shim, which breaks quoted queries and `--json`). Other syntax, accounts and Windows quirks: `~/wiki/wiki/gws-cli.md`.
 
 ## Browser Use
 - My daily browser is Helium (Chromium-based; Chrome stays installed but may be closed). Use Claude in Chrome (`mcp__claude-in-chrome__*`) first for interactive tasks in my logged-in Helium; if Chrome is also connected, `select_browser` Helium's deviceId `7fca79aa-4f01-4e87-9ff2-6ecca6621b95`. It works in its own tab group. Use browse for scripted or repeatable Playwright work, and when Claude in Chrome fails after 2-3 attempts, say why.
