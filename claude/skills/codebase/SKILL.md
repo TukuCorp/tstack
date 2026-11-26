@@ -24,6 +24,13 @@ This command is _informed_ by the project's domain model and built on a shared d
 
 Read the project's domain glossary (`CONTEXT.md`) and any ADRs in the area you're touching first.
 
+**Floorplan map.** If the repo has a `floorplan/` folder with a `graph.json` (an interactive code map from [Floorplan](https://github.com/haydenschmitty/floorplan), git-ignored), read it before you scan. Only read a map that is already there: don't install Floorplan or build one.
+
+- `node floorplan/query.mjs overview` lists the parts and how they connect; `show <id>` gives a part's files, what uses it and what it uses; `find "<words>"` locates a concept; `path <fromId> <toId>` traces how one part reaches another.
+- `floorplan/architecture.json` names the parts and holds notes pinned to files; a `hotspot` tag marks a god-file or a tricky invariant.
+- Aim with it: a part that many others use, or that uses many, is a coupling candidate; a concept whose `path` crosses many parts is a locality candidate. Hand the overview to the sub-agent so it starts there.
+- It is a hint, not evidence. The links are pattern-matched, not compiled, and the map goes stale: if `graph.json` is older than the last commit in the area you're looking at, trust the code over the map. Cite files, never the map, in the report.
+
 Then spawn a sub-agent to walk the codebase. Don't follow rigid heuristics; explore organically and note where you experience friction:
 
 - Where does understanding one concept require bouncing between many small modules?
