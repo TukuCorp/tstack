@@ -1,13 +1,4 @@
 {
-  "herdr": {
-    "PreInvocation": [
-      {
-        "command": "powershell -NoProfile -ExecutionPolicy Bypass -EncodedCommand JgAgACcAQwA6AFwAVQBzAGUAcgBzAFwAdAB1AGsAdQBtAFwALgBnAGUAbQBpAG4AaQBcAGMAbwBuAGYAaQBnAFwAaABvAG8AawBzAFwAaABlAHIAZAByAC0AYQBnAGUAbgB0AC0AcwB0AGEAdABlAC4AcABzADEAJwAgAHMAZQBzAHMAaQBvAG4A",
-        "timeout": 10,
-        "type": "command"
-      }
-    ]
-  },
   "inline-script-guard": {
     "PreToolUse": [
       {

@@ -1,6 +1,6 @@
 # Fan-out: one option per model, and the judge
 
-In full mode you make one option yourself, and each other model in `--models` makes one, all in parallel. Using different model families matters here: three samples from one model tend to converge on the same layout. CLI help (`herdr --help`, `agy --help`, `codex exec --help`, `claude --help`) wins if this sheet disagrees with it.
+In full mode you make one option yourself, and each other model in `--models` makes one, all in parallel. Using different model families matters here: three samples from one model tend to converge on the same layout. CLI help (`hc --help`, `agy --help`, `codex exec --help`, `claude --help`) wins if this sheet disagrees with it.
 
 ## Before launching
 
@@ -22,30 +22,34 @@ Check: render the file once at phone and desktop width if you can and fix anythi
 Report back: <report-back line for this transport, below>
 ```
 
-## Transport A: Herdr panes (when `HERDR_ENV=1`)
+## Transport A: hc terminals (when `HC_TERMINAL_ID` is set, as inside the Herdr app)
 
-Find your own pane first. `herdr pane get "$HERDR_PANE_ID"` must succeed and name your harness. If it fails, find your row in `herdr agent list` (same kind and working directory) and use its `pane_id`. Call that pane `DRIVER`.
-
-For each other model, split your pane without taking focus, then start the agent:
+Your address is `HC_TERMINAL_ID` (for example `t5`); call it `DRIVER` and write its literal value into the briefs, because in each peer's terminal the variable holds the peer's own address. Read your space and tab from your own labels so the peers open as splits beside you:
 
 ```bash
-herdr pane split --pane "$HERDR_PANE_ID" --direction down --cwd "<project root>" --no-focus   # read .result.pane.pane_id
-herdr agent start design-agy    --kind agy    --pane <id> --timeout 120000 -- --dangerously-skip-permissions
-herdr agent start design-codex  --kind codex  --pane <id> --timeout 120000 -- --dangerously-bypass-approvals-and-sandbox -C "<project root>"
-herdr agent start design-claude --kind claude --pane <id> --timeout 120000 -- --dangerously-skip-permissions
-herdr agent prompt design-<model> "Read .design/<slug>/briefs/<name>.md and do exactly what it says."
+read SPACE TAB < <(hc get "$HC_TERMINAL_ID" | jq -r '.labels["herdr.space"] + " " + .labels["herdr.tab"]' | tr -d '\r')
 ```
 
-Report-back line for the brief: `herdr agent prompt <DRIVER> 'design-<model> done: <name> .design/<slug>/options/<name>/index.html'`. Its last action is to run that line.
+Start each other model as your child with its job as the launch prompt (a send to a booting agent can be dropped):
 
-- If a name is taken (`agent_name_taken`), add the slug: `design-agy-<slug>`.
-- If the first prompt fails with `agent_prompt_stalled` while the startup banner shows, send it again once.
-- A first-run trust screen: confirm the folder, then `herdr agent send-keys <name> enter`.
+```bash
+P="Read .design/<slug>/briefs/<name>.md and do exactly what it says."
+L="--label herdr.space=$SPACE --label herdr.tab=$TAB"
+hc run --bg --name design-agy    --cwd "<project root>" $L -- agy --dangerously-skip-permissions -i "$P"
+hc run --bg --name design-codex  --cwd "<project root>" $L -- codex --no-daemon --dangerously-bypass-approvals-and-sandbox -C "<project root>" "$P"
+hc run --bg --name design-claude --cwd "<project root>" $L -- claude --dangerously-skip-permissions "$P"
+```
+
+Report-back line for the brief: `hc send <DRIVER> 'design-<model> done: <name> .design/<slug>/options/<name>/index.html'`. Its last action is to run that line.
+
+- If a name is taken (`hc ls` shows it live), add the slug: `design-agy-<slug>`.
+- agy takes its first prompt only through `-i` (a bare positional prompt exits with code 2). Codex needs `--no-daemon`, or its commands run outside hc and its report comes from the wrong address.
+- A first-run trust screen (`hc get <name>` says `blocked`): read it with `hc read <name> --lines 0`, confirm the folder, then `hc keys <name> enter`.
 - Never pass `--model`. Each agent runs on its own default.
 
-Do your own option meanwhile. Don't poll: the report-backs arrive in your pane as new turns. If a peer goes quiet, check it once with `herdr agent get <name>` and `herdr agent read <name> --source visible --lines 30`. Close only the panes you created (`herdr pane close <id>`), and only after their report-back arrives.
+Do your own option meanwhile. Don't poll: reports arrive in your input as `<hc from="t9 design-agy">...</hc>`, and hc also tells you unasked when a peer blocks, errors or exits. If a peer goes quiet, check it once with `hc get <name>` and `hc read <name> --lines 30`, or wait with `hc wait <name> --timeout 600`. End only the peers you started (`hc kill <name>; hc rm <name>`), and only after their report-back arrives.
 
-## Transport B: headless CLIs (outside Herdr)
+## Transport B: headless CLIs (outside hc)
 
 Start each one as a background process from the project root, logging to the run folder:
 

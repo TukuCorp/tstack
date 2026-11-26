@@ -158,31 +158,33 @@ lead can hand it to Hermes Agent workers that search iteratively with Hermes' ow
 through the Nous Portal gateway when Hermes' web backend is `nous`). This step is optional: never let
 `--sources` depend on it.
 
-Preconditions (skip the step with a one-line note if any fails): the session runs inside Herdr
-(`HERDR_ENV=1`), `hermes` is on PATH, and `hermes portal info` shows web tools routed.
+Preconditions (skip the step with a one-line note if any fails): the session runs in an hc terminal
+(`HC_TERMINAL_ID` is set, as inside the Herdr app), `hermes` is on PATH, and `hermes portal info` shows
+web tools routed.
 
 1. Write one brief per worker at `research/sources/<date>_<slug>.hermes-<n>.brief.md`: the topic, ONE
    sub-question, the buckets that matter, a target of 8-20 sources, and sources already in hand so the
    worker doesn't repeat them. At most 3 workers (each Hermes process uses real memory), and never more
    than `--max-workers`.
-2. Launch each worker in its own tab without moving focus. Read the root pane id and tab id from the
-   `tab create` JSON:
+2. Launch each worker as your hc child in its own tab of your space, without moving focus (your space id
+   is `hc get "$HC_TERMINAL_ID"` → `.labels["herdr.space"]`; strip a trailing `\r` on Windows):
 
    ```
-   herdr tab create --workspace "$HERDR_WORKSPACE_ID" --cwd "$PWD" --label hermes-<n> --no-focus
-   herdr pane run <root_pane_id> "python -I <skill>/scripts/hermes_worker.py --brief research/sources/<date>_<slug>.hermes-<n>.brief.md --out research/sources/<date>_<slug>.hermes-<n>.jsonl --id hermes-<n> --notify $HERDR_PANE_ID"
+   hc run --bg --name hermes-<n> --cwd "$PWD" --label herdr.space=<space id> -- python -I <skill>/scripts/hermes_worker.py --brief research/sources/<date>_<slug>.hermes-<n>.brief.md --out research/sources/<date>_<slug>.hermes-<n>.jsonl --id hermes-<n>
    ```
 
    Then carry on with other work; do not poll.
-3. Each worker prompts the lead pane with `HERMES_WORKER_DONE hermes-<n> rows=<k> status=<ok|empty|failed>`
-   when it finishes. If the lead is not an agent Herdr recognizes, wait instead with
-   `herdr pane wait-output <root_pane_id> --match HERMES_WORKER_DONE --timeout <ms>` as a background command.
+3. When a worker exits, hc sends you a note with its last lines, which end with
+   `HERMES_WORKER_DONE hermes-<n> rows=<k> status=<ok|empty|failed>`. To wait for all of them at a point
+   where you need the results, run `hc wait --children all` (a `reason: timeout` result is a check-in:
+   wait again). A caller that is not the workers' parent passes `--notify <its hc address>`, and the
+   worker sends the same line there with `hc send`.
 4. Merge the finished files into the ledger:
    `python <skill>/scripts/wide_pass.py --ledger <ledger> --merge <hermes-1.jsonl> --merge <hermes-2.jsonl>`.
    It dedupes against the ledger and appends `pass:"agentic"` candidates with provisional tiers and the
    worker's one-line `hint`.
-5. Close the tabs you created (`herdr tab close <tab_id>`). Keep each `.jsonl` and `.jsonl.log` next to
-   the ledger as the trail.
+5. Remove the finished workers (`hc rm hermes-<n>`; that also closes their tabs). Keep each `.jsonl`
+   and `.jsonl.log` next to the ledger as the trail.
 
 Worker rows are candidates like any other: tier them, and before citing one, fetch it in the deep pass
 and check the claim yourself. A `hint` is never evidence. A `failed` or `empty` worker is a coverage

@@ -4,15 +4,6 @@
       {
         "hooks": [
           {
-            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\<USER>\\.codex\\herdr-agent-state.ps1\" session",
-            "timeout": 10,
-            "type": "command"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
             "command": "quota-axi --provider codex --max-age 5m --no-credential-refresh",
             "timeout": 20,
             "type": "command"

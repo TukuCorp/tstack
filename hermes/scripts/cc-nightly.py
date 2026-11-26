@@ -2,6 +2,9 @@
 """
 CC Nightly Orchestrator (herdr transport)
 =========================================
+NOT PORTED (2026-11-26): drives the Herdr TUI CLI (`herdr workspace/agent ...`), which is uninstalled.
+The cron job is disabled; port it to herdr-core (`hc run`, `hc send`) before re-enabling it.
+
 Cooldown-aware shuffle-pick of a project from ~/.hermes/cc-nightly-projects.json,
 launch Claude Code in a herdr workspace with Remote Control enabled. If the repo
 has any unfinished plan, do NOT start anything new: enter backlog mode and triage

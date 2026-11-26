@@ -74,8 +74,6 @@ function codex {
     if (-not $up) { ocx ensure *> $null }
     & "$env:LOCALAPPDATA\Programs\OpenAI\Codex\bin\codex.exe" @args
 }
-# Herdr sets TERM_PROGRAM=herdr, which hides the outer terminal from Claude Code's OSC 8 hyperlink detection (anthropics/claude-code#101490).
-if ($env:HERDR_ENV -eq '1') { $env:FORCE_HYPERLINK = '1' }
 
 # Claude Code with experimental Code Mode for this session only (no Claude in Chrome / Remote Control while on).
 function claude-code-mode {

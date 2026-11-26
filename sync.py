@@ -1,4 +1,4 @@
-"""Mirror my agent setup (Claude Code, Codex, Opencode, Hermes, noctty, herdr) into this repo.
+"""Mirror my agent setup (Claude Code, Codex, Opencode, Hermes, agy, Herdr app, noctty) into this repo.
 
 Every run rebuilds each tool folder from the live files, strips secrets from
 configs, applies the private redaction map, and secret-scans the result.
@@ -40,15 +40,12 @@ SOURCES = [
     (".codex/hooks.json", "codex/hooks.json", "json"),
     (".codex/hooks", "codex/hooks", "tree"),  # PreToolUse inline-script guard (2026-11-25)
     (".codex/config.toml", "codex/config.toml", "config"),
-    (".codex/herdr-agent-state.ps1", "codex/herdr-agent-state.ps1", "file"),
     # .codex/memories/MEMORY.md is not mirrored: it holds client project notes and this repo is public
     (".config/opencode/AGENTS.md", "opencode/AGENTS.md", "file"),
     (".config/opencode/agents", "opencode/agents", "tree"),
     (".config/opencode/command", "opencode/command", "tree"),
     (".config/opencode/commands", "opencode/commands", "tree"),
     (".config/opencode/plugins", "opencode/plugins", "tree"),
-    (".config/opencode/herdr-opencode", "opencode/herdr-opencode", "tree"),
-    (".config/opencode/herdr-tui-session.js", "opencode/herdr-tui-session.js", "file"),
     (".config/opencode/skills", "opencode/skills", "tree"),
     (".config/opencode/opencode.json", "opencode/opencode.json", "json"),
     (".config/opencode/tui.jsonc", "opencode/tui.jsonc", "config"),
@@ -58,7 +55,7 @@ SOURCES = [
     (".hermes/skills", "hermes/skills", "tree"),
     (".hermes/scripts", "hermes/scripts", "tree"),
     (".hermes/cron", "hermes/cron", "tree"),
-    # Live Hermes plugins dir; herdr-agent-state there is installed by herdr itself, so only mine.
+    # Live Hermes plugins dir: only my own plugin.
     ("AppData/Local/hermes/plugins/swarm-gateway-guard", "hermes/plugins/swarm-gateway-guard", "tree"),
     # Live Hermes cron script (job "Weekly Disk Cleanup (Sunday)"); the job itself is recreated per README.
     ("AppData/Local/hermes/scripts/disk-cleanup.py", "hermes/live-scripts/disk-cleanup.py", "file"),
@@ -75,10 +72,17 @@ SOURCES = [
     ("AGENTS.md", "shared/AGENTS.md", "file"),
     ("AppData/Local/noctty/config.ghostty", "noctty/config.ghostty", "file"),
     (".config/noctty", "noctty/dotconfig", "tree"),  # shaders, background images
-    # Home hides/shows the noctty window (AutoHotkey v2); bootstrap adds its Startup shortcut.
-    (".config/ahk/noctty-toggle.ahk", "ahk/noctty-toggle.ahk", "file"),
-    ("AppData/Roaming/herdr/config.toml", "herdr/config.toml", "config"),
-    ("AppData/Roaming/herdr/plugins.json", "herdr/plugins.json", "herdr-plugins"),
+    # Home hides/shows the Herdr app window (AutoHotkey v2); bootstrap adds its Startup shortcut.
+    (".config/ahk/herdr-toggle.ahk", "ahk/herdr-toggle.ahk", "file"),
+    # Herdr app (herdr-app + herdr-core `hc`) user settings, personal layout/theme, and custom mods.
+    # The app regenerates AGENTS.md, *.d.ts, jsconfig.json, frame/, icons/, installed.json and built-in
+    # mods/themes on start, and view/state files are per machine.
+    (".config/herdr-app/keys.json", "herdr/app/keys.json", "file"),
+    (".config/herdr-app/settings.json", "herdr/app/settings.json", "file"),
+    (".config/herdr-app/layouts/tui.json", "herdr/app/layouts/tui.json", "file"),
+    (".config/herdr-app/themes/matrix.json", "herdr/app/themes/matrix.json", "file"),
+    (".config/herdr-app/mods/tui", "herdr/app/mods/tui", "tree"),
+    (".config/herdr-app/mods/html-open", "herdr/app/mods/html-open", "tree"),
     # Windows PowerShell 5.1 $PROFILE (codex wrapper, claude-code-mode, agy YOLO wrapper). Assumes OneDrive redirects Documents.
     ("OneDrive/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1",
      "machine/powershell/Microsoft.PowerShell_profile.ps1", "file"),
@@ -89,9 +93,6 @@ SOURCES = [
      "machine/python/sitecustomize.py", "file"),
 ]
 TOOL_DIRS = ["claude", "codex", "opencode", "hermes", "agy", "shared", "noctty", "ahk", "herdr", "machine"]
-
-# herdr plugins I run as patched local clones (`herdr plugin link`), mirrored as upstream + patch.
-HERDR_LOCAL_PLUGINS = ".herdr/local-plugins"
 
 # Global CLI packages, recorded in machine/packages.json for bootstrap.ps1 to reinstall.
 NPM_GLOBAL = "AppData/Roaming/npm/node_modules"
@@ -110,7 +111,8 @@ SYNCED_EXTRA_MINE = {"plan"}  # manifest leaves creatorType null, but I wrote it
 
 EXCLUDE_NAMES = {"auth.json", ".env", "history.jsonl", "nul", "synced", ".git", "node_modules",
                  "__pycache__", "sessions", "logs", "cache", ".DS_Store",
-                 ".system"}  # Codex's bundled OpenAI skills
+                 ".system",  # Codex's bundled OpenAI skills
+                 "gpui-kit.d.ts", "herdr.d.ts", "jsconfig.json"}  # Herdr app generated mod type files
 EXCLUDE_GLOBS = ["*.sqlite", "*.sqlite-*", "*.db", "*.db-shm", "*.db-wal", "*.bak", "*.bak*",
                  "*.bak-*", "*.disabled", "*.draft", "*.pyc", "render-check*.png", "tmp_*",
                  "debug_*", ".env.*", "*.pem", "*.key"]
@@ -246,24 +248,6 @@ def unmask_home(text, user):
     return re.sub(rf"{_USER_PREFIX}<USER>", lambda m: m.group(1) + user, text)
 
 
-def herdr_plugins(entries):
-    """Reduce herdr's plugins.json to what `herdr plugin install` needs; drops machine paths."""
-    return [{"repo": f"{s['owner']}/{s['repo']}", "ref": s.get("resolved_commit"), "enabled": p.get("enabled", True)}
-            for p in entries if (s := p.get("source", {})).get("kind") == "github"]
-
-
-def local_plugins(base):
-    """Yield (metadata, patch text) for each git clone under base: upstream repo, base commit, local diff."""
-    for clone in sorted(d for d in base.glob("*") if (d / ".git").exists()):
-        git = lambda *a: subprocess.run(["git", "-C", str(clone), *a], check=True, capture_output=True,
-                                        encoding="utf-8").stdout
-        origin = git("remote", "get-url", "origin").strip()
-        repo = re.sub(r"^.*github\.com[/:]|\.git$", "", origin)
-        meta = {"dir": clone.name, "repo": repo, "ref": git("rev-parse", "HEAD").strip(),
-                "patch": f"herdr/local-plugins/{clone.name}.patch"}
-        yield meta, git("diff", "HEAD")
-
-
 def global_packages(home):
     npm = []
     for d in sorted((home / NPM_GLOBAL).glob("*")):
@@ -359,16 +343,7 @@ def build(mapping):
         elif kind == "mcp":
             servers = json.loads(src.read_text(encoding="utf-8")).get("mcpServers", {})
             _write(dest, json.dumps({"mcpServers": sanitize_json(servers)}, indent=2) + "\n", mapping)
-        elif kind == "herdr-plugins":
-            entries = json.loads(src.read_text(encoding="utf-8"))
-            _write(dest, json.dumps(herdr_plugins(entries), indent=2) + "\n", mapping)
     _write(ROOT / "machine" / "packages.json", json.dumps(global_packages(HOME), indent=2) + "\n", mapping)
-    if (HOME / HERDR_LOCAL_PLUGINS).is_dir():
-        metas = []
-        for meta, patch in local_plugins(HOME / HERDR_LOCAL_PLUGINS):
-            _write(ROOT / meta["patch"], patch, mapping)
-            metas.append(meta)
-        _write(ROOT / "herdr" / "local-plugins.json", json.dumps(metas, indent=2) + "\n", mapping)
     if (HOME / HERMES_SKILLS).exists():
         _copy_hermes_skills(HOME / HERMES_SKILLS, ROOT / "hermes" / "skills", mapping, HERMES_CATEGORIES,
                             HERMES_THIRD_PARTY)

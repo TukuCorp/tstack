@@ -1,4 +1,4 @@
 interface:
   display_name: "Necro"
-  short_description: "Fan a task out to OpenCode Go Codex agents in Herdr tabs"
-  default_prompt: "Use $necro to split this task across Codex agents in Herdr tabs and synthesize the results."
+  short_description: "Fan a task out to OpenCode Go Codex agents as hc children in Herdr tabs"
+  default_prompt: "Use $necro to split this task across Codex agents as hc children in Herdr tabs and synthesize the results."

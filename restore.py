@@ -20,7 +20,7 @@ from pathlib import Path
 import sync
 
 SANITIZED = {"json", "config"}
-SKIP = {"herdr/plugins.json"}  # bootstrap.ps1 reinstalls these with `herdr plugin install`
+SKIP = set()  # repo paths sync mirrors but restore must not write
 
 
 def _targets(root, home):

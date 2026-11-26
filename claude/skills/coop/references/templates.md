@@ -1,13 +1,13 @@
 # /coop templates
 
-Fill the `<...>` slots. `<run>` is the absolute path of `.coop/<slug>/`. `<you>` is `claude` or `agy`; `<peer>` is the other. `<DRIVER_PANE>` is your pane id.
+Fill the `<...>` slots. `<run>` is the absolute path of `.coop/<slug>/`. `<you>` is `claude` or `agy`; `<peer>` is the other. `<DRIVER>` is your hc address (`$HC_TERMINAL_ID`, written as the literal value such as `t5`).
 
 ## 00-brief.md
 
 ```markdown
 # Coop: <slug>
 
-Driver: <you> (pane <DRIVER_PANE>) · Peer: coop-<peer> · Started: <ISO date>
+Driver: <you> (terminal <DRIVER>) · Peer: coop-<peer> · Started: <ISO date>
 Root: <root> · Branch: <branch or n/a> · Task type: code | non-code
 
 ## Goal
@@ -49,20 +49,20 @@ Example rows: `review r1	claude	fixed R2	null path crashed	src/a.ts:41, test b.s
 Every prompt ends with this report-back line (fill it per phase):
 
 ```
-Last action: herdr agent prompt <DRIVER_PANE> 'coop-<peer> done: <phase> r<N> <result> <file>'
+Last action: hc send <DRIVER> 'coop-<peer> done: <phase> r<N> <result> <file>'
 ```
 
 **Kickoff** (first prompt only, may be combined with Brainstorm):
 
 ```
-Coop run. You are the peer; I am <you> in pane <DRIVER_PANE>. Read <run>/00-brief.md, especially Peer rules, and follow them for every prompt in this run.
+Coop run. You are the peer; I am <you> in terminal <DRIVER>. Read <run>/00-brief.md, especially Peer rules, and follow them for every prompt in this run.
 ```
 
 **Brainstorm**
 
 ```
 Brainstorm: read <run>/00-brief.md and the code or material it points to. Write <run>/01-ideas-<peer>.md starting with "# Ideas (<peer>)": 2-4 approaches, each with how it works, cost, main risk, and which you recommend and why. Do not read 01-ideas-<you>.md.
-Last action: herdr agent prompt <DRIVER_PANE> 'coop-<peer> done: brainstorm r1 ok <run>/01-ideas-<peer>.md'
+Last action: hc send <DRIVER> 'coop-<peer> done: brainstorm r1 ok <run>/01-ideas-<peer>.md'
 ```
 
 **Critique**
@@ -72,21 +72,21 @@ Critique r<N>: read <run>/00-brief.md and <run>/02-plan.md (and <run>/ledger.tsv
 VERDICT: APPROVE or CHANGES
 C1 [blocker|should|nit] <claim>. Evidence: <file:line / output / source>. Fix: <suggestion>
 blocker = the Goal fails as planned. should = a real problem the Goal will hit. nit = the rest. For r2+, check only open ids and the changed plan.
-Last action: herdr agent prompt <DRIVER_PANE> 'coop-<peer> done: critique r<N> <VERDICT> <run>/03-critique-r<N>.md'
+Last action: hc send <DRIVER> 'coop-<peer> done: critique r<N> <VERDICT> <run>/03-critique-r<N>.md'
 ```
 
 **Checks** (sent at the start of Execute; `<base sha>` is the commit before any slice)
 
 ```
 Checks: read <run>/00-brief.md and <run>/02-plan.md, not the code changes. Write <run>/04-checks.md starting with "# Acceptance checks": the commands (code) or claims to trace and numbers to recompute (non-code) that would prove the Goal and each slice, each with the expected result. Include at least one check that the original problem is gone. The pre-change code is base <base sha> (git show <base sha>:<path>); never use HEAD for the before state, since I commit slices while you write.
-Last action: herdr agent prompt <DRIVER_PANE> 'coop-<peer> done: checks r1 ok <run>/04-checks.md'
+Last action: hc send <DRIVER> 'coop-<peer> done: checks r1 ok <run>/04-checks.md'
 ```
 
 **Build** (split Execute, or prose slices owned by agy)
 
 ```
 Build: read <run>/02-plan.md. Build only your slices (owner: <peer>) and edit only the files listed for you there; I am building mine in the same tree at the same time. Do not commit, stage, format, or touch any other file, including lockfiles and shared config: list needed changes to those in your report. Run each slice's check. Write <run>/04-build-<peer>.md starting with "# Build (<peer>)": slices done, files changed, check commands with output, requested shared-file changes.
-Last action: herdr agent prompt <DRIVER_PANE> 'coop-<peer> done: build r1 <PASS|ISSUES|BLOCKED> <run>/04-build-<peer>.md'
+Last action: hc send <DRIVER> 'coop-<peer> done: build r1 <PASS|ISSUES|BLOCKED> <run>/04-build-<peer>.md'
 ```
 
 For prose slices, add to the Build prompt: `These slices are prose: write them with your unslop skill. If a fact-first draft exists at <file>, rewrite it in place and keep every number, date, name, link, quote, code span and footnote marker; add no facts. Audience: <...>. House voice: <...>.`
@@ -100,7 +100,7 @@ Review r<N> (read-only): base <sha or file list>. See git diff <base> plus untra
 VERDICT: APPROVE or CHANGES · SCORE: <n>/10
 R1 [blocker|should|nit] <file>:<line> <claim>. Fix: <suggestion>
 For r2+: the ledger shows fixed/disagree/declined; check open ids and code changed since r<N-1> only.
-Last action: herdr agent prompt <DRIVER_PANE> 'coop-<peer> done: review r<N> <VERDICT> <run>/05-review-r<N>.md'
+Last action: hc send <DRIVER> 'coop-<peer> done: review r<N> <VERDICT> <run>/05-review-r<N>.md'
 ```
 
 Non-code review: replace the diff with the document paths and look for unsupported claims, wrong numbers, missing counterpoints, and AI-sounding prose.
@@ -113,7 +113,7 @@ RESULT: PASS | ISSUES | BLOCKED · SCORE: <n>/10
 CONCERNS: <one line of remaining concerns, or none>
 V1 <check> -> <command> -> <output excerpt> -> pass|fail
 List every failure you can prove, not only the first. A failure without the exact command and output (or the source and quote) does not count. The pre-change base is <base sha>.
-Last action: herdr agent prompt <DRIVER_PANE> 'coop-<peer> done: verify r<N> <RESULT> <run>/07-verify-r<N>.md'
+Last action: hc send <DRIVER> 'coop-<peer> done: verify r<N> <RESULT> <run>/07-verify-r<N>.md'
 ```
 
 ## 08-summary.md

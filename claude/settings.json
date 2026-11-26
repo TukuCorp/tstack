@@ -54,16 +54,6 @@
             "timeout": 20
           }
         ]
-      },
-      {
-        "matcher": "^(startup|resume|clear|compact|fork)$",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\<USER>\\.claude\\hooks\\herdr-agent-state.ps1\" session",
-            "timeout": 10
-          }
-        ]
       }
     ],
     "PreToolUse": [

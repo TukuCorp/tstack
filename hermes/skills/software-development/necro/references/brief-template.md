@@ -37,10 +37,9 @@ Out of scope: <what this lane must not research, edit or write, including the ot
 <Checks the agent can run on its own output, e.g. "every candidate row has all fields filled or labelled NOT FOUND; every VERIFIED claim has a URL and a date; the ranking uses only the rubric above".> Re-read the file against these checks before the last action.
 
 ## Last action (mandatory)
-When the file is finished, as your very last actions:
-1. Create the empty file `_<prefix>/<lane>.reported`, then list it to confirm it exists.
-2. Run: herdr agent prompt <caller-pane-id> "<lane> finished: N rows, file <prefix>-<lane>.md"
-(replace N with the real row count; do not use --wait). If you could not finish, still do both with the true state, for example "<lane> finished: partial, file <prefix>-<lane>.md". If you receive a fix request later, do both again when the fixes are done.
+When the file is finished, as your very last action run:
+hc send <caller address> "<lane> finished: N rows, file <prefix>-<lane>.md"
+(replace N with the real row count; <caller address> is the literal address the caller gave you, such as t5, not a variable). If you could not finish, still send it with the true state, for example "<lane> finished: partial, file <prefix>-<lane>.md". If you receive a fix request later, send it again when the fixes are done.
 ```
 
 Why each part exists:
@@ -49,6 +48,6 @@ Why each part exists:
 - **Labels and "NOT FOUND is acceptable"** stop agents filling gaps with plausible inventions; a table full of honest NOT FOUND rows is more useful than a complete-looking one that is wrong.
 - **Hard rules 1-2** exist because earlier agents were stopped by content filters and by runaway output when briefs left them out.
 - **Out of scope and Done when** give the agent a boundary and a stopping test. Without them, open-ended briefs drift or stop early.
-- **The last action** is how the caller learns the lane is done without polling. The marker file tells the stall watchdog the lane reported, so it stays quiet.
+- **The last action** is how the caller learns the lane is done without polling.
 
-In a chat-gateway session (see SKILL.md §0), drop step 2: the last action only creates the marker file, and the caller's background waiter reports it to the chat.
+In a chat-gateway session (see SKILL.md §0), drop the `hc send` line: the last action only finishes the output file, and the caller's background `hc wait` job reports it to the chat.

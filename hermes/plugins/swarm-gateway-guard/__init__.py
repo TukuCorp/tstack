@@ -1,11 +1,11 @@
 """Keep /necro report-backs reachable in chat-gateway sessions (Discord, Telegram, ...).
 
-A gateway inherits HERDR_PANE_ID from the console pane it was started in, so a lane's
-`herdr agent prompt <pane>` report-back lands in that console and never reaches the chat.
-A gateway chat is one continuous session, so the agent can keep a copy of the necro skill
-from before its gateway steps existed (13-15 Nov 2026: lanes reported to the console, the
-user had to ask for progress). This pre_tool_call hook blocks the two calls that cause it
-and tells the agent to reload the skill.
+A gateway chat is not an hc terminal. If the gateway was started from one, its HC_TERMINAL_ID
+names that console, so a lane's `hc send <caller>` report-back lands there and never reaches
+the chat. A gateway chat is one continuous session, so the agent can keep a copy of the necro
+skill from before its gateway steps existed (13-15 Nov 2026, Herdr TUI era: lanes reported to
+the console, the user had to ask for progress). This pre_tool_call hook blocks the two calls
+that cause it and tells the agent to reload the skill.
 """
 from __future__ import annotations
 
@@ -14,11 +14,12 @@ import re
 
 _RELOAD = ("Reload the necro skill now with skill_view(name=\"necro\"): the copy earlier in this chat may "
            "be stale. Follow its Gateway steps.")
-_WHY = ("This is a chat-gateway session, so a herdr pane report-back goes to the gateway's console "
-        "pane and never reaches this chat.")
+_WHY = ("This is a chat-gateway session, so a lane's `hc send` report-back goes to the gateway's console "
+        "terminal and never reaches this chat.")
 _NON_MESSAGING = {"", "api_server", "cli", "codex", "desktop", "gateway", "kanban", "local",
                   "msgraph_webhook", "tool", "tui", "webhook"}
-_WATCHDOG_CALLER = re.compile(r"watchdog\.sh[\"']?\s+(\S+)")
+_HC_SEND = re.compile(r"\bhc(?:\.exe)?\s+send\b")
+_LANE_WAIT = re.compile(r"\bhc(?:\.exe)?\s+wait\s+(?!--children)\S+")
 
 
 def _is_gateway() -> bool:
@@ -42,17 +43,13 @@ def check(tool_name, args, task_id="", **kwargs):
     if tool_name in ("write_file", "patch"):
         path = str(args.get("path", ""))
         text = " ".join(str(v) for k, v in args.items() if k != "path")
-        if "-brief-" in path and "herdr agent prompt" in text:
-            return _block(f"{_WHY} The brief's last action must only create the `<lane>.reported` "
-                          f"marker file. {_RELOAD}")
+        if "-brief-" in path and _HC_SEND.search(text):
+            return _block(f"{_WHY} The brief's last action must only finish the output file. {_RELOAD}")
     elif tool_name == "terminal":
-        m = _WATCHDOG_CALLER.search(str(args.get("command", "")))
-        if m and m.group(1) != "-":
-            return _block(f"{_WHY} Skip the watchdog tab; run one `watchdog.sh - _<prefix> <stall-minutes> "
-                          f"<lane>` waiter per lane instead. {_RELOAD}")
-        if m and not (args.get("background") and args.get("notify_on_complete")):
-            return _block("a `watchdog.sh -` waiter must run with background=true and notify_on_complete=true; "
-                          "otherwise its exit line never reaches this chat.")
+        if _LANE_WAIT.search(str(args.get("command", ""))) and not (
+                args.get("background") and args.get("notify_on_complete")):
+            return _block("an `hc wait <lane>` waiter must run with background=true and notify_on_complete=true; "
+                          "otherwise its exit never reaches this chat.")
     return None
 
 

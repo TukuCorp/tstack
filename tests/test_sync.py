@@ -19,7 +19,7 @@ class FilterTests(unittest.TestCase):
             self.assertTrue(sync.is_excluded(p), p)
 
     def test_keeps_setup_files(self):
-        for p in ["SKILL.md", "agents/ask.md", "hooks/herdr-agent-state.ps1",
+        for p in ["SKILL.md", "agents/ask.md", "hooks/inline-script-guard.py",
                   "plugins/axi-gh-axi.js", "scripts/cc-nightly.py", "references/x.md"]:
             self.assertFalse(sync.is_excluded(p), p)
 
@@ -168,25 +168,3 @@ class PrivacyTests(unittest.TestCase):
         self.assertFalse([s for s, _, _ in sync.SOURCES if "/memory" in s])
 
 
-class LocalPluginTests(unittest.TestCase):
-    """A locally patched herdr plugin is mirrored as upstream repo + base commit + patch."""
-
-    def test_records_upstream_commit_and_patch(self):
-        import subprocess
-        import tempfile
-        with tempfile.TemporaryDirectory() as tmp:
-            clone = Path(tmp, "plugins", "demo")
-            clone.mkdir(parents=True)
-            git = lambda *a: subprocess.run(["git", "-C", str(clone), *a], check=True, capture_output=True, text=True).stdout
-            git("init", "-q")
-            git("remote", "add", "origin", "https://github.com/acme/demo.git")
-            (clone / "herdr-plugin.toml").write_text('platforms = ["linux"]\n', encoding="utf-8")
-            git("add", ".")
-            git("-c", "user.name=t", "-c", "user.email=t@example.com", "commit", "-qm", "base")
-            (clone / "herdr-plugin.toml").write_text('platforms = ["linux", "windows"]\n', encoding="utf-8")
-            plugins = list(sync.local_plugins(Path(tmp, "plugins")))
-            self.assertEqual(len(plugins), 1)
-            meta, patch = plugins[0]
-            self.assertEqual(meta, {"dir": "demo", "repo": "acme/demo", "ref": git("rev-parse", "HEAD").strip(),
-                                    "patch": "herdr/local-plugins/demo.patch"})
-            self.assertIn('+platforms = ["linux", "windows"]', patch)

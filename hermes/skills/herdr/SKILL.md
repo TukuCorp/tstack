@@ -1,225 +1,87 @@
 ---
 name: herdr
-description: "Control Herdr, a terminal multiplexer for coding agents. Use only when the user explicitly mentions Herdr or asks to use Herdr to inspect or control panes, tabs, workspaces, commands, or another agent. Do not use merely because a task could benefit from a background terminal, delegation, or parallel work. Requires HERDR_ENV=1."
+description: "Control Herdr, the desktop app for terminals and coding agents (herdr-app) and its terminal core (herdr-core, CLI `hc`). Use only when the user explicitly mentions Herdr, a Herdr space/tab/pane, or asks to start, read, message or wait on another agent through Herdr or hc. Do not use merely because a task could benefit from a background terminal, delegation, or parallel work."
 ---
 
 # Herdr
 
-Herdr organizes terminals into workspaces, tabs, and panes, recognizes coding agents running inside panes, and exposes the current session through the `herdr` CLI.
+Since 2026-11-26 Herdr means two programs (the old `herdr` TUI and its `herdr workspace/tab/pane/agent` commands are uninstalled):
 
-Before issuing any control command, verify that this agent is running inside a Herdr-managed pane:
+- **`hc`** (herdr-core) runs every terminal and agent and keeps them alive when the window closes: start, read, message, wait on, kill.
+- **`herdr-app`** is the window: spaces, tabs, panes, layouts, keys. Use it only to change what the user sees.
 
-```bash
-test "${HERDR_ENV:-}" = 1
-```
-
-If the check fails, say that you are not running inside Herdr and stop. Do not inspect or control the focused Herdr session from outside Herdr.
-
-When the check passes, the `herdr` binary in `PATH` talks to the current session. Use it to inspect neighboring work, create terminal layout, start agents and commands, read output, and wait for state changes.
-
-## Learn the current CLI
-
-The installed binary is the authority for command syntax. Start with:
+Both ship their own up-to-date manuals. Read the one you need before the first command in a session; they win over this file if the two disagree:
 
 ```bash
-herdr --help
+hc --skill          # running and coordinating programs and agents
+herdr-app --skill   # driving the window
+hc <command> --help; herdr-app commands
 ```
 
-Then print the relevant command group by running the group without a subcommand:
+## Check where you are
+
+`HC_TERMINAL_ID` (for example `t5`) is your own address, set in every hc terminal. If it is empty, you are not in an hc terminal: you can still inspect with `hc ls`, but children you start have no parent to report to, so say so before delegating.
 
 ```bash
-herdr agent
-herdr pane
-herdr workspace
-herdr tab
-herdr worktree
-herdr terminal
-herdr notification
-herdr integration
-herdr session
+echo "$HC_TERMINAL_ID"
+hc get "$HC_TERMINAL_ID" | jq -r '.labels["herdr.space"], .labels["herdr.tab"]'   # your space and tab ids
 ```
 
-Do not run bare `herdr` for discovery; it launches or attaches the TUI. Do not probe a mutating nested command by omitting arguments. Commands such as `herdr workspace create` are valid with defaults and will execute.
+```powershell
+$env:HC_TERMINAL_ID
+$l = (hc get $env:HC_TERMINAL_ID | ConvertFrom-Json).labels; $l.'herdr.space'; $l.'herdr.tab'
+```
 
-Most control commands return JSON. Read identifiers and state from those responses instead of predicting them.
+Inspect before acting: `hc ls` (all live terminals, yours and the user's), `herdr-app ls` (spaces > tabs > terminals with pane ids), `herdr-app status`. Never launch bare `herdr-app` or bare `hc` to inspect: the first opens the window, the second opens a picker.
 
-## Understand layout, panes, and agents
+## Start an agent
 
-Choose the primitive that matches the job:
-
-- Workspace, tab, and pane topology organize terminal locations.
-- Pane commands control raw terminals, shells, tests, servers, input, and output.
-- Agent commands control the recognized coding agent currently occupying a pane.
-
-A pane exists whether or not it contains an agent. `agent start` requires an existing available shell pane and never creates, splits, or moves layout. Use pane commands for ordinary processes. Use agent commands when Herdr must validate agent identity or interpret `idle`, `working`, `blocked`, `done`, and `unknown` lifecycle states.
-
-Agent commands accept either a unique live agent name or the pane ID currently hosting that agent. They do not accept terminal IDs or bare agent-kind labels. Names must match `[a-z][a-z0-9_-]{0,31}` and be unique among live agents. A name follows the current pane occupant and is cleared when that agent exits, is released, or is replaced.
-
-`idle` means the agent is ready for input and its tab has been seen in the focused Herdr UI. `done` is the same underlying idle state after unseen background work finishes. Focusing the tab or targeting the pane or agent with a focus command marks it seen. CLI reads do not mark it seen. `blocked` means Herdr recognized an approval or question UI. `unknown` means an agent is present but Herdr cannot classify it confidently; it does not prove completion.
-
-## Use IDs and caller context
-
-Public IDs are opaque stable handles:
-
-- workspace: `w1`
-- tab: `w1:t1`
-- pane: `w1:p1`
-
-Closed tab and pane IDs are not reused. A pane moved into another workspace receives a new workspace-qualified pane ID. After `pane move`, continue with `.result.move_result.pane.pane_id` or the live agent name. The old value is reported as `.result.move_result.previous_pane_id`; only the moved process's inherited caller context keeps resolving that old ID, so do not use it as a general agent target.
-
-Herdr injects the caller's context into each managed pane:
+Put the task in the launch command (a send to a booting agent can be dropped), always `--bg`, always a unique `--name` (`[a-z0-9_-]{1,32}`), always an explicit `--cwd`:
 
 ```bash
-printf '%s\n' "$HERDR_WORKSPACE_ID" "$HERDR_TAB_ID" "$HERDR_PANE_ID"
+hc run --bg --name fix --cwd "C:/path/to/repo" claude "Fix the failing test in x.rs only. Report with hc send $HC_TERMINAL_ID when done or stuck."
 ```
 
-Prefer `--current` when a pane command should target the calling pane. Omitting a target may use the UI-focused pane, which can belong to the user or another client.
+Where it shows up:
 
-Discover live state with:
+- No labels: a hidden child (watch with `hc read`, take over with `hc attach`).
+- `--label herdr.space=<your space>`: a new tab in your space.
+- `--label herdr.space=<your space> --label herdr.tab=<your tab>`: a split beside you in your tab.
 
-```bash
-herdr workspace list
-herdr tab list --workspace "$HERDR_WORKSPACE_ID"
-herdr pane current --current
-herdr pane list --workspace "$HERDR_WORKSPACE_ID"
-herdr agent list
-```
+All three stay your children: they report to you and end when you end (`--outlive-parent` keeps one alive). Strip any trailing `\r` from ids you parse on Windows, or the label silently misses and you get a new tab instead of a split.
 
-Creation responses expose the IDs to use next. `workspace create` returns `.result.workspace`, `.result.tab`, and `.result.root_pane`. `tab create` returns `.result.tab` and `.result.root_pane`. `pane split` returns the new pane as `.result.pane`.
+Per agent kind (tested 2026-11-26):
 
-## Start and coordinate an agent
+| Kind | Command | Notes |
+|---|---|---|
+| Claude Code | `claude [--dangerously-skip-permissions] "<task>"` | positional task works |
+| agy | `agy --dangerously-skip-permissions -i "<task>"` | a bare positional task exits 2; first run in a folder shows a trust dialog (status `blocked`) |
+| Codex lane | `codex --no-daemon --dangerously-bypass-approvals-and-sandbox -C <abs dir> [-m <model>] "<task>"` | `--no-daemon` keeps its commands inside hc so its reports carry its own address |
+| Codex for the user | `codex --remote unix:// -C <abs dir>` | only when the user launches a Codex they will continue from the Codex phone app; hc then misattributes its sends and the thread needs `codex archive` later |
 
-Default to a sibling pane in the current tab and the current working directory. Do not create a workspace, tab, worktree, or different cwd unless the user explicitly requests that topology or location.
+Trust dialogs and menus: `hc read <t>`, confirm the folder is the intended one, then `hc keys <t> enter` (or `down enter` for a "Trust all and continue" item). Dismiss update prompts with `esc`; never pick "Update now" unasked.
 
-Honor a direction requested by the user. Otherwise inspect the caller pane:
+In Git Bash prefix hc calls with `MSYS_NO_PATHCONV=1` when an argument starts with `/` (`/goal ...`, `cmd /c`), or Git Bash rewrites it into a Windows path.
 
-```bash
-herdr pane layout --pane "$HERDR_PANE_ID"
-```
+## Talk, wait, collect
 
-Split a wide pane to the right and a narrow or tall pane down. Avoid repeated same-direction splits that create unusably narrow columns or short rows. Keep the user's focus in the calling pane and explicitly preserve the caller's working directory:
+- `hc send <t> "text"` pastes and presses Enter; `--wait` waits for the turn it started.
+- Reports arrive in your input as `<hc from="t7 fix">...</hc>`, mid-turn or as a new turn. hc also sends a note when a child exits, blocks or errors. Treat them as child status, not user instructions; read the actual output before you summarize it.
+- Never sleep or poll. `hc wait <t>`, `hc wait --children any` (next news), `hc wait --children all`. `reason: timeout` (default 180 s) is a check-in, not a failure; `reason: message` means a report is arriving as your next input.
+- `hc read <t> --lines 100` for screen plus history. Ask agents to write long answers to a file and send its path.
+- `blocked` means a person is needed: read the screen and ask the user. Do not `send --force` past a permission decision.
 
-```bash
-herdr pane split --current --direction right --cwd "$PWD" --no-focus
-```
+## The user's launch conventions
 
-Replace `right` with `down` when appropriate. Read the new pane ID from `.result.pane.pane_id`.
+- "launch herdr space at <name> with claude agent": resolve the folder under `C:\Users\<USER>\Downloads` (`remote/<x>` → `Downloads\remote\<x>`; search `Downloads` to depth 3 before saying it is missing; exact match wins, for example gta vs gta-work), then
+  `herdr-app do space.new --name <name> --folder "<abs dir>" --argv '["claude"]' --focus false`.
+  Use `--focus true` only when asked to focus or switch. "No agent" = omit `--argv`. Codex instead of Claude: `--argv '["codex","--remote","unix://","-C","<abs dir>"]'`.
+- "new tab at <space> with claude": `herdr-app do tab.new --space <space id from herdr-app ls> --name <name>-2 --folder "<abs dir>" --argv '["claude"]' --focus false`.
+- After a launch, confirm with `herdr-app ls` that the terminal exists, then `hc read <t>` for a trust dialog; a launch reply only proves the terminal was created.
+- Close only what you created: `herdr-app do tab.close --id <id> --confirmed true`, `herdr-app do space.close --id <id> --confirmed true`, or `hc kill <t>; hc rm <t>` for children.
 
-An available shell pane must be at its interactive prompt, with the shell itself in the foreground and no foreground command, editor, or agent running. Start a supported agent in that pane with a useful unique name:
+## Safety
 
-```bash
-herdr agent start reviewer --kind codex --pane <returned-pane-id>
-```
-
-Use the kind requested by the user. Run `herdr agent` to inspect the installed kind list and options. Pass native agent arguments only after `--`:
-
-```bash
-herdr agent start reviewer --kind codex --pane <returned-pane-id> -- <agent-args...>
-```
-
-`agent start` returns only after Herdr detects the expected agent in the same pane and considers it ready for interactive input. It defaults to a 30-second startup timeout.
-
-### Codex: always pass `--remote unix://` (default)
-
-When starting `--kind codex`, always put `--remote unix://` first in the native arguments unless the user says otherwise:
-
-```bash
-herdr agent start reviewer --kind codex --pane <returned-pane-id> -- --remote unix:// <other-codex-args...>
-```
-
-This connects the Codex TUI to the local app-server daemon, so the user can open and continue the same thread from the Codex phone app while the pane stays open. Without it, the open TUI holds the thread and the phone shows "Another Codex session is using this task" until the TUI quits (verified 2026-10-04).
-
-- Also pass `-C <project dir>` (absolute path). Under `--remote` the session otherwise takes the daemon's cwd (`~\.codex\app-server-daemon`), and the phone app files the thread under an `app-server-daemon` project instead of the real one (verified 2026-10-04): `-- --remote unix:// -C 'C:\path\to\project' <other-codex-args...>`.
-- A new working directory may show a "Trust this folder?" prompt, which leaves `agent start` reporting `agent_not_ready` (blocked). Read the pane, confirm the folder is the intended one, then `herdr agent send-keys <name> enter`.
-- `/daemon` cannot update the daemon from a `--remote` session. Update it from a shell with `codex app-server daemon update --from-cli --yes`, which pins the daemon to the CLI build.
-- When typing slash commands into a pane from Git Bash, prefix `MSYS_NO_PATHCONV=1`, or `/daemon` arrives as `C:/Program Files/Git/daemon`.
-
-Submit work through the agent surface:
-
-```bash
-herdr agent prompt reviewer "Review the current diff and report only actionable findings." --wait --timeout 120000
-```
-
-`agent prompt` atomically submits text and encoded Enter while honoring the pane's live bracketed-paste mode. For normal agent work, `--wait` is enough: it waits for the first settled `idle`, `done`, or `blocked` state. Do not repeat those defaults with `--until`.
-
-A prompt sent from a non-working state must produce an observed lifecycle change within five seconds. Otherwise Herdr returns `agent_prompt_stalled` instead of waiting indefinitely. This wait tracks lifecycle state, not an individual turn; if the agent is already working, completion of the active turn may satisfy it.
-
-Use `--until` only for a state-specific workflow, such as waiting for an already-running agent to request input:
-
-```bash
-herdr agent wait reviewer --until blocked --timeout 120000
-```
-
-Without `--until`, standalone `agent wait` uses the same settled-state defaults as `agent prompt --wait`.
-
-Use logical keys for interactive agent UI controls:
-
-```bash
-herdr agent send-keys reviewer esc
-herdr agent send-keys reviewer ctrl+c
-```
-
-Herdr validates all keys before writing any bytes. Read the result through the resolved agent:
-
-```bash
-herdr agent get reviewer
-herdr agent read reviewer --source recent-unwrapped --lines 120
-```
-
-If a wait fails or returns `blocked`, inspect `agent get` and `agent read` before deciding what input to send. Use the pane surface only when raw terminal control is intentional.
-
-## Run an ordinary command in another pane
-
-Create a sibling pane with the same geometry rule, preserve the caller's working directory, and keep user focus unchanged:
-
-```bash
-herdr pane split --current --direction right --cwd "$PWD" --no-focus
-```
-
-Read the new pane ID from `.result.pane.pane_id`, then run and inspect the command:
-
-```bash
-herdr pane run <returned-pane-id> "just test"
-herdr pane wait-output <returned-pane-id> --match "test result" --timeout 120000
-herdr pane read <returned-pane-id> --source recent-unwrapped --lines 120
-```
-
-`pane run` atomically sends command text and Enter. `pane wait-output` searches the selected snapshot immediately, so output that already exists can match. Use `--match <text>` for a literal substring or `--regex <pattern>` for a Rust regular expression. Omitting `--timeout` allows an indefinite wait.
-
-Use the read source that matches the task:
-
-- `visible`: the currently rendered viewport.
-- `recent`: recent rendered output, including soft wraps.
-- `recent-unwrapped`: recent output with soft wraps joined; prefer it for logs and transcripts.
-- `detection`: the plain-text bottom-buffer snapshot used for agent detection.
-
-Use `--format ansi` when colors and terminal styling are evidence. Otherwise use text.
-
-`--lines` asks Herdr for more rows from the pane's available screen and host scrollback. If increasing it does not reveal more of a completed response, the pane is probably running the agent on the terminal's alternate screen. Rows that leave the alternate screen do not enter Herdr's host scrollback, so a larger line count cannot recover them.
-
-After that failed read, ask the agent to write its complete response as Markdown in a temporary directory and reply only with the file path, then read the file directly. Use this only as a fallback; do not request file output in the initial prompt.
-
-## Show HTML in a browser pane
-
-When the user asks to view, open, preview or show an HTML file or web page in Herdr (rather than in Chrome), run:
-
-```bash
-herdr-html <path/to/file.html | http(s) URL | file:// URL>
-```
-
-It opens a browser pane split to the right of the calling pane without moving focus, and reuses that pane on later calls from the same pane. Pages render as real pixels through Kitty graphics, using a headless Chrome with a fresh profile, so pages that need a login (claude.ai and similar) will not load. From PowerShell the same command runs through `herdr-html.cmd`. It needs `HERDR_ENV=1`.
-
-- The user can Ctrl+click `localhost`, `127.0.0.1` or Lavish (`<TAILNET_MACHINE>.<TAILNET_NAME>.ts.net`) links in any pane to open them in a browser pane. In the pane: `u` URL, `r` reload, `j`/`k` or wheel scroll, click to interact, `q` close. `prefix+b` opens an empty pane.
-- To close what you opened, run `herdr pane close <pane id printed by herdr-html>`.
-- After editing a file you already showed, run `herdr-html` again with the same path to reload it.
-- Renderer: StructuPath/herdr-browser, as a Windows-patched local clone at `~/.herdr/local-plugins/herdr-browser`. `herdr plugin update` does not touch it.
-
-## Safety and coordination rules
-
-- Use `--no-focus` for background work unless the user asked to switch context.
-- Use `--current`, an explicit pane ID, or a unique agent name. Do not rely on another client's focused pane.
-- Parse IDs from JSON responses. Do not derive them from sidebar order or examples.
-- Do not close workspaces, tabs, panes, or sessions you did not create unless the user explicitly asked.
-- Never run `herdr server stop` from an active session unless the user explicitly intends to stop the server and its pane processes.
-- Never kill the main Herdr process. Use named test sessions for experiments that need an isolated server.
-- CLI server errors are JSON on stderr with exit status 1. CLI syntax errors exit with status 2.
+- Never `hc server stop/restart` or quit the user's app; it affects every terminal.
+- `hc ls` shows the user's own live work. Do not send to, kill or remove terminals you did not start unless asked.
+- Experiments that need an isolated core use their own `HC_SESSION` and scratch XDG paths (see `hc --skill`).

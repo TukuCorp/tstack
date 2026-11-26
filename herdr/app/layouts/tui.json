@@ -1,0 +1,120 @@
+{
+  "id": "root",
+  "type": "row",
+  "children": [
+    {
+      "id": "sidebar",
+      "type": "column",
+      "children": [
+        {
+          "id": "spaces",
+          "type": "block",
+          "content": {
+            "mod": "tui",
+            "props": {
+              "part": "spaces"
+            }
+          },
+          "size": {
+            "weight": 1
+          },
+          "min": 90,
+          "window_drag": true
+        },
+        {
+          "id": "agents",
+          "type": "block",
+          "content": {
+            "mod": "tui",
+            "props": {
+              "part": "agents"
+            }
+          },
+          "size": {
+            "weight": 1
+          },
+          "min": 90
+        }
+      ],
+      "size": {
+        "px": 230
+      },
+      "min": 44,
+      "max": 480,
+      "divider": {
+        "width": 1,
+        "color": "border"
+      }
+    },
+    {
+      "id": "work",
+      "type": "column",
+      "children": [
+        {
+          "id": "tabs",
+          "type": "block",
+          "content": {
+            "mod": "tui",
+            "props": {
+              "part": "tabs"
+            }
+          },
+          "size": {
+            "px": 26
+          },
+          "window_drag": true
+        },
+        {
+          "id": "main",
+          "type": "block",
+          "content": {
+            "tab": "active",
+            "pane": {
+              "header": {
+                "content": {
+                  "mod": "tui"
+                },
+                "reveal": "always",
+                "height": 20,
+                "position": "top"
+              },
+              "background": "background",
+              "border": {
+                "width": 1,
+                "color": "foreground"
+              },
+              "focus": {
+                "width": 1,
+                "color": "accent"
+              },
+              "radius": 0,
+              "gap": 4
+            }
+          },
+          "padding": [
+            2,
+            4
+          ]
+        }
+      ]
+    }
+  ],
+  "background": "background",
+  "theme": "matrix",
+  "font": "JetBrainsMono NF",
+  "font_size": 14,
+  "font_weight": 400,
+  "ui_font": "JetBrainsMono NF",
+  "terminal_padding": [
+    4,
+    6
+  ],
+  "divider": {
+    "width": 1,
+    "color": "border"
+  },
+  "titlebar": "none",
+  "link_handlers": [
+    "html-open"
+  ]
+}

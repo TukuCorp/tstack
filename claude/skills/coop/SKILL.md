@@ -1,6 +1,6 @@
 ---
 name: coop
-description: Run one task end to end as a pair of agents, Claude Code and agy (Antigravity CLI), each on its default model, side by side in two Herdr panes of the same tab. The harness you invoke drives and does the editing (or splits disjoint files with the peer when the plan says so); the other is the peer that brainstorms in parallel, critiques the plan, reviews, and verifies. They hand off through files in `.coop/<slug>/` and report back by `herdr agent prompt`, without polling. Full send by default, for code and non-code tasks. Use for `/coop`, "coop this", "pair with agy/claude on this", or a request to have Claude and agy work a task together. Requires HERDR_ENV=1. Not for fanning out to many agents (use necro) or a single cross-model review of an existing diff.
+description: Run one task end to end as a pair of agents, Claude Code and agy (Antigravity CLI), each on its default model, side by side in two panes of the same Herdr tab. The harness you invoke drives and does the editing (or splits disjoint files with the peer when the plan says so); the other is the peer that brainstorms in parallel, critiques the plan, reviews, and verifies. They hand off through files in `.coop/<slug>/` and report back by `hc send`, without polling. Full send by default, for code and non-code tasks. Use for `/coop`, "coop this", "pair with agy/claude on this", or a request to have Claude and agy work a task together. Needs herdr-core (`hc`, HC_TERMINAL_ID set). Not for fanning out to many agents (use necro) or a single cross-model review of an existing diff.
 argument-hint: "<task>"
 ---
 
@@ -15,12 +15,12 @@ Two agents finish one task together. You (the harness the user invoked) are the 
 
 The run is **full send**: no approval stops. You own it from the request to a verified result and a final report. The only reasons to stop early and ask the user are in "Stop and ask".
 
-Herdr commands and gotchas: `references/herdr.md` (next to this file). Brief, prompts, and report formats: `references/templates.md`. Read both before step 1.
+hc commands and gotchas: `references/hc.md` (next to this file). Brief, prompts, and report formats: `references/templates.md`. Read both before step 1.
 
 ## 0. Preconditions
 
-1. `HERDR_ENV` must be `1`. If not, say you are not inside Herdr and stop.
-2. Find your own pane: `herdr pane get "$HERDR_PANE_ID"` must succeed and its `.result.pane.agent` must be your harness (`claude` or `agy`). If not, find your row in `herdr agent list` by kind and cwd. This pane id is where the peer reports back. Call it `DRIVER_PANE`.
+1. `HC_TERMINAL_ID` must be set (for example `t5`). If not, say you are not in an hc terminal and stop. This address is where the peer reports back. Call it `DRIVER`.
+2. Read your space and tab ids from your own labels (`references/hc.md`, "Who and where you are"); the peer's pane goes beside you in that tab.
 3. Check quota for both sides: `quota-axi` (Claude) and `quota-axi --provider agy`. If either is under 15% with a reset after the run would end, say so in one line and continue only if the task is small.
 4. Work root: the git top level if the cwd is in a repo, else the cwd. If on the default branch of a repo and the task changes code, create a branch `coop/<slug>` first.
 
@@ -33,9 +33,9 @@ Pick a short kebab-case `<slug>`. Create `<root>/.coop/<slug>/`, add `.coop/` to
 
 ## 2. Start the peer
 
-Reuse a live agent named after the peer (`herdr agent get coop-agy` or `coop-claude`) if it sits in your tab (`$HERDR_TAB_ID`). Otherwise split your pane (right if it is wider than about 140 columns, else down) with `--no-focus` and `--cwd <root>`, and start the peer there (exact commands in `references/herdr.md`). Confirm the model in its header line with `agent read --source visible`. If the peer will not start after the fixes listed in `references/herdr.md`, stop and report; never substitute a different agent or model.
+Reuse a live agent named after the peer (`hc get coop-agy` or `coop-claude`) if it sits in your tab. If it does, send it the **kickoff** prompt (templates). Otherwise start the peer as your child in a split beside you, with `--cwd <root>` and the kickoff prompt in the launch command (exact commands in `references/hc.md`). The kickoff says who it is, the run folder, the Peer rules, and the report-back command. Confirm the model in its header line with `hc read <peer> --lines 0`. If the peer will not start after the fixes listed in `references/hc.md`, stop and report; never substitute a different agent or model.
 
-Send the **kickoff** prompt (templates): who it is, the run folder, the Peer rules, and the report-back command. Every prompt you send ends with the report-back line, so the peer prompts `DRIVER_PANE` when it finishes, even when it fails.
+Every prompt you send ends with the report-back line, so the peer sends to `DRIVER` when it finishes, even when it fails.
 
 ## 3. Phases
 
@@ -71,7 +71,7 @@ Outside split mode, and outside its own listed files during split, the peer neve
 
 **7. Verify.** Hand off the verify prompt: the peer runs `04-checks.md` plus the repo's checks against the current tree and returns `PASS | ISSUES | BLOCKED`. A finding counts only with the exact command and its output (code) or the source and quote (non-code). On `ISSUES`, rerun each failing command yourself, fix the real ones, and verify again. Limit: 2 rounds; a check still failing after that goes in the report as open.
 
-**8. Sign-off.** The peer's sign-off is the `SCORE` and `CONCERNS` lines of its last passing verify file; no extra round. Rerun the main check yourself and give your own score. Write `08-summary.md`: what was done, proof (commands and outputs), per-round scores table, disputes, declined items as follow-ups, and anything unverified. If a PR exists, put the scores table in its description. Then, if you started the peer in this run, close its pane (`references/herdr.md`, Clean up); leave a reused peer running. Give the user the final report.
+**8. Sign-off.** The peer's sign-off is the `SCORE` and `CONCERNS` lines of its last passing verify file; no extra round. Rerun the main check yourself and give your own score. Write `08-summary.md`: what was done, proof (commands and outputs), per-round scores table, disputes, declined items as follow-ups, and anything unverified. If a PR exists, put the scores table in its description. Then, if you started the peer in this run, end it (`references/hc.md`, Clean up); leave a reused peer running. Give the user the final report.
 
 ## Writing goes to agy
 
@@ -88,8 +88,8 @@ Research, docs, decks, memos: the same phases, with these swaps. The "slices" ar
 ## Rules
 
 - **One writer per file.** By default only you edit files outside `.coop/<slug>/`; in split mode, and for prose slices owned by agy, the peer also edits exactly the files the plan assigns it, during Execute only. Never both on one file. The peer may keep repro scripts in `.coop/<slug>/scratch/`. Review, fix, and verify always run with you as the only writer.
-- **Files carry content, prompts carry pointers.** Keep each Herdr prompt to a few lines naming the files to read and the file to write.
-- **No polling loops.** Hand off, then do your own share or end your turn. The report-back wakes you. If you need to check on the peer, one `herdr agent get` plus `agent read --source visible` is enough.
+- **Files carry content, prompts carry pointers.** Keep each prompt to a few lines naming the files to read and the file to write.
+- **No polling loops.** Hand off, then do your own share or end your turn. The report-back wakes you. If you need to check on the peer, one `hc get <peer>` plus `hc read <peer> --lines 0` is enough.
 - **Fight scope creep.** Hold every round to the Goal. A finding about a different path, a rare case, or a small cost is a nit.
 - **No substitution.** If the peer is down, stop and report; do not continue alone and call it a coop.
 - **Ledger, not memory.** Every round, verdict, score, and dispute goes in `ledger.tsv`. Never invent a score; write `no score`.

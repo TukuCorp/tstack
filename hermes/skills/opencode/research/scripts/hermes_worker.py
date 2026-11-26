@@ -7,9 +7,9 @@ web backend is `nous`). Its candidate sources come back between BEGIN_SOURCES / 
 as JSON lines; this script validates them and writes one JSONL file the lead merges with
 `wide_pass.py --merge`. The worker's claims are hints, never evidence: the lead re-verifies.
 
-Stdlib only. Typically launched by the lead in its own Herdr tab:
+Stdlib only. Typically launched by the lead as an hc child in its own Herdr tab:
   python -I hermes_worker.py --brief research/sources/<slug>.hermes-1.brief.md \
-      --out research/sources/<slug>.hermes-1.jsonl --id hermes-1 --notify <lead pane id>
+      --out research/sources/<slug>.hermes-1.jsonl --id hermes-1   # hc's exit note reports it; --notify <hc address> for a non-parent
 
 Exit 0 when at least one valid row was written, 1 otherwise. The last stdout line is always
 `HERMES_WORKER_DONE <id> rows=<n> status=<ok|empty|failed>`.
@@ -89,7 +89,7 @@ def hermes_command(arg):
 
 def notify(pane, message):
     try:
-        subprocess.run(["herdr", "agent", "prompt", pane, message], capture_output=True, timeout=30)
+        subprocess.run(["hc", "send", pane, message], capture_output=True, timeout=90)
     except Exception as e:  # noqa: BLE001
         print(f"hermes_worker: notify failed: {e}", file=sys.stderr)
 
@@ -99,7 +99,7 @@ def main():
     ap.add_argument("--brief", required=True, help="markdown brief written by the lead")
     ap.add_argument("--out", required=True, help="JSONL file this worker writes (overwritten)")
     ap.add_argument("--id", required=True, help="worker id, e.g. hermes-1")
-    ap.add_argument("--notify", help="Herdr pane or agent name to prompt when done")
+    ap.add_argument("--notify", help="hc terminal address or name to `hc send` the done line to")
     ap.add_argument("--hermes", help="hermes command (default: `hermes` on PATH)")
     ap.add_argument("--toolsets", default="web")
     ap.add_argument("--max-rows", type=int, default=60)

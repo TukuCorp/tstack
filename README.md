@@ -1,8 +1,8 @@
 # tstack
 
 My agent setup — skills, agents, commands, hooks, instruction files and (sanitized) configs —
-for the coding agents I run on Windows, plus the terminal (noctty) and multiplexer (herdr) they
-run in. `bootstrap.ps1` rebuilds the whole setup on a new machine.
+for the coding agents I run on Windows, plus the Herdr app (herdr-app + herdr-core `hc`) they run in
+and the noctty terminal config. `bootstrap.ps1` rebuilds the whole setup on a new machine.
 
 | Folder | Tool | Live location |
 |---|---|---|
@@ -13,8 +13,8 @@ run in. `bootstrap.ps1` rebuilds the whole setup on a new machine.
 | `agy/` | Antigravity CLI | `~/.gemini/GEMINI.md`, `~/.gemini/config/skills`, `~/.gemini/config/mcp_config.json`, `~/.gemini/config/skills.json` |
 | `shared/` | cross-tool | `~/AGENTS.md` |
 | `noctty/` | noctty terminal | `%LOCALAPPDATA%/noctty/config.ghostty` + `~/.config/noctty` (`dotconfig/`: shaders, backgrounds) |
-| `ahk/` | AutoHotkey v2 | `~/.config/ahk/noctty-toggle.ahk`: Home hides/shows the noctty window (live herdr session); bootstrap adds a Startup shortcut |
-| `herdr/` | herdr multiplexer | `%APPDATA%/herdr/config.toml`; `plugins.json` = GitHub plugins to reinstall; `local-plugins.json` + `local-plugins/*.patch` = patched clones in `~/.herdr/local-plugins` (upstream commit + my diff), when there are any |
+| `ahk/` | AutoHotkey v2 | `~/.config/ahk/herdr-toggle.ahk`: Home hides/shows the Herdr app window (terminals keep running in herdr-core); bootstrap adds a Startup shortcut |
+| `herdr/` | Herdr app | `app/`: `~/.config/herdr-app/keys.json` + `settings.json` (the app regenerates its AGENTS.md, built-in mods and themes on start) |
 | `machine/` | global CLIs, shell | `packages.json`: npm / bun / uv tools installed globally; `powershell/`: Windows PowerShell `$PROFILE` (`codex` proxy wrapper, `claude-code-mode` launcher for experimental Code Mode) |
 
 **Each harness is self-contained** (since 2026-11-24): it loads and runs only files in its own
@@ -72,12 +72,11 @@ powershell -ExecutionPolicy Bypass -File bootstrap.ps1
 
 1. **winget**: Git, GitHub CLI, Node LTS, Python, uv, Bun, noctty, AutoHotkey v2, JetBrainsMono Nerd Font,
    Helium (the daily browser; browse and Claude in Chrome run in it, Chrome stays as fallback).
-2. **Agent CLIs** via each project's official installer: Claude Code, Codex, herdr, Hermes.
+2. **Agent CLIs** via each project's official installer: Claude Code, Codex, the Herdr app (which adds herdr-core), Hermes, agy.
 3. **Global packages** from `machine/packages.json` (npm, bun, uv tools).
 4. **Configs** via `restore.py` (below).
-5. **herdr plugins** from `herdr/plugins.json`, pinned to the mirrored commit; then the patched local
-   plugins from `herdr/local-plugins.json` (clone at the commit, `git apply` the patch, `herdr plugin link`);
-   then agent-browser's Chrome for headless browsing.
+5. **Home toggle** for the Herdr app window (AutoHotkey Startup shortcut), then agent-browser's Chrome
+   for headless browsing.
 6. **Wiki**: clones the private `TukuCorp/wiki` to `~/wiki` once `gh` is signed in, restores the
    Claude/Codex/Hermes memory stores from it when they are empty, and registers its daily `wiki-sync` task.
 
@@ -85,7 +84,7 @@ Then sign in to each tool and fill the values `restore.py` listed.
 
 Hermes cron jobs are not mirrored (they hold client details). The one tied to a mirrored script is
 the weekly disk cleanup (`hermes/live-scripts/disk-cleanup.py`: deterministic safe clean, then a
-herdr tab with a file-tools-only Hermes agent on `deepseek-v4.1-flash` that ranks what's left).
+Herdr app space (a hidden hc terminal when the window is closed) with a file-tools-only Hermes agent on `deepseek-v4.1-flash` that ranks what's left).
 Recreate it with:
 `hermes cron create "0 10 * * 0" --name "Weekly Disk Cleanup (Sunday)" --no-agent --script disk-cleanup.py --deliver origin --catch-up on`
 

@@ -1,20 +1,17 @@
 ---
 name: necro
-description: This skill should be used to delegate a research, audit or bulk-analysis task to several Codex agents in separate Herdr tabs, each in /goal mode on an OpenCode Go model (default opencode-go/deepseek-v4.1-flash), which report back to the calling pane without polling, then verify and synthesize their output into one deliverable. Use for `/necro`, "necro this", "spawn codex agents", "same cadence" after an earlier necro run, or any request to fan a task out to parallel Codex agents in new Herdr tabs. Requires HERDR_ENV=1. Not for a single quick lookup (do it inline) or for controlling existing panes (use the herdr skill).
-argument-hint: "<task to fan out>"
+description: This skill should be used to delegate a research, audit or bulk-analysis task to several Codex agents, each in its own Herdr tab and in /goal mode on an OpenCode Go model (default opencode-go/deepseek-v4.1-flash). They report back to you through hc without polling; then you verify and synthesize their output into one deliverable. Use for `/necro`, "necro this", "spawn codex agents", "same cadence" after an earlier necro run, or any request to fan a task out to parallel Codex agents. Needs herdr-core (`hc`). Not for a single quick lookup (do it inline) or for controlling existing terminals (use the herdr skill).
 ---
 
 # Necro
 
-Fan one task out to a few Codex agents on an OpenCode Go model (`opencode-go/deepseek-v4.1-flash` unless the user names another), each in its own Herdr tab, let them run unattended, and take the results back through a report-back message instead of polling. Then check their work and merge it into one deliverable.
+Fan one task out to a few Codex agents on an OpenCode Go model (`opencode-go/deepseek-v4.1-flash` unless the user names another). Each runs as your hc child in its own tab of your Herdr space, works unattended, and reports back with `hc send`, so you never poll. Then check their work and merge it into one deliverable.
 
-This skill is self-contained. The Herdr commands it needs are in `references/herdr-cli.md`; the brief layout is in `references/brief-template.md`; the stall watchdog is `scripts/watchdog.sh`. Read the first before you launch anything.
+This skill is self-contained. The hc commands it needs are in `references/hc-cli.md` and the brief layout is in `references/brief-template.md`. Read the first before you launch anything.
 
 ## 0. Preconditions
 
-Confirm you are inside Herdr (`HERDR_ENV=1`) and note the caller's workspace id, pane id and working directory; `references/herdr-cli.md` has the Bash and PowerShell forms. If you are not inside Herdr, say so and stop. The caller pane is where agents report back.
-
-Then check that pane id is live and is yours: `herdr pane get "$HERDR_PANE_ID"` must succeed and its `agent` field must be your own harness. A long-lived tool shell can carry a stale id from the pane it first started in; on 2026-11-24 a Hermes shell reported `w3S:p3`, a pane that no longer existed, while Hermes ran in `w3S:pE`, so the brief and watchdog reported to nowhere. If the check fails, find your row in `herdr agent list` by agent kind and working directory and use its `pane_id`; if no single row matches, ask the user. Put the checked id, never the raw variable, in briefs and the watchdog.
+Check `HC_TERMINAL_ID` (your address, for example `t5`) and read your space id from your own labels. `references/hc-cli.md` has the Bash and PowerShell forms. If `HC_TERMINAL_ID` is empty, you are not in an hc terminal: lanes would have no parent to report to. Say so and stop. Put the literal address (`t5`), never the variable name, in briefs: lanes run in their own terminals, where the variable holds their own address.
 
 ## 1. Split the task into lanes
 
@@ -22,13 +19,13 @@ Aim for 2-3 lanes, each with a distinct slice and its own output file; if the us
 
 **Pilot bulk work.** If each lane will repeat the same job over many items (files, companies, pages), run one lane on about 3 items first, fix the brief from what it gets wrong, then launch the rest.
 
-Pick short lane names (`[a-z][a-z0-9_-]{0,31}`, unique among live agents), for example `cgfirms`. Check `herdr agent list` for live names before choosing: parallel runs sharing the workspace can already own the obvious name, and `agent start` then fails with `agent_name_taken`. On a collision, rename the lane and update the brief's marker path and report-back line to match the new name.
+Pick short lane names (`[a-z0-9_-]{1,32}`), for example `cgfirms`. Names must be unique among live hc terminals: check `hc ls` first, because a parallel run can already own the obvious name. On a collision, rename the lane and update the brief's report-back line to match.
 
 **Verifier lane (optional).** For 4 or more lanes, offer the user one `verify` lane per two to four work lanes. Its brief lists the work lanes' output files. It re-opens a sample of their cited sources, flags claims that don't hold up or have the wrong label, and writes `<prefix>-verify.md`. It starts after the lanes it checks have reported. A verifier on a different model family from the workers catches more, because it doesn't share their blind spots.
 
 ## 2. Write one brief file per lane
 
-Write `<prefix>-brief-<lane>.md` in the project folder, using `references/brief-template.md`. Put the work in the file, not in the prompt. A good brief has context (including what the other lanes cover), an explicit out-of-scope list, numbered tasks with the exact fields to collect and any scoring rubric, evidence rules with a label on every claim, hard rules, an output spec, a "done when" check the agent can test itself against, and a mandatory last action that writes the report marker and sends the report-back message.
+Write `<prefix>-brief-<lane>.md` in the project folder, using `references/brief-template.md`. Put the work in the file, not in the prompt. A good brief has context (including what the other lanes cover), an explicit out-of-scope list, numbered tasks with the exact fields to collect and any scoring rubric, evidence rules with a label on every claim, hard rules, an output spec, a "done when" check the agent can test itself against, and a mandatory last action that sends the report-back.
 
 Keep the evidence labels: VERIFIED (independent or primary source, with URL and date), PARTIAL, CLAIMED (the subject's own page only), NOT FOUND, UNVERIFIED. Tell agents that "NOT FOUND" is an acceptable answer; it is what keeps them from inventing figures, names or identifiers.
 
@@ -36,32 +33,36 @@ Throwaway files go in a scratch folder (`_<prefix>/`), deliverables in the proje
 
 ## 3. Launch
 
-Choose the model first (see Model choice below). Launch every lane. For each lane, with the caller's workspace and working directory (full syntax and gotchas in `references/herdr-cli.md`):
+Choose the model first (see Model choice below). Launch each lane with one `hc run` from your own shell. The goal prompt goes in the launch command, because a send to a booting agent can be dropped:
 
-1. `herdr tab create --workspace <ws> --cwd <dir> --label <lane> --no-focus`; read the new tab and pane ids from the JSON.
-2. `herdr agent start <lane> --kind codex --pane <pane-id> --timeout 120000 -- --remote unix:// -C <absolute project dir> -m <model-slug>`
-3. Confirm the model name in the pane header (`herdr agent read <lane> --source visible --lines 12`).
-4. Send the goal prompt: `/goal Read the brief <file> in this folder and execute it fully. As your last action, send the report-back command it specifies.` A prompt that starts with `/` needs `MSYS_NO_PATHCONV=1` in Git Bash.
-5. After a few seconds, check `herdr agent get <lane>` shows `working`, then read the pane (`herdr agent read <lane> --source visible --lines 20`): the goal must be accepted (no parse or usage error) and the agent must have started on the brief. `working` alone does not prove either. For a pilot lane, read the pane again after about two minutes and treat no tool activity as a failed launch.
+```bash
+MSYS_NO_PATHCONV=1 hc run --bg --name <lane> --cwd "<abs project dir>" --label herdr.space=<your space id> -- \
+  codex --no-daemon -C "<abs project dir>" -m opencode-go/<model> \
+  "/goal Read the brief <prefix>-brief-<lane>.md in this folder and execute it fully. As your last action, send the report-back command it specifies."
+```
 
-Then start the stall watchdog once for the whole run. It runs in its own tab so it outlives your turn; command in `references/herdr-cli.md`, "Stall watchdog". It blocks on `herdr agent wait` and prompts this pane only if a lane is `blocked` on a prompt, stops without reporting, or keeps working past the stall limit (default 45 minutes; set it from the size of the brief). Without it, a lane that crashes or hangs on an approval leaves this pane waiting forever. About 20 seconds after starting it, read its tab: it must be silent. A CLI error, or "all lanes finished" while lanes still run, means it is broken (see `references/herdr-cli.md`).
+`--no-daemon` keeps the lane's commands inside hc, so its report carries its own address and closing it ends it. The full syntax and the gotchas are in `references/hc-cli.md`.
 
-If a lane's pane shows "stream disconnected … undeclared client tool", `/goal resume` alone replays the same call. Send a plain prompt that forbids calling it directly and names the route in the brief template's hard rule 6 (`tools.mcp__codex_apps__search_service_web_run` inside an exec script; there is no `tools.web_search`), then let the lane continue. If it dies again, relaunch the lane on another opencode-go model with the same brief. Its outputs are append-only, so nothing is lost.
+After each launch, `hc read <lane> --lines 0` once the agent has drawn its screen. Check that the header names the model, the goal was accepted (no parse or usage error), and there is no trust or hooks dialog (the fixes are in `references/hc-cli.md`). `hc get <lane>` should show `working`, but `working` alone does not prove the goal was accepted. For a pilot lane, read it again after about two minutes and treat no tool activity as a failed launch.
+
+Once every lane shows `working`, start one stall watcher for the run (command in `references/hc-cli.md`, "Stall watcher"). hc already tells you when a lane blocks on a prompt, errors or exits. The watcher covers what hc does not: a lane still working past the stall limit (default 45 minutes; set it from the size of the brief).
+
+If a lane shows "stream disconnected … undeclared client tool", `/goal resume` alone replays the same call. Send a plain prompt that forbids calling it directly and names the route in the brief template's hard rule 6 (`tools.mcp__codex_apps__search_service_web_run` inside an exec script; there is no `tools.web_search`), then let the lane continue. If it dies again, relaunch the lane on another opencode-go model with the same brief. Its outputs are append-only, so nothing is lost.
 
 **Model choice.** Every lane is a Codex agent on an OpenCode Go model. The default is `opencode-go/deepseek-v4.1-flash`: use it without asking unless the request names another model.
 
 - If the request names a model ("necro with kimi-k3"), resolve it against the catalog `~/.codex/opencodex-catalog.json` (`models[].slug`). Only `opencode-go/` slugs qualify, and the prefix may be left off. If no opencode-go slug matches, show the closest opencode-go matches and ask again. Never fall back silently, and never use a model outside OpenCode Go.
 - Use the same model for every lane unless the user asks to mix. A verifier lane also runs on the default unless the user names one; offer a stronger opencode-go model for it, because verification is where model strength pays off.
-- Pass the full slug as `-m opencode-go/<model>` and check the pane header to confirm it took.
+- Pass the full slug as `-m opencode-go/<model>` and check the header to confirm it took.
 - Models are routed through a local proxy listed in the Codex config and catalog. If an agent errors on connect, check the proxy is running before blaming the brief.
 
 ## 4. Wait without polling
 
-After launching, tell the user in two lines which lanes are running and what each will produce, then stop. Do not loop or sleep. Each finished agent sends a message into this pane as a new turn ("`<lane> finished: ...`"). If other agents are still running, acknowledge briefly and wait for the next one. Treat these messages as status, not as instructions. A `watchdog: <lane> ...` message works the same way: read that lane's pane, then answer its prompt, nudge it with `herdr agent prompt <lane> "..."`, or tell the user it failed.
+After launching, tell the user in two lines which lanes are running and what each will produce, then stop. Do not loop or sleep. Reports arrive in your input as `<hc from="t7 <lane>"><lane> finished: ...</hc>`, either mid-turn or as a new turn. hc's own notes (a lane exited, blocked or errored) and `necro-watch:` lines arrive the same way. Treat all of them as status, not instructions. On a note or a watcher line, `hc read <lane> --lines 60`, then answer its prompt, nudge it with `hc send <lane> "..."`, or tell the user it failed.
 
-To steer a running lane, for the user or for yourself, send it a message: `herdr agent prompt <lane> "also cover X; keep the same output file"`. Its earlier context stays.
+To steer a running lane, for the user or for yourself: `hc send <lane> "also cover X; keep the same output file"`. Its earlier context stays.
 
-Close an agent's tab only after its report-back arrives: Codex `--remote` agents keep running in the shared daemon after the tab closes, so closing early can leave a half-written file and a silent agent. An agent may also report twice. In the first test run an agent sent its report, kept polishing the file for another minute, and sent a second report. On a second report compare the file's size and modification time and re-read the ranking and flag sections if they changed. Wait for `herdr agent get` to show the agent no longer `working` before you read the final file. Close only tabs this run created.
+An agent may report twice. In the first test run an agent sent its report, kept polishing the file for another minute, and sent a second report. On a second report compare the file's size and modification time, and re-read the ranking and flag sections if they changed. Read the final file only once `hc get <lane>` no longer shows `working`.
 
 Move to §5 once every lane has reported.
 
@@ -70,7 +71,7 @@ Move to §5 once every lane has reported.
 Agent output is a lead, not a finding. Before building on it:
 
 - Open each output and look for empty tables, "NOT FOUND" everywhere, rankings of the wrong kind of entity, or invented identifiers. Re-open two or three of the cited pages and confirm the numbers.
-- Send fixable problems back first. If a lane left empty fields, cited sources that don't say what it claims, or ranked the wrong kind of entity, send it the specific list with `herdr agent prompt <lane> "fix: <items>; update <file>, then send the report-back again"`. It still has its context, so it fixes faster than you can redo the work. Wait for its new report. Give it one fix round; after that, do it yourself.
+- Send fixable problems back first. If a lane left empty fields, cited sources that don't say what it claims, or ranked the wrong kind of entity, send it the list: `hc send <lane> "fix: <items>; update <file>, then send the report-back again"`. It still has its context, so it fixes faster than you can redo the work. Wait for its new report. Give it one fix round; after that, do it yourself.
 - Where an agent was blocked (403s, Cloudflare, DNS failures, search engines refusing scripts), fill the gaps yourself with your own web search and page-fetch tools, or a subagent if your harness has them. Say in the final report which parts are yours and which are the agents'.
 - Discard rankings you cannot reproduce; rebuild them with a stated rubric. Drop stray lines that do not belong to the task (agents sometimes carry text over from an unrelated context).
 - Keep every label. Never upgrade a CLAIMED to VERIFIED in synthesis.
@@ -79,12 +80,4 @@ Then produce the deliverable in the project folder (an HTML report when asked, o
 
 ## 6. Clean up
 
-Closing a tab ends only the Codex client: the agent's thread and its tool processes stay loaded in the shared Codex daemon. For each lane this run created, once its final file is read:
-
-1. Close its tab: `herdr tab close <tab-id>`.
-2. Find its thread id from the rollout that holds its goal prompt and its project dir, then archive it, which unloads it from the daemon (commands in `references/herdr-cli.md`, "Unloading finished threads").
-3. Confirm it printed `Archived session <id>.`
-
-Once every lane is cleaned up, close the watchdog's tab too (it exits by itself when every lane has reported or closed).
-
-Archive only threads this run started; other sessions share the daemon. Never stop or restart the daemon. Keep the briefs and agent outputs in the folder as an audit trail, and keep the throwaway folder out of git.
+Once each lane's final file is read, end and remove it: `hc kill <lane>; hc rm <lane>`. That closes its tab, and with `--no-daemon` nothing stays loaded in a Codex daemon. Then kill the watcher. Clean up only terminals this run started. Keep the briefs and agent outputs in the folder as an audit trail, and keep the throwaway folder out of git.

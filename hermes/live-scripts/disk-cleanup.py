@@ -3,12 +3,13 @@
 
 1. Deterministic SAFE clean (rules below; the model never chooses what to delete).
 2. Report-only scan: stale rebuildable dev folders, files >1 GB, week-over-week growth.
-3. Writes %LOCALAPPDATA%/hermes/disk-cleanup/<date>.md, opens a visible herdr tab with a
+3. Writes %LOCALAPPDATA%/hermes/disk-cleanup/<date>.md, opens a Herdr app space (or a hidden
+   hc terminal when the window is closed) with a
    Hermes agent (deepseek-v4.1-flash via opencode-go, file toolset only = cannot delete)
    that ranks the report-only items and appends a "Review" section.
 4. Prints a short summary; cron delivers stdout to origin.
 
-Flags: --dry-run (delete nothing, no herdr tab), --no-herdr.
+Flags: --dry-run (delete nothing, no review agent), --no-herdr.
 """
 import json, os, shutil, stat, subprocess, sys, time
 from datetime import datetime
@@ -34,8 +35,8 @@ def find_exe(name, *cands):
 GIT = find_exe("git", LOCAL / "hermes/tools/git-2.53.0+3-win32-x64/cmd/git.exe")
 UV = find_exe("uv", LOCAL / "hermes/bin/uv.exe")
 NPM = find_exe("npm.cmd", r"C:\Program Files\nodejs\npm.cmd")
-HERDR = find_exe("herdr", LOCAL / "Programs/Herdr/bin/herdr.exe",
-                 HOME / ".herdr/packages/standalone/current/herdr.exe")
+HC = find_exe("hc", LOCAL / "Programs/herdr-core/hc.exe")
+HERDR_APP = find_exe("herdr-app", LOCAL / "Programs/herdr-app/herdr-app.exe")
 
 actions, errors = [], []
 
@@ -220,22 +221,29 @@ def scan_report():
     return sorted(stale, reverse=True), sorted(big_files, reverse=True), growth, sizes
 
 # ---------- 3. HERDR REVIEW TAB ----------
+def start_review_agent(name, tag, argv):
+    """Visible space in the Herdr app if its window is up, else a hidden hc terminal. Returns (address, where)."""
+    rc, out, err = run([HERDR_APP, "do", "space.new", "--name", f"disk-cleanup-{tag}", "--folder", str(OUT_DIR),
+                        "--argv", json.dumps(argv), "--focus", "false"], timeout=30)
+    if not rc:
+        try:
+            return json.loads(out)["terminal"], f"Herdr space disk-cleanup-{tag}"
+        except Exception:
+            pass
+    rc, out, err = run([HC, "run", "--bg", "--json", "--no-parent", "--name", name, "--cwd", str(OUT_DIR), "--", *argv],
+                       timeout=60)
+    if rc:
+        raise RuntimeError(f"hc run failed: {(err or out)[:200]}")
+    return json.loads(out)["address"], f"hidden hc terminal {name} (hc attach {name})"
+
 def open_herdr(report_path):
-    tag = datetime.now().strftime("%m%d-%H%M")  # unique per run (agent names are global)
-    rc, out, err = run([HERDR, "workspace", "create", "--label", f"disk-cleanup-{tag}",
-                        "--cwd", str(OUT_DIR), "--no-focus"], timeout=30)
-    if rc:
-        return f"herdr workspace create failed: {err[:200]}"
-    try:
-        pane = json.loads(out)["result"]["root_pane"]["pane_id"]
-    except Exception:
-        return f"herdr: unexpected output {out[:200]}"
+    tag = datetime.now().strftime("%m%d-%H%M")  # unique per run (terminal names are unique among live ones)
     name = f"disk-review-{tag}"
-    rc, out, err = run([HERDR, "agent", "start", name, "--kind", "hermes", "--pane", pane,
-                        "--timeout", "120000", "--", "chat", "-m", MODEL, "--provider", PROVIDER,
-                        "-t", "file"], timeout=150)
-    if rc:
-        return f"herdr agent start failed: {(err or out)[:200]}"
+    argv = ["hermes", "chat", "-m", MODEL, "--provider", PROVIDER, "-t", "file"]
+    try:
+        term, where = start_review_agent(name, tag, argv)
+    except Exception as e:
+        return f"review agent not started: {e}"
     prompt = (f"Read {report_path}. The safe cleanup already ran; do NOT delete anything "
               "(you only have file tools). Rank the REPORT-ONLY items by GB freed x safety, "
               "say for each what rebuilds it or what to check first, flag anything surprising "
@@ -243,17 +251,17 @@ def open_herdr(report_path):
               "folders. In active use, never suggest removing: agent-browser, puppeteer, "
               "ms-playwright, WinGet\\Packages, hermes, .codex, .claude, ~/wiki. Edit ONLY "
               "that report file: append a '## Review' section (max 15 lines), then reply 'done'.")
-    # Hermes ignores input until its startup output (curator) finishes, and herdr's
-    # working-state detection is unreliable for hermes: wait, send, then confirm by the
-    # Review section appearing in the report; re-send once if it never shows.
+    # Hermes ignores input until its startup output (curator) finishes and reports no agent
+    # status to hc, so: wait, send, then confirm by the Review section appearing in the report;
+    # re-send once if it never shows.
     for wait in (45, 20):
         time.sleep(wait)
-        run([HERDR, "agent", "prompt", name, prompt], timeout=60)
+        run([HC, "send", term, prompt], timeout=90)
         for _ in range(30):  # up to 5 min per attempt
             time.sleep(10)
             if "## Review" in report_path.read_text(encoding="utf-8"):
-                return f"herdr tab disk-cleanup-{tag}, agent {name} (review written)"
-    return f"herdr tab disk-cleanup-{tag}, agent {name} (NO review after 2 prompts; check the tab)"
+                return f"{where}, terminal {term} (review written)"
+    return f"{where}, terminal {term} (NO review after 2 prompts; check it)"
 
 # ---------- main ----------
 def gb(b):

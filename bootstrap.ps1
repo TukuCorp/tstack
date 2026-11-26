@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Set up a Windows machine from tstack: install the tools, restore their configs, reinstall herdr plugins.
+  Set up a Windows machine from tstack: install the tools and restore their configs.
   Anything already installed is skipped, so it is safe to re-run.
 .EXAMPLE
   powershell -ExecutionPolicy Bypass -File bootstrap.ps1 -DryRun
@@ -41,7 +41,8 @@ $Winget = [ordered]@{
 $Installers = [ordered]@{
     'claude' = 'irm https://claude.ai/install.ps1 | iex'
     'codex'  = 'irm https://chatgpt.com/codex/install.ps1 | iex'
-    'herdr'  = 'irm https://herdr.dev/install.ps1 | iex'
+    # Herdr app (herdr-app); its installer also adds herdr-core (`hc`) when missing
+    'herdr-app' = 'irm https://releases.herdr.dev/app/install.ps1 | iex'
     'hermes' = 'iex (irm https://hermes-agent.nousresearch.com/install.ps1)'
     # Antigravity CLI: full peer (rules, skills, MCP restored from agy/)
     'agy'    = 'irm https://antigravity.google/cli/install.ps1 | iex'
@@ -88,35 +89,10 @@ $restoreArgs = @("$Root\restore.py")
 if ($DryRun) { $restoreArgs += '--dry-run' }
 if (Have python) { python @restoreArgs } else { Write-Host '    python missing; install it, then run restore.py' -ForegroundColor Red }
 
-Step 'herdr plugins'
-if (Have herdr) {
-    $installed = @((herdr plugin list --json | ConvertFrom-Json).result.plugins | ForEach-Object { "$($_.source.owner)/$($_.source.repo)" })
-    foreach ($p in (Get-Content "$Root\herdr\plugins.json" -Raw | ConvertFrom-Json)) {
-        if ($installed -contains $p.repo) { Write-Host "    ok: $($p.repo)"; continue }
-        Run "herdr plugin install $($p.repo) --ref $($p.ref)" { herdr plugin install $p.repo --ref $p.ref --yes }
-    }
-} else { Write-Host '    herdr missing; skipped' -ForegroundColor Red }
-
-Step 'herdr local plugins (patched clones, herdr/local-plugins.json)'
-# Upstream repo at the mirrored commit + my Windows patch, then `herdr plugin link`
-if (-not (Test-Path "$Root\herdr\local-plugins.json")) { Write-Host '    none' }
-elseif ((Have herdr) -and (Have git)) {
-    foreach ($p in (Get-Content "$Root\herdr\local-plugins.json" -Raw | ConvertFrom-Json)) {
-        $dir = "$HOME\.herdr\local-plugins\$($p.dir)"
-        if (Test-Path "$dir\.git") { Write-Host "    ok: $($p.dir)"; continue }
-        Run "clone $($p.repo)@$($p.ref.Substring(0,7)) + patch + link" {
-            git clone -q "https://github.com/$($p.repo)" $dir
-            git -C $dir checkout -q $p.ref
-            git -C $dir apply "$Root\$($p.patch)"
-            herdr plugin link $dir
-        }
-    }
-} else { Write-Host '    herdr or git missing; skipped' -ForegroundColor Red }
-
-Step 'noctty Home toggle (AutoHotkey Startup shortcut)'
+Step 'Herdr app Home toggle (AutoHotkey Startup shortcut)'
 $AhkExe = "$env:LOCALAPPDATA\Programs\AutoHotkey\v2\AutoHotkey64.exe"
-$AhkScript = "$HOME\.config\ahk\noctty-toggle.ahk"
-$AhkLnk = Join-Path ([Environment]::GetFolderPath('Startup')) 'noctty-toggle.lnk'
+$AhkScript = "$HOME\.config\ahk\herdr-toggle.ahk"
+$AhkLnk = Join-Path ([Environment]::GetFolderPath('Startup')) 'herdr-toggle.lnk'
 if (Test-Path $AhkLnk) { Write-Host '    ok: shortcut' }
 elseif ((Test-Path $AhkExe) -and (Test-Path $AhkScript)) {
     Run 'create Startup shortcut + start script' {
@@ -163,7 +139,7 @@ Step 'left for you'
 Write-Host @'
     - Sign in: claude, codex login, gh auth login, hermes setup, opencode auth login, gws auth login, agy (personal Google account)
     - Fill the <REDACTED> values restore.py listed above (API keys, MCP env blocks)
-    - Restart noctty (Ctrl+Shift+, reloads config) and herdr so they pick up the restored configs
+    - Restart the Herdr app so it picks up the restored keys.json and settings.json
     - Helium is the daily browser (Chrome stays as fallback and as the source of extension updates).
       Set it as the Windows default (Settings > Default apps) and sign in to the Google accounts.
     - Extensions: add browse (chromewebstore.google.com/detail/mfnicocicmmlkpjnaffgihfjhdgjkdjg) and
