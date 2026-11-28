@@ -1,6 +1,6 @@
 ---
 name: necro
-description: "Delegate a research, audit or bulk-analysis task to several Codex agents, each in its own Herdr tab and in /goal mode on an OpenCode Go model (default opencode-go/deepseek-v4.1-flash). They report back to you through hc without polling; then you verify and synthesize their output into one deliverable. Use for `/necro`, \"necro this\", \"spawn codex agents\", \"same cadence\" after an earlier necro run, or any request to fan a task out to parallel Codex agents. Needs herdr-core (`hc`). Not for a single quick lookup (do it inline) or for controlling existing terminals (use the herdr skill)."
+description: "Delegate a research, audit or bulk-analysis task to several Codex agents, each in its own Herdr tab and in /goal mode on an OpenCode Go model (default opencode-go/deepseek-v4.1-flash). They report back to you through hc without polling; then you verify and synthesize their output into one deliverable. Use for `/necro`, \"necro this\", \"spawn codex agents\", \"same cadence\" after an earlier necro run, or any request to fan a task out to parallel Codex agents. Needs herdr-core (`hc`). Not for a single quick lookup (do it inline), for controlling existing terminals (use the herdr skill), or for a pre-planning brief or a repo, codebase or literature survey (use the research skill, which runs necro lanes for its agentic pass)."
 version: 3.0.0
 author: tukum (TukuCorp)
 license: MIT

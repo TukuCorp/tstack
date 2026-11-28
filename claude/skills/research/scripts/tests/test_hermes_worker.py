@@ -81,7 +81,7 @@ class HermesWorker(unittest.TestCase):
             [sys.executable, "-I", str(_SCRIPT), "--brief", str(self.brief), "--out", str(self.out),
              "--id", "hermes-1", "--hermes", fake, "--max-searches", "9", "--print-prompt"],
             capture_output=True, text=True, encoding="utf-8", timeout=120)
-        self.assertIn("at most 9 web_search calls", p.stdout)
+        self.assertIn("at most 9 web searches", p.stdout)
         p = self.run_worker(fake)
         self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
         got = [json.loads(l) for l in self.out.read_text(encoding="utf-8").splitlines()]
@@ -91,6 +91,38 @@ class HermesWorker(unittest.TestCase):
                          (0, ["no primary source for the 2025 adoption figure"]))
         self.assertEqual(pathlib.Path(str(self.out) + ".gaps").read_text(encoding="utf-8"),
                          "no primary source for the 2025 adoption figure\n")
+
+    def test_print_contract_needs_no_brief(self):
+        # A necro lane brief embeds the same source-row contract the Hermes worker gets.
+        p = subprocess.run([sys.executable, "-I", str(_SCRIPT), "--print-contract", "--max-searches", "10"],
+                           capture_output=True, text=True, encoding="utf-8", timeout=60)
+        self.assertEqual(p.returncode, 0, p.stderr)
+        self.assertIn("BEGIN_SOURCES", p.stdout)
+        self.assertIn("at most 10 web searches", p.stdout)
+        self.assertNotIn("{{", p.stdout)
+
+    def test_parse_lane_file_then_merge_into_ledger(self):
+        # A necro lane writes the BEGIN_SOURCES block into its output file; --parse validates it
+        # without running Hermes, and wide_pass --merge takes the rows like any worker's.
+        lane = self.d / "rs-lane1.md"
+        lane.write_text("# Lane 1\nNotes above the block are ignored.\n" + TRANSCRIPT.split("Searching")[0]
+                        + "BEGIN_SOURCES\n"
+                        '{"bucket": "industry", "url": "https://example.com/report", "title": "R", "query": "q", '
+                        '"claim": "capacity 3 GW", "quote": "Installed capacity reached 3 GW in 2025."}\n'
+                        '{"gap": "no 2026 figure"}\nEND_SOURCES\n', encoding="utf-8")
+        p = subprocess.run([sys.executable, "-I", str(_SCRIPT), "--parse", str(lane), "--out", str(self.out),
+                            "--id", "lane1"], capture_output=True, text=True, encoding="utf-8", timeout=60)
+        self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+        self.assertIn("HERMES_WORKER_DONE lane1 rows=1 status=ok", p.stdout)
+        self.assertEqual(pathlib.Path(str(self.out) + ".gaps").read_text(encoding="utf-8"), "no 2026 figure\n")
+        ledger = self.d / "ledger.jsonl"
+        ledger.write_text("", encoding="utf-8")
+        m = subprocess.run([sys.executable, "-I", str(_SCRIPT.parent / "wide_pass.py"), "--ledger", str(ledger),
+                            "--merge", str(self.out)], capture_output=True, text=True, encoding="utf-8", timeout=60)
+        self.assertEqual(m.returncode, 0, m.stdout + m.stderr)
+        rows = [json.loads(l) for l in ledger.read_text(encoding="utf-8").splitlines()]
+        self.assertEqual([(r["pass"], r["quote"], r["discovered_via"]) for r in rows],
+                         [("agentic", "Installed capacity reached 3 GW in 2025.", "lane1: q")])
 
     def test_missing_markers_is_empty_and_exit_1(self):
         p = self.run_worker(self.fake_hermes("I could not find anything useful.\n"))

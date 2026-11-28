@@ -152,51 +152,66 @@ the deficit to github/academia (re-run the helper) unless `--strict-ratio`. Use 
 browser retrieval only in the deep pass. State the fallback reason (the `firecrawl` field's value)
 in the brief's coverage narrative so the degraded run is visible, not silent.
 
-### Step 3 - optional agentic pass: Hermes workers in Herdr tabs
+### Step 3 - optional agentic pass: necro lanes, Hermes workers as fallback
 
 Batch queries miss sources that only turn up by following leads. When a sub-question needs that, the
-lead can hand it to Hermes Agent workers that search iteratively with Hermes' own web tools (Perplexity
-through the Nous Portal gateway when Hermes' web backend is `nous`). This step is optional: never let
-`--sources` depend on it.
+lead hands it to an agent that searches iteratively. This step is optional: never let `--sources`
+depend on it.
 
-Preconditions (skip the step with a one-line note if any fails): the session runs in an hc terminal
-(`HC_TERMINAL_ID` is set, as inside the Herdr app), `hermes` is on PATH, and `hermes portal info` shows
-web tools routed.
+Before writing any brief, run one quick orienting search so the sub-questions split the topic cleanly:
+each covers a distinct angle, time frame or source scope, and each brief lists the other sub-questions
+so none overlaps. Each brief carries the topic, ONE sub-question, the buckets that matter, a target of
+8-20 sources, and the sources already in hand so the agent doesn't repeat them. Use at most 3 agents,
+and never more than `--max-workers`. Every agent works to the same source-row contract: a budget of 12
+web searches, a verbatim `quote` behind each number or key claim, and `{"gap": ...}` lines for what it
+could not answer, all between BEGIN_SOURCES and END_SOURCES. Print it with
+`python <skill>/scripts/hermes_worker.py --print-contract --max-searches 12`.
 
-1. Write one brief per worker at `research/sources/<date>_<slug>.hermes-<n>.brief.md`: the topic, ONE
-   sub-question, the buckets that matter, a target of 8-20 sources, and sources already in hand so the
-   worker doesn't repeat them. Before writing the briefs, run one quick orienting search so the
-   sub-questions split the topic cleanly: each covers a distinct angle, time frame or source scope, and
-   each brief lists the other workers' sub-questions so none overlaps. The worker gets a budget of 12
-   `web_search` calls (`--max-searches`) and, when it hits it, returns partial rows plus `{"gap": ...}`
-   lines instead of looping. At most 3 workers (each Hermes process uses real memory), and never more
-   than `--max-workers`.
-2. Launch each worker as your hc child in its own tab of your space, without moving focus (your space id
-   is `hc get "$HC_TERMINAL_ID"` → `.labels["herdr.space"]`; strip a trailing `\r` on Windows):
+**Route A, necro lanes (default).** Preconditions: the session runs in an hc terminal (`HC_TERMINAL_ID`
+is set, as inside the Herdr app) and the necro skill's own preconditions pass.
+
+1. Load the necro skill and follow its launch, wait, stall-watcher, fix-round and cleanup steps, with
+   these changes. Name the lanes `rs<n>` (rename on a collision, as necro says). Write each brief with
+   necro's brief template at `research/sources/<date>_<slug>.rs<n>.brief.md`. Its Output section is the
+   contract above, written into `research/sources/<date>_<slug>.rs<n>.md`; keep necro's labels, hard
+   rules and last action.
+2. When a lane reports, validate its block:
+   `python <skill>/scripts/hermes_worker.py --parse research/sources/<date>_<slug>.rs<n>.md --out research/sources/<date>_<slug>.rs<n>.jsonl --id rs<n>`.
+   On `status=empty`, send the lane one fix round ("write the BEGIN_SOURCES block the contract
+   describes into your output file") before recording its sub-question as a gap.
+
+**Route B, Hermes workers (fallback).** Use it when the user asks for Hermes, or when necro cannot
+launch (no `codex`, or the OpenCode Go proxy is down) and `hermes` is on PATH with `hermes portal info`
+showing web tools routed. Each Hermes process uses real memory.
+
+1. Write each brief at `research/sources/<date>_<slug>.hermes-<n>.brief.md` and launch it as your hc
+   child in its own tab of your space, without moving focus (your space id is `hc get "$HC_TERMINAL_ID"`
+   → `.labels["herdr.space"]`; strip a trailing `\r` on Windows):
 
    ```
    hc run --bg --name hermes-<n> --cwd "$PWD" --label herdr.space=<space id> -- python -I <skill>/scripts/hermes_worker.py --brief research/sources/<date>_<slug>.hermes-<n>.brief.md --out research/sources/<date>_<slug>.hermes-<n>.jsonl --id hermes-<n>
    ```
 
    Then carry on with other work; do not poll.
-3. When a worker exits, hc sends you a note with its last lines, which end with
+2. When a worker exits, hc sends you a note with its last lines, which end with
    `HERMES_WORKER_DONE hermes-<n> rows=<k> status=<ok|empty|failed>`. To wait for all of them at a point
    where you need the results, run `hc wait --children all` (a `reason: timeout` result is a check-in:
-   wait again). Once the other workers have finished and one is still running about 10 minutes later,
-   stop it (`hc rm hermes-<n>`) and record its sub-question as a coverage gap in the brief. A caller that is not the workers' parent passes `--notify <its hc address>`, and the
+   wait again). A caller that is not the workers' parent passes `--notify <its hc address>`, and the
    worker sends the same line there with `hc send`.
-4. Merge the finished files into the ledger:
-   `python <skill>/scripts/wide_pass.py --ledger <ledger> --merge <hermes-1.jsonl> --merge <hermes-2.jsonl>`.
-   It dedupes against the ledger and appends `pass:"agentic"` candidates with provisional tiers and the
-   worker's one-line `hint`.
-5. Remove the finished workers (`hc rm hermes-<n>`; that also closes their tabs). Keep each `.jsonl`
-   and `.jsonl.log` next to the ledger as the trail.
 
-Worker rows are candidates like any other: tier them, and before citing one, fetch it in the deep pass
-and check the claim yourself. A `hint` is never evidence, and a `quote` only tells you which sentence to look for: find it on the
-page before citing. Each worker's `<out>.gaps` file lists what it could not answer; carry those into
-the brief's coverage notes. A `failed` or `empty` worker is a coverage
-note in the brief, not a run failure.
+**Both routes.** Once the other agents have finished and one is still running about 10 minutes later,
+stop it (`hc rm <name>`) and record its sub-question as a coverage gap in the brief. Merge the finished
+files into the ledger:
+`python <skill>/scripts/wide_pass.py --ledger <ledger> --merge <rs1.jsonl> --merge <hermes-1.jsonl>`.
+It dedupes against the ledger and appends `pass:"agentic"` candidates with provisional tiers, the
+agent's one-line `hint` and its `quote`. Remove the finished agents (`hc rm <name>`; that also closes
+their tabs). Keep each `.jsonl`, `.gaps` and lane `.md` or `.jsonl.log` next to the ledger as the trail.
+
+Agent rows are candidates like any other: tier them, and before citing one, fetch it in the deep pass
+and check the claim yourself. A `hint` is never evidence, and a `quote` only tells you which sentence to
+look for: find it on the page before citing. Each agent's `<out>.gaps` file lists what it could not
+answer; carry those into the brief's coverage notes. A `failed` or `empty` agent is a coverage note in
+the brief, not a run failure.
 
 **Zero-row rule:** if a bucket returns 0 rows, retry its assigned backend once with broader
 seed domains before recording a deficit. Never substitute browsing for the helper when Firecrawl

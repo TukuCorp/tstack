@@ -1,6 +1,6 @@
 ---
 name: research
-description: Produce a cited pre-planning research brief for a topic, repository, or upcoming project phase and save it to `research/YYYY-MM-DD_slug.md`.
+description: Produce a cited pre-planning research brief for a topic, repository, or upcoming project phase and save it to `research/YYYY-MM-DD_slug.md`. For bulk collection over many items or a ranked comparison deliverable, use the necro skill instead.
 argument-hint: "[topic or phase] [--mode domain|codebase|math|literature|all] [--depth standard|deep|exhaustive] [--sources N] [--ratio github=..,academia=..,industry=..,web=..] [--strict-ratio] [--max-workers K] [--then ...]"
 allowed-tools:
   - Bash
@@ -66,7 +66,7 @@ Support these depth levels: `standard`, `deep`, `exhaustive`.
 
 ## Exhaustive Depth
 
-`--sources`, `--ratio`, `--strict-ratio`, and `--max-workers` apply only under `--depth exhaustive` (ignore them at other depths, with a one-line notice). If `--ratio` is omitted, ask the user to confirm or adjust the even default ratio before the wide pass. Defaults, flag resolution, backends, the source ledger, and the tier-based quality gate live in [references/exhaustive.md](references/exhaustive.md); follow it. When Firecrawl is unavailable the wide-pass helper searches with Perplexity (Search API fast preset, through `PERPLEXITY_API_KEY` or a signed-in Hermes Agent install), and an optional agentic pass hands single sub-questions to Hermes Agent workers in Herdr tabs (Step 3 in [references/exhaustive.md](references/exhaustive.md)).
+`--sources`, `--ratio`, `--strict-ratio`, and `--max-workers` apply only under `--depth exhaustive` (ignore them at other depths, with a one-line notice). If `--ratio` is omitted, ask the user to confirm or adjust the even default ratio before the wide pass. Defaults, flag resolution, backends, the source ledger, and the tier-based quality gate live in [references/exhaustive.md](references/exhaustive.md); follow it. When Firecrawl is unavailable the wide-pass helper searches with Perplexity (Search API fast preset, through `PERPLEXITY_API_KEY` or a signed-in Hermes Agent install), and an optional agentic pass hands single sub-questions to necro lanes in Herdr tabs, with Hermes Agent workers as the fallback (Step 3 in [references/exhaustive.md](references/exhaustive.md)).
 
 ## Background Execution
 
@@ -187,6 +187,7 @@ Guidance:
 - Use canonical URLs when possible.
 - For disputed or easy-to-distort claims, quote or paraphrase narrowly and cite the source immediately.
 - Note paywalled, dead, redirected, ambiguous, or rate-limited sources explicitly.
+- Label each material claim VERIFIED (a primary or independent source seen, with URL and date), PARTIAL, CLAIMED (only the subject's own page says so), NOT FOUND or UNVERIFIED. These are the necro skill's labels, so claims move between a brief and a necro deliverable unchanged. Never upgrade a label in synthesis.
 - Keep the final `## Sources` section, but do not rely on it as a substitute for claim-level sourcing.
 
 ## Synthesis Rules

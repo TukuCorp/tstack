@@ -11,6 +11,9 @@ Stdlib only. Typically launched by the lead as an hc child in its own Herdr tab:
   python -I hermes_worker.py --brief research/sources/<slug>.hermes-1.brief.md \
       --out research/sources/<slug>.hermes-1.jsonl --id hermes-1   # hc's exit note reports it; --notify <hc address> for a non-parent
 
+The same contract serves a necro lane: `--print-contract` prints it for the lane brief, and
+`--parse <lane output file> --out <jsonl> --id <lane>` validates the lane's block without running Hermes.
+
 Exit 0 when at least one valid row was written, 1 otherwise. The last stdout line is always
 `HERMES_WORKER_DONE <id> rows=<n> status=<ok|empty|failed>`.
 """
@@ -29,16 +32,16 @@ _HTTP_URL = re.compile(r"^https?://[^\s/]+\.[^\s]+$")
 CONTRACT = """
 
 ---
-You are a research worker. Use web_search to find sources for the brief above, and web_extract
-only to confirm what a page actually is. Search iteratively: follow leads, refine queries, and
+You are a research worker. Use your web search tool to find sources for the brief above, and page
+fetches only to confirm what a page actually is. Search iteratively: follow leads, refine queries, and
 prefer primary sources (official docs, specs, source repositories, original papers, government,
 lab or standards-body reports) over commentary. Do not write a report.
 
-Budget: at most {max_searches} web_search calls. When you reach it, stop searching and hand back what
+Budget: at most {max_searches} web searches. When you reach it, stop searching and hand back what
 you have; partial results with honest gaps beat looping.
 
-When you are done, print a line BEGIN_SOURCES, then one JSON object per line, then a line
-END_SOURCES. Print nothing else between the markers. Each source object has these keys:
+When you are done, output (print it, or write it into your output file when the brief names one)
+a line BEGIN_SOURCES, then one JSON object per line, then a line END_SOURCES. Print nothing else between the markers. Each source object has these keys:
 {{"bucket": "github|academia|industry|web", "url": "...", "title": "...", "query": "the search query that found it", "claim": "one sentence: what this source supports for the brief", "quote": "the exact sentence from the page behind any number or key claim, copied verbatim, or empty"}}
 For each part of the brief you could not answer from a primary source, add one line
 {{"gap": "what is still missing"}}.
@@ -110,9 +113,12 @@ def notify(pane, message):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--brief", required=True, help="markdown brief written by the lead")
-    ap.add_argument("--out", required=True, help="JSONL file this worker writes (overwritten)")
-    ap.add_argument("--id", required=True, help="worker id, e.g. hermes-1")
+    ap.add_argument("--brief", help="markdown brief written by the lead (required unless --parse/--print-contract)")
+    ap.add_argument("--parse", help="validate an existing transcript or lane output file instead of running Hermes")
+    ap.add_argument("--print-contract", action="store_true",
+                    help="print only the source-row contract (for a necro lane brief) and exit")
+    ap.add_argument("--out", help="JSONL file this worker writes (overwritten)")
+    ap.add_argument("--id", help="worker id, e.g. hermes-1")
     ap.add_argument("--notify", help="hc terminal address or name to `hc send` the done line to")
     ap.add_argument("--hermes", help="hermes command (default: `hermes` on PATH)")
     ap.add_argument("--toolsets", default="web")
@@ -122,22 +128,30 @@ def main():
     ap.add_argument("--print-prompt", action="store_true", help="print the full prompt and exit")
     args = ap.parse_args()
 
-    prompt = Path(args.brief).read_text(encoding="utf-8") + CONTRACT.format(
-        max_rows=args.max_rows, max_searches=args.max_searches)
+    contract = CONTRACT.format(max_rows=args.max_rows, max_searches=args.max_searches)
+    if args.print_contract:
+        print(contract.lstrip("\n-").lstrip())
+        return 0
+    if not (args.out and args.id) or not (args.brief or args.parse):
+        ap.error("--out and --id are required, with --brief (run Hermes) or --parse (validate a file)")
     if args.print_prompt:
-        print(prompt)
+        print(Path(args.brief).read_text(encoding="utf-8") + contract)
         return 0
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    cmd = hermes_command(args.hermes) + ["-z", prompt, "-t", args.toolsets]
-    try:
-        p = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace",
-                           timeout=args.timeout)
-        transcript, code, err = p.stdout, p.returncode, p.stderr
-    except subprocess.TimeoutExpired as e:
-        transcript, code, err = (e.stdout or "") if isinstance(e.stdout, str) else "", None, "timeout"
-    Path(str(out) + ".log").write_text(
-        f"$ exit={code}\n--- stdout ---\n{transcript}\n--- stderr ---\n{err or ''}\n", encoding="utf-8")
+    if args.parse:
+        transcript, code, err = Path(args.parse).read_text(encoding="utf-8", errors="replace"), 0, ""
+    else:
+        cmd = hermes_command(args.hermes) + ["-z", Path(args.brief).read_text(encoding="utf-8") + contract,
+                                             "-t", args.toolsets]
+        try:
+            p = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace",
+                               timeout=args.timeout)
+            transcript, code, err = p.stdout, p.returncode, p.stderr
+        except subprocess.TimeoutExpired as e:
+            transcript, code, err = (e.stdout or "") if isinstance(e.stdout, str) else "", None, "timeout"
+        Path(str(out) + ".log").write_text(
+            f"$ exit={code}\n--- stdout ---\n{transcript}\n--- stderr ---\n{err or ''}\n", encoding="utf-8")
 
     gaps = []
     rows, invalid = parse_sources(transcript, args.id, args.max_rows, gaps)

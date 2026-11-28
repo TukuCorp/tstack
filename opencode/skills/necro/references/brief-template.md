@@ -19,6 +19,7 @@ Out of scope: <what this lane must not research, edit or write, including the ot
 - Allowed, by weight: <official documents, primary sources, dated news from named outlets, ...>.
 - Excluded as evidence: <forums, social media, anonymous testimonials, SEO list sites that copy each other, ...>.
 - If the output carries verbatim quotes, check each one appears on the fetched page by script (normalise whitespace and diacritics) before writing it; a quote not found on the page is dropped and the claim's label lowered. (2026-11-17 PDP8 run: a verifier found invented quotes behind two VERIFIED rows.)
+- Behind every number and key claim, keep the exact sentence from the page and its URL next to the row, so the caller can check it in seconds.
 - Label every claim: VERIFIED (independent or primary source seen; URL and date), PARTIAL, CLAIMED (the subject's own page only), NOT FOUND, UNVERIFIED. Never invent figures, names, licence numbers or contact details. NOT FOUND is an acceptable answer.
 
 ## Hard rules
@@ -27,7 +28,7 @@ Out of scope: <what this lane must not research, edit or write, including the ot
 3. Search and read sources in <language> first. Write findings in <language> (headers may be English).
 4. UTF-8 for all files; in Python pass encoding="utf-8" and reconfigure stdout. Avoid the dollar sign in shell text.
 5. No dozens of browser tabs; fetch with scripts and keep only the fields you need.
-6. Search only from inside an exec script: `await tools.mcp__codex_apps__search_service_web_run({system2_search_query: [{q: "..."}]})`. There is no `tools.web_search`. Never emit that tool, or any name starting with `default.`, as a direct tool call: on routed models it ends the stream with "routed provider emitted undeclared client tool", and `/goal resume` replays it. If exec lacks it (`ALL_TOOLS` shows the names), use a Python fetch of DuckDuckGo HTML or Bing.
+6. Search budget: about <12> searches per item group or sub-question. At the budget, stop and write what you have, with the missing parts labelled NOT FOUND and listed under "Where sources conflict or are thin", instead of looping. Search only from inside an exec script: `await tools.mcp__codex_apps__search_service_web_run({system2_search_query: [{q: "..."}]})`. There is no `tools.web_search`. Never emit that tool, or any name starting with `default.`, as a direct tool call: on routed models it ends the stream with "routed provider emitted undeclared client tool", and `/goal resume` replays it. If exec lacks it (`ALL_TOOLS` shows the names), use a Python fetch of DuckDuckGo HTML or Bing.
 7. Write files with a Python script (`open(path, "w", encoding="utf-8")`). If you use `apply_patch`, the patch starts `*** Begin Patch`, then `*** Add File: <path>` with every line prefixed `+`, or `*** Update File: <path>` with context hunks, and ends `*** End Patch`. One file per call; no `@@ -0,0 +1 @@` unified-diff headers.
 
 ## Output
