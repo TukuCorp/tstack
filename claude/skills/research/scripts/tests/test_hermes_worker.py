@@ -69,6 +69,29 @@ class HermesWorker(unittest.TestCase):
         self.assertEqual(summary["invalid"], 4)
         self.assertTrue(pathlib.Path(str(self.out) + ".log").read_text(encoding="utf-8").count("BEGIN_SOURCES"))
 
+    def test_contract_sets_search_budget_quotes_and_gaps(self):
+        # The worker stops at its search budget and hands back partial rows, verbatim quotes and gaps.
+        transcript = ("Budget reached.\nBEGIN_SOURCES\n"
+                      '{"bucket": "web", "url": "https://example.com/p", "title": "P", "query": "q", '
+                      '"claim": "latency fell", "quote": "Median latency fell from 410 ms to 180 ms."}\n'
+                      '{"gap": "no primary source for the 2025 adoption figure"}\n'
+                      "END_SOURCES\n")
+        fake = self.fake_hermes(transcript)
+        p = subprocess.run(
+            [sys.executable, "-I", str(_SCRIPT), "--brief", str(self.brief), "--out", str(self.out),
+             "--id", "hermes-1", "--hermes", fake, "--max-searches", "9", "--print-prompt"],
+            capture_output=True, text=True, encoding="utf-8", timeout=120)
+        self.assertIn("at most 9 web_search calls", p.stdout)
+        p = self.run_worker(fake)
+        self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+        got = [json.loads(l) for l in self.out.read_text(encoding="utf-8").splitlines()]
+        self.assertEqual(got[0]["quote"], "Median latency fell from 410 ms to 180 ms.")
+        summary = json.loads(p.stdout.split("HERMES_WORKER_DONE")[0])
+        self.assertEqual((summary["invalid"], summary["gaps"]),
+                         (0, ["no primary source for the 2025 adoption figure"]))
+        self.assertEqual(pathlib.Path(str(self.out) + ".gaps").read_text(encoding="utf-8"),
+                         "no primary source for the 2025 adoption figure\n")
+
     def test_missing_markers_is_empty_and_exit_1(self):
         p = self.run_worker(self.fake_hermes("I could not find anything useful.\n"))
         self.assertEqual(p.returncode, 1, p.stdout + p.stderr)

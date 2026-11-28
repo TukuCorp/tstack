@@ -34,17 +34,23 @@ only to confirm what a page actually is. Search iteratively: follow leads, refin
 prefer primary sources (official docs, specs, source repositories, original papers, government,
 lab or standards-body reports) over commentary. Do not write a report.
 
-When you are done, print a line BEGIN_SOURCES, then one JSON object per line, then a line
-END_SOURCES. Print nothing else between the markers. Each object has exactly these keys:
-{{"bucket": "github|academia|industry|web", "url": "...", "title": "...", "query": "the search query that found it", "claim": "one sentence: what this source supports for the brief"}}
+Budget: at most {max_searches} web_search calls. When you reach it, stop searching and hand back what
+you have; partial results with honest gaps beat looping.
 
-Rules: only URLs that appeared in your search results; never construct or guess a URL. At most
-{max_rows} objects. No duplicates.
+When you are done, print a line BEGIN_SOURCES, then one JSON object per line, then a line
+END_SOURCES. Print nothing else between the markers. Each source object has these keys:
+{{"bucket": "github|academia|industry|web", "url": "...", "title": "...", "query": "the search query that found it", "claim": "one sentence: what this source supports for the brief", "quote": "the exact sentence from the page behind any number or key claim, copied verbatim, or empty"}}
+For each part of the brief you could not answer from a primary source, add one line
+{{"gap": "what is still missing"}}.
+
+Rules: only URLs that appeared in your search results; never construct or guess a URL. Only quote
+text you saw on the page; never paraphrase inside "quote". At most {max_rows} source objects. No duplicates.
 """
 
 
-def parse_sources(text, wid, max_rows):
-    """(rows, invalid_count) from a worker transcript. Rows are ledger-ready dicts."""
+def parse_sources(text, wid, max_rows, gaps=None):
+    """(rows, invalid_count) from a worker transcript. Rows are ledger-ready dicts.
+    `{"gap": ...}` lines are appended to `gaps` (a list) when given, and never count as invalid."""
     lines = text.splitlines()
     try:
         start = next(i for i, ln in enumerate(lines) if ln.strip() == "BEGIN_SOURCES")
@@ -52,6 +58,7 @@ def parse_sources(text, wid, max_rows):
     except StopIteration:
         return [], 0
     rows, seen, invalid = [], set(), 0
+    gaps = [] if gaps is None else gaps
     for ln in lines[start + 1:end]:
         ln = ln.strip()
         if not ln:
@@ -60,6 +67,10 @@ def parse_sources(text, wid, max_rows):
             obj = json.loads(ln)
         except json.JSONDecodeError:
             invalid += 1
+            continue
+        if isinstance(obj, dict) and set(obj) == {"gap"}:
+            if str(obj["gap"]).strip():
+                gaps.append(str(obj["gap"]).strip()[:300])
             continue
         url = str(obj.get("url", "")).strip() if isinstance(obj, dict) else ""
         if not isinstance(obj, dict) or obj.get("bucket") not in BUCKETS or not _HTTP_URL.match(url):
@@ -70,9 +81,12 @@ def parse_sources(text, wid, max_rows):
             invalid += 1
             continue
         seen.add(key)
-        rows.append({"bucket": obj["bucket"], "url": url, "title": str(obj.get("title", ""))[:200],
-                     "discovered_via": f"{wid}: {str(obj.get('query', ''))[:160]}",
-                     "hint": str(obj.get("claim", ""))[:300]})
+        row = {"bucket": obj["bucket"], "url": url, "title": str(obj.get("title", ""))[:200],
+               "discovered_via": f"{wid}: {str(obj.get('query', ''))[:160]}",
+               "hint": str(obj.get("claim", ""))[:300]}
+        if str(obj.get("quote", "")).strip():
+            row["quote"] = str(obj["quote"]).strip()[:500]
+        rows.append(row)
         if len(rows) >= max_rows:
             break
     return rows, invalid
@@ -103,12 +117,18 @@ def main():
     ap.add_argument("--hermes", help="hermes command (default: `hermes` on PATH)")
     ap.add_argument("--toolsets", default="web")
     ap.add_argument("--max-rows", type=int, default=60)
+    ap.add_argument("--max-searches", type=int, default=12, help="web_search budget given to the worker")
     ap.add_argument("--timeout", type=int, default=1800, help="seconds")
+    ap.add_argument("--print-prompt", action="store_true", help="print the full prompt and exit")
     args = ap.parse_args()
 
+    prompt = Path(args.brief).read_text(encoding="utf-8") + CONTRACT.format(
+        max_rows=args.max_rows, max_searches=args.max_searches)
+    if args.print_prompt:
+        print(prompt)
+        return 0
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    prompt = Path(args.brief).read_text(encoding="utf-8") + CONTRACT.format(max_rows=args.max_rows)
     cmd = hermes_command(args.hermes) + ["-z", prompt, "-t", args.toolsets]
     try:
         p = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace",
@@ -119,11 +139,13 @@ def main():
     Path(str(out) + ".log").write_text(
         f"$ exit={code}\n--- stdout ---\n{transcript}\n--- stderr ---\n{err or ''}\n", encoding="utf-8")
 
-    rows, invalid = parse_sources(transcript, args.id, args.max_rows)
+    gaps = []
+    rows, invalid = parse_sources(transcript, args.id, args.max_rows, gaps)
     out.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows), encoding="utf-8")
+    Path(str(out) + ".gaps").write_text("".join(g + "\n" for g in gaps), encoding="utf-8")
     status = "failed" if code != 0 else ("ok" if rows else "empty")
     print(json.dumps({"id": args.id, "out": str(out), "rows": len(rows), "invalid": invalid,
-                      "hermes_exit": code, "log": str(out) + ".log"}, indent=2))
+                      "gaps": gaps, "hermes_exit": code, "log": str(out) + ".log"}, indent=2))
     done = f"HERMES_WORKER_DONE {args.id} rows={len(rows)} status={status}"
     print(done)
     if args.notify:

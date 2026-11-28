@@ -165,7 +165,11 @@ web tools routed.
 
 1. Write one brief per worker at `research/sources/<date>_<slug>.hermes-<n>.brief.md`: the topic, ONE
    sub-question, the buckets that matter, a target of 8-20 sources, and sources already in hand so the
-   worker doesn't repeat them. At most 3 workers (each Hermes process uses real memory), and never more
+   worker doesn't repeat them. Before writing the briefs, run one quick orienting search so the
+   sub-questions split the topic cleanly: each covers a distinct angle, time frame or source scope, and
+   each brief lists the other workers' sub-questions so none overlaps. The worker gets a budget of 12
+   `web_search` calls (`--max-searches`) and, when it hits it, returns partial rows plus `{"gap": ...}`
+   lines instead of looping. At most 3 workers (each Hermes process uses real memory), and never more
    than `--max-workers`.
 2. Launch each worker as your hc child in its own tab of your space, without moving focus (your space id
    is `hc get "$HC_TERMINAL_ID"` → `.labels["herdr.space"]`; strip a trailing `\r` on Windows):
@@ -178,7 +182,8 @@ web tools routed.
 3. When a worker exits, hc sends you a note with its last lines, which end with
    `HERMES_WORKER_DONE hermes-<n> rows=<k> status=<ok|empty|failed>`. To wait for all of them at a point
    where you need the results, run `hc wait --children all` (a `reason: timeout` result is a check-in:
-   wait again). A caller that is not the workers' parent passes `--notify <its hc address>`, and the
+   wait again). Once the other workers have finished and one is still running about 10 minutes later,
+   stop it (`hc rm hermes-<n>`) and record its sub-question as a coverage gap in the brief. A caller that is not the workers' parent passes `--notify <its hc address>`, and the
    worker sends the same line there with `hc send`.
 4. Merge the finished files into the ledger:
    `python <skill>/scripts/wide_pass.py --ledger <ledger> --merge <hermes-1.jsonl> --merge <hermes-2.jsonl>`.
@@ -188,7 +193,9 @@ web tools routed.
    and `.jsonl.log` next to the ledger as the trail.
 
 Worker rows are candidates like any other: tier them, and before citing one, fetch it in the deep pass
-and check the claim yourself. A `hint` is never evidence. A `failed` or `empty` worker is a coverage
+and check the claim yourself. A `hint` is never evidence, and a `quote` only tells you which sentence to look for: find it on the
+page before citing. Each worker's `<out>.gaps` file lists what it could not answer; carry those into
+the brief's coverage notes. A `failed` or `empty` worker is a coverage
 note in the brief, not a run failure.
 
 **Zero-row rule:** if a bucket returns 0 rows, retry its assigned backend once with broader

@@ -39,8 +39,8 @@ Example:
 """
 import argparse, json, os, re, subprocess, sys, time, urllib.parse, urllib.request, urllib.error
 
-# OpenAlex "polite pool" contact. Set OPENALEX_MAILTO to override; the fallback keeps old runs working.
-DEF_MAILTO = os.environ.get("OPENALEX_MAILTO") or "<EMAIL>"
+# OpenAlex "polite pool" contact: sent only when the user sets OPENALEX_MAILTO (never a built-in address).
+DEF_MAILTO = os.environ.get("OPENALEX_MAILTO", "")
 
 
 _ARXIV_RE = re.compile(r"^(?:export\.)?arxiv\.org/(?:abs|pdf)/(.+?)(?:v\d+)?(?:\.pdf)?$")
@@ -91,8 +91,10 @@ def load_existing(path):
 
 def openalex(terms, mailto, per_page=200, timeout=30):
     q = urllib.parse.quote(terms)
-    url = f"https://api.openalex.org/works?search={q}&per-page={per_page}&mailto={mailto}"
-    req = urllib.request.Request(url, headers={"User-Agent": f"research-wide-pass ({mailto})"})
+    url = f"https://api.openalex.org/works?search={q}&per-page={per_page}"
+    if mailto:
+        url += "&mailto=" + urllib.parse.quote(mailto)
+    req = urllib.request.Request(url, headers={"User-Agent": "research-wide-pass"})
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return json.load(r).get("results", [])
 
@@ -248,7 +250,7 @@ def main():
         counters[bucket] = counters.get(bucket, 0) + 1
         return f"{bucket[:2]}-{counters[bucket]:03d}"
 
-    def add(bucket, url, title, tier, signal, via, pass_="wide", hint=None):
+    def add(bucket, url, title, tier, signal, via, pass_="wide", hint=None, quote=None):
         k = norm_url(url)
         if not k or k in seen:
             return False
@@ -258,6 +260,8 @@ def main():
                "discovered_via": via, "signal": signal}
         if hint:
             row["hint"] = str(hint)[:300]
+        if quote:
+            row["quote"] = str(quote)[:500]
         new_rows.append(row)
         return True
 
@@ -283,7 +287,7 @@ def main():
             if bucket not in BUCKETS or not _HTTP_URL.match(url):
                 stats["invalid"] += 1
             elif add(bucket, url, r.get("title", ""), PROVISIONAL_TIER[bucket], {},
-                     str(r.get("discovered_via", ""))[:200], pass_="agentic", hint=r.get("hint")):
+                     str(r.get("discovered_via", ""))[:200], pass_="agentic", hint=r.get("hint"), quote=r.get("quote")):
                 stats["added"] += 1
             else:
                 stats["duplicate"] += 1

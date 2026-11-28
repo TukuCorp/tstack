@@ -41,7 +41,8 @@ class Merge(unittest.TestCase):
             {"bucket": "web", "url": "https://www.example.com/already/?utm_source=a", "title": "dup",
              "discovered_via": "hermes-1: q1", "hint": "h"},
             {"bucket": "web", "url": "https://example.com/new", "title": "New page",
-             "discovered_via": "hermes-1: q2", "hint": "supports the latency claim"},
+             "discovered_via": "hermes-1: q2", "hint": "supports the latency claim",
+             "quote": "Median latency fell from 410 ms to 180 ms."},
             {"bucket": "academia", "url": "https://arxiv.org/abs/2101.00001v2", "title": "Paper",
              "discovered_via": "hermes-1: q3", "hint": "original method"},
             {"bucket": "blogs", "url": "https://example.com/bad-bucket", "title": "b",
@@ -61,6 +62,8 @@ class Merge(unittest.TestCase):
         for r in added:
             self.assertEqual((r["status"], r["pass"]), ("candidate", "agentic"))
         self.assertEqual(added[0]["hint"], "supports the latency claim")
+        self.assertEqual(added[0]["quote"], "Median latency fell from 410 ms to 180 ms.")
+        self.assertNotIn("quote", added[1])
         self.assertEqual(added[0]["discovered_via"], "hermes-1: q2")
         self.assertEqual(added[0]["tier"], 4)
         self.assertEqual(added[1]["tier"], 3)

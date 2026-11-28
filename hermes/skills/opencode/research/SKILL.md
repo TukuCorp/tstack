@@ -130,7 +130,9 @@ Then write the cross-mode synthesis after all selected modes complete.
 - Default to no subagents for single-mode or narrow topics.
 - Use one focused subagent when a single selected mode is clearly large enough to benefit from isolated exploration, such as a large codebase survey or literature-heavy scan.
 - Use at most two focused subagents unless `--mode all` or equivalent scope makes broader parallelization clearly worthwhile.
-- Assign one mode or one tightly scoped evidence-gathering task per subagent.
+- Assign one mode or one tightly scoped evidence-gathering task per subagent, with no overlap: give each a distinct angle, time frame or source scope, and list the others' tasks in its brief.
+- Give every worker a budget of 8 to 12 searches or tool steps per task. Tell it to stop at the budget and return its verified findings, the exact quote or raw output behind each number with its URL, and a list of remaining gaps, instead of looping.
+- When most workers have reported and one is still running well past them, stop it and record its task as a coverage gap in the brief instead of waiting.
 - The main agent must merge, deduplicate, and reconcile all findings before writing the brief.
 - Exception: under `--depth exhaustive`, the orchestrator-worker fan-out in [references/exhaustive.md](references/exhaustive.md) is optional: the helper script fills every bucket from the lead, so source volume never depends on spawning workers. If you do fan out, cap it at `--max-workers` (default 5); the lead still merges, dedupes, tiers, and writes the brief.
 - If this run is itself a background subagent, run every selected mode inline: no nested subagents.
