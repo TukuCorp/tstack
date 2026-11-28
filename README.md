@@ -29,7 +29,7 @@ plain copies in the other harnesses; on a new machine, clone it there and copy i
 verbatim (self-paths aside) plus the Claude Code workflow sections (a test enforces it), `agy/skills`
 holds all its skills (`agy/skills.json` adds no extra folders), and `agy/mcp_config.json` registers browse (officecli and powerpoint disabled).
 Sign in once on a new machine;
-`agy/settings.json` carries the default model (Gemini 4 Neon Medium) without `trustedWorkspaces`.
+`agy/settings.json` carries the default model (Gemini 4 Neon Medium) and `showThinking: true` without `trustedWorkspaces`, and `bootstrap.ps1` sets `AGY_CLI_AUTO_COMPACT_OVERRIDE=400000` (user env var).
 
 This repo is a **mirror**, not the source of truth: `sync.py` rebuilds each folder from the
 live files, so edit skills where the tool reads them and let the sync pick them up.

@@ -97,6 +97,26 @@
           ]
         }
       ]
+    },
+    {
+      "id": "b20160c5ffe5cb3ccc4d5235953f7e314",
+      "type": "block",
+      "content": {
+        "mod": "omarchy-changes"
+      },
+      "size": {
+        "px": 368
+      }
+    },
+    {
+      "id": "b66f66e66dc7b1e49879fed9a27a30b04",
+      "type": "block",
+      "content": {
+        "mod": "omarchy-files"
+      },
+      "size": {
+        "px": 368
+      }
     }
   ],
   "background": "background",

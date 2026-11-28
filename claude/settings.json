@@ -118,6 +118,12 @@
         "source": "github",
         "repo": "HKUDS/CLI-Anything"
       }
+    },
+    "claude-inline-images": {
+      "source": {
+        "source": "github",
+        "repo": "kbrianps/claude-inline-images"
+      }
     }
   },
   "effortLevel": "high",

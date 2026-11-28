@@ -3,6 +3,7 @@
   "artifactReviewPolicy": "always-proceed",
   "model": "Gemini 4 Neon (Medium)",
   "runningLightSpeed": "fast",
+  "showThinking": true,
   "toolPermission": "always-proceed",
   "verbosity": "low"
 }

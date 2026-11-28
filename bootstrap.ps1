@@ -110,6 +110,9 @@ Step 'self-contained harnesses (each loads only its own skills)'
 # Opencode would otherwise also load ~/.claude/skills and ~/.claude/CLAUDE.md
 if ([Environment]::GetEnvironmentVariable('OPENCODE_DISABLE_CLAUDE_CODE', 'User') -eq '1') { Write-Host '    ok: OPENCODE_DISABLE_CLAUDE_CODE' }
 else { Run 'set OPENCODE_DISABLE_CLAUDE_CODE=1' { [Environment]::SetEnvironmentVariable('OPENCODE_DISABLE_CLAUDE_CODE', '1', 'User') } }
+# Raise agy's automatic compaction threshold to 400k tokens
+if ([Environment]::GetEnvironmentVariable('AGY_CLI_AUTO_COMPACT_OVERRIDE', 'User') -eq '400000') { Write-Host '    ok: AGY_CLI_AUTO_COMPACT_OVERRIDE' }
+else { Run 'set AGY_CLI_AUTO_COMPACT_OVERRIDE=400000' { [Environment]::SetEnvironmentVariable('AGY_CLI_AUTO_COMPACT_OVERRIDE', '400000', 'User') } }
 # grill-with-ui is vendored (sync skips it): git clone for Claude, plain copies for the others
 $Gwu = "$HOME\.claude\skills\grill-with-ui"
 if (Test-Path "$Gwu\.git") { Write-Host '    ok: grill-with-ui clone' }
