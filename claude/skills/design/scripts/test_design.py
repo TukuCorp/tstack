@@ -60,6 +60,32 @@ def test_slop_lint_ignores_pill_radius_and_google_fonts():
     assert gates.slop(html)["status"] == "pass"
 
 
+# One snippet per "vibecoded" tell catalogued by slopstrap.mikelacher.com (read 2026-11-28).
+VIBECODED = {
+    "gradient-text": ".h{background:linear-gradient(90deg,#fff,#0ea5e9);-webkit-background-clip:text;background-clip:text}",
+    "accent-left-border": ".a{border-left:4px solid #0ea5e9}.b{border-left:4px solid #10b981}.c{border-left: 4px solid #f59e0b}",
+    "serif-accent-word": "</style><h1>Build the <em class=\"serif\">future</em> of work</h1><style>",
+    "font-trio": "@import url(https://fonts.googleapis.com/css2?family=Inter&family=Instrument+Serif&family=JetBrains+Mono);",
+    "ambient-orbs": ".orb{position:absolute;filter:blur(80px);background:#0ea5e9}",
+    "grid-bg": ".bg{background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),"
+               "linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px)}",
+    "conic-beam": ".beam{background:conic-gradient(from 0deg,#0ea5e9,#10b981);animation:spin 4s linear infinite}"
+                  "@keyframes spin{to{transform:rotate(360deg)}}",
+    "logo-marquee": ".logos{animation:m 30s linear infinite}@keyframes m{from{transform:translateX(0)}to{transform:translateX(-50%)}}",
+    "pulse-dot": ".dot{animation:pulse 2s infinite}@keyframes pulse{50%{opacity:.4}}",
+    "count-up": "</style><script>new IntersectionObserver(e=>countUp(e)).observe(stat)</script><style>",
+    "fake-terminal": ".r{background:#ff5f56}.y{background:#ffbd2e}.g{background:#27c93f}",
+    "hype-badge": "</style><span class=\"badge\">AI-POWERED</span><span>All Systems Operational</span><style>",
+}
+
+
+@pytest.mark.parametrize("name", sorted(VIBECODED))
+def test_slop_lint_flags_vibecoded_tells(name):
+    result = gates.slop(CLEAN.replace("<style>", "<style>" + VIBECODED[name]))
+    assert name in result["detail"], result
+    assert result["status"] == ("fail" if name == "conic-beam" else "warn")
+
+
 def test_picker_embeds_every_option_and_escapes_script_end(tmp_path):
     run = make_run(tmp_path, {"dense-table": CLEAN, "editorial": CLEAN.replace("</body>", "<script>1</script></body>")})
     (run / "gates.json").write_text(json.dumps({"dense-table": {"status": "pass", "checks": {}}}), encoding="utf-8")

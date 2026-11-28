@@ -1,0 +1,11 @@
+3:1 FIX High "All Systems Operational" (Status label) fix: Show status only from a real source; otherwise cut it.
+3:26 FIX High "Trusted by innovative teams" (Social proof) fix: Name a real customer with permission and a source or cut the line.
+5:1 FIX High "AI Insight" (Callout label) fix: Drop the label; state the finding.
+5:38 JUDGE Medium "99.99% uptime" (Vanity stat) fix: Cite the status page and period or cut.
+5:61 JUDGE Medium "AI-powered" (Hype badge) fix: Say what the model does and where.
+5:84 FIX High "10x faster" (Hype badge) fix: Give the measured number and its baseline.
+7:1 JUDGE Medium "Pro Tip" (Callout label) fix: Drop the label or name the step.
+7:10 FIX High "Ask AI anything" (Stock placeholder) fix: Name what the box actually answers.
+7:55 JUDGE Medium "Generate with AI" (Stock CTA) fix: Name the output the button produces.
+9:17 JUDGE Medium "Most Popular" (Hype badge) fix: Cut unless sales data supports it.
+9:49 JUDGE Medium "Now Live" (Hype badge) fix: State the change and the date.

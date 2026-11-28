@@ -27,6 +27,23 @@ SLOP = [
     ("emoji-icons", re.compile(r"<(h[1-6]|button|li)\b[^>]*>\s*[\U0001F300-\U0001FAFF☀-➿]"),
      "fail", "inline SVG icons or plain text"),
     ("glass-panels", re.compile(r"backdrop-filter\s*:\s*blur", re.I), "warn", "solid surfaces; blur only for overlays"),
+    # "Vibecoded" tells catalogued by slopstrap.mikelacher.com (read 2026-11-28).
+    ("gradient-text", re.compile(r"background-clip\s*:\s*text", re.I), "warn", "solid text colour; one accent hue"),
+    ("serif-accent-word", re.compile(r"Instrument[+ ]Serif|<h[1-3]\b[^>]*>[^<]*<(em|i|span)\b[^>]*serif", re.I),
+     "warn", "one type family for headings; emphasis by weight or size, not a lone italic serif word"),
+    ("ambient-orbs", re.compile(r"filter\s*:\s*blur\(\s*(?:[4-9]\d|\d{3,})px", re.I),
+     "warn", "no blurred colour blobs; a flat background"),
+    ("grid-bg", re.compile(r"linear-gradient\([^;{}]*1px[^;{}]*\)\s*,\s*linear-gradient\(\s*90deg[^;{}]*1px", re.I),
+     "warn", "plain background; grids only where the content is a grid"),
+    ("logo-marquee", re.compile(r"@keyframes\s+[\w-]+\s*\{[^@]*?translateX\(\s*-\d", re.I),
+     "warn", "a static, sourced list of real customers, or nothing"),
+    ("pulse-dot", re.compile(r"@keyframes\s+(pulse|ping|blink)\b", re.I),
+     "warn", "show live status only when it reads a real source"),
+    ("count-up", re.compile(r"IntersectionObserver[\s\S]{0,400}count|count\w*[\s\S]{0,400}IntersectionObserver", re.I),
+     "warn", "print the number; cite where it comes from"),
+    ("hype-badge", re.compile(r">\s*(AI[- ]POWERED|10X FASTER|MOST POPULAR|EARLY ACCESS|SOC ?2 TYPE|All Systems Operational"
+                              r"|AI Engine Active|Now Live)\b", re.I),
+     "warn", "cut the badge, or state the sourced fact it stands for"),
     ("external-assets", re.compile(r"<(script|link|img)\b[^>]*(src|href)=[\"']https?://(?!fonts\.(googleapis|gstatic)\.com)", re.I),
      "fail", "inline it; options must be self-contained"),
 ]
@@ -34,6 +51,11 @@ BIG_RADIUS = re.compile(r"border-radius\s*:\s*(\d+(?:\.\d+)?)(px|rem)", re.I)
 TW_RADIUS = re.compile(r"\brounded-(2xl|3xl)\b")
 SHADOW = re.compile(r"box-shadow\s*:\s*([^;}\"]+)", re.I)
 DEV_TOGGLE = re.compile(r"data-design-dev")
+LEFT_BORDER = re.compile(r"border-left(-width)?\s*:\s*[3-6]px", re.I)
+FONT_TRIO = [re.compile(f, re.I) for f in (r"\bInter\b", r"JetBrains[+ ]Mono", r"(Instrument|Playfair|DM)[+ ]Serif")]
+CONIC = re.compile(r"conic-gradient", re.I)
+SPIN = re.compile(r"rotate\(\s*360deg|rotate\(\s*1turn", re.I)
+TRAFFIC_LIGHTS = [re.compile(c, re.I) for c in (r"#ff5f5[67]", r"#ffbd2e|#febc2e", r"#27c93f|#28c840")]
 BOX_PROBE = r"""JSON.stringify([...document.querySelectorAll('.slide,.page')].map((s,i)=>{
   const r=s.getBoundingClientRect(); let bad=0;
   for (const el of s.querySelectorAll('*')) { const e=el.getBoundingClientRect();
@@ -56,6 +78,14 @@ def slop(text):
            if 16 <= float(m.group(1)) * (16 if m.group(2).lower() == "rem" else 1) < 999]
     if len(big) >= 4 or len(TW_RADIUS.findall(text)) >= 3:
         hits.append(("fail", "big-radius-everywhere -> one radius scale applied by role"))
+    if len(LEFT_BORDER.findall(text)) >= 3:
+        hits.append(("warn", "accent-left-border -> a heading or a full hairline border, not a coloured stripe on every card"))
+    if all(f.search(text) for f in FONT_TRIO):
+        hits.append(("warn", "font-trio -> fonts from the contract, not the Inter + display serif + JetBrains Mono default"))
+    if CONIC.search(text) and SPIN.search(text):
+        hits.append(("fail", "conic-beam -> a plain 1px border; no rotating gradient frames"))
+    if all(c.search(text) for c in TRAFFIC_LIGHTS):
+        hits.append(("warn", "fake-terminal -> a plain code block; no macOS window dots"))
     shadows = {s.strip().lower() for s in SHADOW.findall(text) if s.strip().lower() != "none"}
     if len(shadows) >= 5:
         hits.append(("warn", f"shadow-everything ({len(shadows)} distinct) -> elevation only where layering is real"))

@@ -291,3 +291,15 @@ Discourse markers,Argument self-commentary — epistemic labeling,Our provisiona
 Discourse markers,Argument self-commentary — quote characterization,[Person] put it best,Medium,Interprets a quote before the quote speaks and supplies no task or context.,Name the person and what they were doing; then quote.
 Discourse markers,Argument self-commentary — quote characterization,"The complaint was unanimous and differently worded",Medium,Characterizes a set of quotes rather than letting them accumulate; a common wrong fix for floating quotes.,Attribute each quote plainly and get out of the way.
 Search pattern,Argument self-commentary — referent test,"the read | the section | the picture | the case | the evidence | the boundary | the takeaway",High,Nouns pointing at the artifact rather than the subject; a sentence whose grammatical subject is the piece is almost always commentary on the piece.,Rewrite so the subject is a person a model a task or a result. Exempt house navigation conventions and Reach ratings.
+Page chrome,Status label,All Systems Operational / AI Engine Active,High,Live-status label with no data source behind it.,Show status only from a real source; otherwise cut it.
+Page chrome,Social proof,Trusted by [X] teams / Trusted by innovative teams,High,Unverified social proof; names no customer.,Name a real customer with permission and a source or cut the line.
+Page chrome,Social proof,Join [X]+ teams / Loved by [X],Medium,Unverified social proof.,Give the sourced number or cut.
+Page chrome,Callout label,AI Insight / Deployment Ready,High,Stock emoji-style callout label that frames rather than informs.,Drop the label; state the finding.
+Page chrome,Callout label,Pro Tip,Medium,Stock callout label.,Drop the label or name the step.
+Page chrome,Hype badge,AI-powered / AI powered,Medium,Badge-style claim that says nothing about what the feature does.,Say what the model does and where.
+Page chrome,Hype badge,10x faster,High,Unsourced multiplier.,Give the measured number and its baseline.
+Page chrome,Hype badge,Most Popular,Medium,Pricing-card badge with no data behind it.,Cut unless sales data supports it.
+Page chrome,Hype badge,Now Live,Medium,Launch pill; announces instead of informing.,State the change and the date.
+Page chrome,Vanity stat,99.99% uptime,Medium,Stock uptime figure; usually unsourced.,Cite the status page and period or cut.
+Page chrome,Stock placeholder,Ask AI anything,High,Stock AI-input placeholder.,Name what the box actually answers.
+Page chrome,Stock CTA,Generate with AI,Medium,Stock AI CTA.,Name the output the button produces.

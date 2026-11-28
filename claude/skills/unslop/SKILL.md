@@ -29,13 +29,14 @@ If `HC_TERMINAL_ID` is empty, agy will not start, or `quota-axi --provider agy` 
 5. Rewrite. Preserve meaning, match intended tone.
 6. Add soul (see next section), within the register the house voice allows.
 7. Self-audit: "What makes this obviously AI generated?" Fix remaining tells.
-8. Mechanical check last. Grep the draft for em dashes, curly quotes, bracketed placeholders, self-commentary and the flagged words from rules 7, 23, 26, 31, 36 to 38, 41 and 42, then fix each hit unless a glossary or quoted text covers it:
+8. Mechanical check last. Grep the draft for em dashes, curly quotes, bracketed placeholders, self-commentary, page chrome (rule 44) and the flagged words from rules 7, 23, 26, 31, 36 to 38, 41 and 42, then fix each hit unless a glossary or quoted text covers it:
 
 ```bash
 grep -nE '—|[“”‘’]' draft.md
 grep -niwE 'additionally|crucial|delve|enduring|enhance|fostering|garner|interplay|intricate|landscape|pivotal|showcase|tapestry|testament|underscore|vibrant|substrate|wedge|vector|locus|vantage|nexus|primitive|harness|surface|bedrock|scaffolding|modality|paradigm|gold-plating|ratchet|evacuate|endgame|north star|flywheel|gate|gates|gated|gating|utilize|leverage|facilitate|numerous|in the event that|bolstered|boasts|meticulous|meticulously|robust|multifaceted|deep dive|worth noting|important to note|associated with|plays a role|finds you well|fast-paced|ever-evolving|in the realm of|at its core|when it comes to|the truth is|at the end of the day|moving forward|problem space|solution space|pain points|actionable insights|move the needle|low-hanging fruit|both sides|pros and cons|firstly|treasure trove|double-edged sword|tip of the iceberg|at a crossroads' draft.md
 grep -niE '\b(the|this) (read|picture|takeaway|open question)\b|put it best|then there.s the|stay provisional|without \w+ (is|are) just' draft.md
 grep -nE '\[(Your|Insert|Describe|Name)[^]]*\]' draft.md
+grep -niE 'all systems operational|ai[- ]powered|10x faster|most popular|now live|ai insight|pro tip|ask ai anything|generate with ai|trusted by|99\.9+% uptime|[0-9.]+[KM]\+ users' draft.md
 ```
 
 Then run the lexicon scan from this skill's folder: `python -X utf8 scripts/lexicon_scan.py draft.md`. It matches the draft against `references/ai-tells-lexicon.csv` (about 290 phrases and templates with a suggested fix each) and skips code. Fix every `FIX` hit unless a glossary, the house style or quoted text covers it, and judge each `JUDGE` hit in context. The lexicon cannot see rhythm, so rule 43 still needs a read.
@@ -141,6 +142,12 @@ Calibrate this to the audience. Opinions, first person and deliberate mess suit 
 
 43. **Repeated sentence shapes.** The rhythm gives the draft away even when every word is plain. Watch for a three-beat run of short sentences where one would do ("It mattered. It changed things. It was real."), the "No X. No Y. Just Z." punchline, a list with its final "and" dropped for drama ("She opened the laptop, ran the script, watched it fail."), and the same mold in consecutive sentences or paragraphs, such as subject, verb, object, then a trailing "-ing" clause every time. Keep the strongest sentence of a triad and fold in anything new, put the "and" back, and vary the build so the shape follows the content. Rule 34 covers fragments in body copy; this rule covers repetition.
 
+### Page chrome
+
+44. **Chrome copy on pages and artifacts.** The small text around the content of an HTML page, artifact, dashboard or landing page: status labels with nothing behind them ("All Systems Operational", "AI Engine Active", a "live" dot), hype badges and pills ("AI-POWERED", "10X FASTER", "MOST POPULAR", "BETA", "Introducing v2.0, Now Live"), stock callout labels ("AI Insight:", "Pro Tip:", "Deployment Ready:", a ✨ before each subheading), stock placeholders and buttons ("Ask AI anything...", "Generate with AI", "Book a Demo"), and social proof or stats with no source ("Trusted by innovative teams at the world's leading companies", "14.8M+ users", "99.99% uptime", testimonials from people nobody can check). Rule 35 checks that figures agree with each other; this rule checks that a source exists at all. Cite the source in a footnote, state the plain fact the label stands for, or cut it. Visual tells on the same pages (gradient text, coloured left-border stripes, blurred orbs, count-up stats) are layout, not prose, and the design skill's slop lint checks them.
+
 Rules 36 to 40 and the additions to rules 1 to 12, 19 to 25 and 27 to 30 draw on Wikipedia, "Signs of AI writing" (en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing, CC BY-SA 4.0), read 2026-10-21.
 
-`references/overcompletion.md`, rules 41 and 42, and the additions to rules 10, 24, 25 and 33 and to "Adding soul" are adapted from EveryInc/compound-writing (github.com/EveryInc/compound-writing, MIT), skill cw-ai-check at commit 8fd0ec8, read 2026-11-11. `references/ai-tells-lexicon.csv` is copied unchanged from the same repo's cw-ai-check, and rule 43 and the redundant pairs in rule 23 draw on its lexicon and cw-hemingway, at commit 90f043c, read 2026-11-21. `scripts/lexicon_scan.py` is written for this skill.
+`references/overcompletion.md`, rules 41 and 42, and the additions to rules 10, 24, 25 and 33 and to "Adding soul" are adapted from EveryInc/compound-writing (github.com/EveryInc/compound-writing, MIT), skill cw-ai-check at commit 8fd0ec8, read 2026-11-11. `references/ai-tells-lexicon.csv` is copied from the same repo's cw-ai-check, except the "Page chrome" rows at the end, and rule 43 and the redundant pairs in rule 23 draw on its lexicon and cw-hemingway, at commit 90f043c, read 2026-11-21. `scripts/lexicon_scan.py` is written for this skill.
+
+Rule 44 and the lexicon's "Page chrome" rows draw on Slopstrap (slopstrap.mikelacher.com), a parody CSS framework that ships each "vibecoded" page tell as a component, read 2026-11-28.

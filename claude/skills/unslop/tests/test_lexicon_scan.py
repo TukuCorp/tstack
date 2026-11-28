@@ -22,6 +22,14 @@ def test_sample_matches_golden_report():
     assert result.returncode == 1  # High-severity hits present
 
 
+def test_page_chrome_copy_matches_golden_report():
+    # Artifact and landing-page chrome (status pills, hype badges, stock callouts) from rule 44.
+    result = run(FIXTURES / "chrome.md")
+    expected = (FIXTURES / "chrome.expected.txt").read_text(encoding="utf-8")
+    assert result.stdout == expected
+    assert result.returncode == 1
+
+
 def test_clean_text_has_no_hits(tmp_path):
     clean = tmp_path / "clean.md"
     clean.write_text("Revenue grew 12% to $4.1M in Q3. We hired two engineers.\n", encoding="utf-8")

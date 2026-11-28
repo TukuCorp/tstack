@@ -16,7 +16,7 @@ Goal: one self-contained HTML mockup for the brief below, differing from the oth
 Why: the user picks between options that genuinely differ, then grafts parts together.
 Brief: <brief.md content: goal, audience, surface/size, real content, taste rules that apply, contract incl. patterns to reject>
 References: <paths under refs/ and what each contributes>
-Constraints: write only .design/<slug>/options/<name>/index.html (inline CSS, no build, no external assets except Google Fonts); real content, never lorem ipsum; works on a 393px phone and 1440px desktop; include the dev-only state toggle (Demo / Empty / One / Many / Long text) from the gates reference; no purple/indigo gradients, no rounded-2xl on everything, no stock three-card grid.
+Constraints: write only .design/<slug>/options/<name>/index.html (inline CSS, no build, no external assets except Google Fonts); real content, never lorem ipsum; works on a 393px phone and 1440px desktop; include the dev-only state toggle (Demo / Empty / One / Many / Long text) from the gates reference; no purple/indigo gradients, no rounded-2xl on everything, no stock three-card grid, no gradient-clipped text, no coloured left-border stripes on cards, no lone italic serif word in a headline, no blurred orbs or grid backgrounds, no status dots, badges or stats that nothing real backs.
 Out of scope: other options, the picker, product code.
 Check: render the file once at phone and desktop width if you can and fix anything clipped; the driver runs the full gates afterwards.
 Report back: <report-back line for this transport, below>
