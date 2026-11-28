@@ -59,6 +59,8 @@ SOURCES = [
     ("AppData/Local/hermes/plugins/swarm-gateway-guard", "hermes/plugins/swarm-gateway-guard", "tree"),
     # Live Hermes cron script (job "Weekly Disk Cleanup (Sunday)"); the job itself is recreated per README.
     ("AppData/Local/hermes/scripts/disk-cleanup.py", "hermes/live-scripts/disk-cleanup.py", "file"),
+    # Gateway auto-restart (vendor launcher can't be supervised); bootstrap runs its register-task.ps1.
+    ("AppData/Local/hermes-watchdog", "hermes/gateway-watchdog", "tree"),
     # agy (Antigravity CLI): global rules are ~/.gemini/GEMINI.md (gemini-cli reads it too); skills only from its own dir.
     (".gemini/GEMINI.md", "agy/GEMINI.md", "file"),
     (".gemini/config/skills", "agy/skills", "tree"),
