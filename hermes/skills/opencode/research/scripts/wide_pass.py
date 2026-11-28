@@ -8,8 +8,7 @@ tools:
   - industry : Firecrawl search (FIRECRAWL_API_KEY), else Perplexity search
   - web      : Firecrawl search (FIRECRAWL_API_KEY), else Perplexity search
 
-Perplexity runs the Search API's "fast" preset, either directly (PERPLEXITY_API_KEY) or through a
-local Hermes Agent install's own Perplexity provider (its Nous Portal gateway or its key). Each query
+Perplexity runs the Search API's "fast" preset with PERPLEXITY_API_KEY. Each query
 uses the first engine still available, so Firecrawl running out of credits mid-run hands the remaining
 queries to Perplexity.
 
@@ -18,7 +17,7 @@ JSON summary on stdout, including `firecrawl` and `perplexity` status fields. Wh
 available, industry/web are skipped here and must be filled by this environment's fallback backend
 within its own budget, appending to the SAME ledger.
 
-`--merge FILE` (repeatable) folds rows written by hermes_worker.py into the ledger with the same
+`--merge FILE` (repeatable) folds rows written by lane_rows.py into the ledger with the same
 dedupe and id sequence, as `pass: "agentic"` candidates.
 
 Stdlib only (urllib + subprocess). Safe to call repeatedly on the same ledger.
@@ -149,72 +148,28 @@ def firecrawl_search(terms, api_key, limit=30, timeout=60):
 
 PPLX_URL = "https://api.perplexity.ai/search"
 PPLX_MAX = 20
-# Runs inside the Hermes venv so the search uses whatever Hermes is configured with (Nous gateway or
-# its own key). Prints one marked JSON line; anything else on stdout is ignored.
-_HERMES_SNIPPET = (
-    "import json, sys\n"
-    "from plugins.web.perplexity.provider import PerplexityWebSearchProvider\n"
-    "r = PerplexityWebSearchProvider().search(sys.argv[1], limit=int(sys.argv[2]))\n"
-    "print('WIDEPASS_JSON ' + json.dumps(r))\n")
-
-
-def hermes_python():
-    """(python, agent_dir) of a local Hermes Agent install, or (None, None)."""
-    for d in [os.environ.get("HERMES_AGENT_DIR", ""),
-              os.path.join(os.environ.get("LOCALAPPDATA", ""), "hermes", "hermes-agent"),
-              os.path.expanduser("~/.hermes/hermes-agent")]:
-        if not d or not os.path.isdir(d):
-            continue
-        for py in ("venv/Scripts/python.exe", "venv/bin/python", ".venv/Scripts/python.exe",
-                   ".venv/bin/python"):
-            if os.path.isfile(os.path.join(d, py)):
-                return os.path.join(d, py), d
-    return None, None
-
-
-def _pplx_fatal(text):
-    t = text.lower()
-    return any(s in t for s in ("401", "402", "unauthorized", "invalid api key", "insufficient",
-                                "quota", "not entitled", "missing", "no perplexity", "api key"))
 
 
 def perplexity_search(terms, limit=PPLX_MAX, timeout=120):
     """Perplexity Search API, fast preset. Returns (results, route, error, fatal). Never raises.
     results: [{url, title, description}]; fatal=True means stop using Perplexity this run."""
     key = os.environ.get("PERPLEXITY_API_KEY", "")
-    if key:
-        # Fast Search (the Photon "fast preset"): docs.perplexity.ai/docs/search/fast-search, max 20.
-        body = json.dumps({"query": terms, "max_results": min(limit, PPLX_MAX),
-                           "search_type": "fast"}).encode("utf-8")
-        req = urllib.request.Request(PPLX_URL, data=body, method="POST", headers={
-            "Authorization": f"Bearer {key}", "Content-Type": "application/json"})
-        try:
-            with urllib.request.urlopen(req, timeout=timeout) as r:
-                res = json.load(r).get("results") or []
-        except urllib.error.HTTPError as e:
-            return [], "direct", f"HTTP {e.code}", e.code in (401, 402, 403)
-        except Exception as e:  # noqa: BLE001
-            return [], "direct", f"{type(e).__name__}: {e}", False
-        return ([{"url": x.get("url", ""), "title": x.get("title", ""),
-                  "description": x.get("snippet", "")} for x in res], "direct", "", False)
-    py, agent_dir = hermes_python()
-    if not py:
-        return [], "", "no PERPLEXITY_API_KEY and no Hermes install", True
+    if not key:
+        return [], "", "no PERPLEXITY_API_KEY", True
+    # Fast Search (the Photon "fast preset"): docs.perplexity.ai/docs/search/fast-search, max 20.
+    body = json.dumps({"query": terms, "max_results": min(limit, PPLX_MAX),
+                       "search_type": "fast"}).encode("utf-8")
+    req = urllib.request.Request(PPLX_URL, data=body, method="POST", headers={
+        "Authorization": f"Bearer {key}", "Content-Type": "application/json"})
     try:
-        out = subprocess.run([py, "-c", _HERMES_SNIPPET, terms, str(min(limit, PPLX_MAX))],
-                             cwd=agent_dir, capture_output=True, text=True, encoding="utf-8",
-                             errors="replace", timeout=timeout)
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            res = json.load(r).get("results") or []
+    except urllib.error.HTTPError as e:
+        return [], "direct", f"HTTP {e.code}", e.code in (401, 402, 403)
     except Exception as e:  # noqa: BLE001
-        return [], "hermes", f"{type(e).__name__}: {e}", False
-    line = next((ln for ln in out.stdout.splitlines() if ln.startswith("WIDEPASS_JSON ")), None)
-    if line is None:
-        err = (out.stderr or out.stdout).strip().splitlines()[-1:] or ["no output"]
-        return [], "hermes", f"hermes provider failed: {err[0][:200]}", True
-    r = json.loads(line[len("WIDEPASS_JSON "):])
-    if not r.get("success"):
-        err = str(r.get("error", "unknown error"))[:200]
-        return [], "hermes", err, _pplx_fatal(err)
-    return (r.get("data") or {}).get("web") or [], "hermes", "", False
+        return [], "direct", f"{type(e).__name__}: {e}", False
+    return ([{"url": x.get("url", ""), "title": x.get("title", ""),
+              "description": x.get("snippet", "")} for x in res], "direct", "", False)
 
 
 BUCKETS = ("github", "academia", "industry", "web")
@@ -239,7 +194,7 @@ def main():
     ap.add_argument("--web-target", type=int, default=0)
     ap.add_argument("--web-query", action="append", default=[])
     ap.add_argument("--merge", action="append", default=[],
-                    help="hermes_worker.py output file to fold into the ledger (repeatable)")
+                    help="lane_rows.py output file to fold into the ledger (repeatable)")
     args = ap.parse_args()
 
     os.makedirs(os.path.dirname(os.path.abspath(args.ledger)) or ".", exist_ok=True)
@@ -265,7 +220,7 @@ def main():
         new_rows.append(row)
         return True
 
-    # ---- rows from Hermes workers (hermes_worker.py), deduped like everything else ----
+    # ---- rows from agentic lanes (lane_rows.py), deduped like everything else ----
     merged = {}
     for path in args.merge:
         stats = {"added": 0, "duplicate": 0, "invalid": 0}
@@ -384,7 +339,7 @@ def main():
             perplexity_status = f"unavailable: {err}"
             return None, []
         if not err:
-            perplexity_status = "ok (direct)" if route == "direct" else "ok (hermes provider)"
+            perplexity_status = "ok (direct)"
         return "perplexity", results
 
     if wants_search:

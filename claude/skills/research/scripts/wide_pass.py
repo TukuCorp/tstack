@@ -17,7 +17,7 @@ JSON summary on stdout, including `firecrawl` and `perplexity` status fields. Wh
 available, industry/web are skipped here and must be filled by this environment's fallback backend
 within its own budget, appending to the SAME ledger.
 
-`--merge FILE` (repeatable) folds rows written by hermes_worker.py into the ledger with the same
+`--merge FILE` (repeatable) folds rows written by lane_rows.py into the ledger with the same
 dedupe and id sequence, as `pass: "agentic"` candidates.
 
 Stdlib only (urllib + subprocess). Safe to call repeatedly on the same ledger.
@@ -194,7 +194,7 @@ def main():
     ap.add_argument("--web-target", type=int, default=0)
     ap.add_argument("--web-query", action="append", default=[])
     ap.add_argument("--merge", action="append", default=[],
-                    help="hermes_worker.py output file to fold into the ledger (repeatable)")
+                    help="lane_rows.py output file to fold into the ledger (repeatable)")
     args = ap.parse_args()
 
     os.makedirs(os.path.dirname(os.path.abspath(args.ledger)) or ".", exist_ok=True)
@@ -220,7 +220,7 @@ def main():
         new_rows.append(row)
         return True
 
-    # ---- rows from Hermes workers (hermes_worker.py), deduped like everything else ----
+    # ---- rows from agentic lanes (lane_rows.py), deduped like everything else ----
     merged = {}
     for path in args.merge:
         stats = {"added": 0, "duplicate": 0, "invalid": 0}

@@ -1,6 +1,5 @@
-"""wide_pass.py run as a process: --merge of Hermes worker rows (no network) and the live
-Perplexity fallback (real call; skipped only when neither PERPLEXITY_API_KEY nor a Hermes
-install is present).
+"""wide_pass.py run as a process: --merge of lane rows from lane_rows.py (no network) and the
+live Perplexity fallback (real call; skipped when PERPLEXITY_API_KEY is not set).
 
 Run from anywhere:  python -m unittest discover -s <skill>/scripts/tests -v
 """
@@ -28,13 +27,6 @@ def rows(path):
             if line.strip()]
 
 
-def hermes_present():
-    candidates = [os.environ.get("HERMES_AGENT_DIR", ""),
-                  os.path.join(os.environ.get("LOCALAPPDATA", ""), "hermes", "hermes-agent"),
-                  os.path.expanduser("~/.hermes/hermes-agent")]
-    return any(c and os.path.isdir(c) for c in candidates)
-
-
 class Merge(unittest.TestCase):
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
@@ -43,18 +35,18 @@ class Merge(unittest.TestCase):
         self.ledger.write_text(json.dumps({
             "id": "we-004", "bucket": "web", "url": "https://example.com/already", "title": "x",
             "tier": 4, "status": "candidate", "pass": "wide"}) + "\n", encoding="utf-8")
-        self.worker = d / "w.hermes-1.jsonl"
+        self.worker = d / "w.rs1.jsonl"
         worker_rows = [
             {"bucket": "web", "url": "https://www.example.com/already/?utm_source=a", "title": "dup",
-             "discovered_via": "hermes-1: q1", "hint": "h"},
+             "discovered_via": "rs1: q1", "hint": "h"},
             {"bucket": "web", "url": "https://example.com/new", "title": "New page",
-             "discovered_via": "hermes-1: q2", "hint": "supports the latency claim",
+             "discovered_via": "rs1: q2", "hint": "supports the latency claim",
              "quote": "Median latency fell from 410 ms to 180 ms."},
             {"bucket": "academia", "url": "https://arxiv.org/abs/2101.00001v2", "title": "Paper",
-             "discovered_via": "hermes-1: q3", "hint": "original method"},
+             "discovered_via": "rs1: q3", "hint": "original method"},
             {"bucket": "blogs", "url": "https://example.com/bad-bucket", "title": "b",
-             "discovered_via": "hermes-1: q4", "hint": ""},
-            {"bucket": "web", "url": "not a url", "title": "bad", "discovered_via": "hermes-1: q5"},
+             "discovered_via": "rs1: q4", "hint": ""},
+            {"bucket": "web", "url": "not a url", "title": "bad", "discovered_via": "rs1: q5"},
         ]
         self.worker.write_text("\n".join(json.dumps(r) for r in worker_rows) + "\n", encoding="utf-8")
 
@@ -71,7 +63,7 @@ class Merge(unittest.TestCase):
         self.assertEqual(added[0]["hint"], "supports the latency claim")
         self.assertEqual(added[0]["quote"], "Median latency fell from 410 ms to 180 ms.")
         self.assertNotIn("quote", added[1])
-        self.assertEqual(added[0]["discovered_via"], "hermes-1: q2")
+        self.assertEqual(added[0]["discovered_via"], "rs1: q2")
         self.assertEqual(added[0]["tier"], 4)
         self.assertEqual(added[1]["tier"], 3)
 
@@ -81,8 +73,18 @@ class Merge(unittest.TestCase):
         self.assertEqual(summary["merged"][str(self.worker)]["added"], 0)
 
 
-@unittest.skipUnless(os.environ.get("PERPLEXITY_API_KEY") or hermes_present(),
-                     "needs PERPLEXITY_API_KEY or a Hermes install")
+class NoPerplexityKey(unittest.TestCase):
+    # Self-contained: without PERPLEXITY_API_KEY, Perplexity is skipped; no other agent's install is used.
+    def test_perplexity_unavailable_without_key(self):
+        env = {k: v for k, v in os.environ.items() if k not in ("FIRECRAWL_API_KEY", "PERPLEXITY_API_KEY")}
+        with tempfile.TemporaryDirectory() as d:
+            summary = run(["--ledger", str(pathlib.Path(d) / "l.jsonl"), "--web-target", "1",
+                           "--web-query", "Perplexity Photon retrieval engine"], env=env)
+            self.assertTrue(summary["perplexity"].startswith("unavailable"), summary)
+            self.assertEqual(summary["by_bucket"].get("web", 0), 0, summary)
+
+
+@unittest.skipUnless(os.environ.get("PERPLEXITY_API_KEY"), "needs PERPLEXITY_API_KEY")
 class PerplexityFallback(unittest.TestCase):
     def test_web_bucket_filled_by_perplexity_when_firecrawl_unavailable(self):
         env = {k: v for k, v in os.environ.items() if k != "FIRECRAWL_API_KEY"}

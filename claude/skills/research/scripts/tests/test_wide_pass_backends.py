@@ -1,6 +1,5 @@
-"""wide_pass.py run as a process: --merge of Hermes worker rows (no network) and the live
-Perplexity fallback (real call; skipped only when neither PERPLEXITY_API_KEY nor a Hermes
-install is present).
+"""wide_pass.py run as a process: --merge of lane rows from lane_rows.py (no network) and the
+live Perplexity fallback (real call; skipped when PERPLEXITY_API_KEY is not set).
 
 Run from anywhere:  python -m unittest discover -s <skill>/scripts/tests -v
 """
@@ -36,18 +35,18 @@ class Merge(unittest.TestCase):
         self.ledger.write_text(json.dumps({
             "id": "we-004", "bucket": "web", "url": "https://example.com/already", "title": "x",
             "tier": 4, "status": "candidate", "pass": "wide"}) + "\n", encoding="utf-8")
-        self.worker = d / "w.hermes-1.jsonl"
+        self.worker = d / "w.rs1.jsonl"
         worker_rows = [
             {"bucket": "web", "url": "https://www.example.com/already/?utm_source=a", "title": "dup",
-             "discovered_via": "hermes-1: q1", "hint": "h"},
+             "discovered_via": "rs1: q1", "hint": "h"},
             {"bucket": "web", "url": "https://example.com/new", "title": "New page",
-             "discovered_via": "hermes-1: q2", "hint": "supports the latency claim",
+             "discovered_via": "rs1: q2", "hint": "supports the latency claim",
              "quote": "Median latency fell from 410 ms to 180 ms."},
             {"bucket": "academia", "url": "https://arxiv.org/abs/2101.00001v2", "title": "Paper",
-             "discovered_via": "hermes-1: q3", "hint": "original method"},
+             "discovered_via": "rs1: q3", "hint": "original method"},
             {"bucket": "blogs", "url": "https://example.com/bad-bucket", "title": "b",
-             "discovered_via": "hermes-1: q4", "hint": ""},
-            {"bucket": "web", "url": "not a url", "title": "bad", "discovered_via": "hermes-1: q5"},
+             "discovered_via": "rs1: q4", "hint": ""},
+            {"bucket": "web", "url": "not a url", "title": "bad", "discovered_via": "rs1: q5"},
         ]
         self.worker.write_text("\n".join(json.dumps(r) for r in worker_rows) + "\n", encoding="utf-8")
 
@@ -64,7 +63,7 @@ class Merge(unittest.TestCase):
         self.assertEqual(added[0]["hint"], "supports the latency claim")
         self.assertEqual(added[0]["quote"], "Median latency fell from 410 ms to 180 ms.")
         self.assertNotIn("quote", added[1])
-        self.assertEqual(added[0]["discovered_via"], "hermes-1: q2")
+        self.assertEqual(added[0]["discovered_via"], "rs1: q2")
         self.assertEqual(added[0]["tier"], 4)
         self.assertEqual(added[1]["tier"], 3)
 
