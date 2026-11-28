@@ -123,6 +123,12 @@ foreach ($dst in "$HOME\.codex\skills", "$HOME\.config\opencode\skills", "$HOME\
     }
 }
 
+Step 'Hermes gateway watchdog (auto-restart after exit 75 / crash)'
+$Wd = "$env:LOCALAPPDATA\hermes-watchdog\register-task.ps1"
+if (Get-ScheduledTask -TaskName 'Hermes_Gateway_Watchdog' -ErrorAction SilentlyContinue) { Write-Host '    ok: Hermes_Gateway_Watchdog task' }
+elseif (Test-Path $Wd) { Run 'register Hermes_Gateway_Watchdog task' { & $Wd } }
+else { Write-Host '    watchdog scripts missing (restore.py restores them); skipped' -ForegroundColor Red }
+
 Step 'wiki (private TukuCorp/wiki -> ~/wiki)'
 # Agent memory lives there, not here: tstack is public
 $WikiDir = "$HOME\wiki"
